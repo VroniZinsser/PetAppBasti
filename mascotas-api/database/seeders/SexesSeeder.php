@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class SexesSeeder extends Seeder
 {
@@ -13,7 +14,7 @@ class SexesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('categories')->insert([
+        DB::table('sexes')->insert([
             [
                 'id' => 1,
                 'name' => 'hembra',

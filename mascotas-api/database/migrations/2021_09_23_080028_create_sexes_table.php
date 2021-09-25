@@ -14,7 +14,7 @@ class CreateSexesTable extends Migration
     public function up()
     {
         Schema::create('sexes', function (Blueprint $table) {
-            $table->id();
+            $table->unsignedTinyInteger('id')->primary();
             $table->string('name', 45);
         });
     }
