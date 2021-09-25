@@ -14,7 +14,7 @@ class CreateSpeciesTable extends Migration
     public function up()
     {
         Schema::create('species', function (Blueprint $table) {
-            $table->id();
+            $table->unsignedTinyInteger('id')->primary();
             $table->string('name', 30);
         });
     }
