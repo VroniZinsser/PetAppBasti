@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import UsersNuevo from "../views/UsersNuevo";
 
 Vue.use(VueRouter)
 
@@ -9,6 +10,14 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/usuarios/nuevo',
+    name: 'UsersNuevo',
+    component: UsersNuevo,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/about',
