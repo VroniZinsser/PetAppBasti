@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Models\User;
+
 interface UserRepository
 {
     /**
@@ -23,6 +25,6 @@ interface UserRepository
      * @return User The created or updated user
      */
 
-    public function updateOrCreate(?int $id,  string $first_name, string $last_name, string $email, date $email_verified_at, string $password, string $address, string $dni, string $description, string $web, string $phone_number, boolean $verified): User;
+    public function updateOrCreate(?int $id,  string $first_name, string $last_name, string $email, string $email_verified_at, string $password, string $address, string $dni, string $description, string $web, string $phone_number, bool $verified): User;
 
 }
