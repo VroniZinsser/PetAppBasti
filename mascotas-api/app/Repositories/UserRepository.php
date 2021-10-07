@@ -15,12 +15,12 @@ interface UserRepository
      * @param string $email
      * @param date $email_verified_at
      * @param string $password
-     * @param string $address
-     * @param string $dni
-     * @param string $description
-     * @param string $web
-     * @param string $phone_number
-     * @param boolean $verified
+     * @param string|null $address
+     * @param string|null $dni
+     * @param string|null $description
+     * @param string|null $web
+     * @param string|null $phone_number
+     * @param boolean|null $verified
      * 
      * @return User The created or updated user
      */

@@ -14,7 +14,7 @@ const userService = {
       return fetch(`${API}/user/create`, {
         method: 'POST',
         body: JSON.stringify(data),
-        credentials: 'include'
+       // credentials: 'include'
       })
           .then(rta => rta.json())
           .then(respuesta => {

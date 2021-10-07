@@ -29,6 +29,9 @@ class UserController extends Controller
             $request->get('verified'),
         );
 
-        return redirect('/')->withSuccessMessage('Smoothie creado con éxito');
+        return  response()->json([
+            'success' => true,
+            'user' => $user
+        ]);
     }
 }
