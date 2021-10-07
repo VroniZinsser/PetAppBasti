@@ -114,7 +114,11 @@
           label="Número de teléfono"
           :disabled="cargando"
       ></v-text-field>
-
+    <v-btn
+          type="submit"
+      >
+        Publicar
+      </v-btn>
     </v-form>
 </template>
 
