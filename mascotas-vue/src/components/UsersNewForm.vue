@@ -2,7 +2,7 @@
     <v-form
         action="#"
         method="post"
-        @submit.prevent="crear(user)"
+        @submit.prevent="create(user)"
     >
 
     <!-- <input type="hidden" name="_token" :value="csrf"> -->
@@ -15,10 +15,10 @@
           class="form-control"
           v-model="user.first_name"
           label="Nombre"
-          :rules="[reglas.obligatorio]"
-          :messages="errores.first_name ? errores.first_name[0] : ''"
-          :error="errores.first_name !== null"
-          :disabled="cargando"
+          :rules="[rules.obligatory]"
+          :messages="errors.first_name ? errors.first_name[0] : ''"
+          :error="errors.first_name !== null"
+          :disabled="loading"
       ></v-text-field>
 
       <v-text-field
@@ -29,10 +29,10 @@
           class="form-control"
           v-model="user.last_name"
           label="Apellido"
-          :rules="[reglas.obligatorio]"
-          :messages="errores.last_name ? errores.last_name[0] : ''"
-          :error="errores.last_name !== null"
-          :disabled="cargando"
+          :rules="[rules.obligatory]"
+          :messages="errors.last_name ? errors.last_name[0] : ''"
+          :error="errors.last_name !== null"
+          :disabled="loading"
       ></v-text-field>
 
       <v-text-field
@@ -43,10 +43,10 @@
           class="form-control"
           v-model="user.email"
           label="Correo electrónico"
-          :rules="[reglas.obligatorio, reglas.email]"
-          :messages="errores.email ? errores.email[0] : ''"
-          :error="errores.email !== null"
-          :disabled="cargando"
+          :rules="[rules.obligatory, rules.email]"
+          :messages="errors.email ? errors.email[0] : ''"
+          :error="errors.email !== null"
+          :disabled="loading"
       ></v-text-field>
 
       <v-text-field
@@ -57,10 +57,10 @@
           class="form-control"
           v-model="user.password"
           label="Contraseña"
-          :rules="[reglas.obligatorio]"
-          :messages="errores.password ? errores.password[0] : ''"
-          :error="errores.password !== null"
-          :disabled="cargando"
+          :rules="[rules.obligatory]"
+          :messages="errors.password ? errors.password[0] : ''"
+          :error="errors.password !== null"
+          :disabled="loading"
       ></v-text-field>
 
       <v-text-field
@@ -70,7 +70,7 @@
           class="form-control"
           v-model="user.address"
           label="Dirección"
-          :disabled="cargando"
+          :disabled="loading"
       ></v-text-field>
 
       <v-text-field
@@ -80,10 +80,10 @@
           class="form-control"
           v-model="user.dni"
           label="DNI"
-          :rules="[reglas.numerico]"
-          :messages="errores.dni ? errores.dni[0] : ''"
-          :error="errores.dni !== null"
-          :disabled="cargando"
+          :rules="[rules.numeric]"
+          :messages="errors.dni ? errors.dni[0] : ''"
+          :error="errors.dni !== null"
+          :disabled="loading"
       ></v-text-field>
 
       <v-textarea
@@ -92,7 +92,7 @@
           class="form-control"
           v-model="user.description"
           label="Descripción"
-          :disabled="cargando"
+          :disabled="loading"
       ></v-textarea>
 
       <v-text-field
@@ -102,7 +102,7 @@
           class="form-control"
           v-model="user.web"
           label="Página Web"
-          :disabled="cargando"
+          :disabled="loading"
       ></v-text-field>
 
        <v-text-field
@@ -112,7 +112,7 @@
           class="form-control"
           v-model="user.phone"
           label="Número de teléfono"
-          :disabled="cargando"
+          :disabled="loading"
       ></v-text-field>
     <v-btn
           type="submit"
@@ -126,10 +126,10 @@
 import userService from "@/services/users";
 
 export default {
-  name: "UsersNuevoForm",
+  name: "UsersNewForm",
   data: function () {
     return {
-      cargando: false,
+      loading: false,
       user: {
         first_name: null,
         last_name: null,
@@ -141,16 +141,16 @@ export default {
         web: null,
         phone_number: null,
       },
-      errores: {
+      errors: {
         first_name: null,
         last_name: null,
         email: null,
         password: null,
         dni: null,
       },
-      reglas: {
-        obligatorio: value => !!value || 'Este campo es obligatorio.',
-        numerico: value => !isNaN(value) || 'El valor debe ser numérico.',
+      rules: {
+        obligatory: value => !!value || 'Este campo es obligatorio.',
+        numeric: value => !isNaN(value) || 'El valor debe ser numérico.',
         email: value => {
             const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             return pattern.test(value) || 'El correo electrónico no es válido.'
@@ -159,7 +159,7 @@ export default {
     }
   },
   methods: {
-    crear(user) {
+    create(user) {
       userService.create(user);
     }
   }
