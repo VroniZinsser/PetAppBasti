@@ -13,7 +13,7 @@ interface UserRepository
      * @param string $first_name
      * @param string $last_name
      * @param string $email
-     * @param date $email_verified_at
+     * @param date|null $email_verified_at
      * @param string $password
      * @param string|null $address
      * @param string|null $dni
