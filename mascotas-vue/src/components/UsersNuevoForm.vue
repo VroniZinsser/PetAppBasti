@@ -2,7 +2,10 @@
     <v-form
         action="#"
         method="post"
+        @submit.prevent="crear(user)"
     >
+
+    <!-- <input type="hidden" name="_token" :value="csrf"> -->
 
     <v-text-field
           type="text"
@@ -116,6 +119,7 @@
 </template>
 
 <script>
+import userService from "@/services/users";
 
 export default {
   name: "UsersNuevoForm",
@@ -148,6 +152,11 @@ export default {
             return pattern.test(value) || 'El correo electrónico no es válido.'
           },
       },
+    }
+  },
+  methods: {
+    crear(user) {
+      userService.create(user);
     }
   }
 }
