@@ -1,19 +1,19 @@
 <template>
   <v-sheet>
     <h1>Nuevo Usuario</h1>
-    <usersNewForm />
+    <Form />
   </v-sheet>
 
 </template>
 
 <script>
 
-import UsersNewForm from "@/components/UsersNewForm";
+import Form from "@/components/users/create/Form";
 
 export default {
-  name: "UsersNew",
+  name: "CreateForm",
   components: {
-    UsersNewForm
+    Form
   }
 }
 </script>

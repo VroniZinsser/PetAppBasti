@@ -126,7 +126,7 @@
 import userService from "@/services/users";
 
 export default {
-  name: "UsersNewForm",
+  name: "Form",
   data: function () {
     return {
       loading: false,

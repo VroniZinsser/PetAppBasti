@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import UsersNew from "../views/UsersNew";
+import UserCreateForm from "../views/users/CreateForm";
 
 Vue.use(VueRouter)
 
@@ -12,9 +12,9 @@ const routes = [
     component: Home
   },
   {
-    path: '/usuarios/nuevo',
-    name: 'UsersNew',
-    component: UsersNew,
+    path: '/usuarios/crear',
+    name: 'UserCreate',
+    component: UserCreateForm,
     meta: {
       requiresAuth: true
     }
