@@ -1,8 +1,8 @@
 <template>
-  <v-sheet>
-    <h1>Nuevo Usuario</h1>
+  <v-container fluid>
+    <h1>Crear Usuario</h1>
     <Form />
-  </v-sheet>
+  </v-container>
 
 </template>
 

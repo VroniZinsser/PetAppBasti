@@ -1,12 +1,9 @@
 <template>
     <v-form
-        action="#"
+        action="usuarios/crear"
         method="post"
-        @submit.prevent="create(user)"
+        @submit.prevent="createUser"
     >
-
-    <!-- <input type="hidden" name="_token" :value="csrf"> -->
-
     <v-text-field
           type="text"
           required
@@ -159,8 +156,8 @@ export default {
     }
   },
   methods: {
-    create(user) {
-      userService.create(user);
+    createUser() {
+      userService.create(this.user);
     }
   }
 }
