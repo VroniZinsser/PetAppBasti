@@ -4,66 +4,90 @@
         method="post"
         @submit.prevent="createUser"
     >
-    <v-text-field
-          type="text"
-          required
-          name="first_name"
-          id="first_name"
-          class="form-control"
-          v-model="user.first_name"
-          label="Nombre*"
-          :rules="[rules.obligatory]"
-          :messages="errors.first_name ? errors.first_name[0] : ''"
-          :error="errors.first_name !== null"
-          :disabled="loading"
-      ></v-text-field>
+    <v-container>
+      <v-row>
+        <v-col
+          cols="12"
+          sm="6"
+        >
+          <v-text-field
+                type="text"
+                required
+                name="first_name"
+                id="first_name"
+                class="form-control"
+                v-model="user.first_name"
+                label="Nombre*"
+                :rules="[rules.obligatory]"
+                :messages="errors.first_name ? errors.first_name[0] : ''"
+                :error="errors.first_name !== null"
+                :disabled="loading"
+            ></v-text-field>
+        </v-col>
 
-      <v-text-field
-          type="text"
-          required
-          name="last_name"
-          id="last_name"
-          class="form-control"
-          v-model="user.last_name"
-          label="Apellido*"
-          :rules="[rules.obligatory]"
-          :messages="errors.last_name ? errors.last_name[0] : ''"
-          :error="errors.last_name !== null"
-          :disabled="loading"
-      ></v-text-field>
+         <v-col
+          cols="12"
+          sm="6"
+        >
+            <v-text-field
+                type="text"
+                required
+                name="last_name"
+                id="last_name"
+                class="form-control"
+                v-model="user.last_name"
+                label="Apellido*"
+                :rules="[rules.obligatory]"
+                :messages="errors.last_name ? errors.last_name[0] : ''"
+                :error="errors.last_name !== null"
+                :disabled="loading"
+            ></v-text-field>
+         </v-col>
 
-      <v-text-field
-          type="email"
-          required
-          name="email"
-          id="email"
-          class="form-control"
-          v-model="user.email"
-          label="Correo electrónico*"
-          :rules="[rules.obligatory, rules.email]"
-          :messages="errors.email ? errors.email[0] : ''"
-          :error="errors.email !== null"
-          :disabled="loading"
-      ></v-text-field>
+          <v-col
+            cols="12"
+            sm="6"
+          >
+            <v-text-field
+                type="email"
+                required
+                name="email"
+                id="email"
+                class="form-control"
+                v-model="user.email"
+                label="Correo electrónico*"
+                :rules="[rules.obligatory, rules.email]"
+                :messages="errors.email ? errors.email[0] : ''"
+                :error="errors.email !== null"
+                :disabled="loading"
+            ></v-text-field>
+          </v-col>
 
-      <v-text-field
-          :type="showPassword ? 'text' : 'password'"
-          required
-          name="password"
-          id="password"
-          class="form-control"
-          v-model="user.password"
-          label="Contraseña*"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-          :rules="[rules.obligatory, rules.password]"
-          hint="La contraseña debe tener mínimo 6 caracteres y contener un número"
-          persistent-hint
-          :messages="errors.password ? errors.password[0] : ''"
-          :error="errors.password !== null"
-          :disabled="loading"
-          counter
-          @click:append="showPassword = !showPassword"
-      ></v-text-field>
+          <v-col
+            cols="12"
+            sm="6"
+          >
+            <v-text-field
+                :type="showPassword ? 'text' : 'password'"
+                required
+                name="password"
+                id="password"
+                class="form-control"
+                v-model="user.password"
+                label="Contraseña*"
+                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                :rules="[rules.obligatory, rules.password]"
+                hint="La contraseña debe tener mínimo 6 caracteres y contener un número"
+                persistent-hint
+                :messages="errors.password ? errors.password[0] : ''"
+                :error="errors.password !== null"
+                :disabled="loading"
+                counter
+                @click:append="showPassword = !showPassword"
+            ></v-text-field>
+        </v-col>
+      </v-row>
+
 
       <v-text-field
           type="text"
@@ -72,19 +96,6 @@
           class="form-control"
           v-model="user.address"
           label="Dirección"
-          :disabled="loading"
-      ></v-text-field>
-
-      <v-text-field
-          type="text"
-          name="dni"
-          id="dni"
-          class="form-control"
-          v-model="user.dni"
-          label="DNI"
-          :rules="[rules.numeric]"
-          :messages="errors.dni ? errors.dni[0] : ''"
-          :error="errors.dni !== null"
           :disabled="loading"
       ></v-text-field>
 
@@ -116,11 +127,25 @@
           label="Número de teléfono"
           :disabled="loading"
       ></v-text-field>
+      
+      <v-text-field
+          type="text"
+          name="dni"
+          id="dni"
+          class="form-control"
+          v-model="user.dni"
+          label="DNI"
+          :rules="[rules.numeric]"
+          :messages="errors.dni ? errors.dni[0] : ''"
+          :error="errors.dni !== null"
+          :disabled="loading"
+      ></v-text-field>
     <v-btn
           type="submit"
       >
         Publicar
       </v-btn>
+    </v-container>
     </v-form>
 </template>
 
