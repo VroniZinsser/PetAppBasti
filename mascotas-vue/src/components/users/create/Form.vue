@@ -127,7 +127,7 @@
           label="Número de teléfono"
           :disabled="loading"
       ></v-text-field>
-      
+
       <v-text-field
           type="text"
           name="dni"
@@ -140,6 +140,13 @@
           :error="errors.dni !== null"
           :disabled="loading"
       ></v-text-field>
+       <v-checkbox
+          v-for="type in usertypes"
+          :key="type.id"
+          v-model="user.usertypes"
+          :label="type.name"
+          :value="type.id"
+        ></v-checkbox>
     <v-btn
           type="submit"
       >
@@ -154,11 +161,19 @@ import userService from "@/services/users";
 
 export default {
   name: "Form",
+  props: {
+    loading: {
+      type: Boolean,
+      required: true,
+    },
+    usertypes: {
+      type: Array,
+      required: true,
+    }
+  },
   data: function () {
     return {
-      loading: false,
       showPassword: false,
-     // password: 'Password',
       user: {
         first_name: null,
         last_name: null,
@@ -169,6 +184,7 @@ export default {
         description: null,
         web: null,
         phone_number: null,
+        usertypes: []
       },
       errors: {
         first_name: null,

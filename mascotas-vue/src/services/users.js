@@ -26,6 +26,16 @@ const userService = {
             return {...respuesta};
           });
     },
+
+    /**
+     * Returns necessary data for the users creation form
+     *
+     * @returns {Promise<any>}
+     */
+     createForm() {
+      return fetch(`${API}usuarios/crear`)
+          .then(res => res.json());
+    },
   }
   export default userService;
   
