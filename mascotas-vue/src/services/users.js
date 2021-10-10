@@ -7,14 +7,14 @@ const userService = {
     /**
      * Crea un nuevo usuario en el servidor.
      *
-     * @param {{}} data Los datos del usuario por crear.
+     * @param {{}} user Los datos del usuario por crear.
      * @return {Promise<{headers: Headers, ok: boolean, redirected: boolean, status: number, statusText: string, trailer: Promise<Headers>, type: ResponseType, url: string, clone(): Response, body: ReadableStream | null, bodyUsed: boolean, arrayBuffer(): Promise<ArrayBuffer>, blob(): Promise<Blob>, formData(): Promise<FormData>, json(): Promise<any>, text(): Promise<string>} | never>}
      */
-    create(data) {
-      return fetch(`${API}/user/create`, {
+    create(user) {
+      return fetch(`${API}usuarios/crear`, {
         method: 'POST',
-        body: JSON.stringify(data),
-       // credentials: 'include'
+        body: JSON.stringify(user),
+        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
       })
           .then(rta => rta.json())
           .then(respuesta => {

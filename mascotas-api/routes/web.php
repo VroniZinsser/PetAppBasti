@@ -18,12 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['middleware' => 'api'], function() {
-    // Users
-    Route::prefix('/user')->name('user.')->group(function() {
-        Route::post('/create', [UserController::class, 'create'])->name('create');
-    });
-
-});
-
 
