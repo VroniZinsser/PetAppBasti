@@ -141,16 +141,16 @@
           :disabled="loading"
       ></v-text-field>
        <v-checkbox
-          v-for="type in usertypes"
+          v-for="type in user_types"
           :key="type.id"
-          v-model="user.usertypes"
+          v-model="user.user_types"
           :label="type.name"
           :value="type.id"
         ></v-checkbox>
     <v-btn
           type="submit"
       >
-        Publicar
+        Crear cuenta
       </v-btn>
     </v-container>
     </v-form>
@@ -166,7 +166,7 @@ export default {
       type: Boolean,
       required: true,
     },
-    usertypes: {
+    user_types: {
       type: Array,
       required: true,
     }
@@ -184,7 +184,7 @@ export default {
         description: null,
         web: null,
         phone_number: null,
-        usertypes: []
+        user_types: []
       },
       errors: {
         first_name: null,

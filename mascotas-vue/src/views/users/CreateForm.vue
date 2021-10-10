@@ -2,7 +2,7 @@
   <v-container fluid>
     <h1>Crear Usuario</h1>
     <Form :loading="loading" 
-          :usertypes="usertypes"></Form>
+          :user_types="user_types"></Form>
   </v-container>
 
 </template>
@@ -19,12 +19,12 @@ export default {
   },
   data: () => ({
     loading: true,
-    usertypes: [],
+    user_types: [],
   }),
   mounted() {
     userService.createForm()
         .then(res => {
-          this.usertypes = res.data.usertypes;
+          this.user_types = res.data.user_types;
         })
     this.loading = false;
   }

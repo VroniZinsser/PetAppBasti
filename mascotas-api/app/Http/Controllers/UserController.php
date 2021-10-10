@@ -33,6 +33,8 @@ class UserController extends Controller
             $request->get('verified'),
         );
 
+        $user->userTypes()->sync($request->get('user_types'));
+
         return  response()->json([
             'success' => true,
             'user' => $user
@@ -40,10 +42,10 @@ class UserController extends Controller
     }
 
     public function createForm() {
-        $usertypes = $this->userTypeRepository->getAll();
+        $user_types = $this->userTypeRepository->getAll();
         
         return response()->json([
-            'data' => compact('usertypes'),
+            'data' => compact('user_types'),
         ]);
     }
 }

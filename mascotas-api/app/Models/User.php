@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\UserType;
 
 class User extends Authenticatable
 {
@@ -29,6 +30,14 @@ class User extends Authenticatable
         'phone_number',
         'verified',
     ];
+
+    /**
+     * The usertypes that belong to the user.
+     */
+    public function userTypes()
+    {
+        return $this->belongsToMany(UserType::class, 'users_has_user_types');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
