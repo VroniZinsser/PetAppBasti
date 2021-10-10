@@ -11,7 +11,7 @@
           id="first_name"
           class="form-control"
           v-model="user.first_name"
-          label="Nombre"
+          label="Nombre*"
           :rules="[rules.obligatory]"
           :messages="errors.first_name ? errors.first_name[0] : ''"
           :error="errors.first_name !== null"
@@ -25,7 +25,7 @@
           id="last_name"
           class="form-control"
           v-model="user.last_name"
-          label="Apellido"
+          label="Apellido*"
           :rules="[rules.obligatory]"
           :messages="errors.last_name ? errors.last_name[0] : ''"
           :error="errors.last_name !== null"
@@ -39,7 +39,7 @@
           id="email"
           class="form-control"
           v-model="user.email"
-          label="Correo electrónico"
+          label="Correo electrónico*"
           :rules="[rules.obligatory, rules.email]"
           :messages="errors.email ? errors.email[0] : ''"
           :error="errors.email !== null"
@@ -47,17 +47,22 @@
       ></v-text-field>
 
       <v-text-field
-          type="password"
+          :type="showPassword ? 'text' : 'password'"
           required
           name="password"
           id="password"
           class="form-control"
           v-model="user.password"
-          label="Contraseña"
-          :rules="[rules.obligatory]"
+          label="Contraseña*"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :rules="[rules.obligatory, rules.password]"
+          hint="La contraseña debe tener mínimo 6 caracteres y contener un número"
+          persistent-hint
           :messages="errors.password ? errors.password[0] : ''"
           :error="errors.password !== null"
           :disabled="loading"
+          counter
+          @click:append="showPassword = !showPassword"
       ></v-text-field>
 
       <v-text-field
@@ -104,10 +109,10 @@
 
        <v-text-field
           type="tel"
-          name="phone"
-          id="phone"
+          name="phone_number"
+          id="phone_number"
           class="form-control"
-          v-model="user.phone"
+          v-model="user.phone_number"
           label="Número de teléfono"
           :disabled="loading"
       ></v-text-field>
@@ -127,6 +132,8 @@ export default {
   data: function () {
     return {
       loading: false,
+      showPassword: false,
+     // password: 'Password',
       user: {
         first_name: null,
         last_name: null,
@@ -152,6 +159,10 @@ export default {
             const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             return pattern.test(value) || 'El correo electrónico no es válido.'
           },
+        password: value => {
+            const pattern = /^(?=.*[a-zA-Y])(?=.*[0-9])/;
+            return pattern.test(value) || 'La contraseña no coincide con los estandares de seguridad'
+        }
       },
     }
   },
