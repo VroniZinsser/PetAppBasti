@@ -33,7 +33,7 @@
       ></v-text-field>
 
       <v-text-field
-          type="text"
+          type="email"
           required
           name="email"
           id="email"
@@ -47,7 +47,7 @@
       ></v-text-field>
 
       <v-text-field
-          type="text"
+          type="password"
           required
           name="password"
           id="password"
@@ -93,7 +93,7 @@
       ></v-textarea>
 
       <v-text-field
-          type="text"
+          type="url"
           name="web"
           id="web"
           class="form-control"
@@ -103,7 +103,7 @@
       ></v-text-field>
 
        <v-text-field
-          type="text"
+          type="tel"
           name="phone"
           id="phone"
           class="form-control"
