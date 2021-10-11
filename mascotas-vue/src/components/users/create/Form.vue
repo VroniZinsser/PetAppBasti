@@ -21,7 +21,7 @@
                 :rules="[rules.obligatory]"
                 :messages="errors.first_name ? errors.first_name[0] : ''"
                 :error="errors.first_name !== null"
-                :disabled="loading"
+                :disabled="parentLoading || loading"
             ></v-text-field>
         </v-col>
 
@@ -40,7 +40,7 @@
                 :rules="[rules.obligatory]"
                 :messages="errors.last_name ? errors.last_name[0] : ''"
                 :error="errors.last_name !== null"
-                :disabled="loading"
+                :disabled="parentLoading || loading"
             ></v-text-field>
          </v-col>
 
@@ -59,7 +59,7 @@
                 :rules="[rules.obligatory, rules.email]"
                 :messages="errors.email ? errors.email[0] : ''"
                 :error="errors.email !== null"
-                :disabled="loading"
+                :disabled="parentLoading || loading"
             ></v-text-field>
           </v-col>
 
@@ -81,13 +81,12 @@
                 persistent-hint
                 :messages="errors.password ? errors.password[0] : ''"
                 :error="errors.password !== null"
-                :disabled="loading"
+                :disabled="parentLoading || loading"
                 counter
                 @click:append="showPassword = !showPassword"
             ></v-text-field>
         </v-col>
       </v-row>
-
 
       <v-text-field
           type="text"
@@ -96,7 +95,7 @@
           class="form-control"
           v-model="user.address"
           label="Dirección"
-          :disabled="loading"
+          :disabled="parentLoading || loading"
       ></v-text-field>
 
       <v-textarea
@@ -105,7 +104,7 @@
           class="form-control"
           v-model="user.description"
           label="Descripción"
-          :disabled="loading"
+          :disabled="parentLoading || loading"
       ></v-textarea>
 
       <v-text-field
@@ -115,7 +114,7 @@
           class="form-control"
           v-model="user.web"
           label="Página Web"
-          :disabled="loading"
+          :disabled="parentLoading || loading"
       ></v-text-field>
 
        <v-text-field
@@ -125,7 +124,7 @@
           class="form-control"
           v-model="user.phone_number"
           label="Número de teléfono"
-          :disabled="loading"
+          :disabled="parentLoading || loading"
       ></v-text-field>
 
       <v-text-field
@@ -138,7 +137,7 @@
           :rules="[rules.numeric]"
           :messages="errors.dni ? errors.dni[0] : ''"
           :error="errors.dni !== null"
-          :disabled="loading"
+          :disabled="parentLoading || loading"
       ></v-text-field>
        <v-checkbox
           v-for="type in user_types"
@@ -146,6 +145,7 @@
           v-model="user.user_types"
           :label="type.name"
           :value="type.id"
+          :disabled="parentLoading || loading"
         ></v-checkbox>
     <v-btn
           type="submit"
@@ -158,11 +158,13 @@
 
 <script>
 import userService from "@/services/users";
+import store from "@/store";
 
 export default {
   name: "Form",
+  
   props: {
-    loading: {
+    parentLoading: {
       type: Boolean,
       required: true,
     },
@@ -171,9 +173,12 @@ export default {
       required: true,
     }
   },
+  
   data: function () {
     return {
       showPassword: false,
+      loading: false,
+      store,
       user: {
         first_name: null,
         last_name: null,
@@ -209,7 +214,32 @@ export default {
   },
   methods: {
     createUser() {
-      userService.create(this.user);
+      this.loading = true;
+      userService.create(this.user)
+        .then(res => {
+            this.loading = false;
+            if (res.success) {
+              this.user = {
+                first_name: null,
+                last_name: null,
+                email: null,
+                password: null,
+                address: null,
+                dni: null,
+                description: null,
+                web: null,
+                phone_number: null,
+                user_types: [],
+              }
+
+              this.store.setStatus({
+                msg: "¡Gracias por registrarte en Basti!",
+                type: 'success'
+              });
+
+              this.$router.push('/usuarios/login');
+            }
+        })
     }
   }
 }

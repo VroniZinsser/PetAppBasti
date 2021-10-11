@@ -39,6 +39,7 @@
 <script>
 export default {
     data:() => ({
+        showPassword: false,
         loading: true,
         errors: {
             email: null,

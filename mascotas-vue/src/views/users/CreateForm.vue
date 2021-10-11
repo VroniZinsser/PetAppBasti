@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <h1>Crear Usuario</h1>
-    <Form :loading="loading" 
+    <Form :parentLoading="loading" 
           :user_types="user_types"></Form>
   </v-container>
 
