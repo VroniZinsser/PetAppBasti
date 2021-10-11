@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Hash;
 
 class UserService implements UserRepository {
     
@@ -19,7 +20,7 @@ class UserService implements UserRepository {
                 'last_name' => $last_name,
                 'email' => $email,
                 'email_verified_at' => $email_verified_at,
-                'password' => $password,
+                'password' => Hash::make($password),
                 'address' => $address,
                 'dni' => $dni,
                 'description' => $description,

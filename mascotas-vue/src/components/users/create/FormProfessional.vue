@@ -176,7 +176,9 @@
 
       <v-select
           v-model="user.user_types"
-          :items="userTypeNames"
+          :items="user_types"
+          :item-text="'name'"
+          :item-value="'id'"
           attach
           chips
           label="Tipo de profesión*"
@@ -209,13 +211,6 @@ export default {
     user_types: {
       type: Array,
       required: true,
-    }
-  },
-  computed: {
-    userTypeNames: function() {
-      return this.user_types.map((item) => {
-        return item.name;
-      }); 
     }
   },
   
