@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\UserRepository;
-use App\Http\Requests\UserStoreRequest;
 use App\Repositories\UserTypeRepository;
 use App\Repositories\ImageRepository;
+use App\Http\Requests\ProfessionalCreateRequest;
 
 class UserController extends Controller
 {
@@ -20,7 +20,7 @@ class UserController extends Controller
         $this->imageRepository = $imageRepository;
     }
 
-    public function createProfessional(UserStoreRequest $request) {
+    public function createProfessional(ProfessionalCreateRequest $request) {
         $photo = $request->get('photo');
         $profile_img_id = null;
 

@@ -94,19 +94,23 @@
           id="address"
           class="form-control"
           v-model="user.address"
-          label="Dirección"
+          required
+          label="Dirección*"
+          :rules="[rules.obligatory]"
           :disabled="parentLoading || loading"
       ></v-text-field>
       
       <v-file-input
           v-model="photo"
+          required
           ref="photo"
           show-size
           accept="image/*"
           prepend-icon="mdi-camera"
           truncate-length="15"
           @change="handleFileUpload"
-          label="Imagen de Perfil"
+          label="Imagen de Perfil*"
+          :rules="[rules.obligatory]"
           :messages="errors.photo ? errors.photo[0] : ''"
           :error="errors.photo !== null"
           :disabled="parentLoading || loading"
@@ -147,8 +151,9 @@
           id="dni"
           class="form-control"
           v-model="user.dni"
-          label="DNI"
-          :rules="[rules.numeric]"
+          required
+          label="DNI*"
+          :rules="[rules.obligatory, rules.numeric]"
           :messages="errors.dni ? errors.dni[0] : ''"
           :error="errors.dni !== null"
           :disabled="parentLoading || loading"
@@ -160,6 +165,7 @@
           :label="type.name"
           :value="type.id"
           :disabled="parentLoading || loading"
+          :rules="[rules.checkbox]"
         ></v-checkbox>
     <v-btn
           type="submit"
@@ -199,22 +205,26 @@ export default {
         last_name: null,
         email: null,
         password: null,
-        photo: null,
         address: null,
         dni: null,
         description: null,
         web: null,
         phone_number: null,
-        user_types: []
+        user_types: [],
+        photo: null
       },
       errors: {
         first_name: null,
         last_name: null,
         email: null,
         password: null,
-        photo: null,
+        address: null,
         dni: null,
-        
+        description: null,
+        web: null,
+        phone_number: null,
+        user_types: null,
+        photo: null
       },
       rules: {
         obligatory: value => !!value || 'Este campo es obligatorio.',
@@ -224,9 +234,10 @@ export default {
             return pattern.test(value) || 'El correo electrónico no es válido.'
           },
         password: value => {
-            const pattern = /^(?=.*[a-zA-Y])(?=.*[0-9])/;
+            const pattern = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
             return pattern.test(value) || 'La contraseña no coincide con los estandares de seguridad'
-        }
+        },
+        checkbox: value => value.length > 0 || 'El checkbox debe ser true'
       },
     }
   },
@@ -256,6 +267,21 @@ export default {
               });
 
               this.$router.push('/usuarios/login');
+            } else if (res.errors) {
+              this.errors = {
+                first_name: null,
+                last_name: null,
+                email: null,
+                password: null,
+                address: null,
+                dni: null,
+                description: null,
+                web: null,
+                phone_number: null,
+                user_types: null,
+                photo: null,
+                ...res.errors
+              }
             }
         })
     },
