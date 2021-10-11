@@ -12,6 +12,7 @@
         >
           <v-text-field
                 type="text"
+                autocomplete="on"
                 required
                 name="first_name"
                 id="first_name"
@@ -31,6 +32,7 @@
         >
             <v-text-field
                 type="text"
+                autocomplete="on"
                 required
                 name="last_name"
                 id="last_name"
@@ -50,6 +52,7 @@
           >
             <v-text-field
                 type="email"
+                autocomplete="on"
                 required
                 name="email"
                 id="email"
@@ -69,6 +72,7 @@
           >
             <v-text-field
                 :type="showPassword ? 'text' : 'password'"
+                autocomplete="off"
                 required
                 name="password"
                 id="password"
@@ -90,6 +94,7 @@
 
       <v-text-field
           type="text"
+          autocomplete="on"
           name="address"
           id="address"
           class="form-control"
@@ -143,6 +148,7 @@
 
        <v-text-field
           type="tel"
+          autocomplete="on"
           name="phone_number"
           id="phone_number"
           class="form-control"
@@ -155,6 +161,7 @@
 
       <v-text-field
           type="text"
+          autocomplete="on"
           name="dni"
           id="dni"
           class="form-control"
