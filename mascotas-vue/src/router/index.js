@@ -13,11 +13,12 @@ const routes = [
     component: Home
   },
   {
-    path: '/usuarios/crear',
+    path: '/usuarios/crear-profesional',
     name: 'UserCreate',
     component: UserCreateForm,
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
+      role: 'professional'
     }
   },
   {

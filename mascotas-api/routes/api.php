@@ -19,5 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('usuarios/crear', [UserController::class, 'createForm']);
-Route::post('usuarios/crear', [UserController::class, 'create']);
+Route::get('usuarios/crear-profesional', [UserController::class, 'createFormProfessional']);
+Route::post('usuarios/crear-profesional', [UserController::class, 'createProfessional']);

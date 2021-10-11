@@ -5,13 +5,13 @@ let users = null
 const userService = {
   
     /**
-     * Crea un nuevo usuario en el servidor.
+     * Creates a new user.
      *
-     * @param {{}} user Los datos del usuario por crear.
+     * @param {{}} user data for the user's creation
      * @return {Promise<{headers: Headers, ok: boolean, redirected: boolean, status: number, statusText: string, trailer: Promise<Headers>, type: ResponseType, url: string, clone(): Response, body: ReadableStream | null, bodyUsed: boolean, arrayBuffer(): Promise<ArrayBuffer>, blob(): Promise<Blob>, formData(): Promise<FormData>, json(): Promise<any>, text(): Promise<string>} | never>}
      */
     create(user) {
-      return fetch(`${API}usuarios/crear`, {
+      return fetch(`${API}usuarios/crear-profesional`, {
         method: 'POST',
         body: JSON.stringify(user),
         headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
@@ -33,7 +33,7 @@ const userService = {
      * @returns {Promise<any>}
      */
      createForm() {
-      return fetch(`${API}usuarios/crear`)
+      return fetch(`${API}usuarios/crear-profesional`)
           .then(res => res.json());
     },
   }

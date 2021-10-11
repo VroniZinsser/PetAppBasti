@@ -175,7 +175,7 @@ import userService from "@/services/users";
 import store from "@/store";
 
 export default {
-  name: "Form",
+  name: "FormProfessional",
   
   props: {
     parentLoading: {

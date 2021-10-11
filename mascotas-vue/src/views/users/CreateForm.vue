@@ -1,21 +1,23 @@
 <template>
   <v-container fluid>
     <h1>Crear Usuario</h1>
-    <Form :parentLoading="loading" 
-          :user_types="user_types"></Form>
+    <FormProfessional 
+      v-if="this.$route.meta.role == 'professional'"
+      :parentLoading="loading" 
+          :user_types="user_types"></FormProfessional>
   </v-container>
 
 </template>
 
 <script>
 
-import Form from "@/components/users/create/Form";
+import FormProfessional from "@/components/users/create/FormProfessional";
 import userService from "@/services/users"
 
 export default {
   name: "CreateForm",
   components: {
-    Form
+    FormProfessional
   },
   data: () => ({
     loading: true,

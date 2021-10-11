@@ -20,7 +20,7 @@ class UserController extends Controller
         $this->imageRepository = $imageRepository;
     }
 
-    public function create(UserStoreRequest $request) {
+    public function createProfessional(UserStoreRequest $request) {
         $photo = $request->get('photo');
         $profile_img_id = null;
 
@@ -53,7 +53,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function createForm() {
+    public function createFormProfessional() {
         $user_types = $this->userTypeRepository->getAll();
         
         return response()->json([
