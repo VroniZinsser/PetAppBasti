@@ -97,6 +97,8 @@
           required
           label="Dirección*"
           :rules="[rules.obligatory]"
+          :messages="errors.address ? errors.address[0] : ''"
+          :error="errors.address !== null"
           :disabled="parentLoading || loading"
       ></v-text-field>
       
@@ -122,6 +124,8 @@
           class="form-control"
           v-model="user.description"
           label="Descripción"
+          :messages="errors.description ? errors.description[0] : ''"
+          :error="errors.description !== null"
           :disabled="parentLoading || loading"
       ></v-textarea>
 
@@ -132,6 +136,8 @@
           class="form-control"
           v-model="user.web"
           label="Página Web"
+          :messages="errors.web ? errors.web[0] : ''"
+          :error="errors.web !== null"
           :disabled="parentLoading || loading"
       ></v-text-field>
 
@@ -142,6 +148,8 @@
           class="form-control"
           v-model="user.phone_number"
           label="Número de teléfono"
+          :messages="errors.phone_number ? errors.phone_number[0] : ''"
+          :error="errors.phone_number !== null"
           :disabled="parentLoading || loading"
       ></v-text-field>
 
@@ -158,18 +166,21 @@
           :error="errors.dni !== null"
           :disabled="parentLoading || loading"
       ></v-text-field>
-       <v-checkbox
-          v-for="type in user_types"
-          :key="type.id"
+
+      <v-select
           v-model="user.user_types"
-          :label="type.name"
-          :value="type.id"
+          :items="userTypeNames"
+          attach
+          chips
+          label="Tipo de profesión*"
+          multiple
+          :messages="errors.user_types ? errors.user_types[0] : ''"
+          :error="errors.user_types !== null"
           :disabled="parentLoading || loading"
-          :rules="[rules.checkbox]"
-        ></v-checkbox>
-    <v-btn
-          type="submit"
-      >
+          :rules="[rules.selectionRequired]"
+        ></v-select>
+    
+      <v-btn type="submit" >
         Crear cuenta
       </v-btn>
     </v-container>
@@ -191,6 +202,13 @@ export default {
     user_types: {
       type: Array,
       required: true,
+    }
+  },
+  computed: {
+    userTypeNames: function() {
+      return this.user_types.map((item) => {
+        return item.name;
+      }); 
     }
   },
   
@@ -237,7 +255,7 @@ export default {
             const pattern = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
             return pattern.test(value) || 'La contraseña no coincide con los estandares de seguridad'
         },
-        checkbox: value => value.length > 0 || 'El checkbox debe ser true'
+        selectionRequired: value => value.length > 0 || 'Por favor elegí una opción'
       },
     }
   },
