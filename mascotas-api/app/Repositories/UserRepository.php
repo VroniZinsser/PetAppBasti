@@ -21,10 +21,11 @@ interface UserRepository
      * @param string|null $web
      * @param string|null $phone_number
      * @param boolean|null $verified
+     * @param int|null $profile_img_id
      * 
      * @return User The created or updated user
      */
 
-    public function updateOrCreate(?int $id,  string $first_name, string $last_name, string $email, string $email_verified_at, string $password, string $address, string $dni, string $description, string $web, string $phone_number, bool $verified): User;
+    public function updateOrCreate(?int $id,  string $first_name, string $last_name, string $email, string $email_verified_at, string $password, string $address, string $dni, string $description, string $web, string $phone_number, bool $verified, int $profile_img_id): User;
 
 }

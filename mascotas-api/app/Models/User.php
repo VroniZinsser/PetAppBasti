@@ -23,13 +23,13 @@ class User extends Authenticatable
         'email',
         'email_verified_at',
         'password',
-        'images_id',
         'address',
         'dni',
         'description',
         'web',
         'phone_number',
         'verified',
+        'profile_img_id',
     ];
 
     /**

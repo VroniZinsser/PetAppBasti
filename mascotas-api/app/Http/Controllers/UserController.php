@@ -21,12 +21,12 @@ class UserController extends Controller
     }
 
     public function create(UserStoreRequest $request) {
-        $user = $request->all();
+        $photo = $request->get('photo');
+        $profile_img_id = null;
 
-        if ($user['photo']) {
-            $image = $this->imageRepository->uploadImage($user['photo'], '/app/public/img/users/profile/', 'Perfil ' . $user['first_name'] . ' ' . $user['last_name']);
-
-            $user['images_id'] = $image->id;
+        if ($photo) {
+            $image = $this->imageRepository->uploadImage($photo, '/app/public/img/users/profile/', 'Perfil ' . $request->get('first_name') . ' ' . $request->get('last_name'));
+            $profile_img_id = $image->id;
         }
 
         $user = $this->userRepository->updateOrCreate(
@@ -42,6 +42,7 @@ class UserController extends Controller
             $request->get('web'),
             $request->get('phone_number'),
             $request->get('verified'),
+            $profile_img_id
         );
 
         $user->userTypes()->sync($request->get('user_types'));
