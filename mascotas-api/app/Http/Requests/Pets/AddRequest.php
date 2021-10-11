@@ -30,7 +30,7 @@ class AddRequest extends FormRequest
             'neutered' => 'boolean',
             'temperament' => 'max:45',
             'photo' => 'base64image|base64max:10000',
-            'sexes_id' => 'exists:sexes,id|integer',
+            'sexes_id' => 'required|exists:sexes,id|integer',
             'species_id' => 'required|exists:species,id|integer'
         ];
     }
@@ -49,6 +49,7 @@ class AddRequest extends FormRequest
             'photo.base64image' => 'El archivo subido tiene que ser una imagen',
             'photo.max' => 'El archivo subido no puede pesar mas de 1MB',
             'photo.base64max' => 'El archivo subido no puede pesar mas de 1MB',
+            'sexes_id.required' => 'El sexo es obligatorio',
             'sexes_id.exists' => 'El sexo seleccionado no es valido',
             'sexes_id.integer' => 'El sexo seleccionado no es valido',
             'species_id.required' => 'La especie es obligatoria',
