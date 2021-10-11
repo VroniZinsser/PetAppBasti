@@ -25,6 +25,8 @@ class ProfessionalCreateRequest extends FormRequest
             'phone_number' => 'max:20|nullable',
             'verified' => 'boolean|nullable',
             'user_types' => 'min:1',
+            'photo' => 'required',
+            //esta validación me tira un error:
             //'photo' => 'base64image|base64max:10000',
         ];
     }
@@ -57,6 +59,7 @@ class ProfessionalCreateRequest extends FormRequest
             'phone_number.numeric' => 'El número de teléfono solo puede contener números',
             'verified.boolean' => 'El valor ingresado no es válido',
             'user_types.min' => 'Por favor elegí un tipo de profesión',
+            'photo.required' => 'Por favor subí una imagen de perfil',
             'photo.image' => 'El archivo subido tiene que ser una imagen',
             'photo.base64image' => 'El archivo subido tiene que ser una imagen',
             'photo.max' => 'El archivo subido no puede pesar mas de 1MB',

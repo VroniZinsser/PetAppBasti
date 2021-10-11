@@ -300,6 +300,11 @@ export default {
                 photo: null,
                 ...res.errors
               }
+            } else {
+               this.store.setStatus({
+                msg: "¡Algo salió mal! Por favor, intentalo nuevamente más tarde",
+                type: 'error'
+              });
             }
         })
     },
