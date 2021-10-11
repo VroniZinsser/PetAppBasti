@@ -97,6 +97,20 @@
           label="Dirección"
           :disabled="parentLoading || loading"
       ></v-text-field>
+      
+      <v-file-input
+          v-model="photo"
+          ref="photo"
+          show-size
+          accept="image/*"
+          prepend-icon="mdi-camera"
+          truncate-length="15"
+          @change="handleFileUpload"
+          label="Imagen de Perfil"
+          :messages="errors.photo ? errors.photo[0] : ''"
+          :error="errors.photo !== null"
+          :disabled="parentLoading || loading"
+      ></v-file-input>
 
       <v-textarea
           name="description"
@@ -179,11 +193,13 @@ export default {
       showPassword: false,
       loading: false,
       store,
+      photo: null,
       user: {
         first_name: null,
         last_name: null,
         email: null,
         password: null,
+        photo: null,
         address: null,
         dni: null,
         description: null,
@@ -196,7 +212,9 @@ export default {
         last_name: null,
         email: null,
         password: null,
+        photo: null,
         dni: null,
+        
       },
       rules: {
         obligatory: value => !!value || 'Este campo es obligatorio.',
@@ -240,7 +258,18 @@ export default {
               this.$router.push('/usuarios/login');
             }
         })
-    }
+    },
+
+    /**
+     * Transforms the image uploaded by the user to base64 and saves it in the photo property of user
+     */
+    handleFileUpload() {
+      const reader = new FileReader();
+      reader.addEventListener('load', () => {
+        this.user.photo = reader.result;
+      });
+      reader.readAsDataURL(this.photo);
+    },
   }
 }
 

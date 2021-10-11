@@ -5,19 +5,30 @@ namespace App\Http\Controllers;
 use App\Repositories\UserRepository;
 use App\Http\Requests\UserStoreRequest;
 use App\Repositories\UserTypeRepository;
+use App\Repositories\ImageRepository;
 
 class UserController extends Controller
 {
     protected $userRepository;
     protected $userTypeRepository;
+    protected $imageRepository;
 
 
-    public function __construct(UserRepository $userRepository, UserTypeRepository $userTypeRepository) {
+    public function __construct(UserRepository $userRepository, UserTypeRepository $userTypeRepository, ImageRepository $imageRepository) {
         $this->userRepository = $userRepository;
         $this->userTypeRepository = $userTypeRepository;
+        $this->imageRepository = $imageRepository;
     }
 
     public function create(UserStoreRequest $request) {
+        $user = $request->all();
+
+        if ($user['photo']) {
+            $image = $this->imageRepository->uploadImage($user['photo'], '/app/public/img/users/profile/', 'Perfil ' . $user['first_name'] . ' ' . $user['last_name']);
+
+            $user['images_id'] = $image->id;
+        }
+
         $user = $this->userRepository->updateOrCreate(
             $request->get('id'),
             $request->get('first_name'),
