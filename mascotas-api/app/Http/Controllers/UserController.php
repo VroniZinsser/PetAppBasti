@@ -54,7 +54,7 @@ class UserController extends Controller
     }
 
     public function createFormProfessional() {
-        $user_types = $this->userTypeRepository->getAll();
+        $user_types = $this->userTypeRepository->getProfessionals();
         
         return response()->json([
             'data' => compact('user_types'),
