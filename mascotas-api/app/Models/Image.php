@@ -13,8 +13,4 @@ class Image extends Model
       'src',
       'alt',
     ];
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> main
