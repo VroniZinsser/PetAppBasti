@@ -266,19 +266,6 @@ export default {
         .then(res => {
             this.loading = false;
             if (res.success) {
-              this.user = {
-                first_name: null,
-                last_name: null,
-                email: null,
-                password: null,
-                address: null,
-                dni: null,
-                description: null,
-                web: null,
-                phone_number: null,
-                user_types: [],
-              }
-
               this.store.setStatus({
                 msg: "¡Gracias por registrarte en Basti!",
                 type: 'success'
