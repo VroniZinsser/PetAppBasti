@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/mascotas/agregar', [PetsController::class, 'addForm']);
+Route::post('/mascotas/agregar', [PetsController::class, 'addPet']);
