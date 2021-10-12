@@ -4,7 +4,9 @@
         method="post"
         @submit.prevent="createUser"
     >
+    
     <v-container>
+      <p>Los campos marcados con * son obligatorios.</p>
       <v-row>
         <v-col
           cols="12"
@@ -18,11 +20,11 @@
                 id="first_name"
                 class="form-control"
                 v-model="user.first_name"
-                label="Nombre*"
+                label="Nombre *"
                 :rules="[rules.obligatory]"
                 :messages="errors.first_name ? errors.first_name[0] : ''"
                 :error="errors.first_name !== null"
-                :disabled="parentLoading || loading"
+                :disabled="loading"
             ></v-text-field>
         </v-col>
 
@@ -38,11 +40,11 @@
                 id="last_name"
                 class="form-control"
                 v-model="user.last_name"
-                label="Apellido*"
+                label="Apellido *"
                 :rules="[rules.obligatory]"
                 :messages="errors.last_name ? errors.last_name[0] : ''"
                 :error="errors.last_name !== null"
-                :disabled="parentLoading || loading"
+                :disabled="loading"
             ></v-text-field>
          </v-col>
 
@@ -58,11 +60,11 @@
                 id="email"
                 class="form-control"
                 v-model="user.email"
-                label="Correo electrónico*"
+                label="Correo electrónico *"
                 :rules="[rules.obligatory, rules.email]"
                 :messages="errors.email ? errors.email[0] : ''"
                 :error="errors.email !== null"
-                :disabled="parentLoading || loading"
+                :disabled="loading"
             ></v-text-field>
           </v-col>
 
@@ -78,14 +80,14 @@
                 id="password"
                 class="form-control"
                 v-model="user.password"
-                label="Contraseña*"
+                label="Contraseña *"
                 :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                 :rules="[rules.obligatory, rules.password]"
                 hint="La contraseña debe tener mínimo 6 caracteres y contener un número"
                 persistent-hint
                 :messages="errors.password ? errors.password[0] : ''"
                 :error="errors.password !== null"
-                :disabled="parentLoading || loading"
+                :disabled="loading"
                 counter
                 @click:append="showPassword = !showPassword"
             ></v-text-field>
@@ -100,11 +102,11 @@
           class="form-control"
           v-model="user.address"
           required
-          label="Dirección*"
+          label="Dirección *"
           :rules="[rules.obligatory]"
           :messages="errors.address ? errors.address[0] : ''"
           :error="errors.address !== null"
-          :disabled="parentLoading || loading"
+          :disabled="loading"
       ></v-text-field>
       
       <v-file-input
@@ -116,11 +118,11 @@
           prepend-icon="mdi-camera"
           truncate-length="15"
           @change="handleFileUpload"
-          label="Imagen de Perfil*"
+          label="Imagen de Perfil *"
           :rules="[rules.obligatory]"
           :messages="errors.photo ? errors.photo[0] : ''"
           :error="errors.photo !== null"
-          :disabled="parentLoading || loading"
+          :disabled="loading"
       ></v-file-input>
 
       <v-textarea
@@ -131,7 +133,7 @@
           label="Descripción"
           :messages="errors.description ? errors.description[0] : ''"
           :error="errors.description !== null"
-          :disabled="parentLoading || loading"
+          :disabled="loading"
       ></v-textarea>
 
       <v-text-field
@@ -143,7 +145,7 @@
           label="Página Web"
           :messages="errors.web ? errors.web[0] : ''"
           :error="errors.web !== null"
-          :disabled="parentLoading || loading"
+          :disabled="loading"
       ></v-text-field>
 
        <v-text-field
@@ -156,7 +158,7 @@
           label="Número de teléfono"
           :messages="errors.phone_number ? errors.phone_number[0] : ''"
           :error="errors.phone_number !== null"
-          :disabled="parentLoading || loading"
+          :disabled="loading"
       ></v-text-field>
 
       <v-text-field
@@ -167,11 +169,11 @@
           class="form-control"
           v-model="user.dni"
           required
-          label="DNI*"
+          label="DNI *"
           :rules="[rules.obligatory, rules.numeric]"
           :messages="errors.dni ? errors.dni[0] : ''"
           :error="errors.dni !== null"
-          :disabled="parentLoading || loading"
+          :disabled="loading"
       ></v-text-field>
 
       <v-select
@@ -181,11 +183,11 @@
           :item-value="'id'"
           attach
           chips
-          label="Tipo de profesión*"
+          label="Tipo de profesión *"
           multiple
           :messages="errors.user_types ? errors.user_types[0] : ''"
           :error="errors.user_types !== null"
-          :disabled="parentLoading || loading"
+          :disabled="loading"
           :rules="[rules.selectionRequired]"
         ></v-select>
     
@@ -204,10 +206,6 @@ export default {
   name: "FormProfessional",
   
   props: {
-    parentLoading: {
-      type: Boolean,
-      required: true,
-    },
     user_types: {
       type: Array,
       required: true,

@@ -7,10 +7,11 @@
         :title="store.status.title"
     />
     <h1>Crear Usuario</h1>
+    <p v-if="loading">Cargando...</p>
     <FormProfessional 
-      v-if="this.$route.meta.role == 'professional'"
-      :parentLoading="loading" 
-          :user_types="user_types"></FormProfessional>
+      v-else-if="this.$route.meta.role == 'professional'"
+      :user_types="user_types">
+    </FormProfessional>
   </v-container>
 
 </template>
