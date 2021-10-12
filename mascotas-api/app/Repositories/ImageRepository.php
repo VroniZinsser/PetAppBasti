@@ -16,4 +16,8 @@ interface ImageRepository
      * @return Image
      */
     public function uploadImage(string $base64, string $path, string $alt): Image;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> main

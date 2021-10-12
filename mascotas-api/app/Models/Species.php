@@ -5,16 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Image extends Model
+class Species extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-      'src',
-      'alt',
-    ];
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> main
