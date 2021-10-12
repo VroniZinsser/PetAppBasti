@@ -16,9 +16,9 @@ class CreateUsersHasUserTypesTable extends Migration
         Schema::create('users_has_user_types', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedTinyInteger('user_types_id');
+            $table->unsignedTinyInteger('user_type_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('user_types_id')->references('id')->on('user_types');
+            $table->foreign('user_type_id')->references('id')->on('user_types');
             $table->timestamps();
         });
     }
@@ -32,7 +32,7 @@ class CreateUsersHasUserTypesTable extends Migration
     {
         Schema::table('users_has_user_types', function(Blueprint $table) {
             $table->dropForeign(['user_id']);
-            $table->dropForeign(['user_types_id']);
+            $table->dropForeign(['user_type_id']);
         });
         Schema::dropIfExists('users_has_user_types');
     }

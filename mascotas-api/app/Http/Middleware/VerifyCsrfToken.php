@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        // TODO: esta excepeción es para evitar el csrf. Pero hay que solucionarlo de otra manera
+        '*'
     ];
 }

@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\UserType;
 
 class User extends Authenticatable
 {
@@ -18,10 +18,27 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
+        'email_verified_at',
         'password',
+        'address',
+        'dni',
+        'description',
+        'web',
+        'phone_number',
+        'verified',
+        'profile_img_id',
     ];
+
+    /**
+     * The usertypes that belong to the user.
+     */
+    public function userTypes()
+    {
+        return $this->belongsToMany(UserType::class, 'users_has_user_types');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
