@@ -2,7 +2,9 @@
   <v-container fluid>
     <h1>Agregar mascota</h1>
 
-    <Form :loading="loading"
+    <p v-if="loading">Cargando...</p>
+
+    <Form v-else
           :sexes="sexes"
           :species="species"></Form>
   </v-container>

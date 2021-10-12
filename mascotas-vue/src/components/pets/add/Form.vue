@@ -115,6 +115,7 @@
 
     <v-btn
         type="submit"
+        :disabled="loading"
     >Agregar
     </v-btn>
   </v-form>
@@ -126,10 +127,6 @@ import petServices from "../../../services/pets";
 export default {
   name: "Form",
   props: {
-    loading: {
-      type: Boolean,
-      required: true,
-    },
     sexes: {
       type: Array,
       required: true,
@@ -140,6 +137,7 @@ export default {
     },
   },
   data: () => ({
+    loading: false,
     photo: null,
     formData: {
       breed: 'Akita Inu',
@@ -181,7 +179,7 @@ export default {
     },
 
     addPet() {
-      // this.loading = true;
+      this.loading = true;
 
       this.errors = {
         breed: null,
@@ -196,7 +194,7 @@ export default {
 
       petServices.addPet(this.formData)
           .then(res => {
-            console.log(res)
+            this.loading = false;
             if (!res.success) {
               if (this.errors) {
                 this.errors = {
