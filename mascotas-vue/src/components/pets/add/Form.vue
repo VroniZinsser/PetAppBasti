@@ -196,20 +196,25 @@ export default {
 
       petServices.addPet(this.formData)
           .then(res => {
-            if (res.errors) {
-              this.errors = {
-                breed: null,
-                date_of_birth: null,
-                name: null,
-                neutered: null,
-                photo: null,
-                temperament: null,
-                sexes_id: null,
-                species_id: null,
-                ...res.errors
+            console.log(res)
+            if (!res.success) {
+              if (this.errors) {
+                this.errors = {
+                  breed: null,
+                  date_of_birth: null,
+                  name: null,
+                  neutered: null,
+                  photo: null,
+                  temperament: null,
+                  sexes_id: null,
+                  species_id: null,
+                  ...res.errors
+                }
+              }else{
+                alert("Hubo un error inesperado");
               }
             } else {
-              console.log(res)
+              alert("Mascota agregada con exito")
             }
           })
     }
