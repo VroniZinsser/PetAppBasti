@@ -3,7 +3,10 @@
 namespace App\Services;
 
 use App\Models\Pet;
+use App\Models\User;
 use App\Repositories\PetRepository;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Collection;
 
 class PetService implements PetRepository
 {
@@ -30,5 +33,13 @@ class PetService implements PetRepository
         $pet->owners()->attach([$owner]);
 
         return $pet;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getOwnerPets(int $owner_id): Collection
+    {
+        return User::where('id', $owner_id)->with('pets')->first()->pets;
     }
 }
