@@ -84,4 +84,19 @@ class PetsController extends Controller
             'data' => $pet,
         ]);
     }
+
+    /**
+     * Returns all user's pets
+     *
+     * @return JsonResponse
+     */
+    public function getOwnerPets(): JsonResponse
+    {
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'pets' => $this->petRepository->getOwnerPets(1)
+            ],
+        ]);
+    }
 }
