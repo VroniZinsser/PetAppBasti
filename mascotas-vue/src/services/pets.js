@@ -25,6 +25,17 @@ const petServices = {
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
         }).then(res => res.json());
     },
+
+    /**
+     * Get all user's pets
+     *
+     * @returns {Promise<any>}
+     */
+    getOwnerPets() {
+        return fetch(`${API}mascotas`, {
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+        }).then(res => res.json());
+    }
 };
 
 export default petServices;
