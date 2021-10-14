@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import UserCreateForm from "../views/users/CreateForm";
 import UserLoginForm from "../views/users/LoginForm";
 import PetAddForm from "../views/pets/AddForm";
+import ShowMap from "../views/map/ShowMap"
 
 Vue.use(VueRouter)
 
@@ -38,6 +39,14 @@ const routes = [
           requiresAuth: true,
       },
   },
+  {
+    path: '/mapa',
+    name: 'ShowMap',
+    component: ShowMap,
+    meta: {
+        requiresAuth: true,
+    },
+},
   {
       path: '/about',
       name: 'About',
