@@ -40,6 +40,6 @@ class PetService implements PetRepository
      */
     public function getOwnerPets(int $owner_id): Collection
     {
-        return User::where('id', $owner_id)->with('pets')->first()->pets;
+        return User::where('id', $owner_id)->with('pets.species', 'pets.sex', 'pets.image')->first()->pets;
     }
 }
