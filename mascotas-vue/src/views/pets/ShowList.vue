@@ -4,6 +4,8 @@
 
     <p v-if="loading">Cargando...</p>
     <List v-else :pets="pets"></List>
+
+    <v-btn :to="{name: 'PetAddForm'}"><span class="icon-add"></span>Agregar nueva mascota</v-btn>
   </v-container>
 </template>
 
