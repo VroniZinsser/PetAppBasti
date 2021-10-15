@@ -2,16 +2,29 @@
   <v-container>
     <h1>Tus mascotas</h1>
 
-    <List></List>
+    <p v-if="loading">Cargando...</p>
+    <List v-else :pets="pets"></List>
   </v-container>
 </template>
 
 <script>
 import List from "../../components/pets/list/List";
+import petServices from "../../services/pets";
 
 export default {
   name: "ShowList",
-  components: {List}
+  components: {List},
+  data: () => ({
+    loading: true,
+    pets: null,
+  }),
+  mounted() {
+    petServices.getOwnerPets()
+        .then(res => {
+          this.pets = res.data.pets;
+          this.loading = false;
+        });
+  }
 }
 </script>
 
