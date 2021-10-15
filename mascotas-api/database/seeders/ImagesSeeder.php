@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\DB;
 class ImagesSeeder extends Seeder
 {
     protected $petPath = null;
-    protected $userPath = null;
+    protected $userProfilePath = null;
 
     public function __construct()
     {
         $this->petPath = 'pets/';
-        $this->petPath = 'users/profile/';
+        $this->userProfilePath = 'users/profile/';
     }
 
     /**
@@ -86,12 +86,12 @@ class ImagesSeeder extends Seeder
             ],
             [
                 'id' => 13,
-                'src' => $this->userPath . 'default_user.png',
+                'src' => $this->userProfilePath . 'default_user.png',
                 'alt' => 'Ilustración de un usuario con el rol de dueño',
             ],
             [
                 'id' => 14,
-                'src' => $this->userPath . 'professional.png',
+                'src' => $this->userProfilePath . 'default_professional.png',
                 'alt' => 'Ilustración de un usuario de tipo profesional',
             ],
             [
