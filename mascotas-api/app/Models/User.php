@@ -61,7 +61,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Returns pet owners
+     * Returns related pets
      *
      * @return BelongsToMany
      */

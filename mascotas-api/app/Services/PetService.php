@@ -38,7 +38,7 @@ class PetService implements PetRepository
     /**
      * @inheritDoc
      */
-    public function getOwnerPets(int $owner_id): object
+    public function getPetsByUser(int $owner_id): object
     {
         $user = User::find($owner_id);
 

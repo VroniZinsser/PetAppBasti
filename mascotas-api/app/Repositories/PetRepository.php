@@ -40,5 +40,5 @@ interface PetRepository
      * @param int $owner_id
      * @return Collection | []Pet
      */
-    public function getOwnerPets(int $owner_id): object;
+    public function getPetsByUser(int $owner_id): object;
 }
