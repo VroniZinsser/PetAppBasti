@@ -41,7 +41,7 @@ const routes = [
   },
   {
       path: '/mascotas/agregar',
-      name: 'PetAdd',
+      name: 'PetAddForm',
       component: PetAddForm,
       meta: {
           requiresAuth: true,
