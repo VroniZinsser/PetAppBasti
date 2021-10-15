@@ -7,6 +7,15 @@ use Illuminate\Support\Facades\DB;
 
 class ImagesSeeder extends Seeder
 {
+    protected $petPath = null;
+    protected $userPath = null;
+
+    public function __construct()
+    {
+        $this->petPath = 'pets/';
+        $this->petPath = 'users/profile/';
+    }
+
     /**
      * Run the database seeds.
      *
@@ -17,73 +26,73 @@ class ImagesSeeder extends Seeder
         DB::table('images')->insert([
             [
                 'id' => 1,
-                'src' => 'dog.png',
+                'src' => $this->petPath . 'dog.png',
                 'alt' => 'Perro',
             ],
             [
                 'id' => 2,
-                'src' => 'cat.png',
+                'src' => $this->petPath . 'cat.png',
                 'alt' => 'Gato',
             ],
             [
                 'id' => 3,
-                'src' => 'rabbit.png',
+                'src' => $this->petPath . 'rabbit.png',
                 'alt' => 'Conejo',
             ],
             [
                 'id' => 4,
-                'src' => 'hamster.png',
+                'src' => $this->petPath . 'hamster.png',
                 'alt' => 'Hámster',
             ],
             [
                 'id' => 5,
-                'src' => 'turtle.png',
+                'src' => $this->petPath . 'turtle.png',
                 'alt' => 'Tortuga',
             ],
             [
                 'id' => 6,
-                'src' => 'ferret.png',
+                'src' => $this->petPath . 'ferret.png',
                 'alt' => 'Hurón',
             ],
             [
                 'id' => 7,
-                'src' => 'chinchilla.png',
+                'src' => $this->petPath . 'chinchilla.png',
                 'alt' => 'Chinchilla',
             ],
             [
                 'id' => 8,
-                'src' => 'lizard.png',
+                'src' => $this->petPath . 'lizard.png',
                 'alt' => 'Lagarto',
             ],
             [
                 'id' => 9,
-                'src' => 'bird.png',
+                'src' => $this->petPath . 'bird.png',
                 'alt' => 'Pájaro',
             ],
             [
                 'id' => 10,
-                'src' => 'miniature_pig.png',
+                'src' => $this->petPath . 'miniature_pig.png',
                 'alt' => 'Cerdo miniatura',
             ],
             [
                 'id' => 11,
-                'src' => 'fish.png',
+                'src' => $this->petPath . 'fish.png',
                 'alt' => 'Pez',
             ],
             [
                 'id' => 12,
-                'src' => 'other.png',
+                'src' => $this->petPath . 'other.png',
                 'alt' => 'Otro tipo de animal',
             ],
             [
                 'id' => 13,
-                'src' => 'default_user.png',
+                'src' => $this->userPath . 'default_user.png',
                 'alt' => 'Ilustración de un usuario con el rol de dueño',
             ],
             [
                 'id' => 14,
-                'src' => 'expert.png',
-                'alt' => 'Ilustración de un usuario con el rol de experto',
+                'src' => $this->userPath . 'professional.png',
+                'alt' => 'Ilustración de un usuario de tipo profesional',
             ],
             [
                 'id' => 15,
