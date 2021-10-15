@@ -3,7 +3,10 @@
     <h1>Tus mascotas</h1>
 
     <p v-if="loading">Cargando...</p>
-    <List v-else :pets="pets"></List>
+    <div v-else>
+      <List v-if="pets" :pets="pets"></List>
+      <p v-else>No agregaste ninguna mascota aun</p>
+    </div>
 
     <v-btn :to="{name: 'PetAddForm'}"><span class="icon-add"></span>Agregar nueva mascota</v-btn>
   </v-container>
