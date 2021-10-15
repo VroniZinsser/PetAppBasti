@@ -25,7 +25,7 @@ class UserController extends Controller
         $profile_img_id = null;
 
         if ($photo) {
-            $image = $this->imageRepository->uploadImage($photo, '/app/public/img/users/profile/', 'Perfil ' . $request->get('first_name') . ' ' . $request->get('last_name'));
+            $image = $this->imageRepository->uploadImage($photo, 'users/profile/', 'Perfil ' . $request->get('first_name') . ' ' . $request->get('last_name'));
             $profile_img_id = $image->id;
         }
 
@@ -55,7 +55,7 @@ class UserController extends Controller
 
     public function createFormProfessional() {
         $user_types = $this->userTypeRepository->getProfessionals();
-        
+
         return response()->json([
             'data' => compact('user_types'),
         ]);

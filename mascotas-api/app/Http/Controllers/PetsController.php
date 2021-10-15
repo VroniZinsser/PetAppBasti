@@ -57,7 +57,7 @@ class PetsController extends Controller
         $pet = $request->all();
 
         if ($pet['photo']) {
-            $image = $this->imageRepository->uploadImage($pet['photo'], '/app/public/img/pets/', 'Mascota ' . $pet['name']);
+            $image = $this->imageRepository->uploadImage($pet['photo'], 'pets/', 'Mascota ' . $pet['name']);
 
             $pet['images_id'] = $image->id;
         }
