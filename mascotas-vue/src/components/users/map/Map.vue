@@ -9,16 +9,16 @@
 <script>
 export default {
   name: "Map",
-  props: {
-    center: Object
-    // center object { lat: 40.730610, lng: -73.935242 }
-  },
   data() {
     return {
       platform: null,
       apikey: "I8Jxzv6xtyMgJodcYgvnsbWiuhjAN6zZhEv0_IQ4Ej8",
       map: {},
       geocodingService: {},
+      currentLocation: {
+        lat: 10,
+        lng: 10
+      }
     };
   },
   async mounted() {
@@ -29,8 +29,18 @@ export default {
     this.platform = platform;
     this.initializeHereMap();
     this.geocodingService = platform.getGeocodingService();
+    this.getCurrentLocation();
   },
   methods: {
+    getCurrentLocation() {
+      if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(position => {
+          this.currentLocation.lat = position.coords.latitude;
+          this.currentLocation.lng = position.coords.longitude;
+          this.map.setCenter(this.currentLocation);
+        });
+      }
+    },
     initializeHereMap() { // rendering map
 
       const mapContainer = this.$refs.hereMap;
@@ -41,7 +51,7 @@ export default {
       // Instantiate (and display) a map object:
       this.map = new H.Map(mapContainer, maptypes.vector.normal.map, {
         zoom: 10,
-        center: this.center
+        center: this.currentLocation
         // center object { lat: 40.730610, lng: -73.935242 }
       });
       
@@ -86,7 +96,6 @@ export default {
                 
                 if(data.Response.View.length > 0) {
                     if (data.Response.View[0].Result.length > 0) {
-                        console.log(data.Response.View[0].Result[0].Location.Address);
                         let position = data.Response.View[0].Result[0].Location.DisplayPosition;
                         let marker = new H.map.Marker({ lat:position.Latitude, lng:position.Longitude});
                         this.map.addObject(marker);

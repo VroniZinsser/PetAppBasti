@@ -20,14 +20,11 @@ export default {
     
   },
   data: () => ({
-    center:{ 
-      lat: -34.60487, 
-      lng: -58.42098 
-    }
     
   }),
 
   mounted() {
+    
     let map = this.$refs.hereMap;
     map.dropMarker();
 
