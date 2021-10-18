@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Pet;
+use Illuminate\Database\Eloquent\Collection;
 
 interface PetRepository
 {
@@ -34,4 +35,10 @@ interface PetRepository
         int $species_id,
         int $owner
     ): Pet;
+
+    /**
+     * @param int $owner_id
+     * @return Collection | []Pet
+     */
+    public function getPetsByUser(int $owner_id): object;
 }

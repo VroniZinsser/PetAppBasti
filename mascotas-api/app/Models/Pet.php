@@ -29,7 +29,7 @@ class Pet extends Model
      */
     public function sex(): BelongsTo
     {
-        return $this->belongsTo(Sex::class);
+        return $this->belongsTo(Sex::class, 'sexes_id');
     }
 
     /**
@@ -40,7 +40,19 @@ class Pet extends Model
     public function species(): BelongsTo
     {
         return $this->belongsTo(Species::class);
-    }
+    } 
+
+    /**
+     * Returns the pet's image
+     *
+     * @return BelongsTo
+     */
+    public function image(): BelongsTo
+    {
+        return $this->belongsTo(Image::class, 'images_id');
+    } 
+
+  
 
     /**
      * Returns pet owners

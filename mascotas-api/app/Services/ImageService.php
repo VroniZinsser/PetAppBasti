@@ -57,7 +57,7 @@ class ImageService implements ImageRepository
      */
     protected function uploadToDirectory($image, string $path, string $name)
     {
-        $image->save(storage_path($path). $name);
+        $image->save(storage_path("/app/public/img/" . $path). $name);
     }
 
     /**

@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import UserCreateForm from "../views/users/CreateForm";
 import UserLoginForm from "../views/users/LoginForm";
 import PetAddForm from "../views/pets/AddForm";
+import PetShowList from "../views/pets/ShowList"
 
 Vue.use(VueRouter)
 
@@ -31,8 +32,16 @@ const routes = [
     }
   },
   {
+      path: '/mascotas',
+      name: 'PetShowList',
+      component: PetShowList,
+      meta: {
+          requiresAuth: true,
+      },
+  },
+  {
       path: '/mascotas/agregar',
-      name: 'PetAdd',
+      name: 'PetAddForm',
       component: PetAddForm,
       meta: {
           requiresAuth: true,
