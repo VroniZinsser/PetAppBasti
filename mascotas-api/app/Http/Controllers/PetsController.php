@@ -95,7 +95,7 @@ class PetsController extends Controller
         return response()->json([
             'success' => true,
             'data' => [
-                'pets' => $this->petRepository->getOwnerPets(1)
+                'pets' => $this->petRepository->getPetsByUser(1)
             ],
         ]);
     }
