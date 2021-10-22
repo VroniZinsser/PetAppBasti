@@ -21,6 +21,14 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 60);
             $table->string('address', 100)->nullable();
+            $table->string('country', 60)->nullable();
+            $table->string('state', 60)->nullable();
+            $table->string('city', 60)->nullable();
+            $table->string('postal_code', 10)->nullable();
+            $table->string('district', 60)->nullable();
+            $table->string('street', 60)->nullable();
+            $table->string('house_number', 5)->nullable();
+            $table->string('appartment', 10)->nullable();
             // Source for lat and lng: https://www.youtube.com/watch?v=FkibP9Wnreo&t=825s
             $table->decimal('latitude', 8, 6)->nullable();
             $table->decimal('longitude', 9, 6)->nullable();
