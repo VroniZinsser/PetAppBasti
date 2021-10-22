@@ -311,8 +311,13 @@ export default {
               .then(result => result.json())
               .then(result => {
                   if(result.suggestions && result.suggestions.length > 0) {
+                    console.log(result.suggestions);
                     this.address_suggestions = result.suggestions.map((suggestion) => {
-                      return suggestion.label;
+                      const suggestionItem = {
+                        'text': suggestion.label,
+                        'value': suggestion.address
+                      }
+                      return suggestionItem;
                     });
                       
                   } else {

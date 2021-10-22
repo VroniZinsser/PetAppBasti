@@ -26,6 +26,27 @@ interface UserRepository
      * @return User The created or updated user
      */
 
-    public function updateOrCreate(?int $id,  string $first_name, string $last_name, string $email, string $email_verified_at, string $password, string $address, string $dni, string $description, string $web, string $phone_number, bool $verified, int $profile_img_id): User;
+    public function updateOrCreate(
+        ?int $id,  
+        string $first_name, 
+        string $last_name, 
+        string $email, 
+        ?string $email_verified_at, 
+        string $password, 
+        ?string $address,
+        ?string $country,
+        ?string $state,
+        ?string $city,
+        ?string $postal_code,
+        ?string $district,
+        ?string $street,
+        ?string $house_number,
+        ?string $appartment,
+        ?string $dni, 
+        ?string $description, 
+        ?string $web, 
+        ?string $phone_number, 
+        ?bool $verified, 
+        ?int $profile_img_id): User;
 
 }
