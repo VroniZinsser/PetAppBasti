@@ -93,21 +93,16 @@
             ></v-text-field>
         </v-col>
       </v-row>
-
-      <v-text-field
+      <v-autocomplete
           type="text"
-          autocomplete="on"
           name="address"
           id="address"
           class="form-control"
           v-model="user.address"
-          required
+          :items="address_suggestions"
           label="Dirección *"
-          :rules="[rules.obligatory]"
-          :messages="errors.address ? errors.address[0] : ''"
-          :error="errors.address !== null"
-          :disabled="loading"
-      ></v-text-field>
+          :search-input.sync="addressInput"
+      ></v-autocomplete>
       
       <v-file-input
           v-model="photo"
@@ -201,6 +196,7 @@
 <script>
 import userService from "@/services/users";
 import store from "@/store";
+import {HEREMAPS_API_KEY} from "@/constants/"
 
 export default {
   name: "FormProfessional",
@@ -218,6 +214,7 @@ export default {
       loading: false,
       store,
       photo: null,
+      addressInput: null,
       user: {
         first_name: null,
         last_name: null,
@@ -257,6 +254,7 @@ export default {
         },
         selectionRequired: value => value.length > 0 || 'Por favor elegí una opción'
       },
+      address_suggestions: []
     }
   },
   methods: {
@@ -306,7 +304,26 @@ export default {
       });
       reader.readAsDataURL(this.photo);
     },
-  }
+  },
+  watch: {
+      addressInput: function(value) {
+          fetch(`https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json?apiKey=${HEREMAPS_API_KEY}&query=${value}`)
+              .then(result => result.json())
+              .then(result => {
+                  if(result.suggestions && result.suggestions.length > 0) {
+                    this.address_suggestions = result.suggestions.map((suggestion) => {
+                      return suggestion.label;
+                    });
+                      
+                  } else {
+                    console.log('No hubo sugerencias.');
+                    
+                  }
+              }, error => {
+                  console.error(error);
+              });
+        }
+    }
 }
 
 </script>
