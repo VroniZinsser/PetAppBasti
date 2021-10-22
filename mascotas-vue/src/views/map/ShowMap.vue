@@ -10,7 +10,7 @@
 
 <script>
 
-import Map from "@/components/users/map/Map";
+import Map from "@/components/geolocation/Map";
 
 export default {
   name: "ShowMap",
