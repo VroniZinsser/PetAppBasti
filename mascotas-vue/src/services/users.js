@@ -10,19 +10,7 @@ const userService = {
      * @param {{}} user data for the user's creation
      * @return {Promise<{headers: Headers, ok: boolean, redirected: boolean, status: number, statusText: string, trailer: Promise<Headers>, type: ResponseType, url: string, clone(): Response, body: ReadableStream | null, bodyUsed: boolean, arrayBuffer(): Promise<ArrayBuffer>, blob(): Promise<Blob>, formData(): Promise<FormData>, json(): Promise<any>, text(): Promise<string>} | never>}
      */
-    create(user) {
-      // fill user's address fields if available
-      if (user.address !== null) {
-        user.country = user.address.country;
-        user.state = user.address.state;
-        user.city = user.address.city;
-        user.postal_code = user.address.postalCode;
-        user.district = user.address.district;
-        user.street = user.address.street;
-        user.house_number = user.address.houseNumber;
-        user.address = user.address.street;
-      }
-      
+    create(user) {      
       return fetch(`${API}usuarios/crear-profesional`, {
         method: 'POST',
         body: JSON.stringify(user),

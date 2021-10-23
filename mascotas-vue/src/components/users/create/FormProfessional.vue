@@ -98,7 +98,7 @@
           name="address"
           id="address"
           class="form-control"
-          v-model="user.address"
+          v-model="user.location_id"
           :items="address_suggestions"
           label="Dirección *"
           :search-input.sync="addressInput"
@@ -220,7 +220,18 @@ export default {
         last_name: null,
         email: null,
         password: null,
-        address: null,
+        country: null,
+        state: null,
+        city: null,
+        postal_code: null,
+        district: null,
+        street: null,
+        house_number: null,
+        appartment: null,
+        address: "To be deleted",
+        location_id: null,
+        latitude: null,
+        longitude: null,
         dni: null,
         description: null,
         web: null,
@@ -307,28 +318,55 @@ export default {
   },
   watch: {
       addressInput: function(value) {
-          fetch(`https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json?apiKey=${HEREMAPS_API_KEY}&query=${value}`)
-              .then(result => result.json())
-              .then(result => {
-                  if(result.suggestions && result.suggestions.length > 0) {
-                    console.log(result.suggestions);
-                    this.address_suggestions = result.suggestions.map((suggestion) => {
-                      const suggestionItem = {
-                        'text': suggestion.label,
-                        'value': suggestion.address
-                      }
-                      return suggestionItem;
-                    });
-                      
-                  } else {
-                    console.log('No hubo sugerencias.');
+        fetch(`https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json?apiKey=${HEREMAPS_API_KEY}&query=${value}`)
+            .then(result => result.json())
+            .then(result => {
+                if(result.suggestions && result.suggestions.length > 0) {
+                  this.address_suggestions = result.suggestions.map((suggestion) => {
+                    const suggestionItem = {
+                      'text': suggestion.label,
+                      'value': suggestion.locationId,
+                    }
+                    return suggestionItem;
+                  });
                     
-                  }
-              }, error => {
-                  console.error(error);
-              });
-        }
-    }
+                } else {
+                  console.log('No hubo sugerencias.');
+                  
+                }
+            }, error => {
+                console.error(error);
+            });
+        },
+        'user.location_id': function(location_id) {
+            fetch(`https://geocoder.ls.hereapi.com/6.2/geocode.json?locationid=${location_id}&jsonattributes=1&gen=9&apiKey=${HEREMAPS_API_KEY}`)
+              .then(res => res.json())
+                  .then(res => {
+                    if (res.response.view.length > 0 && res.response.view[0].result.length > 0) {
+                      const location = res.response.view[0].result[0].location;
+                      if (!location) {
+                        return;
+                      }
+                      if(location.displayPosition) {
+                        this.user.latitude = location.displayPosition.latitude;
+                        this.user.longitude = location.displayPosition.longitude;
+                      } 
+                      if (location.address) {
+                        this.user.country = location.address.country;
+                        this.user.state = location.address.state;
+                        this.user.city = location.address.city;
+                        this.user.postal_code = location.address.postalCode;
+                        this.user.district = location.address.district;
+                        this.user.street = location.address.street;
+                        this.user.house_number = location.address.houseNumber;
+                      }
+                    }
+                  }, error => {
+                      console.error(error);
+                  });
+          }
+    },
+    
 }
 
 </script>
