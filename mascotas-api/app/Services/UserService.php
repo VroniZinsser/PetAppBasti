@@ -7,6 +7,18 @@ use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
 
 class UserService implements UserRepository {
+
+    /**
+     * @inheritDoc
+     */
+    public function getUsersByTypes($types): object
+    {
+        $users = User::whereHas('userTypes', function($query) use($types) {
+            $query->whereIn('user_types.id', $types);
+        })->get();
+        
+        return $users;
+    }
     
     /**
      * @inheritDoc

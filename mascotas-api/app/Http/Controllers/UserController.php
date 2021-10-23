@@ -20,6 +20,21 @@ class UserController extends Controller
         $this->imageRepository = $imageRepository;
     }
 
+    /**
+     * Returns all users with role as professional
+     *
+     * @return JsonResponse
+     */
+    public function getProfessionals() {
+        return response()->json([
+            'success' => true,
+            'data' => [
+                // TODO: find central place to define user type ids - professionals / admins / not professionals
+                'users' => $this->userRepository->getUsersByTypes(array(5, 6, 7, 8))
+            ],
+        ]);
+    }
+
     public function createProfessional(ProfessionalCreateRequest $request) {
         $photo = $request->get('photo');
         $profile_img_id = null;
