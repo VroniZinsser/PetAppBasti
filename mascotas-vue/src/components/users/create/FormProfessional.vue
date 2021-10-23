@@ -103,6 +103,18 @@
           label="Dirección *"
           :search-input.sync="addressInput"
       ></v-autocomplete>
+      <v-text-field
+          type="text"
+          autocomplete="on"
+          name="appartment"
+          id="appartment"
+          class="form-control"
+          v-model="user.appartment"
+          label="Número de piso y departamento"
+          :messages="errors.appartment ? errors.appartment[0] : ''"
+          :error="errors.appartment !== null"
+          :disabled="loading"
+      ></v-text-field>
       
       <v-file-input
           v-model="photo"
@@ -245,6 +257,7 @@ export default {
         email: null,
         password: null,
         address: null,
+        appartment: null,
         dni: null,
         description: null,
         web: null,
