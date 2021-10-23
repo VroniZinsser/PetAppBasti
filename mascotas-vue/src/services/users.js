@@ -36,6 +36,16 @@ const userService = {
       return fetch(`${API}usuarios/crear-profesional`)
           .then(res => res.json());
     },
+
+    /**
+     * Returns users with any usertype related to professionals
+     *
+     * @returns {Promise<any>}
+     */
+    getProfessionals() {
+      return fetch(`${API}usuarios/profesionales`)
+          .then(res => res.json());
+    },
   }
   export default userService;
   

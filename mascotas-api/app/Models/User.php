@@ -32,6 +32,8 @@ class User extends Authenticatable
         'street',
         'house_number',
         'appartment',
+        'latitude',
+        'longitude',
         'dni',
         'description',
         'web',

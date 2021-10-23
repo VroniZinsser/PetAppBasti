@@ -60,6 +60,8 @@ class UserController extends Controller
             $request->get('street'),
             $request->get('house_number'),
             $request->get('appartment'),
+            $request->get('latitude'),
+            $request->get('longitude'),
             $request->get('dni'),
             $request->get('description'),
             $request->get('web'),

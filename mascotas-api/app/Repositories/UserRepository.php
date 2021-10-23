@@ -25,6 +25,16 @@ interface UserRepository
      * @param date|null $email_verified_at
      * @param string $password
      * @param string|null $address
+     * @param string|null $country,
+     * @param string|null $state,
+     * @param string|null $city,
+     * @param string|null $postal_code,
+     * @param string|null $district,
+     * @param string|null $street,
+     * @param string|null $house_number,
+     * @param string|null $appartment,
+     * @param float|null $latitude,
+     * @param float|null $longitude,
      * @param string|null $dni
      * @param string|null $description
      * @param string|null $web
@@ -51,6 +61,8 @@ interface UserRepository
         ?string $street,
         ?string $house_number,
         ?string $appartment,
+        ?float $latitude,
+        ?float $longitude,
         ?string $dni, 
         ?string $description, 
         ?string $web, 
