@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\UserRepository;
 use App\Repositories\UserTypeRepository;
 use App\Repositories\ImageRepository;
-use App\Http\Requests\ProfessionalCreateRequest;
+use App\Http\Requests\Users\Professionals\CreateRequest;
 
 class UserController extends Controller
 {
@@ -35,7 +35,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function createProfessional(ProfessionalCreateRequest $request) {
+    public function createProfessional(CreateRequest $request) {
         $photo = $request->get('photo');
         $profile_img_id = null;
 
@@ -51,7 +51,6 @@ class UserController extends Controller
             $request->get('email'),
             $request->get('email_verified_at'),
             $request->get('password'),
-            $request->get('address'),
             $request->get('country'),
             $request->get('state'),
             $request->get('city'),
@@ -59,7 +58,7 @@ class UserController extends Controller
             $request->get('district'),
             $request->get('street'),
             $request->get('house_number'),
-            $request->get('appartment'),
+            $request->get('apartment'),
             $request->get('latitude'),
             $request->get('longitude'),
             $request->get('dni'),

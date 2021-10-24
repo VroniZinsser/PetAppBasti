@@ -106,13 +106,13 @@
       <v-text-field
           type="text"
           autocomplete="on"
-          name="appartment"
-          id="appartment"
+          name="apartment"
+          id="apartment"
           class="form-control"
-          v-model="user.appartment"
+          v-model="user.apartment"
           label="Número de piso y departamento"
-          :messages="errors.appartment ? errors.appartment[0] : ''"
-          :error="errors.appartment !== null"
+          :messages="errors.apartment ? errors.apartment[0] : ''"
+          :error="errors.apartment !== null"
           :disabled="loading"
       ></v-text-field>
       
@@ -239,8 +239,7 @@ export default {
         district: null,
         street: null,
         house_number: null,
-        appartment: null,
-        address: "To be deleted",
+        apartment: null,
         location_id: null,
         latitude: null,
         longitude: null,
@@ -256,8 +255,7 @@ export default {
         last_name: null,
         email: null,
         password: null,
-        address: null,
-        appartment: null,
+        apartment: null,
         dni: null,
         description: null,
         web: null,
@@ -300,7 +298,7 @@ export default {
                 last_name: null,
                 email: null,
                 password: null,
-                address: null,
+                apartment: null,
                 dni: null,
                 description: null,
                 web: null,
