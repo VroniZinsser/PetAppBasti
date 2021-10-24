@@ -6,6 +6,7 @@ use App\Repositories\UserRepository;
 use App\Repositories\UserTypeRepository;
 use App\Repositories\ImageRepository;
 use App\Http\Requests\Users\Professionals\CreateRequest;
+use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
 {
@@ -25,7 +26,8 @@ class UserController extends Controller
      *
      * @return JsonResponse
      */
-    public function getProfessionals() {
+    public function getProfessionals(): JsonResponse
+    {
         return response()->json([
             'success' => true,
             'data' => [
@@ -35,7 +37,14 @@ class UserController extends Controller
         ]);
     }
 
-    public function createProfessional(CreateRequest $request) {
+    /**
+     * Create a new professional user in the database
+     *
+     * @param CreateRequest $request
+     * @return JsonResponse
+     */
+    public function createProfessional(CreateRequest $request): JsonResponse
+    {
         $photo = $request->get('photo');
         $profile_img_id = null;
 
@@ -77,9 +86,15 @@ class UserController extends Controller
         ]);
     }
 
-    public function createFormProfessional() {
+    /**
+     * Returns the data necessary for the creation of the create professional form
+     *
+     * @return JsonResponse
+     */
+    public function createFormProfessional(): JsonResponse
+    {
         $user_types = $this->userTypeRepository->getProfessionals();
-        
+
         return response()->json([
             'data' => compact('user_types'),
         ]);
