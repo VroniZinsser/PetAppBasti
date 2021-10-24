@@ -14,9 +14,10 @@ export default {
       apikey: "I8Jxzv6xtyMgJodcYgvnsbWiuhjAN6zZhEv0_IQ4Ej8",
       map: {},
       geocodingService: {},
+      zoom: 12,
       currentLocation: {
-        lat: 10,
-        lng: 10
+        lat: -34.606469,
+        lng: -58.4258116
       }
     };
   },
@@ -34,9 +35,11 @@ export default {
     getCurrentLocation() {
       if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(position => {
+          this.zoom = 14;
           this.currentLocation.lat = position.coords.latitude;
           this.currentLocation.lng = position.coords.longitude;
           this.map.setCenter(this.currentLocation);
+          this.map.setZoom(this.zoom);
         });
       }
     },
@@ -46,7 +49,7 @@ export default {
       var maptypes = this.platform.createDefaultLayers();
 
       this.map = new H.Map(mapContainer, maptypes.vector.normal.map, {
-        zoom: 14,
+        zoom: this.zoom,
         center: this.currentLocation
       });
       
