@@ -28,7 +28,6 @@ class CreateUsersTable extends Migration
             $table->string('street', 60)->nullable();
             $table->string('house_number', 5)->nullable();
             $table->string('apartment', 10)->nullable();
-            // Source for lat and lng: https://www.youtube.com/watch?v=FkibP9Wnreo&t=825s
             $table->decimal('latitude', 8, 6)->nullable();
             $table->decimal('longitude', 9, 6)->nullable();
             $table->string('dni', 15)->nullable();
