@@ -32,6 +32,7 @@ class CreateUsersTable extends Migration
             $table->decimal('latitude', 8, 6)->nullable();
             $table->decimal('longitude', 9, 6)->nullable();
             $table->string('dni', 15)->nullable();
+            $table->string('public_name', 50)->nullable();
             $table->text('description')->nullable();
             $table->string('whatsapp', 20)->nullable();
             $table->string('instagram', 30)->nullable();

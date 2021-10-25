@@ -42,11 +42,12 @@ class UserService implements UserRepository {
         ?float $latitude,
         ?float $longitude,
         ?string $dni, 
+        ?string $public_name,
         ?string $description, 
-        ?string $web, 
         ?string $whatsapp,
         ?string $instagram,
         ?string $facebook,
+        ?string $web, 
         ?bool $verified, 
         ?int $profile_img_id): User
     {
@@ -70,6 +71,7 @@ class UserService implements UserRepository {
                 'latitude' => $latitude,
                 'longitude' => $longitude,
                 'dni' => $dni,
+                'public_name' => $public_name,
                 'description' => $description,
                 'whatsapp' => $whatsapp,
                 'instagram' => $instagram,

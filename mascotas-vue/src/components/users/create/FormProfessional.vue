@@ -106,13 +106,27 @@
             :item-value="'id'"
             attach
             chips
-            label="Tipo de profesión *"
+            label="Tipo de servicios *"
             multiple
             :messages="errors.user_types ? errors.user_types[0] : ''"
             :error="errors.user_types !== null"
             :disabled="loading"
             :rules="[rules.selectionRequired]"
           ></v-select>
+
+        <v-text-field
+            type="text"
+            name="public_name"
+            id="public_name"
+            class="form-control"
+            v-model="user.public_name"
+            label="Nombre Institucional"
+            hint="Nombre de la tienda o clínica veterinaria"
+            persistent-hint
+            :messages="errors.public_name ? errors.public_name[0] : ''"
+            :error="errors.public_name !== null"
+            :disabled="loading"
+        ></v-text-field>
 
         <v-autocomplete
             type="text"
@@ -278,6 +292,7 @@ export default {
         latitude: null,
         longitude: null,
         dni: "78473258",
+        public_name: "Veterinario Alejo y Hermanos",
         description: null,
         whatsapp: "9112345678",
         instagram: "AlejoVet",
@@ -294,6 +309,7 @@ export default {
         password: null,
         apartment: null,
         dni: null,
+        public_name: null,
         description: null,
         whatsapp: null,
         instagram: null,
@@ -340,6 +356,7 @@ export default {
                 password: null,
                 apartment: null,
                 dni: null,
+                public_name: null,
                 description: null,
                 whatsapp: null,
                 instagram: null,

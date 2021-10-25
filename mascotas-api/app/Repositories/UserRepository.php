@@ -36,6 +36,7 @@ interface UserRepository
      * @param float|null $latitude
      * @param float|null $longitude
      * @param string|null $dni
+     * @param string|null $public_name
      * @param string|null $description
      * @param string|null $whatsapp
      * @param string|null $instagram
@@ -66,6 +67,7 @@ interface UserRepository
         ?float $latitude,
         ?float $longitude,
         ?string $dni, 
+        ?string $public_name,
         ?string $description,
         ?string $whatsapp,
         ?string $instagram,

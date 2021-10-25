@@ -36,6 +36,7 @@ class User extends Authenticatable
         'latitude',
         'longitude',
         'dni',
+        'public_name',
         'description',
         'whatsapp',
         'instagram',
