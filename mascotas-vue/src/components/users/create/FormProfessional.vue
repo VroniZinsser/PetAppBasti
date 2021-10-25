@@ -93,19 +93,26 @@
             ></v-text-field>
         </v-col>
       </v-row>
-
-      <v-text-field
+      <v-autocomplete
           type="text"
-          autocomplete="on"
           name="address"
           id="address"
           class="form-control"
-          v-model="user.address"
-          required
+          v-model="user.location_id"
+          :items="address_suggestions"
           label="Dirección *"
-          :rules="[rules.obligatory]"
-          :messages="errors.address ? errors.address[0] : ''"
-          :error="errors.address !== null"
+          :search-input.sync="addressInput"
+      ></v-autocomplete>
+      <v-text-field
+          type="text"
+          autocomplete="on"
+          name="apartment"
+          id="apartment"
+          class="form-control"
+          v-model="user.apartment"
+          label="Número de piso y departamento"
+          :messages="errors.apartment ? errors.apartment[0] : ''"
+          :error="errors.apartment !== null"
           :disabled="loading"
       ></v-text-field>
       
@@ -201,6 +208,7 @@
 <script>
 import userService from "@/services/users";
 import store from "@/store";
+import {HEREMAPS_API_KEY} from "@/constants/"
 
 export default {
   name: "FormProfessional",
@@ -218,13 +226,24 @@ export default {
       loading: false,
       store,
       photo: null,
+      addressInput: null,
       user: {
-        first_name: null,
-        last_name: null,
-        email: null,
-        password: null,
-        address: null,
-        dni: null,
+        first_name: "Alejo",
+        last_name: "Gómez",
+        email: "alejo.gomez@test.com",
+        password: "sdfoew3534+#a",
+        country: null,
+        state: null,
+        city: null,
+        postal_code: null,
+        district: null,
+        street: null,
+        house_number: null,
+        apartment: null,
+        location_id: null,
+        latitude: null,
+        longitude: null,
+        dni: "78473258",
         description: null,
         web: null,
         phone_number: null,
@@ -236,7 +255,7 @@ export default {
         last_name: null,
         email: null,
         password: null,
-        address: null,
+        apartment: null,
         dni: null,
         description: null,
         web: null,
@@ -257,6 +276,7 @@ export default {
         },
         selectionRequired: value => value.length > 0 || 'Por favor elegí una opción'
       },
+      address_suggestions: []
     }
   },
   methods: {
@@ -278,7 +298,7 @@ export default {
                 last_name: null,
                 email: null,
                 password: null,
-                address: null,
+                apartment: null,
                 dni: null,
                 description: null,
                 web: null,
@@ -306,7 +326,58 @@ export default {
       });
       reader.readAsDataURL(this.photo);
     },
-  }
+  },
+  watch: {
+      addressInput: function(value) {
+        fetch(`https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json?apiKey=${HEREMAPS_API_KEY}&query=${value}`)
+            .then(result => result.json())
+            .then(result => {
+                if(result.suggestions && result.suggestions.length > 0) {
+                  this.address_suggestions = result.suggestions.map((suggestion) => {
+                    const suggestionItem = {
+                      'text': suggestion.label,
+                      'value': suggestion.locationId,
+                    }
+                    return suggestionItem;
+                  });
+                    
+                } else {
+                  console.log('No hubo sugerencias.');
+                  
+                }
+            }, error => {
+                console.error(error);
+            });
+        },
+        'user.location_id': function(location_id) {
+            fetch(`https://geocoder.ls.hereapi.com/6.2/geocode.json?locationid=${location_id}&jsonattributes=1&gen=9&apiKey=${HEREMAPS_API_KEY}`)
+              .then(res => res.json())
+                  .then(res => {
+                    if (res.response.view.length > 0 && res.response.view[0].result.length > 0) {
+                      const location = res.response.view[0].result[0].location;
+                      if (!location) {
+                        return;
+                      }
+                      if(location.displayPosition) {
+                        this.user.latitude = location.displayPosition.latitude;
+                        this.user.longitude = location.displayPosition.longitude;
+                      } 
+                      if (location.address) {
+                        this.user.country = location.address.country;
+                        this.user.state = location.address.state;
+                        this.user.city = location.address.city;
+                        this.user.postal_code = location.address.postalCode;
+                        this.user.district = location.address.district;
+                        this.user.street = location.address.street;
+                        this.user.house_number = location.address.houseNumber;
+                      }
+                    }
+                  }, error => {
+                      console.error(error);
+                  });
+          }
+    },
+    
 }
 
 </script>

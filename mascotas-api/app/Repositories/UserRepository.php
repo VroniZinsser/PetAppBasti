@@ -6,6 +6,15 @@ use App\Models\User;
 
 interface UserRepository
 {
+
+    /**
+     * Retrieves users from the database that match at least with one of the given user types.
+     * 
+     * @param array $types
+     * @return Collection | []User
+     */
+    public function getUsersByTypes($types): object;
+
     /**
      * Creates/Updates and returns a user
      * 
@@ -15,7 +24,16 @@ interface UserRepository
      * @param string $email
      * @param date|null $email_verified_at
      * @param string $password
-     * @param string|null $address
+     * @param string|null $country,
+     * @param string|null $state,
+     * @param string|null $city,
+     * @param string|null $postal_code,
+     * @param string|null $district,
+     * @param string|null $street,
+     * @param string|null $house_number,
+     * @param string|null $apartment,
+     * @param float|null $latitude,
+     * @param float|null $longitude,
      * @param string|null $dni
      * @param string|null $description
      * @param string|null $web
@@ -26,6 +44,28 @@ interface UserRepository
      * @return User The created or updated user
      */
 
-    public function updateOrCreate(?int $id,  string $first_name, string $last_name, string $email, string $email_verified_at, string $password, string $address, string $dni, string $description, string $web, string $phone_number, bool $verified, int $profile_img_id): User;
+    public function updateOrCreate(
+        ?int $id,  
+        string $first_name, 
+        string $last_name, 
+        string $email, 
+        ?string $email_verified_at, 
+        string $password, 
+        ?string $country,
+        ?string $state,
+        ?string $city,
+        ?string $postal_code,
+        ?string $district,
+        ?string $street,
+        ?string $house_number,
+        ?string $apartment,
+        ?float $latitude,
+        ?float $longitude,
+        ?string $dni, 
+        ?string $description, 
+        ?string $web, 
+        ?string $phone_number, 
+        ?bool $verified, 
+        ?int $profile_img_id): User;
 
 }

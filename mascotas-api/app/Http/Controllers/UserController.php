@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Repositories\UserRepository;
 use App\Repositories\UserTypeRepository;
 use App\Repositories\ImageRepository;
-use App\Http\Requests\ProfessionalCreateRequest;
+use App\Http\Requests\Users\Professionals\CreateRequest;
+use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
 {
@@ -20,7 +21,30 @@ class UserController extends Controller
         $this->imageRepository = $imageRepository;
     }
 
-    public function createProfessional(ProfessionalCreateRequest $request) {
+    /**
+     * Returns all users with role as professional
+     *
+     * @return JsonResponse
+     */
+    public function getProfessionals(): JsonResponse
+    {
+        return response()->json([
+            'success' => true,
+            'data' => [
+                // TODO: find central place to define user type ids - professionals / admins / not professionals
+                'users' => $this->userRepository->getUsersByTypes(array(5, 6, 7, 8))
+            ],
+        ]);
+    }
+
+    /**
+     * Create a new professional user in the database
+     *
+     * @param CreateRequest $request
+     * @return JsonResponse
+     */
+    public function createProfessional(CreateRequest $request): JsonResponse
+    {
         $photo = $request->get('photo');
         $profile_img_id = null;
 
@@ -36,7 +60,16 @@ class UserController extends Controller
             $request->get('email'),
             $request->get('email_verified_at'),
             $request->get('password'),
-            $request->get('address'),
+            $request->get('country'),
+            $request->get('state'),
+            $request->get('city'),
+            $request->get('postal_code'),
+            $request->get('district'),
+            $request->get('street'),
+            $request->get('house_number'),
+            $request->get('apartment'),
+            $request->get('latitude'),
+            $request->get('longitude'),
             $request->get('dni'),
             $request->get('description'),
             $request->get('web'),
@@ -53,7 +86,13 @@ class UserController extends Controller
         ]);
     }
 
-    public function createFormProfessional() {
+    /**
+     * Returns the data necessary for the creation of the create professional form
+     *
+     * @return JsonResponse
+     */
+    public function createFormProfessional(): JsonResponse
+    {
         $user_types = $this->userTypeRepository->getProfessionals();
 
         return response()->json([
