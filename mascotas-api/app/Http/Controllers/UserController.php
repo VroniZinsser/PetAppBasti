@@ -59,6 +59,8 @@ class UserController extends Controller
             $request->get('last_name'),
             $request->get('email'),
             $request->get('email_verified_at'),
+            false,
+            #$request->get('email_visible'),
             $request->get('password'),
             $request->get('country'),
             $request->get('state'),
@@ -72,8 +74,10 @@ class UserController extends Controller
             $request->get('longitude'),
             $request->get('dni'),
             $request->get('description'),
+            $request->get('whatsapp'),
+            $request->get('instagram'),
+            $request->get('facebook'),
             $request->get('web'),
-            $request->get('phone_number'),
             $request->get('verified'),
             $profile_img_id
         );

@@ -29,6 +29,7 @@ class UserService implements UserRepository {
         string $last_name, 
         string $email, 
         ?string $email_verified_at, 
+        bool $email_visible,
         string $password, 
         ?string $country,
         ?string $state,
@@ -43,7 +44,9 @@ class UserService implements UserRepository {
         ?string $dni, 
         ?string $description, 
         ?string $web, 
-        ?string $phone_number, 
+        ?string $whatsapp,
+        ?string $instagram,
+        ?string $facebook,
         ?bool $verified, 
         ?int $profile_img_id): User
     {
@@ -54,6 +57,7 @@ class UserService implements UserRepository {
                 'last_name' => $last_name,
                 'email' => $email,
                 'email_verified_at' => $email_verified_at,
+                'email_visible' => $email_visible,
                 'password' => Hash::make($password),
                 'country' => $country,
                 'state' => $state,
@@ -67,8 +71,10 @@ class UserService implements UserRepository {
                 'longitude' => $longitude,
                 'dni' => $dni,
                 'description' => $description,
+                'whatsapp' => $whatsapp,
+                'instagram' => $instagram,
+                'facebook' => $facebook,
                 'web' => $web,
-                'phone_number' => $phone_number,
                 'verified' => $verified,
                 'profile_img_id' => $profile_img_id
             ]

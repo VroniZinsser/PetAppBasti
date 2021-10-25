@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('last_name', 30);
             $table->string('email', 60)->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->boolean('email_visible')->default(false);
             $table->string('password', 60);
             $table->string('country', 60)->nullable();
             $table->string('state', 60)->nullable();
@@ -32,8 +33,10 @@ class CreateUsersTable extends Migration
             $table->decimal('longitude', 9, 6)->nullable();
             $table->string('dni', 15)->nullable();
             $table->text('description')->nullable();
+            $table->string('whatsapp', 20)->nullable();
+            $table->string('instagram', 30)->nullable();
+            $table->string('facebook', 50)->nullable();
             $table->string('web', 50)->nullable();
-            $table->string('phone_number', 20)->nullable();
             $table->boolean('verified')->nullable();
             $table->softDeletes();
             $table->rememberToken();
