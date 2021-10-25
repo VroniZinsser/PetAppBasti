@@ -1,7 +1,9 @@
 const API = "http://127.0.0.1:8000/api/";
 const HEREMAPS_API_KEY = "I8Jxzv6xtyMgJodcYgvnsbWiuhjAN6zZhEv0_IQ4Ej8";
+const PATH_IMG = "http://127.0.0.1:8000/storage/img/"
 
 export { 
     API, 
-    HEREMAPS_API_KEY
+    HEREMAPS_API_KEY,
+    PATH_IMG
 };

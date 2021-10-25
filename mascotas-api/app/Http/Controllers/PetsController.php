@@ -57,7 +57,7 @@ class PetsController extends Controller
         $pet = $request->all();
 
         if ($pet['photo']) {
-            $image = $this->imageRepository->uploadImage($pet['photo'], '/app/public/img/pets/', 'Mascota ' . $pet['name']);
+            $image = $this->imageRepository->uploadImage($pet['photo'], 'pets/', 'Mascota ' . $pet['name']);
 
             $pet['images_id'] = $image->id;
         }
@@ -82,6 +82,21 @@ class PetsController extends Controller
         return response()->json([
             'success' => true,
             'data' => $pet,
+        ]);
+    }
+
+    /**
+     * Returns all user's pets
+     *
+     * @return JsonResponse
+     */
+    public function getOwnerPets(): JsonResponse
+    {
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'pets' => $this->petRepository->getPetsByUser(1)
+            ],
         ]);
     }
 }
