@@ -138,6 +138,10 @@
             label="Dirección *"
             :search-input.sync="addressInput"
             no-data-text="Sin resultados"
+            :rules="[rules.obligatory]"
+            :messages="errors.location_id ? errors.location_id[0] : ''"
+            :error="hasAddressError"
+            :disabled="loading"
         ></v-autocomplete>
         <v-text-field
             type="text"
@@ -385,6 +389,18 @@ export default {
               });
             }
         })
+    },
+
+    hasAddressError() {
+      return this.errors.country !== null
+        || this.errors.city !== null
+        || this.errors.state !== null
+        || this.errors.postal_code !== null
+        || this.errors.district !== null
+        || this.errors.street !== null
+        || this.errors.house_number !== null
+        || this.errors.latitude !== null
+        || this.errors.longitude !== null
     },
 
     /**
