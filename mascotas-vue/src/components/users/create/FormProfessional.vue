@@ -210,6 +210,7 @@
             :messages="errors.instagram ? errors.instagram[0] : ''"
             :error="errors.instagram !== null"
             :disabled="loading"
+            :rules="[rules.username]"
         ></v-text-field>
 
         <v-text-field
@@ -225,6 +226,7 @@
             :error="errors.facebook !== null"
             :disabled="loading"
             hint="Tu nombre de usuario como aparece en la barra de url"
+            :rules="[rules.username]"
         ></v-text-field>
 
         <v-text-field
@@ -238,6 +240,7 @@
             :messages="errors.web ? errors.web[0] : ''"
             :error="errors.web !== null"
             :disabled="loading"
+            :rules="[rules.url]"
         ></v-text-field>
       </fieldset>
 
@@ -328,6 +331,15 @@ export default {
         password: value => {
             const pattern = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
             return pattern.test(value) || 'La contraseña no coincide con los estandares de seguridad'
+        },
+        url: value => {
+          const pattern = /^(ftp|http|https):\/\/[^ "]+$/;
+          return (pattern.test(value) || !value) || 'La url ingresada no es válida.'
+        },
+
+        username: value => {
+          const pattern = /^[a-z\d._]{3,}$/i;
+          return (pattern.test(value) || !value) || 'El nombre de usuario ingresado no es válido.'
         },
         selectionRequired: value => value.length > 0 || 'Por favor elegí una opción'
       },
