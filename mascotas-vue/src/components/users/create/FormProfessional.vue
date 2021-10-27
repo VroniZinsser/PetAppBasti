@@ -328,6 +328,8 @@ export default {
       rules: {
         obligatory: value => !!value || 'Este campo es obligatorio.',
         numeric: value => !isNaN(value) || 'El valor debe ser numérico.',
+        selectionRequired: value => value.length > 0 || 'Por favor elegí una opción',
+
         email: value => {
             const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             return pattern.test(value) || 'El correo electrónico no es válido.'
@@ -340,12 +342,15 @@ export default {
           const pattern = /^(ftp|http|https):\/\/[^ "]+$/;
           return (pattern.test(value) || !value) || 'La url ingresada no es válida.'
         },
-
+        /**
+         * FB and Instagram user names can only contain letters, numbers, '.' and '_'
+         * This rule only works in the frontend right now.
+         * @TODO Add rule to the backend
+         */
         username: value => {
           const pattern = /^[a-z\d._]{3,}$/i;
           return (pattern.test(value) || !value) || 'El nombre de usuario ingresado no es válido.'
         },
-        selectionRequired: value => value.length > 0 || 'Por favor elegí una opción'
       },
       address_suggestions: []
     }
@@ -437,6 +442,9 @@ export default {
     },
   },
   watch: {
+    /**
+     * Request to the HERE maps api: Fetches address suggestions based on the user's input
+     */
       addressInput: function(value) {
         fetch(`https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json?apiKey=${HEREMAPS_API_KEY}&query=${value}`)
             .then(result => result.json())
@@ -455,6 +463,9 @@ export default {
                 console.error(error);
             });
         },
+        /**
+         * Request to the HERE maps api: fetches exact address and geolocation, once the user selects an address from the dropdown
+         */
         'user.location_id': function(location_id) {
             fetch(`https://geocoder.ls.hereapi.com/6.2/geocode.json?locationid=${location_id}&jsonattributes=1&gen=9&apiKey=${HEREMAPS_API_KEY}`)
               .then(res => res.json())
