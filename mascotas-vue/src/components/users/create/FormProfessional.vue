@@ -2,6 +2,7 @@
     <v-form
         action="usuarios/crear"
         method="post"
+        ref="form"
         @submit.prevent="createUser"
     >
     
@@ -136,12 +137,14 @@
             v-model="user.location_id"
             :items="address_suggestions"
             label="Dirección *"
+            hint="Ingresá ciudad, calle y número, para que tus clientes te puedan encontrar."
+            persistent-hint
             :search-input.sync="addressInput"
             no-data-text="Sin resultados"
             :rules="[rules.obligatory]"
-            :messages="errors.location_id ? errors.location_id[0] : ''"
-            :error="hasAddressError"
             :disabled="loading"
+            :error="errors.address !== null"
+            :messages="errors.address ? errors.address[0] : ''"
         ></v-autocomplete>
         <v-text-field
             type="text"
@@ -225,7 +228,7 @@
             class="form-control"
             v-model="user.facebook"
             label="Facebook"
-            placeholder="veterinaria-martina"
+            placeholder="veterinaria_martina"
             :messages="errors.facebook ? errors.facebook[0] : ''"
             :error="errors.facebook !== null"
             :disabled="loading"
@@ -248,10 +251,6 @@
         ></v-text-field>
       </fieldset>
 
-      
-
-      
-    
       <v-btn type="submit" >
         Crear cuenta
       </v-btn>
@@ -314,6 +313,7 @@ export default {
         email: null,
         email_visible: null,
         password: null,
+        address: null,
         apartment: null,
         dni: null,
         public_name: null,
@@ -352,55 +352,77 @@ export default {
   },
   methods: {
     createUser() {
-      this.loading = true;
-      userService.create(this.user)
-        .then(res => {
-            this.loading = false;
-            if (res.success) {
-              this.store.setStatus({
-                msg: "¡Gracias por registrarte en Basti!",
-                type: 'success'
-              });
+      if (this.$refs.form.validate()) {
+        this.loading = true;
+        userService.create(this.user)
+          .then(res => {
+              this.loading = false;
+              if (res.success) {
+                this.store.setStatus({
+                  msg: "¡Gracias por registrarte en Basti!",
+                  type: 'success'
+                });
 
-              this.$router.push('/usuarios/login');
-            } else if (res.errors) {
-              this.errors = {
-                first_name: null,
-                last_name: null,
-                email: null,
-                email_visible: null,
-                password: null,
-                apartment: null,
-                dni: null,
-                public_name: null,
-                description: null,
-                whatsapp: null,
-                instagram: null,
-                facebook: null,
-                web: null,
-                user_types: null,
-                photo: null,
-                ...res.errors
+                this.$router.push('/usuarios/login');
+              } else if (res.errors) {
+                this.errors = {
+                  first_name: null,
+                  last_name: null,
+                  email: null,
+                  email_visible: null,
+                  password: null,
+                  apartment: null,
+                  dni: null,
+                  address: null,
+                  public_name: null,
+                  description: null,
+                  whatsapp: null,
+                  instagram: null,
+                  facebook: null,
+                  web: null,
+                  user_types: null,
+                  photo: null,
+                  ...res.errors
+                }
+                this.errors.address = this.concatAddressErrors(res.errors);
+                
+              } else {
+                this.store.setStatus({
+                  msg: "¡Algo salió mal! Por favor, intentalo nuevamente más tarde",
+                  type: 'error'
+                });
               }
-            } else {
-               this.store.setStatus({
-                msg: "¡Algo salió mal! Por favor, intentalo nuevamente más tarde",
-                type: 'error'
-              });
-            }
-        })
+          })
+      }
     },
 
-    hasAddressError() {
-      return this.errors.country !== null
-        || this.errors.city !== null
-        || this.errors.state !== null
-        || this.errors.postal_code !== null
-        || this.errors.district !== null
-        || this.errors.street !== null
-        || this.errors.house_number !== null
-        || this.errors.latitude !== null
-        || this.errors.longitude !== null
+    /**
+     * Returns an array with all error messages related to the user's address 
+     * or null if there is no error.
+     */
+    concatAddressErrors(errors) {
+      const addressErrors = [
+        errors.country,
+        errors.state,
+        errors.city,
+        errors.postal_code,
+        errors.district,
+        errors.street,
+        errors.house_number,
+        errors.latitude,
+        errors.longitude
+      ].filter(Array.isArray);
+
+      if (addressErrors.length === 0) {
+        return null;
+      }
+      
+      let concattedErrors = [];
+      for (let i = 0; i < addressErrors.length; i++) {
+        concattedErrors = concattedErrors.concat(addressErrors[i]);
+      }
+      
+      return concattedErrors;
     },
 
     /**
@@ -428,9 +450,6 @@ export default {
                     return suggestionItem;
                   });
                     
-                } else {
-                  console.log('No hubo sugerencias.');
-                  
                 }
             }, error => {
                 console.error(error);
