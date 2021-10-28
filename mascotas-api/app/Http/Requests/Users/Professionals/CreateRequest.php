@@ -14,8 +14,8 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|max:30|min:2',
-            'last_name' => 'required|max:30|min:2',
+            'first_name' => 'required|max:30|min:2|alpha',
+            'last_name' => 'required|max:30|min:2|alpha',
             'email' => 'required|email|max:60|unique:users,email',
             'email_visible' => 'required|boolean',
             'password' => 'required|min:6|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])/',
@@ -58,9 +58,11 @@ class CreateRequest extends FormRequest
             'first_name.required' => 'Por favor ingresá tu nombre',
             'first_name.max' => 'El nombre no puede contener más de :max caracteres',
             'first_name.min' => 'El nombre no puede contener menos de :min caracteres',
+            'first_name.alpha' => 'El nombre solo puede contener letras',
             'last_name.required' => 'Por favor ingresá tu apellido',
             'last_name.max' => 'El apellido no puede contener mas de :max caracteres',
             'last_name.min' => 'El apellido no puede contener menos de :min caracteres',
+            'last_name.alpha' => 'El apellido solo puede contener letras',
             'email.required' => 'Por favor ingresá tu correo electrónico',
             'email.email' => 'Este correo electrónico no es válido.',
             'email.max' => 'El correo no puede contener más de :max caracteres',
