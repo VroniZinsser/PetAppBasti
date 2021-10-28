@@ -61,5 +61,5 @@ Las principales funciones de Basti son:
     - Marcadores personalizados que muestran donde cada profesional está ubicado
 - Agregar una mascota: /mascotas/agregar 
     - Agrega la mascota a la base de datos con el usuario con el id 1 como dueño.
-- Tus mascotas: / 
+- Tus mascotas: /mascotas 
     - Se muestran las mascotas del usuario 1 con el nombre, especie e imagen de cada una.¿
