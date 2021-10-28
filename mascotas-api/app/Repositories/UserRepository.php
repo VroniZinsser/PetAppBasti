@@ -23,21 +23,25 @@ interface UserRepository
      * @param string $last_name
      * @param string $email
      * @param date|null $email_verified_at
+     * @param boolean $email_visible
      * @param string $password
-     * @param string|null $country,
-     * @param string|null $state,
-     * @param string|null $city,
-     * @param string|null $postal_code,
-     * @param string|null $district,
-     * @param string|null $street,
-     * @param string|null $house_number,
-     * @param string|null $apartment,
-     * @param float|null $latitude,
-     * @param float|null $longitude,
+     * @param string|null $country
+     * @param string|null $state
+     * @param string|null $city
+     * @param string|null $postal_code
+     * @param string|null $district
+     * @param string|null $street
+     * @param string|null $house_number
+     * @param string|null $apartment
+     * @param float|null $latitude
+     * @param float|null $longitude
      * @param string|null $dni
+     * @param string|null $public_name
      * @param string|null $description
+     * @param string|null $whatsapp
+     * @param string|null $instagram
+     * @param string|null $facebook
      * @param string|null $web
-     * @param string|null $phone_number
      * @param boolean|null $verified
      * @param int|null $profile_img_id
      * 
@@ -50,6 +54,7 @@ interface UserRepository
         string $last_name, 
         string $email, 
         ?string $email_verified_at, 
+        bool $email_visible,
         string $password, 
         ?string $country,
         ?string $state,
@@ -62,10 +67,12 @@ interface UserRepository
         ?float $latitude,
         ?float $longitude,
         ?string $dni, 
-        ?string $description, 
+        ?string $public_name,
+        ?string $description,
+        ?string $whatsapp,
+        ?string $instagram,
+        ?string $facebook,
         ?string $web, 
-        ?string $phone_number, 
         ?bool $verified, 
         ?int $profile_img_id): User;
-
 }

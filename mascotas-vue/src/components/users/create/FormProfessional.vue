@@ -2,202 +2,255 @@
     <v-form
         action="usuarios/crear"
         method="post"
+        ref="form"
         @submit.prevent="createUser"
     >
     
     <v-container>
       <p>Los campos marcados con * son obligatorios.</p>
-      <v-row>
-        <v-col
-          cols="12"
-          sm="6"
-        >
-          <v-text-field
-                type="text"
-                autocomplete="on"
-                required
-                name="first_name"
-                id="first_name"
-                class="form-control"
-                v-model="user.first_name"
-                label="Nombre *"
-                :rules="[rules.obligatory]"
-                :messages="errors.first_name ? errors.first_name[0] : ''"
-                :error="errors.first_name !== null"
-                :disabled="loading"
-            ></v-text-field>
-        </v-col>
+      <fieldset>
+        <legend>Datos personales</legend>
+        <v-text-field
+            type="text"
+            autocomplete="on"
+            required
+            name="first_name"
+            id="first_name"
+            class="form-control"
+            v-model="user.first_name"
+            label="Nombre *"
+            :rules="[rules.obligatory]"
+            :messages="errors.first_name ? errors.first_name[0] : ''"
+            :error="errors.first_name !== null"
+            :disabled="loading"
+        ></v-text-field>
 
-         <v-col
-          cols="12"
-          sm="6"
-        >
-            <v-text-field
-                type="text"
-                autocomplete="on"
-                required
-                name="last_name"
-                id="last_name"
-                class="form-control"
-                v-model="user.last_name"
-                label="Apellido *"
-                :rules="[rules.obligatory]"
-                :messages="errors.last_name ? errors.last_name[0] : ''"
-                :error="errors.last_name !== null"
-                :disabled="loading"
-            ></v-text-field>
-         </v-col>
+        <v-text-field
+            type="text"
+            autocomplete="on"
+            required
+            name="last_name"
+            id="last_name"
+            class="form-control"
+            v-model="user.last_name"
+            label="Apellido *"
+            :rules="[rules.obligatory]"
+            :messages="errors.last_name ? errors.last_name[0] : ''"
+            :error="errors.last_name !== null"
+            :disabled="loading"
+        ></v-text-field>
 
-          <v-col
-            cols="12"
-            sm="6"
-          >
-            <v-text-field
-                type="email"
-                autocomplete="on"
-                required
-                name="email"
-                id="email"
-                class="form-control"
-                v-model="user.email"
-                label="Correo electrónico *"
-                :rules="[rules.obligatory, rules.email]"
-                :messages="errors.email ? errors.email[0] : ''"
-                :error="errors.email !== null"
-                :disabled="loading"
-            ></v-text-field>
-          </v-col>
+        <v-text-field
+            type="email"
+            autocomplete="on"
+            required
+            name="email"
+            id="email"
+            class="form-control"
+            v-model="user.email"
+            label="Correo electrónico *"
+            :rules="[rules.obligatory, rules.email]"
+            :messages="errors.email ? errors.email[0] : ''"
+            :error="errors.email !== null"
+            :disabled="loading"
+        ></v-text-field>
+        <v-switch
+            v-model="user.email_visible"
+            :label="`Mostrar correo electrónico en mi perfil: ${user.email_visible ? 'Sí' : 'No'}`"
+            hint="Si activás esta función, los clientes te podrán contactar por correo electrónico."
+            persistent-hint
+        ></v-switch>
 
-          <v-col
-            cols="12"
-            sm="6"
-          >
-            <v-text-field
-                :type="showPassword ? 'text' : 'password'"
-                autocomplete="off"
-                required
-                name="password"
-                id="password"
-                class="form-control"
-                v-model="user.password"
-                label="Contraseña *"
-                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                :rules="[rules.obligatory, rules.password]"
-                hint="La contraseña debe tener mínimo 6 caracteres y contener un número"
-                persistent-hint
-                :messages="errors.password ? errors.password[0] : ''"
-                :error="errors.password !== null"
-                :disabled="loading"
-                counter
-                @click:append="showPassword = !showPassword"
-            ></v-text-field>
-        </v-col>
-      </v-row>
-      <v-autocomplete
-          type="text"
-          name="address"
-          id="address"
-          class="form-control"
-          v-model="user.location_id"
-          :items="address_suggestions"
-          label="Dirección *"
-          :search-input.sync="addressInput"
-      ></v-autocomplete>
+        <v-text-field
+            :type="showPassword ? 'text' : 'password'"
+            autocomplete="off"
+            required
+            name="password"
+            id="password"
+            class="form-control"
+            v-model="user.password"
+            label="Contraseña *"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="[rules.obligatory, rules.password]"
+            hint="La contraseña debe tener mínimo 6 caracteres y contener un número"
+            persistent-hint
+            :messages="errors.password ? errors.password[0] : ''"
+            :error="errors.password !== null"
+            :disabled="loading"
+            counter
+            @click:append="showPassword = !showPassword"
+        ></v-text-field>
+        
       <v-text-field
-          type="text"
-          autocomplete="on"
-          name="apartment"
-          id="apartment"
-          class="form-control"
-          v-model="user.apartment"
-          label="Número de piso y departamento"
-          :messages="errors.apartment ? errors.apartment[0] : ''"
-          :error="errors.apartment !== null"
-          :disabled="loading"
-      ></v-text-field>
+            type="text"
+            autocomplete="on"
+            name="dni"
+            id="dni"
+            class="form-control"
+            v-model="user.dni"
+            required
+            label="DNI *"
+            :rules="[rules.obligatory, rules.numeric]"
+            :messages="errors.dni ? errors.dni[0] : ''"
+            :error="errors.dni !== null"
+            :disabled="loading"
+        ></v-text-field>
+      </fieldset>
+
+      <fieldset>
+        <legend>Perfíl público</legend>
       
-      <v-file-input
-          v-model="photo"
-          required
-          ref="photo"
-          show-size
-          accept="image/*"
-          prepend-icon="mdi-camera"
-          truncate-length="15"
-          @change="handleFileUpload"
-          label="Imagen de Perfil *"
-          :rules="[rules.obligatory]"
-          :messages="errors.photo ? errors.photo[0] : ''"
-          :error="errors.photo !== null"
-          :disabled="loading"
-      ></v-file-input>
+        <v-select
+            v-model="user.user_types"
+            :items="user_types"
+            :item-text="'name'"
+            :item-value="'id'"
+            attach
+            chips
+            label="Tipo de servicios *"
+            multiple
+            :messages="errors.user_types ? errors.user_types[0] : ''"
+            :error="errors.user_types !== null"
+            :disabled="loading"
+            :rules="[rules.selectionRequired]"
+          ></v-select>
 
-      <v-textarea
-          name="description"
-          id="description"
-          class="form-control"
-          v-model="user.description"
-          label="Descripción"
-          :messages="errors.description ? errors.description[0] : ''"
-          :error="errors.description !== null"
-          :disabled="loading"
-      ></v-textarea>
+        <v-text-field
+            type="text"
+            name="public_name"
+            id="public_name"
+            class="form-control"
+            v-model="user.public_name"
+            label="Nombre Institucional"
+            hint="Nombre de la tienda o clínica veterinaria"
+            persistent-hint
+            :messages="errors.public_name ? errors.public_name[0] : ''"
+            :error="errors.public_name !== null"
+            :disabled="loading"
+        ></v-text-field>
 
-      <v-text-field
-          type="url"
-          name="web"
-          id="web"
-          class="form-control"
-          v-model="user.web"
-          label="Página Web"
-          :messages="errors.web ? errors.web[0] : ''"
-          :error="errors.web !== null"
-          :disabled="loading"
-      ></v-text-field>
+        <v-autocomplete
+            type="text"
+            name="address"
+            id="address"
+            class="form-control"
+            v-model="user.location_id"
+            :items="address_suggestions"
+            label="Dirección *"
+            hint="Ingresá ciudad, calle y número, para que tus clientes te puedan encontrar."
+            persistent-hint
+            :search-input.sync="addressInput"
+            no-data-text="Sin resultados"
+            :rules="[rules.obligatory]"
+            :disabled="loading"
+            :error="errors.address !== null"
+            :messages="errors.address ? errors.address[0] : ''"
+        ></v-autocomplete>
+        <v-text-field
+            type="text"
+            autocomplete="on"
+            name="apartment"
+            id="apartment"
+            class="form-control"
+            v-model="user.apartment"
+            label="Número de piso y departamento"
+            :messages="errors.apartment ? errors.apartment[0] : ''"
+            :error="errors.apartment !== null"
+            :disabled="loading"
+        ></v-text-field>
+        
+        <v-file-input
+            v-model="photo"
+            required
+            ref="photo"
+            show-size
+            accept="image/*"
+            prepend-icon="mdi-camera"
+            truncate-length="15"
+            @change="handleFileUpload"
+            label="Imagen de Perfil *"
+            :rules="[rules.obligatory]"
+            :messages="errors.photo ? errors.photo[0] : ''"
+            :error="errors.photo !== null"
+            :disabled="loading"
+        ></v-file-input>
 
-       <v-text-field
-          type="tel"
-          autocomplete="on"
-          name="phone_number"
-          id="phone_number"
-          class="form-control"
-          v-model="user.phone_number"
-          label="Número de teléfono"
-          :messages="errors.phone_number ? errors.phone_number[0] : ''"
-          :error="errors.phone_number !== null"
-          :disabled="loading"
-      ></v-text-field>
+        <v-textarea
+            name="description"
+            id="description"
+            class="form-control"
+            v-model="user.description"
+            label="Texto de presentación"
+            :messages="errors.description ? errors.description[0] : ''"
+            :error="errors.description !== null"
+            :disabled="loading"
+            placeholder="Hola, soy Martina y soy veterinaria con alma y corazón..."
+        ></v-textarea>
+      </fieldset>
 
-      <v-text-field
-          type="text"
-          autocomplete="on"
-          name="dni"
-          id="dni"
-          class="form-control"
-          v-model="user.dni"
-          required
-          label="DNI *"
-          :rules="[rules.obligatory, rules.numeric]"
-          :messages="errors.dni ? errors.dni[0] : ''"
-          :error="errors.dni !== null"
-          :disabled="loading"
-      ></v-text-field>
+      <fieldset>
+        <legend>Datos de contacto</legend>
+        <v-text-field
+            type="tel"
+            autocomplete="on"
+            name="whatsapp"
+            id="whatsapp"
+            class="form-control"
+            v-model="user.whatsapp"
+            label="Número de whatsapp"
+            placeholder="9112345678"
+            :messages="errors.whatsapp ? errors.whatsapp[0] : ''"
+            :error="errors.whatsapp !== null"
+            :disabled="loading"
+        ></v-text-field>
 
-      <v-select
-          v-model="user.user_types"
-          :items="user_types"
-          :item-text="'name'"
-          :item-value="'id'"
-          attach
-          chips
-          label="Tipo de profesión *"
-          multiple
-          :messages="errors.user_types ? errors.user_types[0] : ''"
-          :error="errors.user_types !== null"
-          :disabled="loading"
-          :rules="[rules.selectionRequired]"
-        ></v-select>
-    
+        <v-text-field
+            type="text"
+            autocomplete="on"
+            name="instagram"
+            id="instagram"
+            class="form-control"
+            v-model="user.instagram"
+            label="Instagram"
+            placeholder="VeterinariaMartina"
+            hint="Tu nombre de usuario sin '@'"
+            :messages="errors.instagram ? errors.instagram[0] : ''"
+            :error="errors.instagram !== null"
+            :disabled="loading"
+            :rules="[rules.username]"
+        ></v-text-field>
+
+        <v-text-field
+            type="text"
+            autocomplete="on"
+            name="facebook"
+            id="facebook"
+            class="form-control"
+            v-model="user.facebook"
+            label="Facebook"
+            placeholder="veterinaria_martina"
+            :messages="errors.facebook ? errors.facebook[0] : ''"
+            :error="errors.facebook !== null"
+            :disabled="loading"
+            hint="Tu nombre de usuario como aparece en la barra de url"
+            :rules="[rules.username]"
+        ></v-text-field>
+
+        <v-text-field
+            type="url"
+            name="web"
+            id="web"
+            class="form-control"
+            v-model="user.web"
+            label="Página Web"
+            placeholder="https://www.veterinaria-martina.com.ar"
+            :messages="errors.web ? errors.web[0] : ''"
+            :error="errors.web !== null"
+            :disabled="loading"
+            :rules="[rules.url]"
+        ></v-text-field>
+      </fieldset>
+
       <v-btn type="submit" >
         Crear cuenta
       </v-btn>
@@ -231,6 +284,7 @@ export default {
         first_name: "Alejo",
         last_name: "Gómez",
         email: "alejo.gomez@test.com",
+        email_visible: false,
         password: "sdfoew3534+#a",
         country: null,
         state: null,
@@ -244,28 +298,38 @@ export default {
         latitude: null,
         longitude: null,
         dni: "78473258",
+        public_name: "Veterinario Alejo y Hermanos",
         description: null,
+        whatsapp: "9112345678",
+        instagram: "AlejoVet",
+        facebook: null,
         web: null,
-        phone_number: null,
-        user_types: [],
+        user_types: [5, 6],
         photo: null
       },
       errors: {
         first_name: null,
         last_name: null,
         email: null,
+        email_visible: null,
         password: null,
+        address: null,
         apartment: null,
         dni: null,
+        public_name: null,
         description: null,
+        whatsapp: null,
+        instagram: null,
+        facebook: null,
         web: null,
-        phone_number: null,
         user_types: null,
         photo: null
       },
       rules: {
         obligatory: value => !!value || 'Este campo es obligatorio.',
         numeric: value => !isNaN(value) || 'El valor debe ser numérico.',
+        selectionRequired: value => value.length > 0 || 'Por favor elegí una opción',
+
         email: value => {
             const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             return pattern.test(value) || 'El correo electrónico no es válido.'
@@ -274,46 +338,96 @@ export default {
             const pattern = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
             return pattern.test(value) || 'La contraseña no coincide con los estandares de seguridad'
         },
-        selectionRequired: value => value.length > 0 || 'Por favor elegí una opción'
+        url: value => {
+          const pattern = /^(ftp|http|https):\/\/[^ "]+$/;
+          return (pattern.test(value) || !value) || 'La url ingresada no es válida.'
+        },
+        /**
+         * FB and Instagram user names can only contain letters, numbers, '.' and '_'
+         * This rule only works in the frontend right now.
+         * @TODO Add rule to the backend
+         */
+        username: value => {
+          const pattern = /^[a-z\d._]{3,}$/i;
+          return (pattern.test(value) || !value) || 'El nombre de usuario ingresado no es válido.'
+        },
       },
       address_suggestions: []
     }
   },
   methods: {
     createUser() {
-      this.loading = true;
-      userService.create(this.user)
-        .then(res => {
-            this.loading = false;
-            if (res.success) {
-              this.store.setStatus({
-                msg: "¡Gracias por registrarte en Basti!",
-                type: 'success'
-              });
+      if (this.$refs.form.validate()) {
+        this.loading = true;
+        userService.create(this.user)
+          .then(res => {
+              this.loading = false;
+              if (res.success) {
+                this.store.setStatus({
+                  msg: "¡Gracias por registrarte en Basti!",
+                  type: 'success'
+                });
 
-              this.$router.push('/usuarios/login');
-            } else if (res.errors) {
-              this.errors = {
-                first_name: null,
-                last_name: null,
-                email: null,
-                password: null,
-                apartment: null,
-                dni: null,
-                description: null,
-                web: null,
-                phone_number: null,
-                user_types: null,
-                photo: null,
-                ...res.errors
+                this.$router.push('/usuarios/login');
+              } else if (res.errors) {
+                this.errors = {
+                  first_name: null,
+                  last_name: null,
+                  email: null,
+                  email_visible: null,
+                  password: null,
+                  apartment: null,
+                  dni: null,
+                  address: null,
+                  public_name: null,
+                  description: null,
+                  whatsapp: null,
+                  instagram: null,
+                  facebook: null,
+                  web: null,
+                  user_types: null,
+                  photo: null,
+                  ...res.errors
+                }
+                this.errors.address = this.concatAddressErrors(res.errors);
+                
+              } else {
+                this.store.setStatus({
+                  msg: "¡Algo salió mal! Por favor, intentalo nuevamente más tarde",
+                  type: 'error'
+                });
               }
-            } else {
-               this.store.setStatus({
-                msg: "¡Algo salió mal! Por favor, intentalo nuevamente más tarde",
-                type: 'error'
-              });
-            }
-        })
+          })
+      }
+    },
+
+    /**
+     * Returns an array with all error messages related to the user's address 
+     * or null if there is no error.
+     */
+    concatAddressErrors(errors) {
+      const addressErrors = [
+        errors.country,
+        errors.state,
+        errors.city,
+        errors.postal_code,
+        errors.district,
+        errors.street,
+        errors.house_number,
+        errors.latitude,
+        errors.longitude
+      ].filter(Array.isArray);
+
+      if (addressErrors.length === 0) {
+        return null;
+      }
+      
+      let concattedErrors = [];
+      for (let i = 0; i < addressErrors.length; i++) {
+        concattedErrors = concattedErrors.concat(addressErrors[i]);
+      }
+      
+      return concattedErrors;
     },
 
     /**
@@ -328,6 +442,9 @@ export default {
     },
   },
   watch: {
+    /**
+     * Request to the HERE maps api: Fetches address suggestions based on the user's input
+     */
       addressInput: function(value) {
         fetch(`https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json?apiKey=${HEREMAPS_API_KEY}&query=${value}`)
             .then(result => result.json())
@@ -341,14 +458,14 @@ export default {
                     return suggestionItem;
                   });
                     
-                } else {
-                  console.log('No hubo sugerencias.');
-                  
                 }
             }, error => {
                 console.error(error);
             });
         },
+        /**
+         * Request to the HERE maps api: fetches exact address and geolocation, once the user selects an address from the dropdown
+         */
         'user.location_id': function(location_id) {
             fetch(`https://geocoder.ls.hereapi.com/6.2/geocode.json?locationid=${location_id}&jsonattributes=1&gen=9&apiKey=${HEREMAPS_API_KEY}`)
               .then(res => res.json())
@@ -383,5 +500,9 @@ export default {
 </script>
 
 <style scoped>
+  fieldset {
+    padding: 1em;
+    margin: 1em 0;
+  }
 
 </style>
