@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Dtos\UserDTO;
 use App\Models\User;
 
 interface UserRepository
@@ -18,61 +19,8 @@ interface UserRepository
     /**
      * Creates/Updates and returns a user
      * 
-     * @param int|null $id
-     * @param string $first_name
-     * @param string $last_name
-     * @param string $email
-     * @param date|null $email_verified_at
-     * @param boolean $email_visible
-     * @param string $password
-     * @param string|null $country
-     * @param string|null $state
-     * @param string|null $city
-     * @param string|null $postal_code
-     * @param string|null $district
-     * @param string|null $street
-     * @param string|null $house_number
-     * @param string|null $apartment
-     * @param float|null $latitude
-     * @param float|null $longitude
-     * @param string|null $dni
-     * @param string|null $public_name
-     * @param string|null $description
-     * @param string|null $whatsapp
-     * @param string|null $instagram
-     * @param string|null $facebook
-     * @param string|null $web
-     * @param boolean|null $verified
-     * @param int|null $profile_img_id
-     * 
+     * @param UserDTO $dto
      * @return User The created or updated user
      */
-
-    public function updateOrCreate(
-        ?int $id,  
-        string $first_name, 
-        string $last_name, 
-        string $email, 
-        ?string $email_verified_at, 
-        bool $email_visible,
-        string $password, 
-        ?string $country,
-        ?string $state,
-        ?string $city,
-        ?string $postal_code,
-        ?string $district,
-        ?string $street,
-        ?string $house_number,
-        ?string $apartment,
-        ?float $latitude,
-        ?float $longitude,
-        ?string $dni, 
-        ?string $public_name,
-        ?string $description,
-        ?string $whatsapp,
-        ?string $instagram,
-        ?string $facebook,
-        ?string $web, 
-        ?bool $verified, 
-        ?int $profile_img_id): User;
+     public function updateOrCreate(UserDTO $dto): User;
 }

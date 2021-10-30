@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Dtos\UserDTO;
 use App\Repositories\UserRepository;
 use App\Repositories\UserTypeRepository;
 use App\Repositories\ImageRepository;
@@ -53,34 +54,10 @@ class UserController extends Controller
             $profile_img_id = $image->id;
         }
 
-        $user = $this->userRepository->updateOrCreate(
-            $request->get('id'),
-            $request->get('first_name'),
-            $request->get('last_name'),
-            $request->get('email'),
-            $request->get('email_verified_at'),
-            $request->get('email_visible'),
-            $request->get('password'),
-            $request->get('country'),
-            $request->get('state'),
-            $request->get('city'),
-            $request->get('postal_code'),
-            $request->get('district'),
-            $request->get('street'),
-            $request->get('house_number'),
-            $request->get('apartment'),
-            $request->get('latitude'),
-            $request->get('longitude'),
-            $request->get('dni'),
-            $request->get('public_name'),
-            $request->get('description'),
-            $request->get('whatsapp'),
-            $request->get('instagram'),
-            $request->get('facebook'),
-            $request->get('web'),
-            $request->get('verified'),
-            $profile_img_id
-        );
+        $dto = new UserDTO;
+        $dto->loadFromArray($request->input());
+
+        $user = $this->userRepository->updateOrCreate($dto);
 
         $user->userTypes()->sync($request->get('user_types'));
 

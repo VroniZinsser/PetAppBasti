@@ -8,8 +8,9 @@ class BaseDTO {
         $reflection = new ReflectionClass(static::class);
 
         foreach($reflection->getProperties() as $prop) {
-            if(isset($data[$prop])) {
-                $this->{$prop} = $data[$prop];
+            $property = $prop->getName();
+            if(isset($data[$property])) {
+                $this->{$property} = $data[$property];
             }
         }
     }
