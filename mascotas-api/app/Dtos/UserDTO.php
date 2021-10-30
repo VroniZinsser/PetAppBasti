@@ -237,4 +237,16 @@ class UserDTO extends BaseDTO {
         return $this->first_name;
     }
 
+
+    /**
+     * Set the value of profile_img_id
+     *
+     * @return  self
+     */ 
+    public function setProfile_img_id($profile_img_id)
+    {
+        $this->profile_img_id = $profile_img_id;
+
+        return $this;
+    }
 }

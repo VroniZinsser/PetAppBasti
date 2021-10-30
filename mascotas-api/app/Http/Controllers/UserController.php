@@ -56,6 +56,7 @@ class UserController extends Controller
 
         $dto = new UserDTO;
         $dto->loadFromArray($request->input());
+        $dto->setProfile_img_id($profile_img_id);
 
         $user = $this->userRepository->updateOrCreate($dto);
 
