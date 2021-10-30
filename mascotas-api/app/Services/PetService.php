@@ -2,11 +2,10 @@
 
 namespace App\Services;
 
+use App\Dtos\PetDTO;
 use App\Models\Pet;
 use App\Models\User;
 use App\Repositories\PetRepository;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Collection;
 
 class PetService implements PetRepository
 {
@@ -14,19 +13,19 @@ class PetService implements PetRepository
     /**
      * @inheritDoc
      */
-    public function updateOrCreate(?int $id, ?string $breed, ?string $date_of_birth, string $name, ?bool $neutered, ?string $temperament, ?int $images_id, int $sexes_id, int $species_id, int $owner): Pet
+    public function updateOrCreate(PetDTO $dto, int $owner): Pet
     {
         $pet = Pet::updateOrCreate(
-            ['id' => $id],
+            ['id' => $dto->getId()],
             [
-                'breed' => $breed,
-                'date_of_birth' => $date_of_birth,
-                'name' => $name,
-                'neutered' => $neutered,
-                'temperament' => $temperament,
-                'images_id' => $images_id,
-                'sexes_id' => $sexes_id,
-                'species_id' => $species_id,
+                'breed' => $dto->getBreed(),
+                'date_of_birth' => $dto->getDate_of_birth(),
+                'name' => $dto->getName(),
+                'neutered' => $dto->getNeutered(),
+                'temperament' => $dto->getTemperament(),
+                'images_id' => $dto->getImages_id(),
+                'sexes_id' => $dto->getSexes_id(),
+                'species_id' => $dto->getSpecies_id(),
             ]
         );
 
