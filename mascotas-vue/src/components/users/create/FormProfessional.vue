@@ -128,24 +128,9 @@
             :error="errors.public_name !== null"
             :disabled="loading"
         ></v-text-field>
-
-        <v-autocomplete
-            type="text"
-            name="address"
-            id="address"
-            class="form-control"
-            v-model="user.location_id"
-            :items="address_suggestions"
-            label="Dirección *"
-            hint="Ingresá ciudad, calle y número, para que tus clientes te puedan encontrar."
-            persistent-hint
-            :search-input.sync="addressInput"
-            no-data-text="Sin resultados"
-            :rules="[rules.obligatory]"
-            :disabled="loading"
-            :error="errors.address !== null"
-            :messages="errors.address ? errors.address[0] : ''"
-        ></v-autocomplete>
+        
+        <InputAddress @update-address="updateAddress"></InputAddress>
+        
         <v-text-field
             type="text"
             autocomplete="on"
@@ -261,7 +246,7 @@
 <script>
 import userService from "@/services/users";
 import store from "@/store";
-import {HEREMAPS_API_KEY} from "@/constants/"
+import InputAddress from "@/components/general/inputs/InputAddress";
 
 export default {
   name: "FormProfessional",
@@ -272,6 +257,10 @@ export default {
       required: true,
     }
   },
+
+  components: {
+    InputAddress
+  },
   
   data: function () {
     return {
@@ -279,7 +268,6 @@ export default {
       loading: false,
       store,
       photo: null,
-      addressInput: null,
       user: {
         first_name: "Alejo",
         last_name: "Gómez",
@@ -352,7 +340,6 @@ export default {
           return (pattern.test(value) || !value) || 'El nombre de usuario ingresado no es válido.'
         },
       },
-      address_suggestions: []
     }
   },
   methods: {
@@ -401,6 +388,13 @@ export default {
       }
     },
 
+    updateAddress(address) {
+      this.user = {
+        ...this.user,
+        ...address
+      }
+    },
+
     /**
      * Returns an array with all error messages related to the user's address 
      * or null if there is no error.
@@ -441,59 +435,6 @@ export default {
       reader.readAsDataURL(this.photo);
     },
   },
-  watch: {
-    /**
-     * Request to the HERE maps api: Fetches address suggestions based on the user's input
-     */
-      addressInput: function(value) {
-        fetch(`https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json?apiKey=${HEREMAPS_API_KEY}&query=${value}`)
-            .then(result => result.json())
-            .then(result => {
-                if(result.suggestions && result.suggestions.length > 0) {
-                  this.address_suggestions = result.suggestions.map((suggestion) => {
-                    const suggestionItem = {
-                      'text': suggestion.label,
-                      'value': suggestion.locationId,
-                    }
-                    return suggestionItem;
-                  });
-                    
-                }
-            }, error => {
-                console.error(error);
-            });
-        },
-        /**
-         * Request to the HERE maps api: fetches exact address and geolocation, once the user selects an address from the dropdown
-         */
-        'user.location_id': function(location_id) {
-            fetch(`https://geocoder.ls.hereapi.com/6.2/geocode.json?locationid=${location_id}&jsonattributes=1&gen=9&apiKey=${HEREMAPS_API_KEY}`)
-              .then(res => res.json())
-                  .then(res => {
-                    if (res.response.view.length > 0 && res.response.view[0].result.length > 0) {
-                      const location = res.response.view[0].result[0].location;
-                      if (!location) {
-                        return;
-                      }
-                      if(location.displayPosition) {
-                        this.user.latitude = location.displayPosition.latitude;
-                        this.user.longitude = location.displayPosition.longitude;
-                      } 
-                      if (location.address) {
-                        this.user.country = location.address.country;
-                        this.user.state = location.address.state;
-                        this.user.city = location.address.city;
-                        this.user.postal_code = location.address.postalCode;
-                        this.user.district = location.address.district;
-                        this.user.street = location.address.street;
-                        this.user.house_number = location.address.houseNumber;
-                      }
-                    }
-                  }, error => {
-                      console.error(error);
-                  });
-          }
-    },
     
 }
 
