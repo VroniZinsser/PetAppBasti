@@ -11,6 +11,9 @@
         :search-input.sync="search_input"
         no-data-text="Sin resultados"
         v-model="address.location_id"
+        :error="errors !== null"
+        :messages="errors ? errors[0] : ''"
+        :disabled="loading"
     ></v-autocomplete>
 </template>
 
@@ -19,6 +22,15 @@ import {HEREMAPS_API_KEY} from "@/constants/";
 
 export default {
     name: "InputAddress",
+
+    props: {
+      errors: {
+        default: null
+      },
+      loading: {
+        default: false
+      }
+    },
 
     data: function() {
         return {

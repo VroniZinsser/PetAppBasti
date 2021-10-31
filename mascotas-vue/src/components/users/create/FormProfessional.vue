@@ -129,7 +129,11 @@
             :disabled="loading"
         ></v-text-field>
         
-        <InputAddress @update-address="updateAddress"></InputAddress>
+        <InputAddress 
+          @update-address="updateAddress"
+          :errors="errors.address"
+          :loading="loading">
+        </InputAddress>
         
         <v-text-field
             type="text"
