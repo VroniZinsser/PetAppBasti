@@ -1,6 +1,7 @@
 <template>
     <v-autocomplete
         class="form-control"
+        v-bind="$attrs"
         type="text"
         :id="identifier"
         :name="identifier"
