@@ -1,13 +1,11 @@
 <template>
     <v-autocomplete
-        type="text"
-        name="address"
-        id="address"
         class="form-control"
+        type="text"
+        :id="identifier"
+        :name="identifier"
         :items="address_suggestions"
-        label="Dirección *"
-        hint="Ingresá ciudad, calle y número, para que tus clientes te puedan encontrar."
-        persistent-hint
+        :label="$attrs.label + ($attrs.required === '' ? ' *' : '')"
         :search-input.sync="search_input"
         no-data-text="Sin resultados"
         v-model="address.location_id"
@@ -24,6 +22,9 @@ export default {
     name: "InputAddress",
 
     props: {
+      identifier: {
+        type: String,
+      },
       errors: {
         default: null
       },

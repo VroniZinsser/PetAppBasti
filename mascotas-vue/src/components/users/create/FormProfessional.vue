@@ -108,10 +108,14 @@
         ></InputText>
         
         <InputAddress 
-          @update-address="updateAddress"
+          label="Dirección"
+          identifier="address"
+          :loading="loading"
           :errors="errors.address"
-          :loading="loading">
-        </InputAddress>
+          @update-address="updateAddress"
+          hint="Ingresá ciudad, calle y número, para que tus clientes te puedan encontrar."
+          persistent-hint
+        ></InputAddress>
         
         <InputText
             label="Número de piso y departamento"
