@@ -216,7 +216,7 @@ import InputAddress from "@/components/general/inputs/InputAddress";
 import InputText from "@/components/general/inputs/InputText";
 
 export default {
-  name: "FormProfessional",
+  name: "Form",
   
   props: {
     user_types: {
