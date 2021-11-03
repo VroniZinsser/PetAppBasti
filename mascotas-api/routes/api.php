@@ -4,6 +4,7 @@ use App\Http\Controllers\PetsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WeightController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,11 @@ Route::post('usuarios/crear-profesional', [UserController::class, 'createProfess
 Route::get('/mascotas', [PetsController::class, 'getOwnerPets']);
 Route::get('/mascotas/agregar', [PetsController::class, 'addForm']);
 Route::post('/mascotas/agregar', [PetsController::class, 'addPet']);
+
+
+Route::get('/mascotas/{pet}/pesos', [WeightController::class, 'getWeightsByPet']);
+Route::post('/mascotas/{pet}/pesos', [WeightController::class, 'insertWeight']);
+
+Route::get('/pesos/{weight}', [WeightController::class, 'getWeight']);
+Route::put('/pesos/{weight}', [WeightController::class, 'updateWeight']);
+Route::delete('/pesos/{weight}', [WeightController::class, 'deleteWeight']);
