@@ -57,7 +57,7 @@ class PetsController extends Controller
         $images_id = $request->get('species_id');
 
         if ($photo) {
-            $image = $this->imageRepository->uploadImage($photo, 'pets/', 'Masctoa ' . $request->get('name'));
+            $image = $this->imageRepository->uploadImage($photo, 'pets/', 'Mascota ' . $request->get('name'));
             $images_id = $image->id;
         }
 
