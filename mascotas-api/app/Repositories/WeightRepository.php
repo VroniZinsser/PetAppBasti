@@ -5,23 +5,33 @@ namespace App\Repositories;
 use App\Models\Weight;
 use Illuminate\Database\Eloquent\Collection;
 
-interface PetRepository
+interface WeightRepository
 {
     /**
-     * @param int $pet_id
+     * Returns all weights that belong to a user with the given id
+     * 
+     * @param int $pets_id
      * @return Collection | []Weight
      */
-    public function getWeightsByPet(int $pet_id): object;
+    public function getWeightsByPet(int $pets_id): object;
 
     /**
-     * Inserts and returns the weight
+     * Returns the weight with the given id
+     * 
+     * @param int $id
+     * @return Collection | []Weight
+     */
+    public function find(int $id): object;
+
+    /**
+     * Creates, inserts and returns the weight
      *
      * @param string $date_time
      * @param int $weight
      * @param int $pets_id
      * @return Weight The inserted weight
      */
-    public function insert (string $date_time, int $weight, int $pets_id): Weight;
+    public function create (string $date_time, int $weight, int $pets_id): Weight;
 
     /**
      * Updates and returns the weight with the given id

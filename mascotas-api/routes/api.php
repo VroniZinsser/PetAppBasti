@@ -30,8 +30,8 @@ Route::post('/mascotas/agregar', [PetsController::class, 'addPet']);
 
 
 Route::get('/mascotas/{pet}/pesos', [WeightController::class, 'getWeightsByPet']);
-Route::post('/mascotas/{pet}/pesos', [WeightController::class, 'insertWeight']);
+Route::post('/mascotas/{pet}/pesos', [WeightController::class, 'createWeight']);
 
-Route::get('/pesos/{weight}', [WeightController::class, 'getWeight']);
+Route::get('/pesos/{weight}', [WeightController::class, 'findWeight']);
 Route::put('/pesos/{weight}', [WeightController::class, 'updateWeight']);
 Route::delete('/pesos/{weight}', [WeightController::class, 'deleteWeight']);
