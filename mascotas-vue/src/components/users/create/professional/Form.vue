@@ -10,50 +10,40 @@
       <p>Los campos marcados con * son obligatorios.</p>
       <fieldset>
         <legend>Datos personales</legend>
-        <v-text-field
-            type="text"
-            autocomplete="on"
-            required
-            name="first_name"
-            id="first_name"
-            class="form-control"
+        <InputText
+            label="Nombre"
             v-model="user.first_name"
-            label="Nombre *"
+            identifier="first_name"
+            :loading="loading"
             :rules="[rules.obligatory]"
-            :messages="errors.first_name ? errors.first_name[0] : ''"
-            :error="errors.first_name !== null"
-            :disabled="loading"
-        ></v-text-field>
-
-        <v-text-field
-            type="text"
+            :errors = "errors.first_name"
             autocomplete="on"
             required
-            name="last_name"
-            id="last_name"
-            class="form-control"
+        ></InputText>
+
+        <InputText
+            label="Apellido"
             v-model="user.last_name"
-            label="Apellido *"
+            identifier="last_name"
+            :loading="loading"
             :rules="[rules.obligatory]"
-            :messages="errors.last_name ? errors.last_name[0] : ''"
-            :error="errors.last_name !== null"
-            :disabled="loading"
-        ></v-text-field>
-
-        <v-text-field
-            type="email"
+            :errors = "errors.last_name"
             autocomplete="on"
             required
-            name="email"
-            id="email"
-            class="form-control"
+        ></InputText>
+
+        <InputText
+            label="Correo Electrónico"
             v-model="user.email"
-            label="Correo electrónico *"
+            identifier="email"
+            :loading="loading"
             :rules="[rules.obligatory, rules.email]"
-            :messages="errors.email ? errors.email[0] : ''"
-            :error="errors.email !== null"
-            :disabled="loading"
-        ></v-text-field>
+            :errors = "errors.email"
+            autocomplete="on"
+            required
+            type="email"
+        ></InputText>
+
         <v-switch
             v-model="user.email_visible"
             :label="`Mostrar correo electrónico en mi perfil: ${user.email_visible ? 'Sí' : 'No'}`"
@@ -61,40 +51,32 @@
             persistent-hint
         ></v-switch>
 
-        <v-text-field
-            :type="showPassword ? 'text' : 'password'"
-            autocomplete="off"
-            required
-            name="password"
-            id="password"
-            class="form-control"
+        <InputText
+            label="Contraseña"
             v-model="user.password"
-            label="Contraseña *"
-            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            identifier="password"
+            :loading="loading"
             :rules="[rules.obligatory, rules.password]"
+            :errors = "errors.password"
+            required
+            :type="showPassword ? 'text' : 'password'"
             hint="La contraseña debe tener mínimo 6 caracteres y contener un número"
             persistent-hint
-            :messages="errors.password ? errors.password[0] : ''"
-            :error="errors.password !== null"
-            :disabled="loading"
             counter
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             @click:append="showPassword = !showPassword"
-        ></v-text-field>
-        
-      <v-text-field
-            type="text"
-            autocomplete="on"
-            name="dni"
-            id="dni"
-            class="form-control"
+        ></InputText>
+
+        <InputText
+            label="DNI"
             v-model="user.dni"
-            required
-            label="DNI *"
+            identifier="dni"
+            :loading="loading"
             :rules="[rules.obligatory, rules.numeric]"
-            :messages="errors.dni ? errors.dni[0] : ''"
-            :error="errors.dni !== null"
-            :disabled="loading"
-        ></v-text-field>
+            :errors = "errors.dni"
+            autocomplete="on"
+            required
+        ></InputText>
       </fieldset>
 
       <fieldset>
@@ -115,49 +97,33 @@
             :rules="[rules.selectionRequired]"
           ></v-select>
 
-        <v-text-field
-            type="text"
-            name="public_name"
-            id="public_name"
-            class="form-control"
-            v-model="user.public_name"
+        <InputText
             label="Nombre Institucional"
+            v-model="user.public_name"
+            identifier="public_name"
+            :loading="loading"
+            :errors = "errors.public_name"
             hint="Nombre de la tienda o clínica veterinaria"
             persistent-hint
-            :messages="errors.public_name ? errors.public_name[0] : ''"
-            :error="errors.public_name !== null"
-            :disabled="loading"
-        ></v-text-field>
-
-        <v-autocomplete
-            type="text"
-            name="address"
-            id="address"
-            class="form-control"
-            v-model="user.location_id"
-            :items="address_suggestions"
-            label="Dirección *"
-            hint="Ingresá ciudad, calle y número, para que tus clientes te puedan encontrar."
-            persistent-hint
-            :search-input.sync="addressInput"
-            no-data-text="Sin resultados"
-            :rules="[rules.obligatory]"
-            :disabled="loading"
-            :error="errors.address !== null"
-            :messages="errors.address ? errors.address[0] : ''"
-        ></v-autocomplete>
-        <v-text-field
-            type="text"
-            autocomplete="on"
-            name="apartment"
-            id="apartment"
-            class="form-control"
-            v-model="user.apartment"
+        ></InputText>
+        
+        <InputAddress 
+          label="Dirección"
+          identifier="address"
+          :loading="loading"
+          :errors="errors.address"
+          @update-address="updateAddress"
+          hint="Ingresá ciudad, calle y número, para que tus clientes te puedan encontrar."
+          persistent-hint
+        ></InputAddress>
+        
+        <InputText
             label="Número de piso y departamento"
-            :messages="errors.apartment ? errors.apartment[0] : ''"
-            :error="errors.apartment !== null"
-            :disabled="loading"
-        ></v-text-field>
+            v-model="user.apartment"
+            identifier="apartment"
+            :loading="loading"
+            :errors = "errors.apartment"
+        ></InputText>
         
         <v-file-input
             v-model="photo"
@@ -190,65 +156,50 @@
 
       <fieldset>
         <legend>Datos de contacto</legend>
-        <v-text-field
+
+        <InputText
+            label="Número de Whatsapp"
+            v-model="user.whatsapp"
+            identifier="whatsapp"
+            :loading="loading"
+            :errors = "errors.whatsapp"
             type="tel"
             autocomplete="on"
-            name="whatsapp"
-            id="whatsapp"
-            class="form-control"
-            v-model="user.whatsapp"
-            label="Número de whatsapp"
-            placeholder="9112345678"
-            :messages="errors.whatsapp ? errors.whatsapp[0] : ''"
-            :error="errors.whatsapp !== null"
-            :disabled="loading"
-        ></v-text-field>
+            placeholder="112345678"
+        ></InputText>
 
-        <v-text-field
-            type="text"
-            autocomplete="on"
-            name="instagram"
-            id="instagram"
-            class="form-control"
-            v-model="user.instagram"
+        <InputText
             label="Instagram"
+            v-model="user.instagram"
+            identifier="instagram"
+            :loading="loading"
+            :errors = "errors.instagram"
+            :rules="[rules.username]"
             placeholder="VeterinariaMartina"
             hint="Tu nombre de usuario sin '@'"
-            :messages="errors.instagram ? errors.instagram[0] : ''"
-            :error="errors.instagram !== null"
-            :disabled="loading"
-            :rules="[rules.username]"
-        ></v-text-field>
+        ></InputText>
 
-        <v-text-field
-            type="text"
-            autocomplete="on"
-            name="facebook"
-            id="facebook"
-            class="form-control"
-            v-model="user.facebook"
+        <InputText
             label="Facebook"
-            placeholder="veterinaria_martina"
-            :messages="errors.facebook ? errors.facebook[0] : ''"
-            :error="errors.facebook !== null"
-            :disabled="loading"
-            hint="Tu nombre de usuario como aparece en la barra de url"
+            v-model="user.facebook"
+            identifier="facebook"
+            :loading="loading"
+            :errors = "errors.facebook"
             :rules="[rules.username]"
-        ></v-text-field>
+            placeholder="veterinaria_martina"
+            hint="Tu nombre de usuario como aparece en la barra de url"
+        ></InputText>
 
-        <v-text-field
-            type="url"
-            name="web"
-            id="web"
-            class="form-control"
-            v-model="user.web"
+        <InputText
             label="Página Web"
-            placeholder="https://www.veterinaria-martina.com.ar"
-            :messages="errors.web ? errors.web[0] : ''"
-            :error="errors.web !== null"
-            :disabled="loading"
+            v-model="user.web"
+            identifier="web"
+            :loading="loading"
+            :errors="errors.web"
+            type="url"
             :rules="[rules.url]"
-        ></v-text-field>
+            placeholder="https://www.veterinaria-martina.com.ar"
+        ></InputText>
       </fieldset>
 
       <v-btn type="submit" >
@@ -261,16 +212,22 @@
 <script>
 import userService from "@/services/users";
 import store from "@/store";
-import {HEREMAPS_API_KEY} from "@/constants/"
+import InputAddress from "@/components/general/inputs/InputAddress";
+import InputText from "@/components/general/inputs/InputText";
 
 export default {
-  name: "FormProfessional",
+  name: "Form",
   
   props: {
     user_types: {
       type: Array,
       required: true,
     }
+  },
+
+  components: {
+    InputAddress,
+    InputText
   },
   
   data: function () {
@@ -279,7 +236,6 @@ export default {
       loading: false,
       store,
       photo: null,
-      addressInput: null,
       user: {
         first_name: "Alejo",
         last_name: "Gómez",
@@ -352,7 +308,6 @@ export default {
           return (pattern.test(value) || !value) || 'El nombre de usuario ingresado no es válido.'
         },
       },
-      address_suggestions: []
     }
   },
   methods: {
@@ -401,6 +356,13 @@ export default {
       }
     },
 
+    updateAddress(address) {
+      this.user = {
+        ...this.user,
+        ...address
+      }
+    },
+
     /**
      * Returns an array with all error messages related to the user's address 
      * or null if there is no error.
@@ -441,59 +403,6 @@ export default {
       reader.readAsDataURL(this.photo);
     },
   },
-  watch: {
-    /**
-     * Request to the HERE maps api: Fetches address suggestions based on the user's input
-     */
-      addressInput: function(value) {
-        fetch(`https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json?apiKey=${HEREMAPS_API_KEY}&query=${value}`)
-            .then(result => result.json())
-            .then(result => {
-                if(result.suggestions && result.suggestions.length > 0) {
-                  this.address_suggestions = result.suggestions.map((suggestion) => {
-                    const suggestionItem = {
-                      'text': suggestion.label,
-                      'value': suggestion.locationId,
-                    }
-                    return suggestionItem;
-                  });
-                    
-                }
-            }, error => {
-                console.error(error);
-            });
-        },
-        /**
-         * Request to the HERE maps api: fetches exact address and geolocation, once the user selects an address from the dropdown
-         */
-        'user.location_id': function(location_id) {
-            fetch(`https://geocoder.ls.hereapi.com/6.2/geocode.json?locationid=${location_id}&jsonattributes=1&gen=9&apiKey=${HEREMAPS_API_KEY}`)
-              .then(res => res.json())
-                  .then(res => {
-                    if (res.response.view.length > 0 && res.response.view[0].result.length > 0) {
-                      const location = res.response.view[0].result[0].location;
-                      if (!location) {
-                        return;
-                      }
-                      if(location.displayPosition) {
-                        this.user.latitude = location.displayPosition.latitude;
-                        this.user.longitude = location.displayPosition.longitude;
-                      } 
-                      if (location.address) {
-                        this.user.country = location.address.country;
-                        this.user.state = location.address.state;
-                        this.user.city = location.address.city;
-                        this.user.postal_code = location.address.postalCode;
-                        this.user.district = location.address.district;
-                        this.user.street = location.address.street;
-                        this.user.house_number = location.address.houseNumber;
-                      }
-                    }
-                  }, error => {
-                      console.error(error);
-                  });
-          }
-    },
     
 }
 

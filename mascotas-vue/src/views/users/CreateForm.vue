@@ -8,17 +8,17 @@
     />
     <h1>Crear Usuario</h1>
     <p v-if="loading">Cargando...</p>
-    <FormProfessional 
+    <Form 
       v-else-if="this.$route.meta.role == 'professional'"
       :user_types="user_types">
-    </FormProfessional>
+    </Form>
   </v-container>
 
 </template>
 
 <script>
 
-import FormProfessional from "@/components/users/create/FormProfessional";
+import Form from "@/components/users/create/professional/Form";
 import userService from "@/services/users"
 import store from "@/store"
 import BaseNotification from "@/components/general/notifications/BaseNotification"
@@ -26,7 +26,7 @@ import BaseNotification from "@/components/general/notifications/BaseNotificatio
 export default {
   name: "CreateForm",
   components: {
-    FormProfessional,
+    Form,
     BaseNotification
   },
   data: () => ({
