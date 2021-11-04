@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Dtos\UserDTO;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
@@ -19,70 +20,42 @@ class UserService implements UserRepository {
         
         return $users;
     }
-    
+
     /**
      * @inheritDoc
      */
-    public function updateOrCreate(
-        ?int $id,  
-        string $first_name, 
-        string $last_name, 
-        string $email, 
-        ?string $email_verified_at, 
-        bool $email_visible,
-        string $password, 
-        ?string $country,
-        ?string $state,
-        ?string $city,
-        ?string $postal_code,
-        ?string $district,
-        ?string $street,
-        ?string $house_number,
-        ?string $apartment,
-        ?float $latitude,
-        ?float $longitude,
-        ?string $dni, 
-        ?string $public_name,
-        ?string $description, 
-        ?string $whatsapp,
-        ?string $instagram,
-        ?string $facebook,
-        ?string $web, 
-        ?bool $verified, 
-        ?int $profile_img_id): User
-    {
+    public function updateOrCreate(UserDTO $dto): User {
         $user = User::updateOrCreate(
-            ['id' => $id],
+            ['id' => $dto->getId() ],
             [
-                'first_name' => $first_name,
-                'last_name' => $last_name,
-                'email' => $email,
-                'email_verified_at' => $email_verified_at,
-                'email_visible' => $email_visible,
-                'password' => Hash::make($password),
-                'country' => $country,
-                'state' => $state,
-                'city' => $city,
-                'postal_code' => $postal_code,
-                'district' => $district,
-                'street' => $street,
-                'house_number' => $house_number,
-                'apartment' => $apartment,
-                'latitude' => $latitude,
-                'longitude' => $longitude,
-                'dni' => $dni,
-                'public_name' => $public_name,
-                'description' => $description,
-                'whatsapp' => $whatsapp,
-                'instagram' => $instagram,
-                'facebook' => $facebook,
-                'web' => $web,
-                'verified' => $verified,
-                'profile_img_id' => $profile_img_id
+                'first_name' => $dto->getFirst_name(),
+                'last_name' => $dto->getLast_name(),
+                'email' => $dto->getEmail(),
+                'email_verified_at' => $dto->getEmail_verified_at(),
+                'email_visible' => $dto->getEmail_visible(),
+                'password' => Hash::make($dto->getPassword()),
+                'country' => $dto->getCountry(),
+                'state' => $dto->getState(),
+                'city' => $dto->getCity(),
+                'postal_code' => $dto->getPostal_code(),
+                'district' => $dto->getDistrict(),
+                'street' => $dto->getStreet(),
+                'house_number' => $dto->getHouse_number(),
+                'apartment' => $dto->getApartment(),
+                'latitude' => $dto->getLatitude(),
+                'longitude' => $dto->getLongitude(),
+                'dni' => $dto->getDni(),
+                'public_name' => $dto->getPublic_name(),
+                'description' => $dto->getDescription(),
+                'whatsapp' => $dto->getWhatsapp(),
+                'instagram' => $dto->getInstagram(),
+                'facebook' => $dto->getFacebook(),
+                'web' => $dto->getWeb(),
+                'verified' => $dto->getVerified(),
+                'profile_img_id' => $dto->getProfile_img_id()
             ]
         );
 
         return $user;
     }
-
 }

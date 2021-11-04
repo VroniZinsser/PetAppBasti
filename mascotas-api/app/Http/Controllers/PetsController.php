@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Dtos\PetDTO;
 use App\Http\Requests\Pets\AddRequest;
 use App\Repositories\ImageRepository;
 use App\Repositories\PetRepository;
@@ -53,31 +53,19 @@ class PetsController extends Controller
      */
     public function addPet(AddRequest $request): JsonResponse
     {
+        $photo = $request->get('photo');
+        $images_id = $request->get('species_id');
 
-        $pet = $request->all();
-
-        if ($pet['photo']) {
-            $image = $this->imageRepository->uploadImage($pet['photo'], 'pets/', 'Mascota ' . $pet['name']);
-
-            $pet['images_id'] = $image->id;
+        if ($photo) {
+            $image = $this->imageRepository->uploadImage($photo, 'pets/', 'Mascota ' . $request->get('name'));
+            $images_id = $image->id;
         }
 
-        $pet['id'] ?? $pet['id'] = null;
+        $dto = new PetDTO();
+        $dto->loadFromArray($request->input());
+        $dto->setImages_id($images_id);
 
-        $pet['images_id'] ?? $pet['images_id'] = $pet['species_id'];
-
-        $pet = $this->petRepository->updateOrCreate(
-            $pet['id'],
-            $pet['breed'],
-            $pet['date_of_birth'],
-            $pet['name'],
-            $pet['neutered'],
-            $pet['temperament'],
-            $pet['images_id'],
-            $pet['sexes_id'],
-            $pet['species_id'],
-            1,
-        );
+        $pet = $this->petRepository->updateOrCreate($dto, 1);
 
         return response()->json([
             'success' => true,
