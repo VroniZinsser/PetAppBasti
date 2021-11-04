@@ -10,7 +10,8 @@
   "dependencies": {
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
-    "vuetify": "^2.4.0"
+    "vuetify": "^2.4.0",
+    "vuetify-datetime-picker": "^2.1.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-eslint": "~4.5.0",
