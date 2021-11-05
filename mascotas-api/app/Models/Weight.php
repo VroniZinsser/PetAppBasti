@@ -11,7 +11,7 @@ class Weight extends Model
     use HasFactory;
 
     protected $fillable = [
-        'date_time',
+        'date',
         'weight',
         'pets_id',
     ];

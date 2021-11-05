@@ -30,10 +30,10 @@ class WeightService implements WeightRepository
     /**
      * @inheritDoc
      */
-    public function create(string $date_time, int $weight_data, int $pets_id): Weight
+    public function create(string $date, int $weight_data, int $pets_id): Weight
     {
         $weight = new Weight();
-        $weight->date_time = $date_time;
+        $weight->date = $date;
         $weight->weight = $weight_data;
         $weight->pets_id = $pets_id;
         $weight->save();
@@ -43,10 +43,10 @@ class WeightService implements WeightRepository
     /**
      * @inheritDoc
      */
-    public function update(int $id, string $date_time, int $weight_data, int $pets_id): Weight
+    public function update(int $id, string $date, int $weight_data, int $pets_id): Weight
     {
         $weight = Weight::find($id);
-        $weight->date_time = $date_time;
+        $weight->date = $date;
         $weight->weight = $weight_data;
         $weight->pets_id = $pets_id;
         $weight->save();

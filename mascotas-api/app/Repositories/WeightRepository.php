@@ -26,23 +26,23 @@ interface WeightRepository
     /**
      * Creates, inserts and returns the weight
      *
-     * @param string $date_time
+     * @param string $date
      * @param int $weight
      * @param int $pets_id
      * @return Weight The inserted weight
      */
-    public function create (string $date_time, int $weight, int $pets_id): Weight;
+    public function create (string $date, int $weight, int $pets_id): Weight;
 
     /**
      * Updates and returns the weight with the given id
      *
      * @param int $id
-     * @param string $date_time
+     * @param string $date
      * @param int $weight
      * @param int $pets_id
      * @return Weight The inserted weight
      */
-    public function update (int $id, string $date_time, int $weight, int $pets_id): Weight;
+    public function update (int $id, string $date, int $weight, int $pets_id): Weight;
 
     /**
      * Deletes the weight with the given id and returns true if deletion was successful

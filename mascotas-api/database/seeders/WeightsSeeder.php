@@ -17,7 +17,7 @@ class WeightsSeeder extends Seeder
         DB::table('weights')->insert([
             [
                 'id' => 1,
-                'date_time' => '2021-09-03 13:17:39',
+                'date' => '2021-09-03',
                 'weight' => 2400,
                 'pets_id' => 1,
                 'created_at' => now(),
@@ -25,7 +25,7 @@ class WeightsSeeder extends Seeder
             ],
             [
                 'id' => 2,
-                'date_time' => '2021-09-14 13:17:39',
+                'date' => '2021-09-14',
                 'weight' => 2500,
                 'pets_id' => 1,
                 'created_at' => now(),
@@ -33,7 +33,7 @@ class WeightsSeeder extends Seeder
             ],
             [
                 'id' => 3,
-                'date_time' => '2021-09-28 13:17:39',
+                'date' => '2021-09-28 ',
                 'weight' => 2330,
                 'pets_id' => 1,
                 'created_at' => now(),
@@ -41,7 +41,7 @@ class WeightsSeeder extends Seeder
             ],
             [
                 'id' => 4,
-                'date_time' => '2021-09-28 18:17:39',
+                'date' => '2021-09-28',
                 'weight' => 2320,
                 'pets_id' => 1,
                 'created_at' => now(),
@@ -49,7 +49,7 @@ class WeightsSeeder extends Seeder
             ],
             [
                 'id' => 5,
-                'date_time' => '2021-09-17 13:17:39',
+                'date' => '2021-09-17',
                 'weight' => 730,
                 'pets_id' => 2,
                 'created_at' => now(),
@@ -57,7 +57,7 @@ class WeightsSeeder extends Seeder
             ],
             [
                 'id' => 6,
-                'date_time' => '2021-10-14 13:17:39',
+                'date' => '2021-10-14',
                 'weight' => 820,
                 'pets_id' => 2,
                 'created_at' => now(),
@@ -65,7 +65,7 @@ class WeightsSeeder extends Seeder
             ],
             [
                 'id' => 7,
-                'date_time' => '2021-10-28 13:17:39',
+                'date' => '2021-10-28',
                 'weight' => 800,
                 'pets_id' => 2,
                 'created_at' => now(),

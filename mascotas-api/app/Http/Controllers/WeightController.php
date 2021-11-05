@@ -38,7 +38,7 @@ class WeightController extends Controller
      */
     public function createWeight(Request $request, $pet_id): JsonResponse
     {
-        $weight = $this->weightRepository->create($request->get('date_time'), $request->get('weight'), $pet_id);
+        $weight = $this->weightRepository->create($request->get('date'), $request->get('weight'), $pet_id);
 
         return response()->json([
             'data' => compact('weight'),
@@ -66,7 +66,7 @@ class WeightController extends Controller
      */
     public function updateWeight(Request $request, $weight_id): JsonResponse
     {
-        $weight = $this->weightRepository->update($weight_id, $request->get('date_time'), $request->get('weight'), $request->get('pets_id'));
+        $weight = $this->weightRepository->update($weight_id, $request->get('date'), $request->get('weight'), $request->get('pets_id'));
         return response()->json([
             'data' => compact('weight'),
         ]);
