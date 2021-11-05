@@ -13,7 +13,31 @@
             required
             type="number"
         ></InputText>
-        <v-date-picker v-model="formData.date"></v-date-picker>
+        <v-menu
+          ref="datePicker"
+          v-model="datePicker"
+          :close-on-content-click="false"
+          transition="scale-transition"
+          offset-y
+        >
+        <template v-slot:activator="{ on, attrs }">
+          <v-text-field
+            v-model="dateFormatted"
+            label="Fecha"
+            prepend-icon="mdi-calendar"
+            v-bind="attrs"
+            v-on="on"
+            @blur="formData.date = parseDate(dateFormatted)"
+          ></v-text-field>
+        </template>
+        <v-date-picker
+          v-model="formData.date"
+          no-title
+          locale="es-AR"
+          @input="datePicker = false"
+          :max="getCurrentDate()"
+        ></v-date-picker>
+      </v-menu>
     </v-form>
 </template>
 <script>
@@ -24,12 +48,11 @@ export default {
   components: {
     InputText,
   },
-  props: {
-    dateTime: String
-  },
   data: function() {
     return {
       loading: false,
+      dateFormatted: this.formatDate(this.getCurrentDate()),
+      datePicker: false,
       formData: {
         weight: null,
         date: this.getCurrentDate(),
@@ -48,10 +71,27 @@ export default {
 
    methods: {
     getCurrentDate() {
-      const current = new Date();
-      const date = current.getFullYear() + '-' + (current.getMonth()+1) + '-' + current.getDate();
-      return date;
-    }
+      return (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
+    },
+    
+    formatDate (date) {
+      if (!date) return null
+
+      const [year, month, day] = date.split('-')
+      return `${month}/${day}/${year}`
+    },
+    
+    parseDate (date) {
+      if (!date) return null
+
+      const [month, day, year] = date.split('/')
+      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+    },
+  },
+  watch: {
+    'formData.date' () {
+      this.dateFormatted = this.formatDate(this.formData.date)
+    },
   },
 }
 </script>
