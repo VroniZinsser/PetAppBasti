@@ -2,6 +2,7 @@
     <v-form 
         action="pesos/crear"
         method="post"
+        ref="weightForm"
         @submit.prevent="createWeight">
         <InputText
             label="Peso"
@@ -36,12 +37,16 @@
           locale="es-AR"
           @input="datePicker = false"
           :max="getCurrentDate()"
+          :disabled="loading"
         ></v-date-picker>
       </v-menu>
+      <v-btn type="submit" :disabled="loading">Guardar</v-btn>
     </v-form>
 </template>
 <script>
 import InputText from "@/components/general/inputs/InputText";
+import weightService from "../../../services/weights";
+
 
 export default {
   name: "Form",
@@ -87,6 +92,35 @@ export default {
       const [month, day, year] = date.split('/')
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
     },
+
+    createWeight() {
+      if (this.$refs.weightForm.validate()) {
+        this.loading = true;
+
+        this.errors = {
+          date: null,
+          weight: null,
+        }
+
+        weightService.create(this.formData)
+          .then(res => {
+            this.loading = false;
+            if (!res.success) {
+              if (this.errors) {
+                this.errors = {
+                  date: null,
+                  weight: null,
+                  ...res.errors
+                }
+              }else{
+                alert("Hubo un error inesperado");
+              }
+            } else {
+              alert("Peso guardado")
+            }
+          })
+      }
+    }
   },
   watch: {
     'formData.date' () {
