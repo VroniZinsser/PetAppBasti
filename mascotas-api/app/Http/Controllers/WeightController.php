@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Pets\WeightRequest;
 use App\Repositories\WeightRepository;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -23,9 +23,9 @@ class WeightController extends Controller
      *
      * @return JsonResponse
      */
-    public function getWeightsByPet($pet_id): JsonResponse
+    public function getWeightsByPet($pets_id): JsonResponse
     {
-        $weights = $this->weightRepository->getWeightsByPet($pet_id);
+        $weights = $this->weightRepository->getWeightsByPet($pets_id);
         return response()->json([
             'data' => compact('weights'),
         ]);
@@ -36,12 +36,13 @@ class WeightController extends Controller
      *
      * @return JsonResponse
      */
-    public function createWeight(Request $request, $pet_id): JsonResponse
+    public function createWeight(WeightRequest $request): JsonResponse
     {
-        $weight = $this->weightRepository->create($request->get('date'), $request->get('weight'), $pet_id);
+        $weight = $this->weightRepository->create($request->get('date'), $request->get('weight'), $request->get('pets_id'));
 
         return response()->json([
-            'data' => compact('weight'),
+            'success' => true,
+            'data' => $weight,
         ]);
     }
 

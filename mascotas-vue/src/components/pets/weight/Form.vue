@@ -39,12 +39,19 @@ export default {
     InputText,
     InputDate
   },
+  props: {
+    pets_id: {
+      type: String,
+      required: true,
+    },
+  },
   data: function() {
     return {
       loading: false,
       formData: {
         weight: null,
         date: this.getCurrentDate(),
+        pets_id: this.pets_id
       },
 
       errors: {
@@ -83,7 +90,9 @@ export default {
           .then(res => {
             this.loading = false;
             if (!res.success) {
-              if (this.errors) {
+              if(res.errors && res.errors.pets_id) {
+                alert(res.errors.pets_id);
+              } else if (this.errors) {
                 this.errors = {
                   date: null,
                   weight: null,

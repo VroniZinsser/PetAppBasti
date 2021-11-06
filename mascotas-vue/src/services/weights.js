@@ -22,7 +22,7 @@ const weightService = {
      * @returns {Promise<any>}
      */
      create(weight) {
-        return fetch(`${API}mascotas/1/pesos`, {
+        return fetch(`${API}pesos`, {
             method: 'POST',
             body: JSON.stringify(weight),
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}

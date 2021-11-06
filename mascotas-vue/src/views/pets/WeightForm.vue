@@ -1,7 +1,9 @@
 <template>
   <v-container fluid>
     <h1>Agregar peso</h1>
-    <Form></Form>
+    <Form
+      :pets_id="$route.params.petsId"
+    ></Form>
   </v-container>
 </template>
 

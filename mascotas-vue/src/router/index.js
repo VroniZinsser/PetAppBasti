@@ -50,7 +50,7 @@ const routes = [
       },
   },
   {
-    path: '/mascotas/pesos/agregar',
+    path: '/mascotas/:petsId/pesos/nuevo',
     name: 'WeightForm',
     component: WeightForm,
     meta: {
