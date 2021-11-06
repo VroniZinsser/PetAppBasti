@@ -9,42 +9,27 @@
             v-model="formData.weight"
             identifier="weight"
             :loading="loading"
-            :rules="[rules.obligatory]"
+            :rules="[rules.obligatory, rules.numeric]"
             :errors = "errors.weight"
             required
             type="number"
         ></InputText>
-        <v-menu
-          ref="datePicker"
-          v-model="datePicker"
-          :close-on-content-click="false"
-          transition="scale-transition"
-          offset-y
-        >
-        <template v-slot:activator="{ on, attrs }">
-          <v-text-field
-            v-model="dateFormatted"
-            label="Fecha"
-            prepend-icon="mdi-calendar"
-            v-bind="attrs"
-            v-on="on"
-            @blur="formData.date = parseDate(dateFormatted)"
-          ></v-text-field>
-        </template>
-        <v-date-picker
-          v-model="formData.date"
-          no-title
-          locale="es-AR"
-          @input="datePicker = false"
-          :max="getCurrentDate()"
-          :disabled="loading"
-        ></v-date-picker>
-      </v-menu>
+        <InputDate
+          label="Fecha"
+          identifier="date"
+          :loading="loading"
+          :rules="[rules.obligatory, rules.date]"
+          :errors = "errors.date"
+          :initialDate="getCurrentDate()"
+          :maxDate="getCurrentDate()"
+          @update-date="updateDate"
+        ></InputDate>
       <v-btn type="submit" :disabled="loading">Guardar</v-btn>
     </v-form>
 </template>
 <script>
 import InputText from "@/components/general/inputs/InputText";
+import InputDate from "@/components/general/inputs/InputDate";
 import weightService from "../../../services/weights";
 
 
@@ -52,12 +37,11 @@ export default {
   name: "Form",
   components: {
     InputText,
+    InputDate
   },
   data: function() {
     return {
       loading: false,
-      dateFormatted: this.formatDate(this.getCurrentDate()),
-      datePicker: false,
       formData: {
         weight: null,
         date: this.getCurrentDate(),
@@ -70,27 +54,20 @@ export default {
       rules: {
         obligatory: v => !!v || 'Este campo es obligatorio.',
         numeric: value => !isNaN(value) || 'El valor debe ser numérico.',
+        date: value => {
+            const pattern = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
+            return pattern.test(value) || 'Por favor, ingresá una fecha válida (31/01/2021)'
+        },
       }
     }
   },
 
    methods: {
     getCurrentDate() {
-      return (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
+          return (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
     },
-    
-    formatDate (date) {
-      if (!date) return null
-
-      const [year, month, day] = date.split('-')
-      return `${month}/${day}/${year}`
-    },
-    
-    parseDate (date) {
-      if (!date) return null
-
-      const [month, day, year] = date.split('/')
-      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+    updateDate(date) {
+      this.formData.date = date;
     },
 
     createWeight() {
@@ -121,11 +98,6 @@ export default {
           })
       }
     }
-  },
-  watch: {
-    'formData.date' () {
-      this.dateFormatted = this.formatDate(this.formData.date)
-    },
   },
 }
 </script>
