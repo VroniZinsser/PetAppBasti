@@ -4,7 +4,7 @@ use App\Http\Controllers\PetsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\VaccineController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,3 +26,9 @@ Route::post('usuarios/crear-profesional', [UserController::class, 'createProfess
 Route::get('/mascotas', [PetsController::class, 'getOwnerPets']);
 Route::get('/mascotas/agregar', [PetsController::class, 'addForm']);
 Route::post('/mascotas/agregar', [PetsController::class, 'addPet']);
+
+Route::post('/vacunas', [VaccineController::class, 'createVaccine']);
+Route::get('/vacunas/{vaccine}', [VaccineController::class, 'findVaccine']);
+Route::put('/vacunas/{vaccine}', [VaccineController::class, 'updateVaccine']);
+Route::delete('/vacunas/{vaccine}', [VaccineController::class, 'deleteVaccine']);
+Route::get('/mascotas/{pet}/vacunas', [VaccineController::class, 'getVaccinesByPet']);
