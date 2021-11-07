@@ -13,7 +13,7 @@
             :errors = "errors.name"
             required
         ></InputText>
-        <!-- <InputDate
+        <InputDate
           label="Fecha"
           identifier="date"
           :loading="loading"
@@ -21,19 +21,19 @@
           :errors = "errors.date"
           :initialDate="getCurrentDate()"
           @update-date="updateDate"
-        ></InputDate> -->
+        ></InputDate>
       <v-btn type="submit" :disabled="loading">Guardar</v-btn>
     </v-form>
 </template>
 <script>
 import InputText from "@/components/general/inputs/InputText";
-// import InputDate from "@/components/general/inputs/InputDate";
+import InputDate from "@/components/general/inputs/InputDate";
 import vaccineService from "../../../services/vaccines";
 export default {
   name: "Form",
   components: {
     InputText,
-    // InputDate
+    InputDate
   },
   props: {
     pets_id: {
