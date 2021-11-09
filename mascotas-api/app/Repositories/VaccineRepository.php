@@ -21,7 +21,7 @@ interface VaccineRepository
      * @param int $id
      * @return Vaccine 
      */
-    public function find(int $id): object;
+    public function find(int $id): Vaccine;
 
     /**
      * Creates, inserts and returns the vaccine

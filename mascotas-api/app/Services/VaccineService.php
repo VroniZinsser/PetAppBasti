@@ -19,7 +19,7 @@ class VaccineService implements VaccineRepository
     /**
      * @inheritDoc
      */
-    public function find(int $id): object
+    public function find(int $id): Vaccine
     {
         $vaccine = Vaccine::find($id);
         return $vaccine;
