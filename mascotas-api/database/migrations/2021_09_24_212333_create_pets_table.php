@@ -20,6 +20,7 @@ class CreatePetsTable extends Migration
             $table->string('temperament', 45)->nullable();
             $table->boolean('neutered')->nullable();
             $table->date('date_of_birth')->nullable();
+            $table->text('observation')->nullable();
             $table->softDeletes();
             $table->unsignedBigInteger('images_id');
             $table->unsignedTinyInteger('sexes_id');
