@@ -23,6 +23,7 @@ class PetService implements PetRepository
                 'name' => $dto->getName(),
                 'neutered' => $dto->getNeutered(),
                 'temperament' => $dto->getTemperament(),
+                'observation' => $dto->getObservation(),
                 'images_id' => $dto->getImages_id(),
                 'sexes_id' => $dto->getSexes_id(),
                 'species_id' => $dto->getSpecies_id(),
