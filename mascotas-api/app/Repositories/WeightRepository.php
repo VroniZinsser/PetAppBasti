@@ -19,9 +19,9 @@ interface WeightRepository
      * Returns the weight with the given id
      * 
      * @param int $id
-     * @return Collection | []Weight
+     * @return Weight
      */
-    public function find(int $id): object;
+    public function find(int $id): Weight;
 
     /**
      * Creates, inserts and returns the weight
@@ -40,7 +40,7 @@ interface WeightRepository
      * @param string $date
      * @param int $weight
      * @param int $pets_id
-     * @return Weight The inserted weight
+     * @return Weight The updated weight
      */
     public function update (int $id, string $date, int $weight, int $pets_id): Weight;
 
