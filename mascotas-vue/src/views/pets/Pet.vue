@@ -4,7 +4,7 @@
     <p v-if="loading">Cargando...</p>
     <div v-else>
         <PetMenu 
-        :active="$route.params.petsId"
+        :active="parseInt($route.params.petsId)"
         :pets="pets"></PetMenu>
 
         <PetDetail :pets_id="$route.params.petsId"></PetDetail>

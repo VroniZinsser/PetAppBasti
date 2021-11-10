@@ -54,6 +54,34 @@ class PetsSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+
+            [
+                'id' => 4,
+                'name' => 'Jerónimo',
+                'breed' => null,
+                'temperament' => null,
+                'neutered' => null,
+                'date_of_birth' => null,
+                'images_id' => 2,
+                'sexes_id' => 2,
+                'species_id' => 2,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+            [
+                'id' => 5,
+                'name' => 'Joy',
+                'breed' => null,
+                'temperament' => null,
+                'neutered' => null,
+                'date_of_birth' => null,
+                'images_id' => 2,
+                'sexes_id' => 1,
+                'species_id' => 2,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }

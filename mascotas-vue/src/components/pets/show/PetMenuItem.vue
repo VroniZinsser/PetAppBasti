@@ -1,6 +1,6 @@
 <template>
     <div class="menuItemContainer">
-        <a href="#">
+        <a :href="'#/mascotas/' + pet.id" :class="is_active ? 'active' : ''">
             <img :src="getCompletePath(pet.image.src)" :alt="pet.image.alt">
             <span>{{ pet.name }}</span>
         </a>
@@ -44,5 +44,13 @@ export default {
     span {
         display: block;
         text-align: center;
+    }
+
+    .active img {
+        border-color: #FFCE8D;
+    }
+
+    .active span {
+        color: #EFE5DC;
     }
 </style>
