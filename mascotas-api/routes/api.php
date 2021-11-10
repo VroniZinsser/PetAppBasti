@@ -26,3 +26,4 @@ Route::post('usuarios/crear-profesional', [UserController::class, 'createProfess
 Route::get('/mascotas', [PetsController::class, 'getOwnerPets']);
 Route::get('/mascotas/agregar', [PetsController::class, 'addForm']);
 Route::post('/mascotas/agregar', [PetsController::class, 'addPet']);
+Route::patch('/mascotas/{pet}', [PetsController::class, 'patchPet']);

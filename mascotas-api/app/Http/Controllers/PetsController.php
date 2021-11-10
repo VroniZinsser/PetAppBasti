@@ -9,6 +9,7 @@ use App\Repositories\PetRepository;
 use App\Repositories\SexRepository;
 use App\Repositories\SpeciesRepository;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class PetsController extends Controller
 {
@@ -70,6 +71,26 @@ class PetsController extends Controller
         return response()->json([
             'success' => true,
             'data' => $pet,
+        ]);
+    }
+
+    /**
+     * Adds, modifieds or deletes single fields of a pet
+     */
+    public function patchPet(Request $request, $pets_id): JsonResponse 
+    {  
+        // handle observation patch if 'observation' is set in request
+        if ($request->has('observation')) {
+            $pet = $this->petRepository->patchObservation($pets_id, $request->get('observation'));
+
+            return response()->json([
+                'success' => true,
+                'data' => $pet,
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
         ]);
     }
 
