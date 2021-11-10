@@ -41,14 +41,7 @@ const routes = [
           requiresAuth: true,
       },
   },
-  {
-    path: '/mascotas/:petsId',
-    name: 'Pet',
-    component: Pet,
-    meta: {
-        requiresAuth: true,
-    },
-  },
+  
   {
       path: '/mascotas/agregar',
       name: 'PetAddForm',
@@ -56,6 +49,14 @@ const routes = [
       meta: {
           requiresAuth: true,
       },
+  },
+  {
+    path: '/mascotas/:petsId',
+    name: 'Pet',
+    component: Pet,
+    meta: {
+        requiresAuth: true,
+    },
   },
   {
     path: '/mapa',
