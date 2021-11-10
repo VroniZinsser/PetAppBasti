@@ -6,6 +6,7 @@ import UserLoginForm from "../views/users/LoginForm";
 import PetAddForm from "../views/pets/AddForm";
 import ShowMap from "../views/map/ShowMap"
 import PetShowList from "../views/pets/ShowList"
+import ObservationForm from "../views/pets/ObservationForm"
 
 Vue.use(VueRouter)
 
@@ -55,7 +56,15 @@ const routes = [
     meta: {
         requiresAuth: true,
     },
-},
+  },
+  {
+    path: '/mascotas/:petsId/observacion/nuevo',
+    name: 'ObservationForm',
+    component: ObservationForm,
+    meta: {
+        requiresAuth: true,
+    },
+  },
   {
       path: '/about',
       name: 'About',

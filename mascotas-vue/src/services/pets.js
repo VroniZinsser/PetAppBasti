@@ -35,6 +35,20 @@ const petServices = {
         return fetch(`${API}mascotas`, {
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
         }).then(res => res.json());
+    },
+
+    /**
+     * Update single fields of the pet
+     *
+     * @param data
+     * @returns {Promise<any>}
+     */
+     patch(data) {
+        return fetch(`${API}mascotas/${data.pets_id}`, {
+            method: 'PATCH',
+            body: JSON.stringify(data),
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+        }).then(res => res.json());
     }
 };
 
