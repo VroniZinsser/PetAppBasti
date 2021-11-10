@@ -6,6 +6,7 @@ import UserLoginForm from "../views/users/LoginForm";
 import PetAddForm from "../views/pets/AddForm";
 import ShowMap from "../views/map/ShowMap"
 import PetShowList from "../views/pets/ShowList"
+import Pet from "../views/pets/Pet";
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,14 @@ const routes = [
       meta: {
           requiresAuth: true,
       },
+  },
+  {
+    path: '/mascotas/:petsId',
+    name: 'Pet',
+    component: Pet,
+    meta: {
+        requiresAuth: true,
+    },
   },
   {
       path: '/mascotas/agregar',
