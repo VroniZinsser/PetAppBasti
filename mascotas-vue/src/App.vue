@@ -56,7 +56,7 @@ export default {
   name: 'App',
 
   data: () => ({
-    dialog: true,
+    dialog: false,
     routerLinks: [
       {
         name: 'Home',
