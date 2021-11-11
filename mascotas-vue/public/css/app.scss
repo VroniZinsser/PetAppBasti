@@ -1,33 +1,7 @@
-.sr-only {
-  position:absolute;
-  left:-10000px;
-  top:auto;
-  width:1px;
-  height:1px;
-  overflow:hidden;
-}
+@import "abstracts/variables";
+@import "components/skip-to-content";
+@import "layout/navbar";
 
-#skip-to-content a {
-  margin: 0;
-  padding: 6px;
-  position: absolute;
-  top: -40px;
-  left: 0;
-  color: white;
-  border-right: 1px solid white;
-  border-bottom: 1px solid white;
-  border-bottom-right-radius: 4px;
-  background: #BF1722;
-  -webkit-transition: top 1s ease-out;
-  transition: top 1s ease-out;
-  z-index: 100;
-}
-
-#skip-to-content a:focus {
-  position: absolute;
-  left: 0;
-  top: 0;
-  outline-color: transparent;
-  -webkit-transition: top .1s ease-in;
-  transition: top .1s ease-in;
+* {
+  font-family: 'Jost', sans-serif;
 }
