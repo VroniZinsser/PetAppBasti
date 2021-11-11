@@ -22,6 +22,7 @@
           </v-tab-item>
           <v-tab-item key="profile" >
             <h3>Perfil</h3>
+            <PetDetailProfile :pet="pet"></PetDetailProfile>
           </v-tab-item>
         </v-tabs-items>
       </div>
@@ -30,6 +31,8 @@
 <script>
 
 import {PATH_IMG} from "../../../constants";
+import PetDetailProfile from "@/components/pets/show/PetDetailProfile";
+
 
 export default {
   name: "PetDetail",
@@ -38,6 +41,9 @@ export default {
       type: Object,
       required: true
     },
+  },
+  components: {
+    PetDetailProfile
   },
   data() {
     return {
