@@ -7,7 +7,7 @@
         :active="parseInt($route.params.petsId)"
         :pets="pets"></PetMenu>
 
-        <PetDetail :pets_id="$route.params.petsId"></PetDetail>
+        <PetDetail :pet="findPet(parseInt($route.params.petsId))"></PetDetail>
     </div>
   </v-container>
 </template>
@@ -33,6 +33,12 @@ export default {
           this.pets = res.data.pets;
           this.loading = false;
         });
+  },
+
+  methods: {
+      findPet($pets_id) {
+          return this.pets.find(pet => pet.id === $pets_id)
+      }
   }
 }
 </script>
