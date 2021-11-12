@@ -60,10 +60,10 @@ header.theme--light.v-app-bar.v-toolbar.v-sheet .v-toolbar__content {
   color: #333333;
   text-decoration: none;
 }
-#nav-links li a.active {
+#nav-links li a.router-link-active {
   color: #D38462;
 }
-#nav-links li a.active span:last-child {
+#nav-links li a.router-link-active span:last-child {
   text-decoration: underline;
 }
 #nav-links li a span:last-child {
