@@ -1,0 +1,150 @@
+#skip-to-content a {
+  margin: 0;
+  padding: 6px;
+  position: absolute;
+  top: -40px;
+  left: 0;
+  color: white;
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+  border-bottom-right-radius: 4px;
+  background: #17a2b8;
+  transition: top 1s ease-out;
+  z-index: 100;
+}
+
+#skip-to-content a:focus {
+  top: 0;
+  outline-color: transparent;
+  transition: top 0.1s ease-in;
+}
+
+header.theme--light.v-app-bar.v-toolbar.v-sheet {
+  background-color: #F9F5F1;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  top: auto;
+  box-shadow: 0px -4px 6px rgba(51, 51, 51, 0.15);
+  max-height: 64px;
+}
+header.theme--light.v-app-bar.v-toolbar.v-sheet .v-toolbar__content {
+  padding: 0;
+}
+
+#brand-image {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+#nav-links {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+#nav-links li {
+  flex-grow: 1;
+}
+#nav-links li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #333333;
+  text-decoration: none;
+}
+#nav-links li a.active {
+  color: #D38462;
+}
+#nav-links li a.active span:last-child {
+  text-decoration: underline;
+}
+#nav-links li a span:last-child {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+#config-list ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#config-list ul li:not(:last-child) {
+  border-bottom: 1px solid rgba(51, 51, 51, 0.3);
+}
+#config-list ul li a, #config-list ul li button {
+  display: block;
+  padding: 1rem;
+  text-align: center;
+  width: 100%;
+  background: none;
+  font-size: 1rem;
+  color: #333333;
+  text-decoration: none;
+  text-transform: none;
+  font-weight: 400;
+  height: auto;
+  transition: 300ms;
+}
+#config-list ul li a.danger-text {
+  color: #D64550;
+}
+
+@media screen and (min-width: 1000px) {
+  header.theme--light.v-app-bar.v-toolbar.v-sheet {
+    background-color: #F9F5F1;
+    position: static;
+    box-shadow: none;
+  }
+  header.theme--light.v-app-bar.v-toolbar.v-sheet .v-toolbar__content {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  #brand-image {
+    position: static;
+    height: auto;
+    width: auto;
+  }
+
+  #nav-links {
+    width: auto;
+  }
+  #nav-links li a {
+    justify-content: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  #nav-links li a:hover, #nav-links li a:focus {
+    color: #D38462;
+  }
+  #nav-links li a:hover span:last-child, #nav-links li a:focus span:last-child {
+    text-decoration: underline;
+  }
+  #nav-links li a span:last-child:not(.sr-only) {
+    position: static;
+    width: auto;
+    height: auto;
+    margin-left: 0.5rem;
+  }
+
+  #config-list ul li a:hover, #config-list ul li a:focus, #config-list ul li button:hover, #config-list ul li button:focus {
+    background: #F9F5F1;
+  }
+}
+* {
+  font-family: "Jost", sans-serif;
+}
+
+/*# sourceMappingURL=app.css.map */
