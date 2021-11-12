@@ -43,12 +43,11 @@ class WeightService implements WeightRepository
     /**
      * @inheritDoc
      */
-    public function update(int $id, string $date, int $weight_data, int $pets_id): Weight
+    public function update(int $id, string $date, int $weight_data): Weight
     {
         $weight = Weight::find($id);
         $weight->date = $date;
         $weight->weight = $weight_data;
-        $weight->pets_id = $pets_id;
         $weight->save();
         return $weight;
     }

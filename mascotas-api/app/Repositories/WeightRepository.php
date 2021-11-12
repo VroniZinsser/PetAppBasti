@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 interface WeightRepository
 {
     /**
-     * Returns all weights that belong to a user with the given id
+     * Returns all weights that belong to a pet with the given id
      * 
      * @param int $pets_id
      * @return Collection | []Weight
@@ -39,10 +39,9 @@ interface WeightRepository
      * @param int $id
      * @param string $date
      * @param int $weight
-     * @param int $pets_id
      * @return Weight The updated weight
      */
-    public function update (int $id, string $date, int $weight, int $pets_id): Weight;
+    public function update (int $id, string $date, int $weight): Weight;
 
     /**
      * Deletes the weight with the given id and returns true if deletion was successful

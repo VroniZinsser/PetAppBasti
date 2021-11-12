@@ -67,7 +67,7 @@ class WeightController extends Controller
      */
     public function updateWeight(Request $request, $weight_id): JsonResponse
     {
-        $weight = $this->weightRepository->update($weight_id, $request->get('date'), $request->get('weight'), $request->get('pets_id'));
+        $weight = $this->weightRepository->update($weight_id, $request->get('date'), $request->get('weight'));
         return response()->json([
             'data' => compact('weight'),
         ]);

@@ -5,7 +5,7 @@
         ref="weightForm"
         @submit.prevent="createWeight">
         <InputText
-            label="Peso"
+            label="Peso en gramos"
             v-model="formData.weight"
             identifier="weight"
             :loading="loading"
@@ -24,7 +24,7 @@
           :maxDate="getCurrentDate()"
           @update-date="updateDate"
         ></InputDate>
-      <v-btn type="submit" :disabled="loading">Guardar</v-btn>
+      <v-btn type="submit" :disabled="loading">Agregar</v-btn>
     </v-form>
 </template>
 <script>
