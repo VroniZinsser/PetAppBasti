@@ -19,6 +19,7 @@
         <v-tabs-items v-model="tab">
           <v-tab-item key="medical-details" >
             <h3>Detalles</h3>
+            <PetDetailMedical :pet="pet"></PetDetailMedical>
           </v-tab-item>
           <v-tab-item key="profile" >
             <h3>Perfil</h3>
@@ -32,6 +33,7 @@
 
 import {PATH_IMG} from "../../../constants";
 import PetDetailProfile from "@/components/pets/show/PetDetailProfile";
+import PetDetailMedical from "@/components/pets/show/PetDetailMedical";
 
 
 export default {
@@ -43,7 +45,8 @@ export default {
     },
   },
   components: {
-    PetDetailProfile
+    PetDetailProfile,
+    PetDetailMedical
   },
   data() {
     return {

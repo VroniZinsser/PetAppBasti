@@ -2,3 +2,14 @@ a {
     color: #333333;
     text-decoration: none;
 }
+
+.medical-container {
+    padding: 16px;
+}
+.medical-container h2 {
+    font-size: 20px;
+}
+
+.medical-container.colored {
+    background-color: #EFE5DC;
+}
