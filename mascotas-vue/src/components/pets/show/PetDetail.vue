@@ -6,7 +6,7 @@
       <div class="gender-icon-container">
         <span class="material-icons">{{ getGenderIcon(pet.sexes_id) }}</span>
       </div>
-      <div>
+      <div class="tab-container">
         <v-tabs
           v-model="tab"
           align-with-title
@@ -64,3 +64,10 @@ export default {
 }
 
 </script>
+<style scoped>
+  @media (min-width: 768px) { 
+    .v-window-item {
+      display: block!important;
+    }
+  }
+</style>

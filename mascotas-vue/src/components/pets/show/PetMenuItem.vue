@@ -31,10 +31,18 @@ export default {
 </script>
 
 <style scoped>
+
+    a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     img {
-        max-width: 80px;
+        max-width: 48px;
         border-radius: 50%;
-        border: 5px solid #EFE5DC;
+        border: 3px solid #EFE5DC;
+        background-color: #EFE5DC;
     }
 
     .menuItemContainer {
@@ -44,6 +52,9 @@ export default {
     span {
         display: block;
         text-align: center;
+        color: #333333;
+        font-family: 'Jost';
+        font-size: 12px;
     }
 
     .active img {
@@ -51,6 +62,6 @@ export default {
     }
 
     .active span {
-        color: #EFE5DC;
+        color: #858585;
     }
 </style>

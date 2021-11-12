@@ -29,5 +29,7 @@ export default {
     ul {
         display: flex;
         list-style: none;
+        overflow: auto;
     }
+    ul::-webkit-scrollbar { width: 0 !important }
 </style>
