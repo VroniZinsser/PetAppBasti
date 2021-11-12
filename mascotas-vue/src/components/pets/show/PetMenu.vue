@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container class="pet-menu">
         <ul>
             <li v-for="pet in pets" :key="pet.id">
                 <PetMenuItem :pet="pet" :is_active="pet.id === active"></PetMenuItem>
@@ -25,11 +25,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-    ul {
-        display: flex;
-        list-style: none;
-        overflow: auto;
-    }
-    ul::-webkit-scrollbar { width: 0 !important }
-</style>

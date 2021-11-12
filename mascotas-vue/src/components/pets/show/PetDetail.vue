@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="pet-detail">
       <div class="img-container">
         <img :src="getCompletePath(pet.image.src)" :alt="pet.image.alt">
       </div>
@@ -64,10 +64,3 @@ export default {
 }
 
 </script>
-<style scoped>
-  @media (min-width: 768px) { 
-    .v-window-item {
-      display: block!important;
-    }
-  }
-</style>

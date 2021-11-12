@@ -1,5 +1,5 @@
 <template>
-    <div class="menuItemContainer">
+    <div class="pet-menu-item">
         <a :href="'#/mascotas/' + pet.id" :class="is_active ? 'active' : ''">
             <img :src="getCompletePath(pet.image.src)" :alt="pet.image.alt">
             <span>{{ pet.name }}</span>
@@ -27,41 +27,4 @@ export default {
     }
   }
 }
-
 </script>
-
-<style scoped>
-
-    a {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    img {
-        max-width: 48px;
-        border-radius: 50%;
-        border: 3px solid #EFE5DC;
-        background-color: #EFE5DC;
-    }
-
-    .menuItemContainer {
-        margin-right: 1em;
-    }
-
-    span {
-        display: block;
-        text-align: center;
-        color: #333333;
-        font-family: 'Jost';
-        font-size: 12px;
-    }
-
-    .active img {
-        border-color: #FFCE8D;
-    }
-
-    .active span {
-        color: #858585;
-    }
-</style>
