@@ -7,6 +7,7 @@ import PetAddForm from "../views/pets/AddForm";
 import ShowMap from "../views/map/ShowMap"
 import PetShowList from "../views/pets/ShowList"
 import Pet from "../views/pets/Pet";
+import WeightForm from "../views/pets/WeightForm";
 
 Vue.use(VueRouter)
 
@@ -54,6 +55,14 @@ const routes = [
     path: '/mascotas/:petsId',
     name: 'Pet',
     component: Pet,
+    meta: {
+        requiresAuth: true,
+    },
+  },
+  {
+    path: '/mascotas/:petsId/pesos/nuevo',
+    name: 'WeightForm',
+    component: WeightForm,
     meta: {
         requiresAuth: true,
     },
