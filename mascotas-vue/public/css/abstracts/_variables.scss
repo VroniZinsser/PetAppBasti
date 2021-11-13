@@ -24,7 +24,7 @@ $shadow-x0-y-4: 0px -4px 6px rgba(#333333, 0.15);
 
 @mixin reset-list {
   margin: 0;
-  padding: 0;
+  padding: 0!important;
   list-style: none;
 }
 

@@ -1,11 +1,11 @@
 <template>
-    <v-container class="pet-menu">
+    <div class="pet-menu">
         <ul>
             <li v-for="pet in pets" :key="pet.id">
                 <PetMenuItem :pet="pet" :is_active="pet.id === active"></PetMenuItem>
             </li>
         </ul>
-    </v-container>   
+    </div>   
 </template>
 <script>
 import PetMenuItem from "@/components/pets/show/PetMenuItem";
