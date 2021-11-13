@@ -35,6 +35,8 @@
         .medical-container {
             padding: 16px;
             width: 100%;
+            // TODO: remove height. It is only for testing
+            height: 200px; 
 
             h2 {
                 font-size: 20px;
