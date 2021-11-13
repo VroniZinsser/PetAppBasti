@@ -1,7 +1,8 @@
 @media screen and (min-width: 768px) {
   .pet-detail {
     display: grid;
-    grid-template-areas: "pet-image      pet-image   pet-medical-info    pet-medical-info    pet-medical-info" "pet-profile    pet-profile pet-medical-info    pet-medical-info    pet-medical-info" ".             .           pet-medical-info    pet-medical-info    pet-medical-info";
+    grid-template-columns: 320px 1fr;
+    grid-template-areas: "pet-image      pet-medical-info" "pet-profile    pet-medical-info" ".              pet-medical-info";
   }
 }
 .pet-detail .pet-medical-info {
@@ -13,11 +14,31 @@
 .pet-detail .pet-image {
   grid-area: pet-image;
   position: relative;
+  max-width: 450px;
 }
-.pet-detail .pet-image .gender-icon {
+.pet-detail .pet-image img {
+  width: 100%;
+  height: 60vw;
+  max-width: 450px;
+  max-height: 270px;
+  object-fit: cover;
+}
+@media screen and (min-width: 768px) {
+  .pet-detail .pet-image img {
+    width: 320px;
+    height: 200px;
+  }
+}
+.pet-detail .pet-image .gender-icon-container {
   position: absolute;
-  top: 3px;
-  right: 3px;
+  top: 0;
+  right: 0;
+  padding: 3px;
+  background: rgba(249, 245, 241, 0.9);
+  border-radius: 0px 0px 0px 4px;
+}
+.pet-detail .pet-image .gender-icon-container span {
+  display: block;
 }
 .pet-detail .pet-medical-info {
   display: flex;

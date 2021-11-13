@@ -1,11 +1,10 @@
 <template>
     <div class="pet-detail">
       <div class="pet-image">
-        <div class="img-container">
-          <img :src="getCompletePath(pet.image.src)" :alt="pet.image.alt">
+        <img :src="getCompletePath(pet.image.src)" :alt="pet.image.alt">
+        <div class="gender-icon-container">
+          <span class="material-icons">{{ getGenderIcon(pet.sexes_id) }}</span>
         </div>
-        <span class="material-icons gender-icon">{{ getGenderIcon(pet.sexes_id) }}</span>
-        
       </div>
       
         <v-tabs
@@ -57,7 +56,7 @@ export default {
       return PATH_IMG + path
     },
     getGenderIcon(sexes_id) {
-      return sexes_id === 1 ? "gender_female" : "gender_male";
+      return sexes_id === 1 ? "female" : "male";
     },
     isActive (tabItem) {
       return this.activeItem === tabItem
