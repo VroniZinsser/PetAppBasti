@@ -28,6 +28,7 @@ $pet-img-max-height: 270px;
             max-width: $pet-img-max-width;
             max-height: $pet-img-max-height;
             object-fit: cover;
+            display: block;
 
             @include tablet-up {
                 width: 320px;
@@ -107,10 +108,41 @@ $pet-img-max-height: 270px;
         }
     }
 
-    .v-tabs {
+    .tab-button-container {
+        display: flex;
+        border-radius: 0px 0px 4px 4px;
+        box-shadow: $shadow-x0-y4;
+        
+
         @include tablet-up {
             display: none;
         }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+
+            &:first-child {
+                border-radius: 0px 0px 0px 4px;  
+                padding-left: 60px;
+            }
+            &:last-child {
+                border-radius: 0px 0px 4px 0px;
+                padding-right: 60px;
+            }
+
+            &.active {
+                color: $brick;
+                text-decoration: underline;
+            }
+
+            &:active {
+                background: $white-gray-min;
+            }
+        }
+        
     }
 
     .tab-item {

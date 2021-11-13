@@ -7,15 +7,22 @@
         </div>
       </div>
       
-        <v-tabs
-          v-model="tab"
-          align-with-title
+      <div class="tab-button-container">
+        <button 
+          class="tab" 
+          :class="{ 'active': isActive('pet-medical-info') }" 
+          @click="setActive('pet-medical-info')"
+          >
+            Detalles
+        </button>
+        <button 
+          class="tab" 
+          :class="{ 'active': isActive('pet-profile') }" 
+          @click="setActive('pet-profile')"
         >
-          <v-tabs-slider color="yellow"></v-tabs-slider>
-
-          <v-tab @click.prevent="setActive('pet-medical-info')">Detalles</v-tab>
-          <v-tab @click.prevent="setActive('pet-profile')">Perfil</v-tab>
-        </v-tabs>
+          Perfil
+        </button>
+      </div>
           <div class="tab-item pet-medical-info" :class="{ 'show': isActive('pet-medical-info') }">
             <h3>Detalles</h3>
             <PetMedicalInfo :pet="pet"></PetMedicalInfo>
