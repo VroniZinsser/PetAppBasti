@@ -1,6 +1,9 @@
 <template>
-  <v-container fluid>
+  <div fluid>
+    <div class="title-bar">
       <h1>Tus mascotas</h1>
+    </div>
+      
     <p v-if="loading">Cargando...</p>
     <div v-else>
         <PetMenu 
@@ -9,7 +12,7 @@
 
         <PetDetail :pet="findPet(parseInt($route.params.petsId))"></PetDetail>
     </div>
-  </v-container>
+  </div>
 </template>
 
 <script>
