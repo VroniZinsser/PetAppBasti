@@ -1,39 +1,37 @@
 <template>
     <div class="pet-detail">
-      <div class="img-container">
-        <img :src="getCompletePath(pet.image.src)" :alt="pet.image.alt">
+      <div class="pet-image">
+        <div class="img-container">
+          <img :src="getCompletePath(pet.image.src)" :alt="pet.image.alt">
+        </div>
+        <span class="material-icons gender-icon">{{ getGenderIcon(pet.sexes_id) }}</span>
+        
       </div>
-      <div class="gender-icon-container">
-        <span class="material-icons">{{ getGenderIcon(pet.sexes_id) }}</span>
-      </div>
-      <div class="tab-container">
+      
         <v-tabs
           v-model="tab"
           align-with-title
         >
           <v-tabs-slider color="yellow"></v-tabs-slider>
 
-          <v-tab>Detalles</v-tab>
-          <v-tab>Perfil</v-tab>
+          <v-tab @click.prevent="setActive('pet-medical-info')">Detalles</v-tab>
+          <v-tab @click.prevent="setActive('pet-profile')">Perfil</v-tab>
         </v-tabs>
-        <v-tabs-items v-model="tab">
-          <v-tab-item key="medical-details" >
+          <div class="tab-item pet-medical-info" :class="{ 'show': isActive('pet-medical-info') }">
             <h3>Detalles</h3>
-            <PetDetailMedical :pet="pet"></PetDetailMedical>
-          </v-tab-item>
-          <v-tab-item key="profile" >
+            <PetMedicalInfo :pet="pet"></PetMedicalInfo>
+          </div>
+          <div class="tab-item pet-profile" :class="{ 'show': isActive('pet-profile') }">
             <h3>Perfil</h3>
-            <PetDetailProfile :pet="pet"></PetDetailProfile>
-          </v-tab-item>
-        </v-tabs-items>
+            <PetProfile :pet="pet"></PetProfile>
+          </div>
       </div>
-    </div>
 </template>
 <script>
 
 import {PATH_IMG} from "../../../constants";
-import PetDetailProfile from "@/components/pets/show/PetDetailProfile";
-import PetDetailMedical from "@/components/pets/show/PetDetailMedical";
+import PetProfile from "@/components/pets/show/PetProfile";
+import PetMedicalInfo from "@/components/pets/show/PetMedicalInfo";
 
 
 export default {
@@ -45,12 +43,13 @@ export default {
     },
   },
   components: {
-    PetDetailProfile,
-    PetDetailMedical
+    PetProfile,
+    PetMedicalInfo
   },
   data() {
     return {
       tab: null,
+      activeItem: 'pet-medical-info'
     }
   },
    methods: {
@@ -59,6 +58,12 @@ export default {
     },
     getGenderIcon(sexes_id) {
       return sexes_id === 1 ? "gender_female" : "gender_male";
+    },
+    isActive (tabItem) {
+      return this.activeItem === tabItem
+    },
+    setActive (tabItem) {
+      this.activeItem = tabItem
     }
   }
 }

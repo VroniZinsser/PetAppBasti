@@ -1,48 +1,103 @@
 .pet-detail {
     @media (min-width: 768px) { 
-        .v-window-item {
-          display: block!important;
+        display: grid;
+        grid-template-areas:
+            "pet-image      pet-image   pet-medical-info    pet-medical-info    pet-medical-info"
+            "pet-profile    pet-profile pet-medical-info    pet-medical-info    pet-medical-info"
+             ".             .           pet-medical-info    pet-medical-info    pet-medical-info";
+    }
+    .pet-medical-info {
+        grid-area: pet-medical-info;
+    }
+    .pet-profile {
+        grid-area: pet-profile;
+    }
+    .pet-image {
+        grid-area: pet-image;
+        position: relative;
+        
+        .gender-icon {
+            position: absolute;
+            top: 3px;
+            right: 3px;
         }
-      }
-}
-.pet-menu-item {
-    margin-right: 1em;
-    a {
+    }
+    
+    .pet-medical-info {
         display: flex;
         flex-direction: column;
-        align-items: center;
-
-        img {
-            max-width: 48px;
-            border-radius: 60%;
-            border: 3px solid #EFE5DC;
-            background-color: #EFE5DC;
+        
+        @media (min-width: 992px) { 
+            flex-direction: row;
+            flex-wrap: wrap;
         }
 
-        span {
+        .medical-container {
+            padding: 16px;
+            width: 100%;
+
+            h2 {
+                font-size: 20px;
+            }  
+            
+            &.medicine {
+                background-color: $white-gray;
+            }
+    
+            &.vaccine {
+                background-color: $white-gray;
+                @media (min-width: 992px) { 
+                    background: $white-gray-min;
+                } 
+            }
+            
+            &.weight {
+                @media (min-width: 768px) { 
+                    background: $white-gray-min;
+                }
+                @media (min-width: 992px) { 
+                    order: -2;
+                    width: 50%;
+                }
+            }
+    
+            &.observation {
+                @media (min-width: 768px) {
+                    background: $light-gray;
+                }
+                @media (min-width: 992px) { 
+                    order:-1;
+                    width: 50%;
+                }
+            }
+        }
+    }
+
+    .pet-profile {
+        ul {
+            @include reset-list;
+        }
+    }
+
+    .v-tabs {
+        @media(min-width: 768px) {
+            display: none;
+        }
+    }
+
+    .tab-item {
+        display: none;
+        position: absolute;
+        width: 100%;
+
+        &.show {
             display: block;
-            text-align: center;
-            color: #333333;
-            font-family: 'Jost';
-            font-size: 12px;
         }
 
-        &.active {
-            img {
-                border-color: #FFCE8D;
-            }
-            span {
-                color: #858585;
-            }
+        @media (min-width: 768px) {
+            display: block;
+            position: static;
         }
     }
-}
-
-.pet-menu {
-    ul {
-        display: flex;
-        list-style: none;
-        overflow: auto;
-    }
-    ul::-webkit-scrollbar { width: 0 !important }
+    
 }

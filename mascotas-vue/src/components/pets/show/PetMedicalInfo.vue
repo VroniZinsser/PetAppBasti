@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <p>{{ pet.name }}</p>
+  <div class="pet-medical-info">
     <Weight :weights="[]"></Weight>
     <Medicine :medicines="[]"></Medicine>
     <Observation></Observation>
@@ -17,7 +16,7 @@ import Observation from "@/components/pets/show/medical/Observation";
 import Vaccine from "@/components/pets/show/medical/Vaccine";
 
 export default {
-  name: "PetDetailMedical",
+  name: "PetMedicalInfo",
   props: {
     pet: {
       type: Object,

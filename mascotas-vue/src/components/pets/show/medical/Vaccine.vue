@@ -1,5 +1,5 @@
 <template>
-    <div class="medical-container colored">
+    <div class="medical-container vaccine">
         <h2>Vacunas</h2>
     </div>
 </template>

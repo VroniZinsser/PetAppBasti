@@ -1,5 +1,5 @@
 <template>
-    <div class="medical-container">
+    <div class="medical-container weight">
         <span>Peso actual: </span>
     </div>
 </template>

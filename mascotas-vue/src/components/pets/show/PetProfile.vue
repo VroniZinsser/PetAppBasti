@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pet-profile">
     <p>{{ pet.name }}</p>
     <ul>
       <li>
@@ -36,7 +36,7 @@
 
 <script>
 export default {
-  name: "PetDetailProfile",
+  name: "PetProfile",
   props: {
     pet: {
       type: Object,

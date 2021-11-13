@@ -1,5 +1,5 @@
 <template>
-    <div class="medical-container colored">
+    <div class="medical-container medicine">
         <h2>Medicamentos</h2>
     </div>
     
