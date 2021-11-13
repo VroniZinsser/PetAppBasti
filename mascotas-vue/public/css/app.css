@@ -101,7 +101,7 @@ header.theme--light.v-app-bar.v-toolbar.v-sheet .v-toolbar__content {
   color: #D64550;
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 992px) {
   header.theme--light.v-app-bar.v-toolbar.v-sheet {
     background-color: #F9F5F1;
     position: static;
@@ -143,7 +143,7 @@ header.theme--light.v-app-bar.v-toolbar.v-sheet .v-toolbar__content {
     background: #F9F5F1;
   }
 }
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .pet-detail {
     display: grid;
     grid-template-areas: "pet-image      pet-image   pet-medical-info    pet-medical-info    pet-medical-info" "pet-profile    pet-profile pet-medical-info    pet-medical-info    pet-medical-info" ".             .           pet-medical-info    pet-medical-info    pet-medical-info";
@@ -168,7 +168,7 @@ header.theme--light.v-app-bar.v-toolbar.v-sheet .v-toolbar__content {
   display: flex;
   flex-direction: column;
 }
-@media (min-width: 992px) {
+@media screen and (min-width: 992px) {
   .pet-detail .pet-medical-info {
     flex-direction: row;
     flex-wrap: wrap;
@@ -188,28 +188,28 @@ header.theme--light.v-app-bar.v-toolbar.v-sheet .v-toolbar__content {
 .pet-detail .pet-medical-info .medical-container.vaccine {
   background-color: #EFE5DC;
 }
-@media (min-width: 992px) {
+@media screen and (min-width: 992px) {
   .pet-detail .pet-medical-info .medical-container.vaccine {
     background: #F9F5F1;
   }
 }
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .pet-detail .pet-medical-info .medical-container.weight {
     background: #F9F5F1;
   }
 }
-@media (min-width: 992px) {
+@media screen and (min-width: 992px) {
   .pet-detail .pet-medical-info .medical-container.weight {
     order: -2;
     width: 50%;
   }
 }
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .pet-detail .pet-medical-info .medical-container.observation {
     background: #FBFBFB;
   }
 }
-@media (min-width: 992px) {
+@media screen and (min-width: 992px) {
   .pet-detail .pet-medical-info .medical-container.observation {
     order: -1;
     width: 50%;
@@ -220,7 +220,7 @@ header.theme--light.v-app-bar.v-toolbar.v-sheet .v-toolbar__content {
   padding: 0;
   list-style: none;
 }
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .pet-detail .v-tabs {
     display: none;
   }
@@ -233,7 +233,7 @@ header.theme--light.v-app-bar.v-toolbar.v-sheet .v-toolbar__content {
 .pet-detail .tab-item.show {
   display: block;
 }
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .pet-detail .tab-item {
     display: block;
     position: static;

@@ -1,5 +1,5 @@
 .pet-detail {
-    @media (min-width: 768px) { 
+    @include tablet-up { 
         display: grid;
         grid-template-areas:
             "pet-image      pet-image   pet-medical-info    pet-medical-info    pet-medical-info"
@@ -27,7 +27,7 @@
         display: flex;
         flex-direction: column;
         
-        @media (min-width: 992px) { 
+        @include desktop-up { 
             flex-direction: row;
             flex-wrap: wrap;
         }
@@ -48,26 +48,26 @@
     
             &.vaccine {
                 background-color: $white-gray;
-                @media (min-width: 992px) { 
+                @include desktop-up { 
                     background: $white-gray-min;
                 } 
             }
             
             &.weight {
-                @media (min-width: 768px) { 
+                @include tablet-up { 
                     background: $white-gray-min;
                 }
-                @media (min-width: 992px) { 
+                @include desktop-up { 
                     order: -2;
                     width: 50%;
                 }
             }
     
             &.observation {
-                @media (min-width: 768px) {
+                @include tablet-up {
                     background: $light-gray;
                 }
-                @media (min-width: 992px) { 
+                @include desktop-up { 
                     order:-1;
                     width: 50%;
                 }
@@ -82,7 +82,7 @@
     }
 
     .v-tabs {
-        @media(min-width: 768px) {
+        @include tablet-up {
             display: none;
         }
     }
@@ -96,7 +96,7 @@
             display: block;
         }
 
-        @media (min-width: 768px) {
+        @include tablet-up {
             display: block;
             position: static;
         }

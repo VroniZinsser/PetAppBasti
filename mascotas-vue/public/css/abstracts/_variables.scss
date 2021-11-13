@@ -43,3 +43,13 @@ $shadow-x0-y-4: 0px -4px 6px rgba(#333333, 0.15);
   height: 1px;
   overflow: hidden;
 }
+
+// Media queries
+
+@mixin tablet-up {
+  @media screen and (min-width: 768px) { @content; }
+}
+
+@mixin desktop-up {
+  @media screen and (min-width: 992px) { @content; }
+}

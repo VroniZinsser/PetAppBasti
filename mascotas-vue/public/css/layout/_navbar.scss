@@ -86,7 +86,7 @@ header.theme--light.v-app-bar.v-toolbar.v-sheet {
   }
 }
 
-@media screen and (min-width: 1000px) {
+@include desktop-up {
   header.theme--light.v-app-bar.v-toolbar.v-sheet {
     background-color: $white-gray-min;
     position: static;
