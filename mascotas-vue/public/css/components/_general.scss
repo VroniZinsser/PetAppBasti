@@ -1,0 +1,7 @@
+@mixin link-active {
+    color: $clay;
+  
+    span:last-child {
+      text-decoration: underline;
+    }
+}

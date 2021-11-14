@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import { formatDate } from "@/helpers";
+
 export default {
     name: "InputDate",
 
@@ -57,22 +59,13 @@ export default {
     
     data: function() {
         return {
-            dateFormatted: this.formatDate(this.initialDate),
+            dateFormatted: formatDate(this.initialDate),
             datePicker: false,
             date: this.initialDate
         }
     },
 
-    methods: {
-        
-        
-        formatDate (date) {
-            if (!date) return null
-
-            const [year, month, day] = date.split('-')
-            return `${day}/${month}/${year}`
-        },
-        
+    methods: {   
         parseDate (date) {
             if (!date) return null
 
@@ -83,7 +76,7 @@ export default {
     },
     watch: {
     date () {
-      this.dateFormatted = this.formatDate(this.date)
+      this.dateFormatted = formatDate(this.date)
       this.$emit('update-date', this.date)
     },
   },

@@ -13,22 +13,20 @@
           :class="{ 'active': isActive('pet-medical-info') }" 
           @click="setActive('pet-medical-info')"
           >
-            Detalles
+          <span>Detalles</span>
         </button>
         <button 
           class="tab" 
           :class="{ 'active': isActive('pet-profile') }" 
           @click="setActive('pet-profile')"
         >
-          Perfil
+        <span>Perfil</span>
         </button>
       </div>
           <div class="tab-item pet-medical-info" :class="{ 'show': isActive('pet-medical-info') }">
-            <h3>Detalles</h3>
             <PetMedicalInfo :pet="pet"></PetMedicalInfo>
           </div>
           <div class="tab-item pet-profile" :class="{ 'show': isActive('pet-profile') }">
-            <h3>Perfil</h3>
             <PetProfile :pet="pet"></PetProfile>
           </div>
       </div>

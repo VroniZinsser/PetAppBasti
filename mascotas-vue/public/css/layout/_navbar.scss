@@ -1,13 +1,5 @@
 @use "sass:map";
 
-@mixin link-active {
-  color: $clay;
-
-  span:last-child {
-    text-decoration: underline;
-  }
-}
-
 header.theme--light.v-app-bar.v-toolbar.v-sheet {
   background-color: $white-gray-min;
   width: 100%;
