@@ -27,7 +27,7 @@
         </li>
         <li v-if="pet.date_of_birth">
           <span>Fecha de nacimiento:</span>
-          <span>{{ pet.date_of_birth }}</span>
+          <span>{{ formatted_date_of_birth }}</span>
         </li>
         <li v-if="pet.temperament" class="wide-content">
           <span>Temperamento:</span>
@@ -53,9 +53,11 @@ export default {
     },
   },
 
-  mounted() {
-    this.pet.date_of_birth = formatDate(this.pet.date_of_birth);
-  }
+  data() {
+    return {
+      formatted_date_of_birth: formatDate(this.pet.date_of_birth),
+    }
+  },
 
 }
 </script>

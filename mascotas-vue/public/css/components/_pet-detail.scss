@@ -20,6 +20,7 @@ $pet-img-max-height: 270px;
         grid-area: pet-image;
         position: relative;
         max-width: $pet-img-max-width;
+        margin: auto;
 
         img {
             // keep aspect ratio of 0.6 

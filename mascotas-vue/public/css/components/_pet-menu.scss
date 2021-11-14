@@ -23,7 +23,9 @@
             text-decoration: none;
     
             img {
-                max-width: 48px;
+                width: 48px;
+                height: 48px;
+                object-fit: cover;
                 border-radius: 50%;
                 border: 3px solid $white-gray;
                 background-color: $white-gray;
