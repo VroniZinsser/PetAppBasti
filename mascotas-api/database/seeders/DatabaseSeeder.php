@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SexesSeeder::class);
         $this->call(SpeciesSeeder::class);
         $this->call(PetsSeeder::class);
+        $this->call(WeightsSeeder::class);
         $this->call(UserTypesSeeder::class);
         $this->call(UsersSeeder::class);
         $this->call(AttentionSchedulesSeeder::class);
