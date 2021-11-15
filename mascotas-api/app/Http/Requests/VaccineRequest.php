@@ -16,7 +16,7 @@ class VaccineRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'date' => 'required|date',
+            'date' => 'required|date|before_or_equal:'.date('m/d/Y'),
             'pets_id' => 'required|exists:pets,id|integer'
         ];
     }

@@ -20,6 +20,7 @@
           :rules="[rules.obligatory, rules.date]"
           :errors = "errors.date"
           :initialDate="getCurrentDate()"
+          :maxDate="getCurrentDate()"
           @update-date="updateDate"
         ></InputDate>
       <v-btn type="submit" :disabled="loading">Guardar</v-btn>
