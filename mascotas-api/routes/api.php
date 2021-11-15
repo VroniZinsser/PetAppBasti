@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MedicinesController;
 use App\Http\Controllers\PetsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,3 +28,5 @@ Route::get('/mascotas', [PetsController::class, 'getOwnerPets']);
 Route::get('/mascotas/agregar', [PetsController::class, 'addForm']);
 Route::post('/mascotas/agregar', [PetsController::class, 'addPet']);
 Route::patch('/mascotas/{pet}', [PetsController::class, 'patchPet']);
+
+Route::post('/mascotas/{id}/medicamentos', [MedicinesController::class, 'add']);
