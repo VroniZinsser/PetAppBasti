@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Pets;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Constants\Validation;
+use App\Messages\Validation;
 
 class AddRequest extends FormRequest
 {
