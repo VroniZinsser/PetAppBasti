@@ -313,7 +313,7 @@ export default {
   },
   methods: {
     createUser() {
-      // if (this.$refs.form.validate()) {
+      if (this.$refs.form.validate()) {
         this.loading = true;
         userService.create(this.user)
           .then(res => {
@@ -354,7 +354,7 @@ export default {
                 });
               }
           })
-      // }
+      }
     },
 
     updateAddress(address) {
