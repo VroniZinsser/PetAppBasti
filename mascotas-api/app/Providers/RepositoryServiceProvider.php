@@ -3,12 +3,14 @@
 namespace App\Providers;
 
 use App\Repositories\ImageRepository;
+use App\Repositories\MedicineRepository;
 use App\Repositories\PetRepository;
 use App\Repositories\SexRepository;
 use App\Repositories\SpeciesRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\UserTypeRepository;
 use App\Services\ImageService;
+use App\Services\MedicineService;
 use App\Services\PetService;
 use App\Services\SexService;
 use App\Services\SpeciesService;
@@ -26,5 +28,6 @@ class RepositoryServiceProvider extends ServiceProvider
         PetRepository::class => PetService::class,
         SexRepository::class => SexService::class,
         SpeciesRepository::class => SpeciesService::class,
+        MedicineRepository::class => MedicineService::class
     ];
 }
