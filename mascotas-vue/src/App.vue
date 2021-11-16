@@ -15,7 +15,7 @@
 
       <ul id="nav-links">
         <li v-for="link in routerLinks" :key="link.text">
-          <router-link :to="{name: link.name}">
+          <router-link :to="{name: link.name}" exact>
             <span class="material-icons">{{ link.icon }}</span>
             <span>{{ link.text }}</span>
           </router-link>

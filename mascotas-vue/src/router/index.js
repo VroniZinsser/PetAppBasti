@@ -7,7 +7,10 @@ import PetAddForm from "../views/pets/AddForm";
 import ShowMap from "../views/map/ShowMap"
 import PetShowList from "../views/pets/ShowList"
 import Pet from "../views/pets/Pet";
+import ObservationForm from "../views/pets/ObservationForm"
+import VaccineForm from "../views/pets/VaccineForm";
 import WeightForm from "../views/pets/WeightForm";
+import MedicinesAddForm from "../views/pets/medicines/MedicinesAddForm";
 
 Vue.use(VueRouter)
 
@@ -73,18 +76,40 @@ const routes = [
     component: ShowMap,
     meta: {
         requiresAuth: true,
+    {
+        path: '/mascotas/:petsId/observacion/nuevo',
+        name: 'ObservationForm',
+        component: ObservationForm,
+        meta: {
+            requiresAuth: true,
+        },
     },
-},
-  {
-      path: '/about',
-      name: 'About',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: function () {
-          return import(/* webpackChunkName: "about" */ '../views/About.vue')
-      }
-  }
+    {
+        path: '/mascotas/:petsId/vacunas/nuevo',
+        name: 'VaccineForm',
+        component: VaccineForm,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/mascotas/:petsId/medicamentos/agregar',
+        name: 'MedicinesAddForm',
+        component: MedicinesAddForm,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/about',
+        name: 'About',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: function () {
+            return import(/* webpackChunkName: "about" */ '../views/About.vue')
+        }
+    }
 ]
 
 const router = new VueRouter({

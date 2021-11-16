@@ -34,7 +34,7 @@ header.theme--light.v-app-bar.v-toolbar.v-sheet {
       color: $black-gray;
       text-decoration: none;
 
-      &.active {
+      &.router-link-active {
         @include link-active
       }
 
