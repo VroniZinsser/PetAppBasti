@@ -57,7 +57,6 @@ class PetsSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-
             [
                 'id' => 4,
                 'name' => 'Jerónimo',
@@ -66,12 +65,12 @@ class PetsSeeder extends Seeder
                 'neutered' => null,
                 'date_of_birth' => null,
                 'images_id' => 4,
+                'observation' => null,
                 'sexes_id' => 2,
                 'species_id' => 2,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-
             [
                 'id' => 5,
                 'name' => 'Joy',
@@ -80,6 +79,7 @@ class PetsSeeder extends Seeder
                 'neutered' => null,
                 'date_of_birth' => null,
                 'images_id' => 3,
+                'observation' => null,
                 'sexes_id' => 1,
                 'species_id' => 2,
                 'created_at' => now(),
