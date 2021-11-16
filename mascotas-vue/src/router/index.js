@@ -9,6 +9,7 @@ import PetShowList from "../views/pets/ShowList"
 import ObservationForm from "../views/pets/ObservationForm"
 import VaccineForm from "../views/pets/VaccineForm";
 import WeightForm from "../views/pets/WeightForm";
+import MedicinesAddForm from "../views/pets/medicines/MedicinesAddForm";
 
 Vue.use(VueRouter)
 
@@ -79,6 +80,14 @@ const routes = [
         path: '/mascotas/:petsId/vacunas/nuevo',
         name: 'VaccineForm',
         component: VaccineForm,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/mascotas/:petsId/medicamentos/agregar',
+        name: 'MedicinesAddForm',
+        component: MedicinesAddForm,
         meta: {
             requiresAuth: true,
         },
