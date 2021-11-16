@@ -2,6 +2,7 @@
   <v-form
       action="/mascotas/medicamentos/agregar"
       method="post"
+      ref="medicineForm"
       @submit.prevent="addMedicine"
   >
 
@@ -9,6 +10,7 @@
         label="Nombre del medicamento"
         v-model="formData.name"
         :loading="loading"
+        :rules="[rules.obligatory]"
         :errors="errors.name"
     ></InputText>
 
@@ -16,6 +18,7 @@
         label="Cantidad"
         v-model="formData.quantity"
         :loading="loading"
+        :rules="[rules.obligatory]"
         :errors="errors.quantity"
     ></InputText>
 
@@ -23,6 +26,7 @@
         label="Inicio"
         v-model="formData.start_date"
         :loading="loading"
+        :rules="[rules.obligatory, rules.date]"
         :errors="errors.start_date"
         :initialDate="getCurrentDate()"
         @update-date="updateStartDate"
@@ -32,7 +36,8 @@
         label="Fin"
         v-model="formData.end_date"
         :loading="loading"
-        :MinDate="formData.start_date"
+        :min-date="formData.start_date"
+        :rules="[rules.obligatory, rules.date]"
         :errors="errors.end_date"
         :initialDate="getCurrentDate()"
         @update-date="updateEndDate"
@@ -41,14 +46,15 @@
     <!--TODO This field is not disabled-->
     <v-select
         v-model="formData.hours"
-        :diabled="loading"
-        :loading="loading"
+        identifier="hour"
+        :disabled="loading"
         :items="hours"
         :item-text="'time'"
         :item-value="'id'"
         chips
         label="Horarios"
         multiple
+        :rules="[rules.selectionRequired]"
         :messages="errors.hours ? errors.hours[0] : ''"
         :error="errors.hours !== null"
     ></v-select>
@@ -88,6 +94,14 @@ export default {
         end_date: null,
         hours: null,
       },
+      rules: {
+        obligatory: v => !!v || 'Este campo es obligatorio.',
+        date: value => {
+          const pattern = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
+          return pattern.test(value) || 'Por favor, ingresá una fecha válida (ej: 31/01/2021)'
+        },
+        selectionRequired: value => value.length > 0 || 'Por favor seleccione un como mínimo una hora',
+      }
     }
   },
   methods: {
@@ -111,39 +125,40 @@ export default {
      * Add the medication to the pet
      */
     addMedicine() {
-      this.loading = true;
+      if (this.$refs.medicineForm.validate()) {
+        this.loading = true;
 
-      this.errors = {
-        name: null,
-        quantity: null,
-        start_date: null,
-        end_date: null,
-        hours: null,
-      }
+        this.errors = {
+          name: null,
+          quantity: null,
+          start_date: null,
+          end_date: null,
+          hours: null,
+        }
 
-      medicineServices.add(this.$route.params.petsId, this.formData)
-          .then(res => {
-            console.warn(res)
+        medicineServices.add(this.$route.params.petsId, this.formData)
+            .then(res => {
 
-            if (!res.success) {
-              if (this.errors) {
-                this.errors = {
-                  name: null,
-                  quantity: null,
-                  start_date: null,
-                  end_date: null,
-                  hours: null,
-                  ...res.errors
+              if (!res.success) {
+                if (this.errors) {
+                  this.errors = {
+                    name: null,
+                    quantity: null,
+                    start_date: null,
+                    end_date: null,
+                    hours: null,
+                    ...res.errors
+                  }
+                } else {
+                  alert("Hubo un error inesperado");
                 }
               } else {
-                alert("Hubo un error inesperado");
+                alert("Medicamento agregado con éxito")
               }
-            } else {
-              alert("Medicamento agregado con éxito")
-            }
-          })
+            })
 
-      this.loading = false
+        this.loading = false
+      }
     },
 
     /**
