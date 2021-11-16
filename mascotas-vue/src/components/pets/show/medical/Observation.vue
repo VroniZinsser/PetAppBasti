@@ -1,6 +1,9 @@
 <template>
     <div class="medical-container observation">
-        <h2>Observaciones</h2>
+        <div class="medical-container-header">
+            <h2>Observaciones</h2>
+            <a href="#">Ver más</a>
+        </div>
     </div>
 </template>
 <script>

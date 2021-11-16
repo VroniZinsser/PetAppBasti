@@ -1,6 +1,9 @@
 <template>
     <div class="medical-container weight">
-        <span>Peso actual: </span>
+        <div class="medical-container-header">
+            <span>Peso actual: </span>
+            <a href="#">Ver más</a>
+        </div>
     </div>
 </template>
 <script>
