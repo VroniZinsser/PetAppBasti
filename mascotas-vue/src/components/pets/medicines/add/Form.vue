@@ -9,21 +9,21 @@
         label="Nombre del medicamento"
         v-model="formData.name"
         :loading="loading"
-        :errors = "errors.name"
+        :errors="errors.name"
     ></InputText>
 
     <InputText
         label="Cantidad"
         v-model="formData.quantity"
         :loading="loading"
-        :errors = "errors.quantity"
+        :errors="errors.quantity"
     ></InputText>
 
     <InputDate
         label="Inicio"
         v-model="formData.start_date"
         :loading="loading"
-        :errors = "errors.start_date"
+        :errors="errors.start_date"
         :initialDate="getCurrentDate()"
         @update-date="updateStartDate"
     ></InputDate>
@@ -33,7 +33,7 @@
         v-model="formData.end_date"
         :loading="loading"
         :MinDate="formData.start_date"
-        :errors = "errors.end_date"
+        :errors="errors.end_date"
         :initialDate="getCurrentDate()"
         @update-date="updateEndDate"
     ></InputDate>
@@ -91,14 +91,25 @@ export default {
     }
   },
   methods: {
-    updateStartDate(date){
+    /**
+     * Updates the start date of the medication
+     * @param date | string
+     */
+    updateStartDate(date) {
       this.formData.start_date = date
     },
 
-    updateEndDate(date){
+    /**
+     * Updates the end date of the medication
+     * @param date | string
+     */
+    updateEndDate(date) {
       this.formData.end_date = date
     },
 
+    /**
+     * Add the medication to the pet
+     */
     addMedicine() {
       this.loading = true;
 
@@ -135,6 +146,11 @@ export default {
       this.loading = false
     },
 
+    /**
+     * Returns the current date
+     *
+     * @returns {string}
+     */
     getCurrentDate() {
       return (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
     },
