@@ -38,15 +38,34 @@ const petServices = {
     },
 
     /**
-     * Update single fields of the pet
+     * Updates only the observation field of the pet
      *
      * @param data
      * @returns {Promise<any>}
      */
-     patch(data) {
-        return fetch(`${API}mascotas/${data.pets_id}`, {
-            method: 'PATCH',
-            body: JSON.stringify(data),
+    updateObservation(data) {
+        return fetch(`${API}mascotas/${data.pets_id}/observacion`, {
+            method: 'POST',
+            body: JSON.stringify({
+                action:'update',
+                data: data,
+            }),
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+        }).then(res => res.json());
+    },
+
+    /**
+     * Deletes content from observation field
+     *
+     * @param pet_id
+     * @returns {Promise<any>}
+     */
+    deleteObservation(pet_id) {
+        return fetch(`${API}mascotas/${pet_id}/observacion`, {
+            method: 'POST',
+            body: JSON.stringify({
+                action:'delete',
+            }),
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
         }).then(res => res.json());
     }

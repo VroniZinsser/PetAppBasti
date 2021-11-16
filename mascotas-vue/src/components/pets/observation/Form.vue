@@ -9,6 +9,7 @@
             v-model="formData.observation"
             identifier="observation"
             :loading="loading"
+            :rules="[rules.obligatory]"
             :errors = "errors.observation"
             required
         ></InputText>
@@ -39,6 +40,9 @@ export default {
       errors: {
         observation: null,
       },
+      rules: {
+        obligatory: value => !!value || 'Este campo es obligatorio.',
+      }
     }
   },
    methods: {
@@ -48,17 +52,14 @@ export default {
         this.errors = {
             observation:null,
         }
-        petServices.patch(this.formData)
+        petServices.updateObservation(this.formData)
           .then(res => {
             this.loading = false;
             if (!res.success) {
               if(res.errors && res.errors.pets_id) {
                 alert(res.errors.pets_id);
               } else if (this.errors) {
-                this.errors = {
-                  observation: null,
-                  ...res.errors
-                }
+                this.errors.observation = res.errors;
               }else{
                 alert("Hubo un error inesperado");
               }

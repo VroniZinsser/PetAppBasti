@@ -94,6 +94,35 @@ class PetsController extends Controller
         ]);
     }
 
+    public function updateObservation(Request $request, $pet_id) {
+        switch($request->input('action')) {
+            case 'update':
+                $request->validate([
+                    'data.observation' => 'required',
+                ]);
+                $observation = $request->get('data')['observation'];
+                $pet = $this->petRepository->patchObservation($pet_id, $observation);
+
+                return response()->json([
+                    'success' => true,
+                    'data' => $pet,
+                ]);
+                break;
+            case 'delete':
+                $this->petRepository->patchObservation($pet_id, '');
+
+                return response()->json([
+                    'success' => true,
+                ]);
+                break;
+            default:
+            return response()->json([
+                'success' => false,
+                'msg' => 'Invalid request action'
+            ], 400);
+        }
+    }
+
     /**
      * Returns all user's pets
      *
