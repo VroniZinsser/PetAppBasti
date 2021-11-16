@@ -56,8 +56,9 @@ export default {
           .then(res => {
             this.loading = false;
             if (!res.success) {
+              console.log(res.errors);
               if(res.errors && res.errors.pets_id) {
-                alert(res.errors.pets_id);
+                alert('La mascota no existe.');
               } else if (this.errors) {
                 this.errors.observation = res.errors;
               }else{
