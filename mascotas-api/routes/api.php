@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\MedicinesController;
-use App\Http\Controllers\PetsController;
+use App\Http\Controllers\MedicineController;
+use App\Http\Controllers\PetController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -26,13 +26,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('usuarios/profesionales', [UserController::class, 'getProfessionals']);
 Route::get('usuarios/crear-profesional', [UserController::class, 'createFormProfessional']);
 Route::post('usuarios/crear-profesional', [UserController::class, 'createProfessional']);
-Route::get('/mascotas', [PetsController::class, 'getOwnerPets']);
-Route::get('/mascotas/agregar', [PetsController::class, 'addForm']);
-Route::post('/mascotas/agregar', [PetsController::class, 'addPet']);
-Route::patch('/mascotas/{pet}', [PetsController::class, 'patchPet']);
+Route::get('/mascotas', [PetController::class, 'getOwnerPets']);
+Route::get('/mascotas/agregar', [PetController::class, 'addForm']);
+Route::post('/mascotas/agregar', [PetController::class, 'addPet']);
+Route::patch('/mascotas/{pet}', [PetController::class, 'patchPet']);
 
-Route::get('/medicamentos/formulario-agregar', [MedicinesController::class, 'addForm']);
-Route::post('/mascotas/{id}/medicamentos', [MedicinesController::class, 'add']);
+Route::get('/medicamentos/formulario-agregar', [MedicineController::class, 'addForm']);
+Route::post('/mascotas/{id}/medicamentos', [MedicineController::class, 'add']);
 
 Route::post('/vacunas', [VaccineController::class, 'createVaccine']);
 Route::get('/vacunas/{vaccine}', [VaccineController::class, 'findVaccine']);

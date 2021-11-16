@@ -11,7 +11,7 @@ use App\Repositories\SpeciesRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class PetsController extends Controller
+class PetController extends Controller
 {
     protected $sexRepository;
     protected $speciesRepository;
@@ -77,8 +77,8 @@ class PetsController extends Controller
     /**
      * Adds, modifieds or deletes single fields of a pet
      */
-    public function patchPet(Request $request, $pets_id): JsonResponse 
-    {  
+    public function patchPet(Request $request, $pets_id): JsonResponse
+    {
         // handle observation patch if 'observation' is set in request
         if ($request->has('observation')) {
             $pet = $this->petRepository->patchObservation($pets_id, $request->get('observation'));

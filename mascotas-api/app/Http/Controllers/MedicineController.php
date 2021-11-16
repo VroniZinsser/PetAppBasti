@@ -9,7 +9,7 @@ use App\Repositories\MedicineRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class MedicinesController extends Controller
+class MedicineController extends Controller
 {
     protected $medicineRepository;
     protected $hourRepository;
