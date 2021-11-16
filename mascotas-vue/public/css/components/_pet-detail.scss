@@ -1,0 +1,224 @@
+$pet-img-max-width: 450px;
+$pet-img-max-height: 270px;
+
+.pet-detail {
+    @include tablet-up { 
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        grid-template-areas: 
+            "pet-image      pet-medical-info"
+            "pet-profile    pet-medical-info"
+            ".              pet-medical-info";
+    }
+    .pet-medical-info {
+        grid-area: pet-medical-info;
+    }
+    .pet-profile {
+        grid-area: pet-profile;
+    }
+    .pet-image {
+        grid-area: pet-image;
+        position: relative;
+        max-width: $pet-img-max-width;
+        margin: auto;
+
+        img {
+            // keep aspect ratio of 0.6 
+            width: 100%;
+            height: 60vw;
+            max-width: $pet-img-max-width;
+            max-height: $pet-img-max-height;
+            object-fit: cover;
+            display: block;
+
+            @include tablet-up {
+                width: 320px;
+                height: 200px;
+            }
+        }
+        
+        .gender-icon-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 3px;
+            background: transparentize($white-gray-min, 0.1);
+            border-radius: 0px 0px 0px 4px;
+
+            span {
+                display: block;
+            }
+        }
+    }
+    
+    .pet-medical-info {
+        display: flex;
+        flex-direction: column;
+        
+        @include desktop-up { 
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .medical-container {
+            padding: 16px;
+            width: 100%;
+            // TODO: remove height. It is only for testing
+            height: 200px; 
+
+            .medical-container-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                
+                h2 {
+                    font-size: 20px;
+                }  
+    
+                a {
+                    color: black;
+                    font-size: 14px;
+                }
+            }
+            
+            &.medicine {
+                background-color: $white-gray;
+            }
+    
+            &.vaccine {
+                background-color: $white-gray;
+                @include desktop-up { 
+                    background: $white-gray-min;
+                } 
+            }
+            
+            &.weight {
+                @include tablet-up { 
+                    background: $white-gray-min;
+                }
+                @include desktop-up { 
+                    order: -2;
+                    width: 50%;
+                }
+            }
+    
+            &.observation {
+                @include tablet-up {
+                    background: $light-gray;
+                }
+                @include desktop-up { 
+                    order:-1;
+                    width: 50%;
+                }
+            }
+        }
+    }
+
+    .pet-profile {
+        .pet-profile-header, .pet-profile-body {
+            padding: 16px;
+            border-bottom: 1px solid transparentize($black-gray, 0.7);
+
+        }
+        .pet-profile-header {
+            h2 {
+                font-size: 22px;
+                font-weight: 700;
+            }
+        }
+        .pet-profile-body {
+            ul {
+                @include reset-list;
+
+                li {
+                    margin-bottom: 16px;
+                    display: flex;
+
+                    &>span:first-child {
+                        font-weight: 700;
+                        display: block;
+                        width: 140px;
+                    }
+                    &.wide-content {
+                        flex-direction: column;
+                    }
+                }
+            }
+        }
+
+        .pet-profile-footer {
+            padding: 16px;
+            
+            a {
+                background: $yellow;
+                display: block;
+                padding: 10px 0;
+                width: 100%;
+                text-align: center;
+                text-decoration: none;
+                font-size: 16px;
+                font-weight: 700;
+                color: $black-gray;
+                border-radius: 4px;
+
+                &:hover, &:focus {
+                    background: #F2BF8C;
+                }
+            }
+        }
+        
+    }
+
+    .tab-button-container {
+        display: flex;
+        border-radius: 0px 0px 4px 4px;
+        box-shadow: $shadow-x0-y4;
+        
+
+        @include tablet-up {
+            display: none;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+
+            &:first-child {
+                border-radius: 0px 0px 0px 4px;  
+                padding-left: 60px;
+            }
+            &:last-child {
+                border-radius: 0px 0px 4px 0px;
+                padding-right: 60px;
+            }
+
+            &.active {
+                @include link-active;
+            }
+
+            &:active {
+                background: $white-gray-min;
+            }
+        }
+        
+    }
+
+    .tab-item {
+        display: none;
+        position: absolute;
+        width: 100%;
+        padding-bottom: 56px;
+
+        &.show {
+            display: block;
+        }
+
+        @include tablet-up {
+            display: block;
+            position: static;
+        }
+    }
+    
+}

@@ -4,8 +4,9 @@ import Home from '../views/Home.vue'
 import UserCreateForm from "../views/users/CreateForm";
 import UserLoginForm from "../views/users/LoginForm";
 import PetAddForm from "../views/pets/AddForm";
-import ShowMap from "../views/map/ShowMap";
+import ShowMap from "../views/map/ShowMap"
 import PetShowList from "../views/pets/ShowList"
+import Pet from "../views/pets/Pet";
 import ObservationForm from "../views/pets/ObservationForm"
 import VaccineForm from "../views/pets/VaccineForm";
 import WeightForm from "../views/pets/WeightForm";
@@ -14,60 +15,67 @@ import MedicinesAddForm from "../views/pets/medicines/MedicinesAddForm";
 Vue.use(VueRouter)
 
 const routes = [
-    {
-        path: '/',
-        name: 'Home',
-        component: Home
+  {
+    path: '/',
+    name: 'Home',
+    component: Home
+  },
+  {
+    path: '/usuarios/crear-profesional',
+    name: 'UserCreate',
+    component: UserCreateForm,
+    meta: {
+      requiresAuth: true,
+      role: 'professional'
+    }
+  },
+  {
+    path: '/usuarios/login',
+    name: 'UserLogin',
+    component: UserLoginForm,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+      path: '/mascotas',
+      name: 'PetShowList',
+      component: PetShowList,
+      meta: {
+          requiresAuth: true,
+      },
+  },
+  
+  {
+      path: '/mascotas/agregar',
+      name: 'PetAddForm',
+      component: PetAddForm,
+      meta: {
+          requiresAuth: true,
+      },
+  },
+  {
+    path: '/mascotas/:petsId',
+    name: 'Pet',
+    component: Pet,
+    meta: {
+        requiresAuth: true,
     },
-    {
-        path: '/usuarios/crear-profesional',
-        name: 'UserCreate',
-        component: UserCreateForm,
-        meta: {
-            requiresAuth: true,
-            role: 'professional'
-        }
+  },
+  {
+    path: '/mascotas/:petsId/pesos/nuevo',
+    name: 'WeightForm',
+    component: WeightForm,
+    meta: {
+        requiresAuth: true,
     },
-    {
-        path: '/usuarios/login',
-        name: 'UserLogin',
-        component: UserLoginForm,
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/mascotas',
-        name: 'PetShowList',
-        component: PetShowList,
-        meta: {
-            requiresAuth: true,
-        },
-    },
-    {
-        path: '/mascotas/agregar',
-        name: 'PetAddForm',
-        component: PetAddForm,
-        meta: {
-            requiresAuth: true,
-        },
-    },
-    {
-        path: '/mascotas/:petsId/pesos/nuevo',
-        name: 'WeightForm',
-        component: WeightForm,
-        meta: {
-            requiresAuth: true,
-        },
-    },
-    {
-        path: '/mapa',
-        name: 'ShowMap',
-        component: ShowMap,
-        meta: {
-            requiresAuth: true,
-        },
-    },
+  },
+  {
+    path: '/mapa',
+    name: 'ShowMap',
+    component: ShowMap,
+    meta: {
+        requiresAuth: true,
     {
         path: '/mascotas/:petsId/observacion/nuevo',
         name: 'ObservationForm',

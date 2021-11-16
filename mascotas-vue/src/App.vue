@@ -42,7 +42,7 @@
       </v-card>
     </v-dialog>
 
-    <v-main id="main-content">
+    <v-main id="main-content" class="pt-0">
       <router-view/>
     </v-main>
   </v-app>
