@@ -1,43 +1,48 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+    <div id="skip-to-content">
+      <a href="#main-content">Saltar al contenido principal</a>
+    </div>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
+    <v-app-bar app>
+      <div id="brand-image">
+        <router-link :to="{name: 'Home'}">
+          <img :src="getCompletePath('brand/logotype.png')" alt="Logo de Basti">
+        </router-link>
       </div>
 
       <v-spacer></v-spacer>
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+      <ul id="nav-links">
+        <li v-for="link in routerLinks" :key="link.text">
+          <router-link :to="{name: link.name}" exact>
+            <span class="material-icons">{{ link.icon }}</span>
+            <span>{{ link.text }}</span>
+          </router-link>
+        </li>
+        <li>
+          <a href="#" @click.prevent="dialog = true">
+            <span class="material-icons">account_circle</span>
+            <span class="sr-only">Abrir opciones (abre ventana modal)</span>
+          </a>
+        </li>
+      </ul>
     </v-app-bar>
 
-    <v-main>
+    <!--Config modal-->
+    <v-dialog v-model="dialog" max-width="500" class="container--fluid">
+      <v-card id="config-list">
+        <ul>
+          <li><a href="#">Configuración</a></li>
+          <li><a href="#" class="danger-text">Cerrar sesión</a></li>
+          <li>
+            <v-btn @click="dialog=false">Cancelar</v-btn>
+          </li>
+        </ul>
+      </v-card>
+    </v-dialog>
+
+    <v-main id="main-content">
       <router-view/>
     </v-main>
   </v-app>
@@ -45,11 +50,40 @@
 
 <script>
 
+import {PATH_IMG} from "./constants";
+
 export default {
   name: 'App',
 
   data: () => ({
-    //
+    dialog: false,
+    routerLinks: [
+      {
+        name: 'Home',
+        text: 'Agenda',
+        icon: 'event',
+      },
+      {
+        name: 'ShowMap',
+        text: 'Explorar',
+        icon: 'search',
+      },
+      {
+        name: 'PetShowList',
+        text: 'Mascotas',
+        icon: 'format_list_bulleted',
+      },
+      {
+        name: 'Home',
+        text: 'Conversaciones',
+        icon: 'chat_bubble',
+      },
+    ]
   }),
+  methods: {
+    getCompletePath(path) {
+      return PATH_IMG + path
+    }
+  }
 };
 </script>
