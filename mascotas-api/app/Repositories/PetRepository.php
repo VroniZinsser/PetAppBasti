@@ -12,14 +12,21 @@ interface PetRepository
      * Creates or Updates and returns the pet
      * 
      * @param PetDTO $dto
-     * @param int $owner
+     * @param int $owners_id
      * @return Pet The created or updated pet
      */
-    public function updateOrCreate(PetDTO $dto, int $owner): Pet;
+    public function updateOrCreate(PetDTO $dto, int $owners_id): Pet;
 
     /**
-     * @param int $owner_id
+     * @param int $owners_id
      * @return Collection | []Pet
      */
-    public function getPetsByUser(int $owner_id): object;
+    public function getPetsByUser(int $owners_id): object;
+
+    /**
+     * @param int $pets_id
+     * @param string|null $observation
+     * @return Pet The patched pet
+     */
+    public function patchObservation(int $pets_id, ?string $observation): Pet;
 }

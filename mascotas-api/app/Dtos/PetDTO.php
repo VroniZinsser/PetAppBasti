@@ -8,6 +8,7 @@ class PetDTO extends BaseDTO {
     protected $name;
     protected $neutered;
     protected $temperament;
+    protected $observation;
     protected $images_id;
     protected $sexes_id;
     protected $species_id;
@@ -103,5 +104,13 @@ class PetDTO extends BaseDTO {
         $this->images_id = $images_id;
 
         return $this;
+    }
+
+    /**
+     * Get the value of observation
+     */ 
+    public function getObservation()
+    {
+        return $this->observation;
     }
 }
