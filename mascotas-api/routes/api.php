@@ -31,6 +31,7 @@ Route::get('/mascotas/agregar', [PetsController::class, 'addForm']);
 Route::post('/mascotas/agregar', [PetsController::class, 'addPet']);
 Route::patch('/mascotas/{pet}', [PetsController::class, 'patchPet']);
 
+Route::get('/medicamentos/formulario-agregar', [MedicinesController::class, 'addForm']);
 Route::post('/mascotas/{id}/medicamentos', [MedicinesController::class, 'add']);
 
 Route::post('/vacunas', [VaccineController::class, 'createVaccine']);
