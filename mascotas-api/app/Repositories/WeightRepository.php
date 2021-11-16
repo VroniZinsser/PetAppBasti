@@ -9,15 +9,15 @@ interface WeightRepository
 {
     /**
      * Returns all weights that belong to a pet with the given id
-     * 
-     * @param int $pets_id
+     *
+     * @param int $pet_id
      * @return Collection | []Weight
      */
-    public function getWeightsByPet(int $pets_id): object;
+    public function getWeightsByPet(int $pet_id): object;
 
     /**
      * Returns the weight with the given id
-     * 
+     *
      * @param int $id
      * @return Weight
      */
@@ -28,10 +28,10 @@ interface WeightRepository
      *
      * @param string $date
      * @param int $weight
-     * @param int $pets_id
+     * @param int $pet_id
      * @return Weight The inserted weight
      */
-    public function create (string $date, int $weight, int $pets_id): Weight;
+    public function create (string $date, int $weight, int $pet_id): Weight;
 
     /**
      * Updates and returns the weight with the given id

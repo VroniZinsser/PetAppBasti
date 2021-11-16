@@ -55,16 +55,16 @@ class PetController extends Controller
     public function addPet(AddRequest $request): JsonResponse
     {
         $photo = $request->get('photo');
-        $images_id = $request->get('species_id');
+        $image_id = $request->get('species_id');
 
         if ($photo) {
             $image = $this->imageRepository->uploadImage($photo, 'pets/', 'Mascota ' . $request->get('name'));
-            $images_id = $image->id;
+            $image_id = $image->id;
         }
 
         $dto = new PetDTO();
         $dto->loadFromArray($request->input());
-        $dto->setImages_id($images_id);
+        $dto->setImages_id($image_id);
 
         $pet = $this->petRepository->updateOrCreate($dto, 1);
 
@@ -75,13 +75,13 @@ class PetController extends Controller
     }
 
     /**
-     * Adds, modifieds or deletes single fields of a pet
+     * Add, modify or delete individual fields of a pet
      */
-    public function patchPet(Request $request, $pets_id): JsonResponse
+    public function patchPet(Request $request, $pet_id): JsonResponse
     {
         // handle observation patch if 'observation' is set in request
         if ($request->has('observation')) {
-            $pet = $this->petRepository->patchObservation($pets_id, $request->get('observation'));
+            $pet = $this->petRepository->patchObservation($pet_id, $request->get('observation'));
 
             return response()->json([
                 'success' => true,

@@ -13,7 +13,7 @@ class PetService implements PetRepository
     /**
      * @inheritDoc
      */
-    public function updateOrCreate(PetDTO $dto, int $owner): Pet
+    public function updateOrCreate(PetDTO $dto, int $owner_id): Pet
     {
         $pet = Pet::updateOrCreate(
             ['id' => $dto->getId()],
@@ -30,7 +30,7 @@ class PetService implements PetRepository
             ]
         );
 
-        $pet->owners()->attach([$owner]);
+        $pet->owners()->attach([$owner_id]);
 
         return $pet;
     }
@@ -38,9 +38,9 @@ class PetService implements PetRepository
     /**
      * @inheritDoc
      */
-    public function getPetsByUser(int $owners_id): object
+    public function getPetsByUser(int $owner_id): object
     {
-        $user = User::find($owners_id);
+        $user = User::find($owner_id);
 
         $user->load(['pets', 'pets.image', 'pets.sex', 'pets.species']);
 
@@ -50,9 +50,9 @@ class PetService implements PetRepository
     /**
      * @inheritDoc
      */
-    public function patchObservation(int $pets_id, ?string $observation): Pet
+    public function patchObservation(int $pet_id, ?string $observation): Pet
     {
-        $pet = Pet::find($pets_id);
+        $pet = Pet::find($pet_id);
         $pet->observation = $observation;
         $pet->save();
 

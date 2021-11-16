@@ -12,12 +12,12 @@ class UserService implements UserRepository {
     /**
      * @inheritDoc
      */
-    public function getUsersByTypes($types): object
+    public function getUsersByTypes(array $types): object
     {
         $users = User::whereHas('userTypes', function($query) use($types) {
             $query->whereIn('user_types.id', $types);
         })->get();
-        
+
         return $users;
     }
 
