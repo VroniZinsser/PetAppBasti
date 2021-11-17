@@ -28,9 +28,9 @@ class VaccineRequest extends FormRequest
             'name.required' => Validation::msg_required('el nombre de la vacuna'),
             'date.required' => Validation::msg_required('la fecha'),
             'date.date' => Validation::msg_valid_value('la fecha', true),
-            'pets_id.required' => Validation::msg_valid_value('el id de la mascota'),
-            'pets_id.exists' => Validation::msg_valid_value('el id de la mascota'),
-            'pets_id.integer' => Validation::msg_valid_value('el id de la mascota'),
+            'pets_id.required' => Validation::msg_not_found('la mascota relacionada'),
+            'pets_id.exists' => Validation::msg_not_found('la mascota relacionada'),
+            'pets_id.integer' => Validation::msg_not_found('la mascota relacionada'),
         ];
     }
 }

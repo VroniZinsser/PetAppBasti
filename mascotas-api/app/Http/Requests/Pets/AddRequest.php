@@ -51,12 +51,12 @@ class AddRequest extends FormRequest
             'photo.base64image' => Validation::msg_valid_value('la imagen', true),
             'photo.max' => Validation::msg_max_size('la imagen', '1MB'),
             'photo.base64max' => Validation::msg_max_size('la imagen', '1MB'),
-            'sexes_id.required' => Validation::msg_required('el sexo'),
-            'sexes_id.exists' => Validation::msg_valid_value('el sexo'),
-            'sexes_id.integer' => Validation::msg_valid_value('el sexo'),
-            'species_id.required' => Validation::msg_required('la especie'),
-            'species_id.exists' => Validation::msg_valid_value('la especie', true),
-            'species_id.integer' => Validation::msg_valid_value('la especie', true),
+            'sexes_id.required' => Validation::msg_not_found('el sexo'),
+            'sexes_id.exists' => Validation::msg_not_found('el sexo'),
+            'sexes_id.integer' => Validation::msg_not_found('el sexo'),
+            'species_id.required' => Validation::msg_not_found('la especie'),
+            'species_id.exists' => Validation::msg_not_found('la especie'),
+            'species_id.integer' => Validation::msg_not_found('la especie'),
         ];
     }
 }

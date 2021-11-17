@@ -5,11 +5,13 @@ namespace App\Messages;
 class Validation {
 
     private static $messages = [
+        'after_equal' => 'Por favor ingresá :field después o igual a :date',
         'before_equal' => 'Por favor ingresá :field anterior o igual a :date',
         'email_unique' => 'Ya existe una cuenta con este correo electrónico',
         'max_caracters' => ':field no puede contener más de :max caracteres',
         'max_size' => ':field no puede pesar más de :max',
         'min_caracters' => ':field no puede contener menos de :min caracteres',
+        'not_found' => 'No se encontró :field',
         'numeric' => ':field solo puede contener números',
         'password_requirements' => 'La contraseña debe contener un número',
         'required' => 'Por favor ingresá :field',
@@ -96,6 +98,27 @@ class Validation {
      */
     public static function msg_before_equal(string $field, string $date) {
         return str_replace([':field', ':date'], [$field, $date], self::$messages['before_equal']);
+    }
+
+    /**
+     * Message if input should be after or equal a given date
+     *
+     * @param string $field field name that appears in the message, lowercase (e.g. 'el archivo')
+     * @param string $date date or word to explain earliest possible date (e.g. 'hoy')
+     * @return string|string[] message
+     */
+    public static function msg_after_equal(string $field, string $date) {
+        return str_replace([':field', ':date'], [$field, $date], self::$messages['after_equal']);
+    }
+
+    /**
+     * Message if related ids are not working properly
+     *
+     * @param string $field
+     * @return string message
+     */
+    public static function msg_not_found(string $field) {
+        return str_replace(':field', $field, self::$messages['not_found']);
     }
 
     /**
