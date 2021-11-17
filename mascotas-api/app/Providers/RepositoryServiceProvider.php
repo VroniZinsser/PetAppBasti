@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Repositories\HourRepository;
 use App\Repositories\ImageRepository;
+use App\Repositories\MedicineRepository;
 use App\Repositories\PetRepository;
 use App\Repositories\SexRepository;
 use App\Repositories\SpeciesRepository;
@@ -10,7 +12,9 @@ use App\Repositories\UserRepository;
 use App\Repositories\UserTypeRepository;
 use App\Repositories\VaccineRepository;
 use App\Repositories\WeightRepository;
+use App\Services\HourService;
 use App\Services\ImageService;
+use App\Services\MedicineService;
 use App\Services\PetService;
 use App\Services\SexService;
 use App\Services\SpeciesService;
@@ -30,7 +34,9 @@ class RepositoryServiceProvider extends ServiceProvider
         PetRepository::class => PetService::class,
         SexRepository::class => SexService::class,
         SpeciesRepository::class => SpeciesService::class,
+        MedicineRepository::class => MedicineService::class,
         VaccineRepository::class => VaccineService::class,
-        WeightRepository::class => WeightService::class
+        WeightRepository::class => WeightService::class,
+        HourRepository::class => HourService::class,
     ];
 }

@@ -3,6 +3,8 @@ $black-gray: #333333;
 $brick: #CC613E;
 $clay: #D38462;
 $dark-brown: #321712;
+$gray: #858585;
+$light-gray: #FBFBFB;
 $white-gray: #EFE5DC;
 $white-gray-min: #F9F5F1;
 $yellow: #FFCE8D;
@@ -22,7 +24,7 @@ $shadow-x0-y-4: 0px -4px 6px rgba(#333333, 0.15);
 
 @mixin reset-list {
   margin: 0;
-  padding: 0;
+  padding: 0!important;
   list-style: none;
 }
 
@@ -40,4 +42,14 @@ $shadow-x0-y-4: 0px -4px 6px rgba(#333333, 0.15);
   width: 1px;
   height: 1px;
   overflow: hidden;
+}
+
+// Media queries
+
+@mixin tablet-up {
+  @media screen and (min-width: 768px) { @content; }
+}
+
+@mixin desktop-up {
+  @media screen and (min-width: 992px) { @content; }
 }

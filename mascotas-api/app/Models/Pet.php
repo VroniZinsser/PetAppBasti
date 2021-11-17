@@ -17,6 +17,7 @@ class Pet extends Model
         'name',
         'neutered',
         'temperament',
+        'observation',
         'images_id',
         'sexes_id',
         'species_id',
