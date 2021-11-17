@@ -112,8 +112,7 @@ class PetsController extends Controller
                 return response()->json([
                     'success' => true,
                 ]);
-                break;
-                
+                break;             
             default:
             return response()->json([
                 'success' => false,

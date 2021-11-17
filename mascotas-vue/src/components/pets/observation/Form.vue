@@ -47,13 +47,12 @@ export default {
   },
    methods: {
     updateObservation() {
-      // if (this.$refs.observationForm.validate()) {
+      if (this.$refs.observationForm.validate()) {
         this.loading = true;
         this.errors = {
             'data.observation':null,
         }
-        // petServices.updateObservation(this.formData)
-        petServices.deleteObservation(this.formData)
+        petServices.updateObservation(this.formData)
           .then(res => {
             this.loading = false;
             if (!res.success) {
@@ -73,7 +72,7 @@ export default {
             }
           })
       }
-    // }
+    }
   },
 }
 </script> 
