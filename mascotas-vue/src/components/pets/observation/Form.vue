@@ -10,7 +10,7 @@
             identifier="observation"
             :loading="loading"
             :rules="[rules.obligatory]"
-            :errors = "errors.observation"
+            :errors="errors['data.observation']"
             required
         ></InputText>
       <v-btn type="submit" :disabled="loading">Guardar</v-btn>
@@ -38,7 +38,7 @@ export default {
         pets_id: this.pets_id
       },
       errors: {
-        observation: null,
+        'data.observation': null,
       },
       rules: {
         obligatory: value => !!value || 'Este campo es obligatorio.',
@@ -47,12 +47,13 @@ export default {
   },
    methods: {
     updateObservation() {
-      if (this.$refs.observationForm.validate()) {
+      // if (this.$refs.observationForm.validate()) {
         this.loading = true;
         this.errors = {
-            observation:null,
+            'data.observation':null,
         }
-        petServices.updateObservation(this.formData)
+        // petServices.updateObservation(this.formData)
+        petServices.deleteObservation(this.formData)
           .then(res => {
             this.loading = false;
             if (!res.success) {
@@ -60,7 +61,10 @@ export default {
               if(res.errors && res.errors.pets_id) {
                 alert('La mascota no existe.');
               } else if (this.errors) {
-                this.errors.observation = res.errors;
+                this.errors = {
+                  'data.observation': null,
+                  ...res.errors
+                }
               }else{
                 alert("Hubo un error inesperado");
               }
@@ -69,7 +73,7 @@ export default {
             }
           })
       }
-    }
+    // }
   },
 }
 </script> 

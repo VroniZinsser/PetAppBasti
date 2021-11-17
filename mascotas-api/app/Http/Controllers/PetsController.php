@@ -10,6 +10,7 @@ use App\Repositories\SexRepository;
 use App\Repositories\SpeciesRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PetsController extends Controller
 {
@@ -75,37 +76,24 @@ class PetsController extends Controller
     }
 
     /**
-     * Adds, modifieds or deletes single fields of a pet
-     */
-    // public function patchPet(Request $request, $pets_id): JsonResponse 
-    // {  
-    //     // handle observation patch if 'observation' is set in request
-    //     if ($request->has('observation')) {
-    //         $pet = $this->petRepository->patchObservation($pets_id, $request->get('observation'));
-
-    //         return response()->json([
-    //             'success' => true,
-    //             'data' => $pet,
-    //         ]);
-    //     }
-
-    //     return response()->json([
-    //         'success' => true,
-    //     ]);
-    // }
-
-    /**
      * Updates or removes observation
      */
-    public function updateObservation(Request $request, $pet_id) {
+    public function updateObservation(Request $request) {
         switch($request->input('action')) {
             case 'update':
-                $request->validate([
-                    'data.observation' => 'required',
-                    'pets_id' => 'required|exists:pets,id|integer'
-                ]);
+                Validator::make(
+                    $request->all(), 
+                    [
+                        'data.observation' => 'required',
+                        'data.pets_id' => 'required|exists:pets,id|integer'
+                    ],
+                    [
+                        'data.observation.required' => 'Por favor ingresá una observación',
+                        'data.pets_id.*' => 'No se encontró la mascota relacionada'
+                    ])->validate();
+
                 $observation = $request->get('data')['observation'];
-                $pet = $this->petRepository->patchObservation($pet_id, $observation);
+                $pet = $this->petRepository->patchObservation($request->get('data')['pets_id'], $observation);
 
                 return response()->json([
                     'success' => true,
@@ -113,12 +101,19 @@ class PetsController extends Controller
                 ]);
                 break;
             case 'delete':
-                $this->petRepository->patchObservation($pet_id, '');
+                Validator::make(
+                    $request->all(), 
+                    ['data.pets_id' => 'required|exists:pets,id|integer'],
+                    ['data.pets_id.*' => 'No se encontró la mascota relacionada']
+                )->validate();
+                
+                $this->petRepository->patchObservation($request->get('data')['pets_id'], '');
 
                 return response()->json([
                     'success' => true,
                 ]);
                 break;
+                
             default:
             return response()->json([
                 'success' => false,
