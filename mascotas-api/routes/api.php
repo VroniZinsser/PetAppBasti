@@ -28,4 +28,4 @@ Route::get('/mascotas/agregar', [PetsController::class, 'addForm']);
 Route::post('/mascotas/agregar', [PetsController::class, 'addPet']);
 Route::patch('/mascotas/{pet}', [PetsController::class, 'patchPet']);
 // RPC route, handles update and elimination of observation
-Route::post('/observacion', [PetsController::class, 'updateObservation']);
+Route::post('mascotas/{pet}/observacion', [PetsController::class, 'updateObservation']);

@@ -28,5 +28,5 @@ interface PetRepository
      * @param string|null $observation
      * @return Pet The patched pet
      */
-    public function patchObservation(int $pets_id, ?string $observation): Pet;
+    public function patchObservation(int $pets_id, ?string $observation): Pet | bool;
 }

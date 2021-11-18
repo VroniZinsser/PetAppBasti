@@ -41,10 +41,11 @@ const petServices = {
      * Updates only the observation field of the pet
      *
      * @param data
+     * @param petId
      * @returns {Promise<any>}
      */
-    updateObservation(data) {
-        return fetch(`${API}observacion`, {
+    updateObservation(pet_id, data) {
+        return fetch(`${API}mascotas/${pet_id}/observacion`, {
             method: 'POST',
             body: JSON.stringify({
                 action:'update',
@@ -59,12 +60,11 @@ const petServices = {
      *
      * @returns {Promise<any>}
      */
-    deleteObservation(data) {
-        return fetch(`${API}observacion`, {
+    deleteObservation(pet_id) {
+        return fetch(`${API}mascotas/${pet_id}/observacion`, {
             method: 'POST',
             body: JSON.stringify({
                 action:'delete',
-                data: data
             }),
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
         }).then(res => res.json());

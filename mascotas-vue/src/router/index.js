@@ -58,7 +58,7 @@ const routes = [
     },
   },
   {
-    path: '/mascotas/:petsId/observacion/nuevo',
+    path: '/mascotas/:petId/observacion/nuevo',
     name: 'ObservationForm',
     component: ObservationForm,
     meta: {

@@ -25,7 +25,7 @@ export default {
     InputText,
   },
   props: {
-    pets_id: {
+    pet_id: {
       type: String,
       required: true,
     },
@@ -35,7 +35,6 @@ export default {
       loading: false,
       formData: {
         observation: null,
-        pets_id: this.pets_id
       },
       errors: {
         'data.observation': null,
@@ -52,11 +51,10 @@ export default {
         this.errors = {
             'data.observation':null,
         }
-        petServices.updateObservation(this.formData)
+        petServices.updateObservation(this.pet_id, this.formData)
           .then(res => {
             this.loading = false;
             if (!res.success) {
-              console.log(res.errors);
               if(res.errors && res.errors.pets_id) {
                 alert('La mascota no existe.');
               } else if (this.errors) {

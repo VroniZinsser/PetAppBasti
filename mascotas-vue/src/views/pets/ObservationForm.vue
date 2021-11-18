@@ -2,7 +2,7 @@
   <v-container fluid>
     <h1>Agregar observación</h1>
     <Form
-      :pets_id="$route.params.petsId"
+      :pet_id="$route.params.petId"
     ></Form>
   </v-container>
 </template>

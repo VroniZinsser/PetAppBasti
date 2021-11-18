@@ -78,47 +78,34 @@ class PetsController extends Controller
     /**
      * Updates or removes observation
      */
-    public function updateObservation(Request $request) {
+    public function updateObservation(Request $request, $petId): JsonResponse {
         switch($request->input('action')) {
             case 'update':
-                Validator::make(
-                    $request->all(), 
-                    [
-                        'data.observation' => 'required',
-                        'data.pets_id' => 'required|exists:pets,id|integer'
-                    ],
-                    [
-                        'data.observation.required' => 'Por favor ingresá una observación',
-                        'data.pets_id.*' => 'No se encontró la mascota relacionada'
-                    ])->validate();
-
+                $this->validateObservation($request->all());
                 $observation = $request->get('data')['observation'];
-                $pet = $this->petRepository->patchObservation($request->get('data')['pets_id'], $observation);
-
-                return response()->json([
-                    'success' => true,
-                    'data' => $pet,
-                ]);
                 break;
-            case 'delete':
-                Validator::make(
-                    $request->all(), 
-                    ['data.pets_id' => 'required|exists:pets,id|integer'],
-                    ['data.pets_id.*' => 'No se encontró la mascota relacionada']
-                )->validate();
-                
-                $this->petRepository->patchObservation($request->get('data')['pets_id'], '');
 
-                return response()->json([
-                    'success' => true,
-                ]);
-                break;             
+            case 'delete':
+                $observation = '';
+                break;
+
             default:
-            return response()->json([
-                'success' => false,
-                'msg' => 'Invalid request action'
-            ], 400);
+                return response()->json([
+                    'success' => false,
+                    'msg' => 'Invalid request action'
+                ], 400);
         }
+
+        $pet = $this->petRepository->patchObservation($petId, $observation);
+
+        if(!$pet) {
+            return response()->json($this->observationErrorResponse());
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $pet,
+        ]);
     }
 
     /**
@@ -134,5 +121,20 @@ class PetsController extends Controller
                 'pets' => $this->petRepository->getPetsByUser(1)
             ],
         ]);
+    }
+
+    private function validateObservation($requestData) {
+        Validator::make(
+            $requestData, 
+            ['data.observation' => 'required'],
+            ['data.observation.required' => 'Por favor ingresá una observación']
+        )->validate();
+    }
+
+    private function observationErrorResponse() {
+        return [
+            'success' => false,
+            'errors' => ['pets_id' => 'No se encontró la mascota relacionada']
+        ];
     }
 }
