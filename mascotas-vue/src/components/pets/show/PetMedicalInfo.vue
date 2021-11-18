@@ -1,9 +1,9 @@
 <template>
   <div class="pet-medical-info">
-    <Weight :weights="[]"></Weight>
+    <Weight :weights="weights"></Weight>
     <Medicine :medicines="[]"></Medicine>
-    <Observation></Observation>
-    <Vaccine :vaccines="[]"></Vaccine>
+    <Observation :observation="pet.observation"></Observation>
+    <Vaccine :vaccines="vaccines"></Vaccine>
 
   </div>
     
@@ -14,6 +14,7 @@ import Weight from "@/components/pets/show/medical/Weight";
 import Medicine from "@/components/pets/show/medical/Medicine";
 import Observation from "@/components/pets/show/medical/Observation";
 import Vaccine from "@/components/pets/show/medical/Vaccine";
+import petService from "@/services/pets";
 
 export default {
   name: "PetMedicalInfo",
@@ -23,11 +24,38 @@ export default {
       required: true
     },
   },
+  data: () => ({
+    loading: true,
+    medicines: [],
+    vaccines: [],
+    weights: []
+  }),
   components: {
     Weight,
     Medicine,
     Observation,
     Vaccine
+  },
+  mounted() {
+    this.loadMedicalInfo();
+  },
+  watch: {
+    pet: function() {
+      this.loadMedicalInfo();
+    }
+  },
+  methods: {
+    loadMedicalInfo() {
+      Promise.all([
+        petService.getVaccines(this.pet.id),
+        petService.getWeights(this.pet.id),
+      ]).then(res => {
+        this.vaccines = res[0].data.vaccines;
+        this.weights = res[1].data.weights;
+      })
+      
+
+    }
   }
 }
 </script>

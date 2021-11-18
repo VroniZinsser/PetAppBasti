@@ -25,7 +25,7 @@ class WeightController extends Controller
      */
     public function getWeightsByPet($pets_id): JsonResponse
     {
-        $weights = $this->weightRepository->getWeightsByPet($pets_id);
+        $weights = $this->weightRepository->getWeightsByPet($pets_id)->values();
         return response()->json([
             'data' => compact('weights'),
         ]);

@@ -12,7 +12,7 @@ export default {
     name: "Observation",
     props: {
         observation: {
-            type: Object,
+            type: String,
         }
     }
 }

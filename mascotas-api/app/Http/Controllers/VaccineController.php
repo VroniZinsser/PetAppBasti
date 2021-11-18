@@ -23,7 +23,7 @@ class VaccineController extends Controller
      */
     public function getVaccinesByPet($pets_id): JsonResponse
     {
-        $vaccines = $this->vaccineRepository->getVaccinesByPet($pets_id);
+        $vaccines = $this->vaccineRepository->getVaccinesByPet($pets_id)->values();
         return response()->json([
             'data' => compact('vaccines'),
         ]);

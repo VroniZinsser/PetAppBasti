@@ -49,7 +49,43 @@ const petServices = {
             body: JSON.stringify(data),
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
         }).then(res => res.json());
-    }
+    },
+
+    /**
+     * Get all vaccines of the pet
+     *
+     * @param petId
+     * @returns {Promise<any>}
+     */
+     getVaccines(petId) {
+        return fetch(`${API}mascotas/${petId}/vacunas`, {
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+        }).then(res => res.json());
+    },
+
+    /**
+     * Get all weights of the pet
+     *
+     * @param petId
+     * @returns {Promise<any>}
+     */
+     getWeights(petId) {
+        return fetch(`${API}mascotas/${petId}/pesos`, {
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+        }).then(res => res.json());
+    },
+
+    /**
+     * Get all medicines of the pet
+     *
+     * @param petId
+     * @returns {Promise<any>}
+     */
+     getMedicines(petId) {
+        return fetch(`${API}mascotas/${petId}/medicamentos`, {
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+        }).then(res => res.json());
+    },
 };
 
 export default petServices;
