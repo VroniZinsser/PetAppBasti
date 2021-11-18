@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class PetController extends Controller
 {
@@ -21,10 +22,10 @@ class PetController extends Controller
     protected $imageRepository;
 
     public function __construct(
-        SexRepository $sexRepository,
+        SexRepository     $sexRepository,
         SpeciesRepository $speciesRepository,
-        PetRepository $petRepository,
-        ImageRepository $imageRepository
+        PetRepository     $petRepository,
+        ImageRepository   $imageRepository
     )
     {
         $this->sexRepository = $sexRepository;
@@ -82,9 +83,11 @@ class PetController extends Controller
      * @param Request $request
      * @param $petId
      * @return JsonResponse
+     * @throws ValidationException
      */
-    public function updateObservation(Request $request, $petId): JsonResponse {
-        switch($request->input('action')) {
+    public function updateObservation(Request $request, $petId): JsonResponse
+    {
+        switch ($request->input('action')) {
             case 'update':
                 $this->validateObservation($request->all());
                 $observation = $request->get('data')['observation'];
@@ -103,7 +106,7 @@ class PetController extends Controller
 
         try {
             $pet = $this->petRepository->updateObservation($petId, $observation);
-        } catch(ModelNotFoundException $e) {
+        } catch (ModelNotFoundException $e) {
             return response()->json([
                 'success' => false,
                 'errors' => ['pets_id' => 'No se encontró la mascota relacionada']
@@ -135,9 +138,10 @@ class PetController extends Controller
      * Performs specific validation for the observation field
      *
      * @param $requestData
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
-    private function validateObservation($requestData) {
+    private function validateObservation($requestData)
+    {
         Validator::make(
             $requestData,
             ['data.observation' => 'required'],
