@@ -40,8 +40,8 @@ const petServices = {
     /**
      * Updates only the observation field of the pet
      *
+     * @param pet_id
      * @param data
-     * @param petId
      * @returns {Promise<any>}
      */
     updateObservation(pet_id, data) {
