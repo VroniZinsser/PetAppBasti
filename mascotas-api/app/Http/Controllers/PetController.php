@@ -13,7 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class PetsController extends Controller
+class PetController extends Controller
 {
     protected $sexRepository;
     protected $speciesRepository;

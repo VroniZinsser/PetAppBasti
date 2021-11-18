@@ -1,0 +1,55 @@
+// Colors
+$black-gray: #333333;
+$brick: #CC613E;
+$clay: #D38462;
+$dark-brown: #321712;
+$gray: #858585;
+$light-gray: #FBFBFB;
+$white-gray: #EFE5DC;
+$white-gray-min: #F9F5F1;
+$yellow: #FFCE8D;
+$theme-colors: (
+        "success": #28a745,
+        "info": #17a2b8,
+        "warning": #ffc107,
+        "danger": #D64550,
+);
+
+// Shadows
+$shadow-x0-y0: 0px 0px 6px rgba(#333333, 0.15);
+$shadow-x0-y4: 0px 4px 6px rgba(#333333, 0.15);
+$shadow-x0-y-4: 0px -4px 6px rgba(#333333, 0.15);
+
+// Lists
+
+@mixin reset-list {
+  margin: 0;
+  padding: 0!important;
+  list-style: none;
+}
+
+@mixin horizontal-list {
+  @include reset-list;
+  display: flex;
+}
+
+// General
+
+@mixin sr-only {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+// Media queries
+
+@mixin tablet-up {
+  @media screen and (min-width: 768px) { @content; }
+}
+
+@mixin desktop-up {
+  @media screen and (min-width: 992px) { @content; }
+}

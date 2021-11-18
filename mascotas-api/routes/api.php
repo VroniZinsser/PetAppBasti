@@ -1,9 +1,12 @@
 <?php
 
-use App\Http\Controllers\PetsController;
+use App\Http\Controllers\MedicineController;
+use App\Http\Controllers\PetController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VaccineController;
+use App\Http\Controllers\WeightController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +31,19 @@ Route::get('/mascotas/agregar', [PetsController::class, 'addForm']);
 Route::post('/mascotas/agregar', [PetsController::class, 'addPet']);
 Route::patch('/mascotas/{pet}', [PetsController::class, 'patchPet']);
 // RPC route, handles update and elimination of observation
-Route::post('mascotas/{pet}/observacion', [PetsController::class, 'updateObservation']);
+Route::post('mascotas/{pet}/observacion', [PetController::class, 'updateObservation']);
+
+Route::get('/medicamentos/formulario-agregar', [MedicineController::class, 'addForm']);
+Route::post('/mascotas/{id}/medicamentos', [MedicineController::class, 'add']);
+
+Route::post('/vacunas', [VaccineController::class, 'createVaccine']);
+Route::get('/vacunas/{vaccine}', [VaccineController::class, 'findVaccine']);
+Route::put('/vacunas/{vaccine}', [VaccineController::class, 'updateVaccine']);
+Route::delete('/vacunas/{vaccine}', [VaccineController::class, 'deleteVaccine']);
+Route::get('/mascotas/{pet}/vacunas', [VaccineController::class, 'getVaccinesByPet']);
+
+Route::post('/pesos', [WeightController::class, 'createWeight']);
+Route::get('/pesos/{weight}', [WeightController::class, 'findWeight']);
+Route::put('/pesos/{weight}', [WeightController::class, 'updateWeight']);
+Route::delete('/pesos/{weight}', [WeightController::class, 'deleteWeight']);
+Route::get('/mascotas/{pet}/pesos', [WeightController::class, 'getWeightsByPet']);
