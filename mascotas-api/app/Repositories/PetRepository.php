@@ -5,12 +5,13 @@ namespace App\Repositories;
 use App\Dtos\PetDTO;
 use App\Models\Pet;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 interface PetRepository
 {
     /**
      * Creates or Updates and returns the pet
-     * 
+     *
      * @param PetDTO $dto
      * @param int $owners_id
      * @return Pet The created or updated pet
@@ -25,8 +26,9 @@ interface PetRepository
 
     /**
      * @param int $pets_id
-     * @param string|null $observation
+     * @param string $observation
      * @return Pet The patched pet
+     * @throws ModelNotFoundException
      */
-    public function patchObservation(int $pets_id, ?string $observation): Pet | bool;
+    public function updateObservation(int $pets_id, string $observation): Pet;
 }

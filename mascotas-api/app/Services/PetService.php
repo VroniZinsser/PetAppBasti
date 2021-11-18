@@ -50,10 +50,9 @@ class PetService implements PetRepository
     /**
      * @inheritDoc
      */
-    public function patchObservation(int $pets_id, ?string $observation): Pet | bool
+    public function updateObservation(int $pets_id, string $observation): Pet
     {
-        $pet = Pet::find($pets_id);
-        if(!$pet) return false;
+        $pet = Pet::findOrFail($pets_id);
         $pet->observation = $observation;
         $pet->save();
 
