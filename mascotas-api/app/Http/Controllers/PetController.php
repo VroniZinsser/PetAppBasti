@@ -80,11 +80,11 @@ class PetController extends Controller
      * Updates or removes observation from a pet
      *
      * @param Request $request
-     * @param $petId
+     * @param $pet_id
      * @return JsonResponse
      * @throws ValidationException
      */
-    public function updateObservation(Request $request, $petId): JsonResponse
+    public function updateObservation(Request $request, $pet_id): JsonResponse
     {
         switch ($request->input('action')) {
             case 'update':
@@ -104,11 +104,11 @@ class PetController extends Controller
         }
 
         try {
-            $pet = $this->petRepository->updateObservation($petId, $observation);
+            $pet = $this->petRepository->updateObservation($pet_id, $observation);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'success' => false,
-                'errors' => ['pets_id' => 'No se encontró la mascota relacionada']
+                'errors' => ['pet_id' => 'No se encontró la mascota relacionada']
             ], 404);
         }
 
@@ -136,13 +136,13 @@ class PetController extends Controller
     /**
      * Performs specific validation for the observation field
      *
-     * @param $requestData
+     * @param $request_data
      * @throws ValidationException
      */
-    private function validateObservation($requestData)
+    private function validateObservation($request_data)
     {
         Validator::make(
-            $requestData,
+            $request_data,
             ['data.observation' => 'required'],
             ['data.observation.required' => 'Por favor ingresá una observación']
         )->validate();
