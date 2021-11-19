@@ -1,0 +1,62 @@
+.pet-medical-info {
+    display: flex;
+    flex-direction: column;
+    
+    @include desktop-up { 
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .medical-container {
+        padding: 16px;
+        width: 100%;
+        // TODO: remove height. It is only for testing
+        height: 200px; 
+
+        .medical-container-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            
+            h2 {
+                font-size: 20px;
+            }  
+
+            a {
+                color: black;
+                font-size: 14px;
+            }
+        }
+        
+        &.medicine {
+            background-color: $white-gray;
+        }
+
+        &.vaccine {
+            background-color: $white-gray;
+            @include desktop-up { 
+                background: $white-gray-min;
+            } 
+        }
+        
+        &.weight {
+            @include tablet-up { 
+                background: $white-gray-min;
+            }
+            @include desktop-up { 
+                order: -2;
+                width: 50%;
+            }
+        }
+
+        &.observation {
+            @include tablet-up {
+                background: $light-gray;
+            }
+            @include desktop-up { 
+                order:-1;
+                width: 50%;
+            }
+        }
+    }
+}
