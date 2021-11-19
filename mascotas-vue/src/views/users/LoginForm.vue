@@ -6,13 +6,14 @@
         :text="store.status.msg"
         :title="store.status.title"
     />
+
     <h1>Login</h1>
-    <Form />
+
+    <Form/>
   </v-container>
 </template>
 
 <script>
-
 import Form from "@/components/users/login/Form";
 import BaseNotification from "@/components/general/notifications/BaseNotification"
 import store from "@/store"
@@ -21,12 +22,12 @@ export default {
   name: "LoginForm",
   components: {
     Form,
-    BaseNotification
+    BaseNotification,
   },
   data: () => ({
     loading: true,
     user_types: [],
-    store
+    store,
   }),
 }
 </script>

@@ -6,7 +6,8 @@
 
     <Form v-else
           :sexes="sexes"
-          :species="species"></Form>
+          :species="species"
+    ></Form>
   </v-container>
 </template>
 
@@ -27,7 +28,7 @@ export default {
         .then(res => {
           this.sexes = res.data.sexes;
           this.species = res.data.species;
-        })
+        });
 
     this.loading = false;
   }
