@@ -4,6 +4,9 @@
             <h2>Observaciones</h2>
             <a href="#">Ver más</a>
         </div>
+        <div class="medical-container-body">
+            <p>{{observation}}</p>
+        </div>
     </div>
 </template>
 <script>

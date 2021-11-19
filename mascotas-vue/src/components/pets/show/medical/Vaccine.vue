@@ -4,10 +4,16 @@
             <h2>Vacunas</h2>
             <a href="#">Ver más</a>
         </div>
+        <VaccineItem 
+            v-for="vaccine in vaccines" 
+            :key="vaccine.id" 
+            :vaccine="vaccine">
+        </VaccineItem>
     </div>
 </template>
 <script>
 
+import VaccineItem from "@/components/pets/show/medical/VaccineItem";
 export default {
     name: "Vaccine",
     props: {
@@ -15,6 +21,9 @@ export default {
             type: Array,
             required: true
         }
-    }
+    },
+    components: {
+        VaccineItem
+    },
 }
 </script>

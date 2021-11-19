@@ -52,6 +52,7 @@ export default {
       ]).then(res => {
         this.vaccines = res[0].data.vaccines;
         this.weights = res[1].data.weights;
+        this.loading = false;
       })
       
 
