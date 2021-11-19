@@ -37,7 +37,7 @@ export default {
     InputDate
   },
   props: {
-    pets_id: {
+    pet_id: {
       type: String,
       required: true,
     },
@@ -48,7 +48,7 @@ export default {
       formData: {
         name: null,
         date: this.getCurrentDate(),
-        pets_id: this.pets_id
+        pet_id: this.pet_id
       },
       errors: {
         name: null,
@@ -81,8 +81,8 @@ export default {
           .then(res => {
             this.loading = false;
             if (!res.success) {
-              if(res.errors && res.errors.pets_id) {
-                alert(res.errors.pets_id);
+              if(res.errors && res.errors.pet_id) {
+                alert(res.errors.pet_id);
               } else if (this.errors) {
                 this.errors = {
                   name: null,

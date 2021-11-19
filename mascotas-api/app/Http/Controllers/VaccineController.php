@@ -19,12 +19,12 @@ class VaccineController extends Controller
     /**
      * Returns all vaccines of a pet
      *
-     * @param $pets_id
+     * @param $pet_id
      * @return JsonResponse
      */
-    public function getVaccinesByPet($pets_id): JsonResponse
+    public function getVaccinesByPet($pet_id): JsonResponse
     {
-        $vaccines = $this->vaccineRepository->getVaccinesByPet($pets_id);
+        $vaccines = $this->vaccineRepository->getVaccinesByPet($pet_id);
         return response()->json([
             'data' => compact('vaccines'),
         ]);
@@ -38,7 +38,7 @@ class VaccineController extends Controller
      */
     public function createVaccine(VaccineRequest $request): JsonResponse
     {
-        $vaccine = $this->vaccineRepository->create($request->get('name'), $request->get('date'), $request->get('pets_id'));
+        $vaccine = $this->vaccineRepository->create($request->get('name'), $request->get('date'), $request->get('pet_id'));
 
         return response()->json([
             'success' => true,

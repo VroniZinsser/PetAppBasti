@@ -12,8 +12,7 @@ class VaccineService implements VaccineRepository
      */
     public function getVaccinesByPet(int $pet_id): object
     {
-        $vaccines = Vaccine::get()->where('pets_id', $pet_id);
-        return $vaccines;
+        return Vaccine::get()->where('pets_id', $pet_id);
     }
 
     /**
@@ -21,8 +20,7 @@ class VaccineService implements VaccineRepository
      */
     public function find(int $id): Vaccine
     {
-        $vaccine = Vaccine::find($id);
-        return $vaccine;
+        return Vaccine::find($id);
     }
 
     /**

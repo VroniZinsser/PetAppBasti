@@ -88,7 +88,7 @@ const routes = [
         }
     },
     {
-        path: '/mascotas/:petsId/vacunas/nuevo',
+        path: '/mascotas/:pet_id/vacunas/nuevo',
         name: 'VaccineForm',
         component: VaccineForm,
         meta: {

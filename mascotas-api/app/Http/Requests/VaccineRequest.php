@@ -12,12 +12,12 @@ class VaccineRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => 'required',
             'date' => 'required|date|before_or_equal:'.date('m/d/Y'),
-            'pets_id' => 'required|exists:pets,id|integer'
+            'pet_id' => 'required|exists:pets,id|integer'
         ];
     }
 
@@ -27,9 +27,9 @@ class VaccineRequest extends FormRequest
             'name.required' => 'El nombre de vacuna es obligatorio',
             'date.required' => 'La fecha es obligatoria',
             'date.date' => 'Por favor ingresá una fecha válida',
-            'pets_id.required' => 'El peso tiene que estar relacionado a una mascota',
-            'pets_id.exists' => 'La mascota seleccionada no existe',
-            'pets_id.integer' => 'La mascota seleccionada no es válida'
+            'pet_id.required' => 'El peso tiene que estar relacionado a una mascota',
+            'pet_id.exists' => 'La mascota seleccionada no existe',
+            'pet_id.integer' => 'La mascota seleccionada no es válida'
         ];
     }
 }
