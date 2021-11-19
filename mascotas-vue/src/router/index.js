@@ -54,6 +54,15 @@ const routes = [
             requiresAuth: true,
         },
     },
+
+    {
+        path: '/mascotas/:petId/observacion/nuevo',
+        name: 'ObservationForm',
+        component: ObservationForm,
+        meta: {
+            requiresAuth: true,
+        },
+    },
     {
         path: '/mascotas/:petsId',
         name: 'Pet',
@@ -77,14 +86,6 @@ const routes = [
         meta: {
             requiresAuth: true,
         }
-    },
-    {
-        path: '/mascotas/:petsId/observacion/nuevo',
-        name: 'ObservationForm',
-        component: ObservationForm,
-        meta: {
-            requiresAuth: true,
-        },
     },
     {
         path: '/mascotas/:petsId/vacunas/nuevo',
