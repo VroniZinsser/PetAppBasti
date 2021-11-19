@@ -15,6 +15,7 @@ class Validation {
         'numeric' => ':field solo puede contener números',
         'password_requirements' => 'La contraseña debe contener un número',
         'required' => 'Por favor ingresá :field',
+        'required_select' => 'Por favor seleccioná :field',
         'valid_value' => ':field que ingresaste no es :valid',
         'error' => 'El valor que ingresaste no es válido.'
     ];
@@ -23,10 +24,11 @@ class Validation {
      * Message if required input is missing
      *
      * @param string $field field name that appears in the message, lowercase (e.g. 'el apellido')
+     * @param bool $isSelect set to true if the input field is a select
      * @return string|string[] message
      */
-    public static function msg_required($field) {
-        return str_replace(':field', $field, self::$messages['required']);
+    public static function msg_required($field, $isSelect = false) {
+        return str_replace(':field', $field, $isSelect ? self::$messages['required_select'] : self::$messages['required']);
     }
 
     /**

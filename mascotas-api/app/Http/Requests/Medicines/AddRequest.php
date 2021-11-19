@@ -57,7 +57,7 @@ class AddRequest extends FormRequest
             "id.required" => Validation::msg_not_found('la mascota relacionada'),
             "id.integer" => Validation::msg_not_found('la mascota relacionada'),
             "id.exists" => Validation::msg_not_found('la mascota relacionada'),
-            "hours.required" => Validation::msg_required('los horarios'),
+            "hours.required" => Validation::msg_required('los horarios', true),
             "hours.array" => Validation::msg_valid_value('el horario'),
             "hours.min" => Validation::msg_required('como mínimo una hora'),
             "hours.exists" => Validation::msg_not_found('la hora seleccionada'),
