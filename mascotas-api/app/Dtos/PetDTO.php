@@ -17,7 +17,7 @@ class PetDTO extends BaseDTO {
     /**
      * Get the value of id
      */ 
-    public function getId()
+    public function get_id()
     {
         return $this->id;
     }
@@ -25,7 +25,7 @@ class PetDTO extends BaseDTO {
     /**
      * Get the value of breed
      */ 
-    public function getBreed()
+    public function get_breed()
     {
         return $this->breed;
     }
@@ -33,7 +33,7 @@ class PetDTO extends BaseDTO {
     /**
      * Get the value of date_of_birth
      */ 
-    public function getDate_of_birth()
+    public function get_date_of_birth()
     {
         return $this->date_of_birth;
     }
@@ -41,7 +41,7 @@ class PetDTO extends BaseDTO {
     /**
      * Get the value of name
      */ 
-    public function getName()
+    public function get_name()
     {
         return $this->name;
     }
@@ -49,7 +49,7 @@ class PetDTO extends BaseDTO {
     /**
      * Get the value of neutered
      */ 
-    public function getNeutered()
+    public function get_neutered()
     {
         return $this->neutered;
     }
@@ -57,7 +57,7 @@ class PetDTO extends BaseDTO {
     /**
      * Get the value of temperament
      */ 
-    public function getTemperament()
+    public function get_temperament()
     {
         return $this->temperament;
     }
@@ -65,7 +65,7 @@ class PetDTO extends BaseDTO {
     /**
      * Get the value of images_id
      */ 
-    public function getImages_id()
+    public function get_images_id()
     {
         return $this->images_id;
     }
@@ -73,7 +73,7 @@ class PetDTO extends BaseDTO {
     /**
      * Get the value of sexes_id
      */ 
-    public function getSexes_id()
+    public function get_sexes_id()
     {
         return $this->sexes_id;
     }
@@ -81,7 +81,7 @@ class PetDTO extends BaseDTO {
     /**
      * Get the value of species_id
      */ 
-    public function getSpecies_id()
+    public function get_species_id()
     {
         return $this->species_id;
     }
@@ -89,7 +89,7 @@ class PetDTO extends BaseDTO {
     /**
      * Get the value of owner
      */ 
-    public function getOwner()
+    public function get_owner()
     {
         return $this->owner;
     }
@@ -99,7 +99,7 @@ class PetDTO extends BaseDTO {
      *
      * @return  self
      */ 
-    public function setImages_id($images_id)
+    public function set_images_id($images_id)
     {
         $this->images_id = $images_id;
 
@@ -109,7 +109,7 @@ class PetDTO extends BaseDTO {
     /**
      * Get the value of observation
      */ 
-    public function getObservation()
+    public function get_observation()
     {
         return $this->observation;
     }
