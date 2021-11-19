@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Dtos\PetDTO;
 use App\Models\Pet;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 interface PetRepository
 {
@@ -25,8 +26,9 @@ interface PetRepository
 
     /**
      * @param int $pet_id
-     * @param string|null $observation
+     * @param string $observation
      * @return Pet The patched pet
+     * @throws ModelNotFoundException
      */
-    public function patchObservation(int $pet_id, ?string $observation): Pet;
+    public function updateObservation(int $pet_id, string $observation): Pet;
 }

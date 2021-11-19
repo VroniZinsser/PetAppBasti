@@ -25,37 +25,33 @@ class UserService implements UserRepository {
      * @inheritDoc
      */
     public function updateOrCreate(UserDTO $dto): User {
-        $user = User::updateOrCreate(
-            ['id' => $dto->getId() ],
-            [
-                'first_name' => $dto->getFirst_name(),
-                'last_name' => $dto->getLast_name(),
-                'email' => $dto->getEmail(),
-                'email_verified_at' => $dto->getEmail_verified_at(),
-                'email_visible' => $dto->getEmail_visible(),
-                'password' => Hash::make($dto->getPassword()),
-                'country' => $dto->getCountry(),
-                'state' => $dto->getState(),
-                'city' => $dto->getCity(),
-                'postal_code' => $dto->getPostal_code(),
-                'district' => $dto->getDistrict(),
-                'street' => $dto->getStreet(),
-                'house_number' => $dto->getHouse_number(),
-                'apartment' => $dto->getApartment(),
-                'latitude' => $dto->getLatitude(),
-                'longitude' => $dto->getLongitude(),
-                'dni' => $dto->getDni(),
-                'public_name' => $dto->getPublic_name(),
-                'description' => $dto->getDescription(),
-                'whatsapp' => $dto->getWhatsapp(),
-                'instagram' => $dto->getInstagram(),
-                'facebook' => $dto->getFacebook(),
-                'web' => $dto->getWeb(),
-                'verified' => $dto->getVerified(),
-                'profile_img_id' => $dto->getProfile_img_id()
-            ]
-        );
-
+        $user = User::findOrNew($dto->get_id());
+        $user->first_name = $dto->get_first_name();
+        $user->last_name = $dto->get_last_name();
+        $user->email = $dto->get_email();
+        $user->email_verified_at = $dto->get_email_verified_at();
+        $user->email_visible = $dto->get_email_visible();
+        $user->password = Hash::make($dto->get_password());
+        $user->country = $dto->get_country();
+        $user->state = $dto->get_state();
+        $user->city = $dto->get_city();
+        $user->postal_code = $dto->get_postal_code();
+        $user->district = $dto->get_district();
+        $user->street = $dto->get_street();
+        $user->house_number = $dto->get_house_number();
+        $user->apartment = $dto->get_apartment();
+        $user->latitude = $dto->get_latitude();
+        $user->longitude = $dto->get_longitude();
+        $user->dni = $dto->get_dni();
+        $user->public_name = $dto->get_public_name();
+        $user->description = $dto->get_description();
+        $user->whatsapp = $dto->get_whatsapp();
+        $user->instagram = $dto->get_instagram();
+        $user->facebook = $dto->get_facebook();
+        $user->web = $dto->get_web();
+        $user->verified = $dto->get_verified();
+        $user->profile_img_id = $dto->get_profile_img_id();
+        $user->save();
         return $user;
     }
 }

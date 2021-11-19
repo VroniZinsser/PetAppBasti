@@ -4,8 +4,9 @@ import Home from '../views/Home.vue'
 import UserCreateForm from "../views/users/CreateForm";
 import UserLoginForm from "../views/users/LoginForm";
 import PetAddForm from "../views/pets/AddForm";
-import ShowMap from "../views/map/ShowMap";
+import ShowMap from "../views/map/ShowMap"
 import PetShowList from "../views/pets/ShowList"
+import Pet from "../views/pets/Pet";
 import ObservationForm from "../views/pets/ObservationForm"
 import VaccineForm from "../views/pets/VaccineForm";
 import WeightForm from "../views/pets/WeightForm";
@@ -44,10 +45,28 @@ const routes = [
             requiresAuth: true,
         },
     },
+
     {
         path: '/mascotas/agregar',
         name: 'PetAddForm',
         component: PetAddForm,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+
+    {
+        path: '/mascotas/:petId/observacion/nuevo',
+        name: 'ObservationForm',
+        component: ObservationForm,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/mascotas/:petsId',
+        name: 'Pet',
+        component: Pet,
         meta: {
             requiresAuth: true,
         },
@@ -66,15 +85,7 @@ const routes = [
         component: ShowMap,
         meta: {
             requiresAuth: true,
-        },
-    },
-    {
-        path: '/mascotas/:petsId/observacion/nuevo',
-        name: 'ObservationForm',
-        component: ObservationForm,
-        meta: {
-            requiresAuth: true,
-        },
+        }
     },
     {
         path: '/mascotas/:petsId/vacunas/nuevo',

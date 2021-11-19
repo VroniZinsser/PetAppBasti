@@ -9,7 +9,8 @@
             v-model="formData.observation"
             identifier="observation"
             :loading="loading"
-            :errors = "errors.observation"
+            :rules="[rules.obligatory]"
+            :errors="errors['data.observation']"
             required
         ></InputText>
       <v-btn type="submit" :disabled="loading">Guardar</v-btn>
@@ -24,7 +25,7 @@ export default {
     InputText,
   },
   props: {
-    pets_id: {
+    pet_id: {
       type: String,
       required: true,
     },
@@ -34,11 +35,13 @@ export default {
       loading: false,
       formData: {
         observation: null,
-        pets_id: this.pets_id
       },
       errors: {
-        observation: null,
+        'data.observation': null,
       },
+      rules: {
+        obligatory: value => !!value || 'Este campo es obligatorio.',
+      }
     }
   },
    methods: {
@@ -46,17 +49,17 @@ export default {
       if (this.$refs.observationForm.validate()) {
         this.loading = true;
         this.errors = {
-            observation:null,
+            'data.observation':null,
         }
-        petServices.patch(this.formData)
+        petServices.updateObservation(this.pet_id, this.formData)
           .then(res => {
             this.loading = false;
             if (!res.success) {
               if(res.errors && res.errors.pets_id) {
-                alert(res.errors.pets_id);
+                alert('La mascota no existe.');
               } else if (this.errors) {
                 this.errors = {
-                  observation: null,
+                  'data.observation': null,
                   ...res.errors
                 }
               }else{

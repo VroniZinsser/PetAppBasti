@@ -8,8 +8,11 @@ use App\Repositories\ImageRepository;
 use App\Repositories\PetRepository;
 use App\Repositories\SexRepository;
 use App\Repositories\SpeciesRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class PetController extends Controller
 {
@@ -19,10 +22,10 @@ class PetController extends Controller
     protected $imageRepository;
 
     public function __construct(
-        SexRepository $sexRepository,
+        SexRepository     $sexRepository,
         SpeciesRepository $speciesRepository,
-        PetRepository $petRepository,
-        ImageRepository $imageRepository
+        PetRepository     $petRepository,
+        ImageRepository   $imageRepository
     )
     {
         $this->sexRepository = $sexRepository;
@@ -64,8 +67,7 @@ class PetController extends Controller
 
         $dto = new PetDTO();
         $dto->loadFromArray($request->input());
-        $dto->setImages_id($image_id);
-
+        $dto->set_images_id($image_id);
         $pet = $this->petRepository->updateOrCreate($dto, 1);
 
         return response()->json([
@@ -75,22 +77,44 @@ class PetController extends Controller
     }
 
     /**
-     * Add, modify or delete individual fields of a pet
+     * Updates or removes observation from a pet
+     *
+     * @param Request $request
+     * @param $petId
+     * @return JsonResponse
+     * @throws ValidationException
      */
-    public function patchPet(Request $request, $pet_id): JsonResponse
+    public function updateObservation(Request $request, $petId): JsonResponse
     {
-        // handle observation patch if 'observation' is set in request
-        if ($request->has('observation')) {
-            $pet = $this->petRepository->patchObservation($pet_id, $request->get('observation'));
+        switch ($request->input('action')) {
+            case 'update':
+                $this->validateObservation($request->all());
+                $observation = $request->get('data')['observation'];
+                break;
 
+            case 'delete':
+                $observation = '';
+                break;
+
+            default:
+                return response()->json([
+                    'success' => false,
+                    'msg' => 'Invalid request action'
+                ], 400);
+        }
+
+        try {
+            $pet = $this->petRepository->updateObservation($petId, $observation);
+        } catch (ModelNotFoundException $e) {
             return response()->json([
-                'success' => true,
-                'data' => $pet,
-            ]);
+                'success' => false,
+                'errors' => ['pets_id' => 'No se encontró la mascota relacionada']
+            ], 404);
         }
 
         return response()->json([
             'success' => true,
+            'data' => $pet,
         ]);
     }
 
@@ -107,5 +131,20 @@ class PetController extends Controller
                 'pets' => $this->petRepository->getPetsByUser(1)
             ],
         ]);
+    }
+
+    /**
+     * Performs specific validation for the observation field
+     *
+     * @param $requestData
+     * @throws ValidationException
+     */
+    private function validateObservation($requestData)
+    {
+        Validator::make(
+            $requestData,
+            ['data.observation' => 'required'],
+            ['data.observation.required' => 'Por favor ingresá una observación']
+        )->validate();
     }
 }
