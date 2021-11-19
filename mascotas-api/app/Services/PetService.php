@@ -22,8 +22,8 @@ class PetService implements PetRepository
         $pet->neutered = $dto->get_neutered();
         $pet->temperament = $dto->get_temperament();
         $pet->observation = $dto->get_observation();
-        $pet->images_id = $dto->get_images_id();
-        $pet->sexes_id = $dto->get_sexes_id();
+        $pet->images_id = $dto->get_image_id();
+        $pet->sexes_id = $dto->get_sex_id();
         $pet->species_id = $dto->get_species_id();
         $pet->save();
 

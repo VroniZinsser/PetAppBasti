@@ -67,7 +67,7 @@ class PetController extends Controller
 
         $dto = new PetDTO();
         $dto->loadFromArray($request->input());
-        $dto->set_images_id($image_id);
+        $dto->set_image_id($image_id);
         $pet = $this->petRepository->updateOrCreate($dto, 1);
 
         return response()->json([

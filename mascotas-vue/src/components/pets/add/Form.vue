@@ -83,10 +83,10 @@
     <fieldset>
       <legend>Sexo *</legend>
 
-      <v-radio-group v-model="formData.sexes_id"
+      <v-radio-group v-model="formData.sex_id"
                      :rules="[rules.obligatory]"
-                     :messages="errors.sexes_id ? errors.sexes_id[0] : ''"
-                     :error="errors.sexes_id !== null">
+                     :messages="errors.sex_id ? errors.sex_id[0] : ''"
+                     :error="errors.sex_id !== null">
         <v-radio
             v-for="i in sexes"
             :key="i.id"
@@ -146,7 +146,7 @@ export default {
       neutered: true,
       photo: null,
       temperament: 'Amigable',
-      sexes_id: 1,
+      sex_id: 1,
       species_id: 1,
     },
     errors: {
@@ -156,7 +156,7 @@ export default {
       neutered: null,
       photo: null,
       temperament: null,
-      sexes_id: null,
+      sex_id: null,
       species_id: null,
     },
     rules: {
@@ -188,7 +188,7 @@ export default {
         neutered: null,
         photo: null,
         temperament: null,
-        sexes_id: null,
+        sex_id: null,
         species_id: null,
       }
 
@@ -204,15 +204,15 @@ export default {
                   neutered: null,
                   photo: null,
                   temperament: null,
-                  sexes_id: null,
+                  sex_id: null,
                   species_id: null,
                   ...res.errors
                 }
-              }else{
+              } else {
                 alert("Hubo un error inesperado");
               }
             } else {
-              alert("Mascota agregada con exito")
+              alert("Mascota agregada con éxito")
             }
           })
     }
