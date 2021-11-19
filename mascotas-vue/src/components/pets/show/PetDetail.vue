@@ -1,35 +1,39 @@
 <template>
-    <div class="pet-detail">
-      <div class="pet-image">
-        <img :src="getCompletePath(pet.image.src)" :alt="pet.image.alt">
-        <div class="gender-icon-container">
-          <span class="material-icons">{{ getGenderIcon(pet.sexes_id) }}</span>
-        </div>
+  <div class="pet-detail">
+    <div class="pet-image">
+      <img :src="getCompletePath(pet.image.src)" :alt="pet.image.alt">
+
+      <div class="gender-icon-container">
+        <span class="material-icons">{{ getGenderIcon(pet.sexes_id) }}</span>
       </div>
-      
-      <div class="tab-button-container">
-        <button 
-          class="tab" 
-          :class="{ 'active': isActive('pet-medical-info') }" 
+    </div>
+
+    <div class="tab-button-container">
+      <button
+          class="tab"
+          :class="{ 'active': isActive('pet-medical-info') }"
           @click="setActive('pet-medical-info')"
-          >
-          <span>Detalles</span>
-        </button>
-        <button 
-          class="tab" 
-          :class="{ 'active': isActive('pet-profile') }" 
+      >
+        <span>Detalles</span>
+      </button>
+
+      <button
+          class="tab"
+          :class="{ 'active': isActive('pet-profile') }"
           @click="setActive('pet-profile')"
-        >
+      >
         <span>Perfil</span>
-        </button>
-      </div>
-          <div class="tab-item pet-medical-info" :class="{ 'show': isActive('pet-medical-info') }">
-            <PetMedicalInfo :pet="pet"></PetMedicalInfo>
-          </div>
-          <div class="tab-item pet-profile" :class="{ 'show': isActive('pet-profile') }">
-            <PetProfile :pet="pet"></PetProfile>
-          </div>
-      </div>
+      </button>
+    </div>
+
+    <div class="tab-item pet-medical-info" :class="{ 'show': isActive('pet-medical-info') }">
+      <PetMedicalInfo :pet="pet"></PetMedicalInfo>
+    </div>
+
+    <div class="tab-item pet-profile" :class="{ 'show': isActive('pet-profile') }">
+      <PetProfile :pet="pet"></PetProfile>
+    </div>
+  </div>
 </template>
 <script>
 
@@ -43,31 +47,34 @@ export default {
   props: {
     pet: {
       type: Object,
-      required: true
+      required: true,
     },
   },
   components: {
     PetProfile,
-    PetMedicalInfo
+    PetMedicalInfo,
   },
   data() {
     return {
       tab: null,
-      activeItem: 'pet-medical-info'
+      activeItem: 'pet-medical-info',
     }
   },
-   methods: {
+  methods: {
     getCompletePath(path) {
-      return PATH_IMG + path
+      return PATH_IMG + path;
     },
+
     getGenderIcon(sexes_id) {
       return sexes_id === 1 ? "female" : "male";
     },
-    isActive (tabItem) {
-      return this.activeItem === tabItem
+
+    isActive(tabItem) {
+      return this.activeItem === tabItem;
     },
-    setActive (tabItem) {
-      this.activeItem = tabItem
+
+    setActive(tabItem) {
+      this.activeItem = tabItem;
     }
   }
 }
