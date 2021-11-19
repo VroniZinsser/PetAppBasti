@@ -6,11 +6,11 @@
 
     <div v-else>
       <PetMenu
-          :active="parseInt($route.params.petsId)"
+          :active="parseInt($route.params.pet_id)"
           :pets="pets"></PetMenu
       >
 
-      <PetDetail :pet="findPet(parseInt($route.params.petsId))"></PetDetail>
+      <PetDetail :pet="findPet(parseInt($route.params.pet_id))"></PetDetail>
     </div>
   </v-container>
 </template>

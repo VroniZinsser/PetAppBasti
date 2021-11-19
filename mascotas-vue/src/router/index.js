@@ -56,7 +56,7 @@ const routes = [
     },
 
     {
-        path: '/mascotas/:petId/observacion/nuevo',
+        path: '/mascotas/:pet_id/observacion/nuevo',
         name: 'ObservationForm',
         component: ObservationForm,
         meta: {
@@ -64,7 +64,7 @@ const routes = [
         },
     },
     {
-        path: '/mascotas/:petsId',
+        path: '/mascotas/:pet_id',
         name: 'Pet',
         component: Pet,
         meta: {
@@ -96,7 +96,7 @@ const routes = [
         },
     },
     {
-        path: '/mascotas/:petsId/medicamentos/agregar',
+        path: '/mascotas/:pet_id/medicamentos/agregar',
         name: 'MedicinesAddForm',
         component: MedicinesAddForm,
         meta: {
