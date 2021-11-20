@@ -25,7 +25,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => 'required|email|max:60',
-            'password' => 'required|min:6',
+            'password' => 'required',
         ];
     }
 
@@ -36,7 +36,6 @@ class LoginRequest extends FormRequest
             'email.email' => 'Este correo electrónico no es válido.',
             'email.max' => 'El correo no puede contener más de :max caracteres',
             'password.required' => 'Por favor ingresá una contraseña',
-            'password.min' => 'La contraseña debe tener como mínimo :min caracteres',
         ];
     }
 }
