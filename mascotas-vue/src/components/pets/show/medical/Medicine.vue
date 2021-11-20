@@ -7,12 +7,14 @@
                 :key="medicine.id" 
                 :medicine="medicine">
             </MedicineItem>
+            <MedicineItemMore :quantity="medicines.length"></MedicineItemMore>
         </div>
     </div>
     
 </template>
 <script>
 import MedicineItem from "@/components/pets/show/medical/MedicineItem";
+import MedicineItemMore from "@/components/pets/show/medical/MedicineItemMore";
 export default {
     name: "Medicine",
     props: {
@@ -22,7 +24,8 @@ export default {
         }
     },
     components: {
-        MedicineItem
+        MedicineItem,
+        MedicineItemMore
     },
 }
 </script>
