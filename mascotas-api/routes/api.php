@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\PetController;
 use Illuminate\Http\Request;
@@ -47,3 +48,9 @@ Route::get('/pesos/{weight}', [WeightController::class, 'findWeight']);
 Route::put('/pesos/{weight}', [WeightController::class, 'updateWeight']);
 Route::delete('/pesos/{weight}', [WeightController::class, 'deleteWeight']);
 Route::get('/mascotas/{pet}/pesos', [WeightController::class, 'getWeightsByPet']);
+
+Route::prefix('/autenticacion')->group(function () {
+    Route::get("/", [AuthController::class, 'me']);
+    Route::post("/", [AuthController::class, 'login']);
+    Route::delete("/", [AuthController::class, 'logout']);
+});
