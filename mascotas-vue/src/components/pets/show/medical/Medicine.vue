@@ -1,11 +1,18 @@
 <template>
     <div class="medical-container medicine">
         <h2>Medicamentos</h2>
+        <div class="medical-container-body">
+            <MedicineItem 
+                v-for="medicine in medicines" 
+                :key="medicine.id" 
+                :medicine="medicine">
+            </MedicineItem>
+        </div>
     </div>
     
 </template>
 <script>
-
+import MedicineItem from "@/components/pets/show/medical/MedicineItem";
 export default {
     name: "Medicine",
     props: {
@@ -13,6 +20,9 @@ export default {
             type: Array,
             required: true
         }
-    }
+    },
+    components: {
+        MedicineItem
+    },
 }
 </script>

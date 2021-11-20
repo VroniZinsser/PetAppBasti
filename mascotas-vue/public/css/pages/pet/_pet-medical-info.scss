@@ -30,6 +30,35 @@
         
         &.medicine {
             background-color: $white-gray;
+
+            .medicine-item {
+                .medicine-item-info {
+                    span {
+                        display: block;
+                    }
+
+                    &::after {
+                        content: "";
+                        display: block;
+                        border-bottom: 1px solid $black-gray;
+                        opacity: .3;
+                        padding-top: 8px;
+                        margin: 8px -16px;
+                    }
+                }
+
+                .medicine-item-hours {
+                    display: flex;
+                    flex-wrap: wrap;
+                    div {
+                        background: #F9F1F1;
+                        border-radius: 2px;
+                        padding: 3px;
+                        margin-right: 9px;
+                    }
+                }
+
+            }
         }
 
         &.vaccine {

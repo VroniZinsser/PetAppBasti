@@ -116,6 +116,27 @@
 .pet-medical-info .medical-container.medicine {
   background-color: #EFE5DC;
 }
+.pet-medical-info .medical-container.medicine .medicine-item .medicine-item-info span {
+  display: block;
+}
+.pet-medical-info .medical-container.medicine .medicine-item .medicine-item-info::after {
+  content: "";
+  display: block;
+  border-bottom: 1px solid #333333;
+  opacity: 0.3;
+  padding-top: 8px;
+  margin: 8px -16px;
+}
+.pet-medical-info .medical-container.medicine .medicine-item .medicine-item-hours {
+  display: flex;
+  flex-wrap: wrap;
+}
+.pet-medical-info .medical-container.medicine .medicine-item .medicine-item-hours div {
+  background: #F9F1F1;
+  border-radius: 2px;
+  padding: 3px;
+  margin-right: 9px;
+}
 .pet-medical-info .medical-container.vaccine {
   background-color: #EFE5DC;
 }
