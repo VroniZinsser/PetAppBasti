@@ -24,6 +24,15 @@ class MedicineService implements MedicineRepository
     }
 
     /**
+     * @inheritDoc
+     */
+    public function getMedicinesByPet(int $petId): object
+    {
+        $medicines = Medicine::with('hours')->get()->where('pets_id', $petId);
+        return $medicines;
+    }
+
+    /**
      * Creates a new medicine and returns it
      *
      * @param string $name

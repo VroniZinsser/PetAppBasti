@@ -49,9 +49,11 @@ export default {
       Promise.all([
         petService.getVaccines(this.pet.id),
         petService.getWeights(this.pet.id),
+        petService.getMedicines(this.pet.id),
       ]).then(res => {
         this.vaccines = res[0].data.vaccines;
         this.weights = res[1].data.weights;
+        this.medicines = res[2].data.medicines;
         this.loading = false;
       })
       

@@ -33,6 +33,7 @@ Route::patch('/mascotas/{pet}', [PetController::class, 'patchPet']);
 
 Route::get('/medicamentos/formulario-agregar', [MedicineController::class, 'addForm']);
 Route::post('/mascotas/{id}/medicamentos', [MedicineController::class, 'add']);
+Route::get('/mascotas/{pet}/medicamentos', [MedicineController::class, 'getMedicinesByPet']);
 
 Route::post('/vacunas', [VaccineController::class, 'createVaccine']);
 Route::get('/vacunas/{vaccine}', [VaccineController::class, 'findVaccine']);
