@@ -1,3 +1,21 @@
+.card {
+  padding: 16px;
+  background: white;
+  box-shadow: 0px 2px 6px rgba(51, 51, 51, 0.15);
+  border-radius: 4px;
+  margin-top: 16px;
+}
+.card .card-title {
+  font-size: 16px;
+}
+.card .card-subtitle {
+  font-size: 14px;
+}
+.card .card-date {
+  font-size: 12px;
+  opacity: 0.5;
+}
+
 #skip-to-content a {
   margin: 0;
   padding: 6px;
@@ -81,7 +99,7 @@
 .pet-medical-info .medical-container {
   padding: 16px;
   width: 100%;
-  height: 200px;
+  min-height: 200px;
 }
 .pet-medical-info .medical-container .medical-container-header {
   display: flex;
@@ -105,6 +123,29 @@
   .pet-medical-info .medical-container.vaccine {
     background: #F9F5F1;
   }
+}
+.pet-medical-info .medical-container.vaccine .medical-container-body {
+  display: grid;
+  grid-auto-flow: row;
+  gap: 16px 20px;
+  justify-items: stretch;
+}
+@media screen and (min-width: 768px) {
+  .pet-medical-info .medical-container.vaccine .medical-container-body {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (min-width: 992px) {
+  .pet-medical-info .medical-container.vaccine .medical-container-body {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+.pet-medical-info .medical-container.vaccine .medical-container-body .vaccine-item {
+  display: flex;
+  justify-content: space-between;
+}
+.pet-medical-info .medical-container.vaccine .medical-container-body .vaccine-item .card-date {
+  padding-top: 3px;
 }
 @media screen and (min-width: 768px) {
   .pet-medical-info .medical-container.weight {

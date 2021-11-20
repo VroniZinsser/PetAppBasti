@@ -1,11 +1,12 @@
 <template>
-    <div>
-        <span>{{vaccine.name}}</span>
-        <span>{{vaccine.date}}</span>
+    <div class="card vaccine-item">
+        <span class="card-title">{{vaccine.name}}</span>
+        <span class="card-date">{{formatDate(vaccine.date)}}</span>
     </div>
     
 </template>
 <script>
+import { formatDate } from "@/helpers";
 
 export default {
     name: "VaccineItem",
@@ -15,5 +16,10 @@ export default {
             required: true
         }
     },
+    data() {
+        return {
+            formatDate: formatDate,
+        }    
+    }
 }
 </script>

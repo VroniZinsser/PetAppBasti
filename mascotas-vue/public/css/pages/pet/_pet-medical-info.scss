@@ -11,7 +11,7 @@
         padding: 16px;
         width: 100%;
         // TODO: remove height. It is only for testing
-        height: 200px; 
+        min-height: 200px; 
 
         .medical-container-header {
             display: flex;
@@ -37,6 +37,30 @@
             @include desktop-up { 
                 background: $white-gray-min;
             } 
+
+            .medical-container-body {
+                display: grid;
+                grid-auto-flow: row;
+                gap: 16px 20px;
+                justify-items: stretch;
+
+                @include tablet-up { 
+                    grid-template-columns: 1fr 1fr;
+                }
+
+                @include desktop-up { 
+                    grid-template-columns: 1fr 1fr 1fr;
+                }
+                
+                .vaccine-item {
+                    display: flex;
+                    justify-content: space-between;
+
+                    .card-date {
+                        padding-top: 3px;
+                    }
+                }
+            }
         }
         
         &.weight {
