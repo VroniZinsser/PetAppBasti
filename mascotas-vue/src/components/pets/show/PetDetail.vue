@@ -65,8 +65,8 @@ export default {
       return PATH_IMG + path;
     },
 
-    getGenderIcon(sexes_id) {
-      return sexes_id === 1 ? "female" : "male";
+    getGenderIcon(sex_id) {
+      return sex_id === 1 ? "female" : "male";
     },
 
     isActive(tabItem) {

@@ -54,8 +54,9 @@ export default {
       required: true,
     },
   },
-  data: () => ({
+  data() {
+    return {
     formatted_date_of_birth: formatDate(this.pet.date_of_birth),
-  })
+  }}
 }
 </script>
