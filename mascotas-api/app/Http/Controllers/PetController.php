@@ -58,17 +58,16 @@ class PetController extends Controller
     public function addPet(AddRequest $request): JsonResponse
     {
         $photo = $request->get('photo');
-        $images_id = $request->get('species_id');
+        $image_id = $request->get('species_id');
 
         if ($photo) {
             $image = $this->imageRepository->uploadImage($photo, 'pets/', 'Mascota ' . $request->get('name'));
-            $images_id = $image->id;
+            $image_id = $image->id;
         }
 
         $dto = new PetDTO();
         $dto->loadFromArray($request->input());
-        $dto->set_images_id($images_id);
-
+        $dto->set_image_id($image_id);
         $pet = $this->petRepository->updateOrCreate($dto, 1);
 
         return response()->json([
@@ -81,11 +80,11 @@ class PetController extends Controller
      * Updates or removes observation from a pet
      *
      * @param Request $request
-     * @param $petId
+     * @param $pet_id
      * @return JsonResponse
      * @throws ValidationException
      */
-    public function updateObservation(Request $request, $petId): JsonResponse
+    public function updateObservation(Request $request, $pet_id): JsonResponse
     {
         switch ($request->input('action')) {
             case 'update':
@@ -105,11 +104,11 @@ class PetController extends Controller
         }
 
         try {
-            $pet = $this->petRepository->updateObservation($petId, $observation);
+            $pet = $this->petRepository->updateObservation($pet_id, $observation);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'success' => false,
-                'errors' => ['pets_id' => 'No se encontró la mascota relacionada']
+                'errors' => ['pet_id' => 'No se encontró la mascota relacionada']
             ], 404);
         }
 
@@ -137,13 +136,13 @@ class PetController extends Controller
     /**
      * Performs specific validation for the observation field
      *
-     * @param $requestData
+     * @param $request_data
      * @throws ValidationException
      */
-    private function validateObservation($requestData)
+    private function validateObservation($request_data)
     {
         Validator::make(
-            $requestData,
+            $request_data,
             ['data.observation' => 'required'],
             ['data.observation.required' => 'Por favor ingresá una observación']
         )->validate();

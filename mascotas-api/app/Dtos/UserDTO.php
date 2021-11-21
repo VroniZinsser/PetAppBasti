@@ -1,14 +1,16 @@
 <?php
+
 namespace App\Dtos;
 
-class UserDTO extends BaseDTO {
-    protected $id;  
-    protected $first_name; 
-    protected $last_name; 
-    protected $email; 
-    protected $email_verified_at; 
+class UserDTO extends BaseDTO
+{
+    protected $id;
+    protected $first_name;
+    protected $last_name;
+    protected $email;
+    protected $email_verified_at;
     protected $email_visible;
-    protected $password; 
+    protected $password;
     protected $country;
     protected $state;
     protected $city;
@@ -19,19 +21,19 @@ class UserDTO extends BaseDTO {
     protected $apartment;
     protected $latitude;
     protected $longitude;
-    protected $dni; 
+    protected $dni;
     protected $public_name;
     protected $description;
     protected $whatsapp;
     protected $instagram;
     protected $facebook;
-    protected $web; 
-    protected $verified; 
+    protected $web;
+    protected $verified;
     protected $profile_img_id;
 
     /**
      * Get the value of id
-     */ 
+     */
     public function get_id()
     {
         return $this->id;
@@ -39,7 +41,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of profile_img_id
-     */ 
+     */
     public function get_profile_img_id()
     {
         return $this->profile_img_id;
@@ -47,7 +49,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of verified
-     */ 
+     */
     public function get_verified()
     {
         return $this->verified;
@@ -55,7 +57,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of web
-     */ 
+     */
     public function get_web()
     {
         return $this->web;
@@ -63,7 +65,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of facebook
-     */ 
+     */
     public function get_facebook()
     {
         return $this->facebook;
@@ -71,7 +73,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of instagram
-     */ 
+     */
     public function get_instagram()
     {
         return $this->instagram;
@@ -79,7 +81,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of whatsapp
-     */ 
+     */
     public function get_whatsapp()
     {
         return $this->whatsapp;
@@ -87,7 +89,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of description
-     */ 
+     */
     public function get_description()
     {
         return $this->description;
@@ -95,7 +97,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of public_name
-     */ 
+     */
     public function get_public_name()
     {
         return $this->public_name;
@@ -103,7 +105,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of dni
-     */ 
+     */
     public function get_dni()
     {
         return $this->dni;
@@ -111,7 +113,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of longitude
-     */ 
+     */
     public function get_longitude()
     {
         return $this->longitude;
@@ -119,7 +121,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of latitude
-     */ 
+     */
     public function get_latitude()
     {
         return $this->latitude;
@@ -127,7 +129,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of apartment
-     */ 
+     */
     public function get_apartment()
     {
         return $this->apartment;
@@ -135,7 +137,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of house_number
-     */ 
+     */
     public function get_house_number()
     {
         return $this->house_number;
@@ -143,7 +145,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of street
-     */ 
+     */
     public function get_street()
     {
         return $this->street;
@@ -151,7 +153,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of district
-     */ 
+     */
     public function get_district()
     {
         return $this->district;
@@ -159,7 +161,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of postal_code
-     */ 
+     */
     public function get_postal_code()
     {
         return $this->postal_code;
@@ -167,7 +169,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of city
-     */ 
+     */
     public function get_city()
     {
         return $this->city;
@@ -175,7 +177,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of state
-     */ 
+     */
     public function get_state()
     {
         return $this->state;
@@ -183,7 +185,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of country
-     */ 
+     */
     public function get_country()
     {
         return $this->country;
@@ -191,7 +193,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of password
-     */ 
+     */
     public function get_password()
     {
         return $this->password;
@@ -199,7 +201,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of email_visible
-     */ 
+     */
     public function get_email_visible()
     {
         return $this->email_visible;
@@ -207,7 +209,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of email_verified_at
-     */ 
+     */
     public function get_email_verified_at()
     {
         return $this->email_verified_at;
@@ -215,7 +217,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of email
-     */ 
+     */
     public function get_email()
     {
         return $this->email;
@@ -223,7 +225,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of last_name
-     */ 
+     */
     public function get_last_name()
     {
         return $this->last_name;
@@ -231,7 +233,7 @@ class UserDTO extends BaseDTO {
 
     /**
      * Get the value of first_name
-     */ 
+     */
     public function get_first_name()
     {
         return $this->first_name;
@@ -241,9 +243,10 @@ class UserDTO extends BaseDTO {
     /**
      * Set the value of profile_img_id
      *
+     * @param $profile_img_id
      * @return  self
-     */ 
-    public function set_profile_img_id($profile_img_id)
+     */
+    public function set_profile_img_id($profile_img_id): UserDTO
     {
         $this->profile_img_id = $profile_img_id;
 

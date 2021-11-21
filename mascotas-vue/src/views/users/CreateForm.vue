@@ -6,11 +6,14 @@
         :text="store.status.msg"
         :title="store.status.title"
     />
+
     <h1>Crear Usuario</h1>
+
     <p v-if="loading">Cargando...</p>
-    <Form 
-      v-else-if="this.$route.meta.role == 'professional'"
-      :user_types="user_types">
+
+    <Form
+        v-else-if="this.$route.meta.role === 'professional'"
+        :user_types="user_types">
     </Form>
   </v-container>
 
@@ -27,18 +30,19 @@ export default {
   name: "CreateForm",
   components: {
     Form,
-    BaseNotification
+    BaseNotification,
   },
   data: () => ({
     loading: true,
     user_types: [],
-    store
+    store,
   }),
   mounted() {
     userService.createForm()
         .then(res => {
           this.user_types = res.data.user_types;
         })
+
     this.loading = false;
   }
 }

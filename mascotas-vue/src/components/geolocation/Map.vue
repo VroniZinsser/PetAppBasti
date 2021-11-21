@@ -1,4 +1,3 @@
-
 <template>
   <div id="map">
     <div id="mapContainer" style="height:600px;width:100%" ref="hereMap"></div>
@@ -22,7 +21,6 @@ export default {
       },
     };
   },
-  
   async mounted() {
     const platform = new window.H.service.Platform({
       apikey: HEREMAPS_API_KEY
@@ -34,7 +32,7 @@ export default {
   },
   methods: {
     getCurrentLocation() {
-      if(navigator.geolocation){
+      if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
           this.zoom = 14;
           this.currentLocation.lat = position.coords.latitude;
@@ -44,6 +42,7 @@ export default {
         });
       }
     },
+
     initializeHereMap() {
       const mapContainer = this.$refs.hereMap;
       const H = window.H;
@@ -53,7 +52,7 @@ export default {
         zoom: this.zoom,
         center: this.currentLocation
       });
-      
+
       addEventListener("resize", () => this.map.getViewPort().resize());
       new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map));
       H.ui.UI.createDefault(this.map, maptypes);
@@ -65,12 +64,13 @@ export default {
 
       const H = window.H;
       let customMarker = new H.map.Icon(customMarkerSvg, {size: {w: 40, h: 50}});
-      for(let i = 0; i < professionals.length; i++) {
-        let marker = new H.map.Marker({ 
-          lat: professionals[i].latitude, 
-          lng: professionals[i].longitude},
-          
-          { icon: customMarker });
+      for (let i = 0; i < professionals.length; i++) {
+        let marker = new H.map.Marker({
+              lat: professionals[i].latitude,
+              lng: professionals[i].longitude
+            },
+
+            {icon: customMarker});
         this.map.addObject(marker);
       }
     }

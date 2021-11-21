@@ -1,22 +1,23 @@
 <template>
-    <v-form
-        action="usuarios/crear"
-        method="post"
-        ref="form"
-        @submit.prevent="createUser"
-    >
-    
+  <v-form
+      action="usuarios/crear"
+      method="post"
+      ref="form"
+      @submit.prevent="createUser"
+  >
     <v-container>
       <p>Los campos marcados con * son obligatorios.</p>
+
       <fieldset>
         <legend>Datos personales</legend>
+
         <InputText
             label="Nombre"
             v-model="user.first_name"
             identifier="first_name"
             :loading="loading"
             :rules="[rules.obligatory]"
-            :errors = "errors.first_name"
+            :errors="errors.first_name"
             autocomplete="on"
             required
         ></InputText>
@@ -27,7 +28,7 @@
             identifier="last_name"
             :loading="loading"
             :rules="[rules.obligatory]"
-            :errors = "errors.last_name"
+            :errors="errors.last_name"
             autocomplete="on"
             required
         ></InputText>
@@ -38,7 +39,7 @@
             identifier="email"
             :loading="loading"
             :rules="[rules.obligatory, rules.email]"
-            :errors = "errors.email"
+            :errors="errors.email"
             autocomplete="on"
             required
             type="email"
@@ -57,14 +58,14 @@
             identifier="password"
             :loading="loading"
             :rules="[rules.obligatory, rules.password]"
-            :errors = "errors.password"
+            :errors="errors.password"
             required
-            :type="showPassword ? 'text' : 'password'"
+            :type="show_password ? 'text' : 'password'"
             hint="La contraseña debe tener mínimo 6 caracteres y contener un número"
             persistent-hint
             counter
-            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            @click:append="showPassword = !showPassword"
+            :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="show_password = !show_password"
         ></InputText>
 
         <InputText
@@ -73,21 +74,20 @@
             identifier="dni"
             :loading="loading"
             :rules="[rules.obligatory, rules.numeric]"
-            :errors = "errors.dni"
+            :errors="errors.dni"
             autocomplete="on"
             required
         ></InputText>
       </fieldset>
 
       <fieldset>
-        <legend>Perfíl público</legend>
-      
+        <legend>Perfil público</legend>
+
         <v-select
             v-model="user.user_types"
             :items="user_types"
             :item-text="'name'"
             :item-value="'id'"
-            attach
             chips
             label="Tipo de servicios *"
             multiple
@@ -95,36 +95,36 @@
             :error="errors.user_types !== null"
             :disabled="loading"
             :rules="[rules.selectionRequired]"
-          ></v-select>
+        ></v-select>
 
         <InputText
             label="Nombre Institucional"
             v-model="user.public_name"
             identifier="public_name"
             :loading="loading"
-            :errors = "errors.public_name"
+            :errors="errors.public_name"
             hint="Nombre de la tienda o clínica veterinaria"
             persistent-hint
         ></InputText>
-        
-        <InputAddress 
-          label="Dirección"
-          identifier="address"
-          :loading="loading"
-          :errors="errors.address"
-          @update-address="updateAddress"
-          hint="Ingresá ciudad, calle y número, para que tus clientes te puedan encontrar."
-          persistent-hint
+
+        <InputAddress
+            label="Dirección"
+            identifier="address"
+            :loading="loading"
+            :errors="errors.address"
+            @update-address="updateAddress"
+            hint="Ingresá ciudad, calle y número, para que tus clientes te puedan encontrar."
+            persistent-hint
         ></InputAddress>
-        
+
         <InputText
             label="Número de piso y departamento"
             v-model="user.apartment"
             identifier="apartment"
             :loading="loading"
-            :errors = "errors.apartment"
+            :errors="errors.apartment"
         ></InputText>
-        
+
         <v-file-input
             v-model="photo"
             required
@@ -162,7 +162,7 @@
             v-model="user.whatsapp"
             identifier="whatsapp"
             :loading="loading"
-            :errors = "errors.whatsapp"
+            :errors="errors.whatsapp"
             type="tel"
             autocomplete="on"
             placeholder="112345678"
@@ -173,7 +173,7 @@
             v-model="user.instagram"
             identifier="instagram"
             :loading="loading"
-            :errors = "errors.instagram"
+            :errors="errors.instagram"
             :rules="[rules.username]"
             placeholder="VeterinariaMartina"
             hint="Tu nombre de usuario sin '@'"
@@ -184,7 +184,7 @@
             v-model="user.facebook"
             identifier="facebook"
             :loading="loading"
-            :errors = "errors.facebook"
+            :errors="errors.facebook"
             :rules="[rules.username]"
             placeholder="veterinaria_martina"
             hint="Tu nombre de usuario como aparece en la barra de url"
@@ -202,11 +202,9 @@
         ></InputText>
       </fieldset>
 
-      <v-btn type="submit" >
-        Crear cuenta
-      </v-btn>
+      <v-btn type="submit">Crear cuenta</v-btn>
     </v-container>
-    </v-form>
+  </v-form>
 </template>
 
 <script>
@@ -217,110 +215,107 @@ import InputText from "@/components/general/inputs/InputText";
 
 export default {
   name: "Form",
-  
+
   props: {
     user_types: {
       type: Array,
       required: true,
     }
   },
-
   components: {
     InputAddress,
-    InputText
+    InputText,
   },
-  
-  data: function () {
-    return {
-      showPassword: false,
-      loading: false,
-      store,
-      photo: null,
-      user: {
-        first_name: "Alejo",
-        last_name: "Gómez",
-        email: "alejo.gomez@test.com",
-        email_visible: false,
-        password: "sdfoew3534+#a",
-        country: null,
-        state: null,
-        city: null,
-        postal_code: null,
-        district: null,
-        street: null,
-        house_number: null,
-        apartment: null,
-        location_id: null,
-        latitude: null,
-        longitude: null,
-        dni: "78473258",
-        public_name: "Veterinario Alejo y Hermanos",
-        description: null,
-        whatsapp: "9112345678",
-        instagram: "AlejoVet",
-        facebook: null,
-        web: null,
-        user_types: [5, 6],
-        photo: null
+  data: () => ({
+    show_password: false,
+    loading: false,
+    store,
+    photo: null,
+    user: {
+      first_name: "Alejo",
+      last_name: "Gómez",
+      email: "alejo.gomez@test.com",
+      email_visible: false,
+      password: "sdfoew3534+#a",
+      country: null,
+      state: null,
+      city: null,
+      postal_code: null,
+      district: null,
+      street: null,
+      house_number: null,
+      apartment: null,
+      location_id: null,
+      latitude: null,
+      longitude: null,
+      dni: "78473258",
+      public_name: "Veterinario Alejo y Hermanos",
+      description: null,
+      whatsapp: "9112345678",
+      instagram: "AlejoVet",
+      facebook: null,
+      web: null,
+      user_types: [5, 6],
+      photo: null
+    },
+    errors: {
+      first_name: null,
+      last_name: null,
+      email: null,
+      email_visible: null,
+      password: null,
+      address: null,
+      apartment: null,
+      dni: null,
+      public_name: null,
+      description: null,
+      whatsapp: null,
+      instagram: null,
+      facebook: null,
+      web: null,
+      user_types: null,
+      photo: null
+    },
+    rules: {
+      obligatory: value => !!value || 'Este campo es obligatorio.',
+      numeric: value => !isNaN(value) || 'El valor debe ser numérico.',
+      selectionRequired: value => value.length > 0 || 'Por favor elegí una opción',
+      email: value => {
+        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return pattern.test(value) || 'El correo electrónico no es válido.'
       },
-      errors: {
-        first_name: null,
-        last_name: null,
-        email: null,
-        email_visible: null,
-        password: null,
-        address: null,
-        apartment: null,
-        dni: null,
-        public_name: null,
-        description: null,
-        whatsapp: null,
-        instagram: null,
-        facebook: null,
-        web: null,
-        user_types: null,
-        photo: null
+      password: value => {
+        const pattern = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
+        return pattern.test(value) || 'La contraseña no coincide con los estándares de seguridad'
       },
-      rules: {
-        obligatory: value => !!value || 'Este campo es obligatorio.',
-        numeric: value => !isNaN(value) || 'El valor debe ser numérico.',
-        selectionRequired: value => value.length > 0 || 'Por favor elegí una opción',
-
-        email: value => {
-            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            return pattern.test(value) || 'El correo electrónico no es válido.'
-          },
-        password: value => {
-            const pattern = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
-            return pattern.test(value) || 'La contraseña no coincide con los estandares de seguridad'
-        },
-        url: value => {
-          const pattern = /^(ftp|http|https):\/\/[^ "]+$/;
-          return (pattern.test(value) || !value) || 'La url ingresada no es válida.'
-        },
-        /**
-         * FB and Instagram user names can only contain letters, numbers, '.' and '_'
-         * This rule only works in the frontend right now.
-         * @TODO Add rule to the backend
-         */
-        username: value => {
-          const pattern = /^[a-z\d._]{3,}$/i;
-          return (pattern.test(value) || !value) || 'El nombre de usuario ingresado no es válido.'
-        },
+      url: value => {
+        const pattern = /^(ftp|http|https):\/\/[^ "]+$/;
+        return (pattern.test(value) || !value) || 'La url ingresada no es válida.'
       },
-    }
-  },
+      /**
+       * FB and Instagram user names can only contain letters, numbers, '.' and '_'
+       * This rule only works in the frontend right now.
+       * @TODO Add rule to the backend
+       */
+      username: value => {
+        const pattern = /^[a-z\d._]{3,}$/i;
+        return (pattern.test(value) || !value) || 'El nombre de usuario ingresado no es válido.'
+      },
+    },
+  }),
   methods: {
     createUser() {
       if (this.$refs.form.validate()) {
         this.loading = true;
+
         userService.create(this.user)
-          .then(res => {
+            .then(res => {
               this.loading = false;
+
               if (res.success) {
                 this.store.setStatus({
                   msg: "¡Gracias por registrarte en Basti!",
-                  type: 'success'
+                  type: 'success',
                 });
 
                 this.$router.push('/usuarios/login');
@@ -344,15 +339,15 @@ export default {
                   photo: null,
                   ...res.errors
                 }
+
                 this.errors.address = this.concatAddressErrors(res.errors);
-                
               } else {
                 this.store.setStatus({
                   msg: "¡Algo salió mal! Por favor, intentalo nuevamente más tarde",
                   type: 'error'
                 });
               }
-          })
+            })
       }
     },
 
@@ -364,7 +359,7 @@ export default {
     },
 
     /**
-     * Returns an array with all error messages related to the user's address 
+     * Returns an array with all error messages related to the user's address
      * or null if there is no error.
      */
     concatAddressErrors(errors) {
@@ -383,13 +378,14 @@ export default {
       if (addressErrors.length === 0) {
         return null;
       }
-      
-      let concattedErrors = [];
+
+      let concatenatedErrors = [];
+
       for (let i = 0; i < addressErrors.length; i++) {
-        concattedErrors = concattedErrors.concat(addressErrors[i]);
+        concatenatedErrors = concatenatedErrors.concat(addressErrors[i]);
       }
-      
-      return concattedErrors;
+
+      return concatenatedErrors;
     },
 
     /**
@@ -403,15 +399,15 @@ export default {
       reader.readAsDataURL(this.photo);
     },
   },
-    
+
 }
 
 </script>
 
 <style scoped>
-  fieldset {
-    padding: 1em;
-    margin: 1em 0;
-  }
+fieldset {
+  padding: 1em;
+  margin: 1em 0;
+}
 
 </style>

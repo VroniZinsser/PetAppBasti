@@ -5,7 +5,6 @@
       ref="medicineForm"
       @submit.prevent="addMedicine"
   >
-
     <InputText
         label="Nombre del medicamento"
         v-model="formData.name"
@@ -43,7 +42,6 @@
         @update-date="updateEndDate"
     ></InputDate>
 
-    <!--TODO This field is not disabled-->
     <v-select
         v-model="formData.hours"
         identifier="hour"

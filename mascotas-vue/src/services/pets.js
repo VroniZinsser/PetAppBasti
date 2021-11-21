@@ -1,7 +1,6 @@
 import {API} from "../constants";
 
 const petServices = {
-
     /**
      * Returns the data necessary for the creation of the add pet form
      *
@@ -48,7 +47,7 @@ const petServices = {
         return fetch(`${API}mascotas/${pet_id}/observacion`, {
             method: 'POST',
             body: JSON.stringify({
-                action:'update',
+                action: 'update',
                 data: data,
             }),
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
@@ -64,7 +63,7 @@ const petServices = {
         return fetch(`${API}mascotas/${pet_id}/observacion`, {
             method: 'POST',
             body: JSON.stringify({
-                action:'delete',
+                action: 'delete',
             }),
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
         }).then(res => res.json());

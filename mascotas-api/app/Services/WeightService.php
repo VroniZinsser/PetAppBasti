@@ -11,10 +11,9 @@ class WeightService implements WeightRepository
     /**
      * @inheritDoc
      */
-    public function getWeightsByPet(int $pets_id): object
+    public function getWeightsByPet(int $pet_id): object
     {
-        $weights = Weight::get()->where('pets_id', $pets_id);
-        return $weights;
+        return Weight::get()->where('pets_id', $pet_id);
 
     }
 
@@ -23,19 +22,18 @@ class WeightService implements WeightRepository
      */
     public function find(int $id): Weight
     {
-        $weight = Weight::find($id);
-        return $weight;
+        return Weight::find($id);
     }
 
     /**
      * @inheritDoc
      */
-    public function create(string $date, int $weight_data, int $pets_id): Weight
+    public function create(string $date, int $weight_number, int $pet_id): Weight
     {
         $weight = new Weight();
         $weight->date = $date;
-        $weight->weight = $weight_data;
-        $weight->pets_id = $pets_id;
+        $weight->weight = $weight_number;
+        $weight->pets_id = $pet_id;
         $weight->save();
         return $weight;
     }
@@ -43,11 +41,11 @@ class WeightService implements WeightRepository
     /**
      * @inheritDoc
      */
-    public function update(int $id, string $date, int $weight_data): Weight
+    public function update(int $id, string $date, int $weight_number): Weight
     {
         $weight = Weight::find($id);
         $weight->date = $date;
-        $weight->weight = $weight_data;
+        $weight->weight = $weight_number;
         $weight->save();
         return $weight;
     }

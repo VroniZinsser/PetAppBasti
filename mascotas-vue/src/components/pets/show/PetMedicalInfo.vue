@@ -4,9 +4,7 @@
     <Medicine :medicines="[]"></Medicine>
     <Observation></Observation>
     <Vaccine :vaccines="[]"></Vaccine>
-
   </div>
-    
 </template>
 
 <script>
@@ -20,14 +18,14 @@ export default {
   props: {
     pet: {
       type: Object,
-      required: true
+      required: true,
     },
   },
   components: {
     Weight,
     Medicine,
     Observation,
-    Vaccine
+    Vaccine,
   }
 }
 </script>
