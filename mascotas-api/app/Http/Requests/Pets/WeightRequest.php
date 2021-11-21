@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Pets;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Messages\Validation;
 
 class WeightRequest extends FormRequest
 {
@@ -23,15 +24,15 @@ class WeightRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'date.required' => 'La fecha es obligatoria',
-            'date.date' => 'Por favor ingresá una fecha válida',
-            'date.before_or_equal' => 'No podés elegir una fecha en el futuro.',
-            'weight.required' => 'El peso es obligatorio',
-            'weight.numeric' => 'Por favor ingresá un número',
-            'weight.min' => 'El peso debe ser mayor a 0',
-            'pet_id.required' => 'El peso tiene que estar relacionado a una mascota',
-            'pet_id.exists' => 'La mascota seleccionada no existe',
-            'pet_id.integer' => 'La mascota seleccionada no es válida'
+            'date.required' => Validation::msg_required('la fecha'),
+            'date.date' => Validation::msg_valid_value('la fecha', true),
+            'date.before_or_equal' => Validation::msg_before_equal('la fecha', 'hoy'),
+            'weight.required' => Validation::msg_required('el peso'),
+            'weight.numeric' => Validation::msg_numeric('el peso'),
+            'weight.min' => Validation::msg_required('el peso'),
+            'pet_id.required' => Validation::msg_not_found('la mascota relacionada'),
+            'pet_id.exists' => Validation::msg_not_found('la mascota relacionada'),
+            'pet_id.integer' => Validation::msg_not_found('la mascota relacionada'),
         ];
     }
 }

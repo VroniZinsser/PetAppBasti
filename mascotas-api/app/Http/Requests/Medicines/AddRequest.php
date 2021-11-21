@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Medicines;
 
+use App\Messages\Validation;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AddRequest extends FormRequest
@@ -44,22 +45,22 @@ class AddRequest extends FormRequest
     public function messages(): array
     {
         return [
-            "name.required" => "El nombre del medicamento es obligatorio",
-            "name.max" => "El nombre del medicamento no puede superar los :max caracteres",
-            "quantity.required" => "La cantidad de medicamento es obligatorio",
-            "quantity.max" => "La cantidad de medicamento no puede superar los :max caracteres",
-            "start_date.required" => "La fecha de inicio es obligatoria",
-            "start_date.date" => "La fecha de inicio debe tener un formato de fecha válido",
-            "end_date.required" => "La fecha de fin es obligatoria",
-            "end_date.date" => "La fecha de fin debe tener un formato de fecha válido",
-            "end_date.after_or_equal" => "La fecha de fin debe ser igual o después de la fecha de inicio seleccionado",
-            "id.required" => "La mascota es obligatorio",
-            "id.integer" => "La mascota no es válida",
-            "id.exists" => "No se encontró la mascota",
-            "hours.required" => "Los horarios son obligatorios",
-            "hours.array" => "El formato de los horarios no es válido",
-            "hours.min" => "Debe de seleccionar como mínimo una hora",
-            "hours.exists" => "No se encontró la hora seleccionada",
+            "name.required" => Validation::msg_required('el nombre del medicamento'),
+            "name.max" => Validation::msg_max_caracters('el nombre del medicamento', ':max'),
+            "quantity.required" => Validation::msg_required('la cantidad de medicamento'),
+            "quantity.max" => Validation::msg_max_caracters('la cantidad de medicamento', ':max'),
+            "start_date.required" => Validation::msg_required('la fecha de inicio'),
+            "start_date.date" => Validation::msg_valid_value('la fecha de inicio', true),
+            "end_date.required" => Validation::msg_required('la fecha de fin'),
+            "end_date.date" => Validation::msg_valid_value('la fecha de fin', true),
+            "end_date.after_or_equal" => Validation::msg_after_equal('la fecha de fin', 'la fecha de inicio seleccionado'),
+            "id.required" => Validation::msg_not_found('la mascota relacionada'),
+            "id.integer" => Validation::msg_not_found('la mascota relacionada'),
+            "id.exists" => Validation::msg_not_found('la mascota relacionada'),
+            "hours.required" => Validation::msg_required('los horarios', true),
+            "hours.array" => Validation::msg_valid_value('el horario'),
+            "hours.min" => Validation::msg_required('como mínimo una hora'),
+            "hours.exists" => Validation::msg_not_found('la hora seleccionada'),
         ];
     }
 }

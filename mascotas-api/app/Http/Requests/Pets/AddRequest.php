@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Pets;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Messages\Validation;
 
 class AddRequest extends FormRequest
 {
@@ -37,24 +38,25 @@ class AddRequest extends FormRequest
 
     public function messages(): array
     {
+        
         return [
-            'breed.max' => 'La raza no puede contener mas de :max caracteres',
-            'date_of_birth.date' => 'Por favor ingresá una fecha valida',
-            'date_of_birth.before_or_equal' => 'La fecha ingresada no puede ser superior a la fecha actual',
-            'name.required' => 'Por favor ingresá el nombre de su mascota',
-            'name.max' => 'El nombre no puede contener mas de :max caracteres',
-            'neutered.boolean' => 'No ingresó un dato valido',
-            'temperament.max' => 'El temperamento no puede contener mas de :max caracteres',
-            'photo.image' => 'El archivo subido tiene que ser una imagen',
-            'photo.base64image' => 'El archivo subido tiene que ser una imagen',
-            'photo.max' => 'El archivo subido no puede pesar mas de 1MB',
-            'photo.base64max' => 'El archivo subido no puede pesar mas de 1MB',
-            'sex_id.required' => 'El sexo es obligatorio',
-            'sex_id.exists' => 'El sexo seleccionado no es valido',
-            'sex_id.integer' => 'El sexo seleccionado no es valido',
-            'species_id.required' => 'La especie es obligatoria',
-            'species_id.exists' => 'La especie seleccionada no es valida',
-            'species_id.integer' => 'La especie seleccionada no es valida',
+            'breed.max' => Validation::msg_max_caracters('la raza', ':max'),
+            'date_of_birth.date' => Validation::msg_valid_value('la fecha', true),
+            'date_of_birth.before_or_equal' => Validation::msg_before_equal('una fecha', 'la fecha de hoy'),
+            'name.required' => Validation::msg_required('el nombre de tu mascota'),
+            'name.max' => Validation::msg_max_caracters('el nombre de tu mascota', ':max'),
+            'neutered.boolean' => Validation::msg_valid_value('la castración', true),
+            'temperament.max' => Validation::msg_max_caracters('el temperamento', ':max'),
+            'photo.image' => Validation::msg_valid_value('la imagen', true),
+            'photo.base64image' => Validation::msg_valid_value('la imagen', true),
+            'photo.max' => Validation::msg_max_size('la imagen', '1MB'),
+            'photo.base64max' => Validation::msg_max_size('la imagen', '1MB'),
+            'sex_id.required' => Validation::msg_not_found('el sexo'),
+            'sex_id.exists' => Validation::msg_not_found('el sexo'),
+            'sex_id.integer' => Validation::msg_not_found('el sexo'),
+            'species_id.required' => Validation::msg_not_found('la especie'),
+            'species_id.exists' => Validation::msg_not_found('la especie'),
+            'species_id.integer' => Validation::msg_not_found('la especie'),
         ];
     }
 }
