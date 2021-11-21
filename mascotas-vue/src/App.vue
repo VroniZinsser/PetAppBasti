@@ -69,7 +69,7 @@ export default {
         icon: 'search',
       },
       {
-        name: 'PetShowList',
+        name: 'Pets',
         text: 'Mascotas',
         icon: 'format_list_bulleted',
       },

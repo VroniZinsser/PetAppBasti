@@ -4,10 +4,10 @@
     <p v-if="loading">Cargando...</p>
     <div v-else>
         <PetMenu 
-        :active="parseInt($route.params.petsId)"
-        :pets="pets"></PetMenu>
+        :active="activePet.id"
+        :pets="pets" @show-pet="showPet"></PetMenu>
 
-        <PetDetail :pet="findPet(parseInt($route.params.petsId))"></PetDetail>
+        <PetDetail :pet="activePet"></PetDetail>
     </div>
   </div>
 </template>
@@ -19,7 +19,7 @@ import PetDetail from "../../components/pets/show/PetDetail";
 import petServices from "../../services/pets";
 
 export default {
-  name: "Pet",
+  name: "Pets",
   components: {
       TitleBar,
       PetMenu,
@@ -28,19 +28,21 @@ export default {
   data: () => ({
     loading: true,
     pets: null,
+    activePet: null,
   }),
   mounted() {
     petServices.getOwnerPets()
         .then(res => {
           this.pets = res.data.pets;
+          this.activePet = res.data.pets[0];
           this.loading = false;
         });
   },
 
   methods: {
-      findPet($pets_id) {
-          return this.pets.find(pet => pet.id === $pets_id)
-      }
+    showPet(pet_id) {
+      this.activePet = this.pets.find(pet => pet.id === pet_id);
+    }
   }
 }
 </script>
