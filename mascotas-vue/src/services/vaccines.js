@@ -2,7 +2,6 @@ import {API} from "../constants";
 
 //TODO: change hardcoded pet-id in rest url
 const vaccineService = {
-
     /**
      * Get all vaccines of one pet
      *
@@ -14,14 +13,13 @@ const vaccineService = {
         }).then(res => res.json());
     },
 
-
     /**
      * Creates new vaccine
      *
      * @param vaccine
      * @returns {Promise<any>}
      */
-     create(vaccine) {
+    create(vaccine) {
         return fetch(`${API}vacunas`, {
             method: 'POST',
             body: JSON.stringify(vaccine),

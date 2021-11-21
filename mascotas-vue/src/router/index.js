@@ -54,8 +54,17 @@ const routes = [
             requiresAuth: true,
         },
     },
+
     {
-        path: '/mascotas/:petsId',
+        path: '/mascotas/:pet_id/observacion/nuevo',
+        name: 'ObservationForm',
+        component: ObservationForm,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/mascotas/:pet_id',
         name: 'Pet',
         component: Pet,
         meta: {
@@ -63,7 +72,7 @@ const routes = [
         },
     },
     {
-        path: '/mascotas/:petsId/pesos/nuevo',
+        path: '/mascotas/:pet_id/pesos/nuevo',
         name: 'WeightForm',
         component: WeightForm,
         meta: {
@@ -79,15 +88,7 @@ const routes = [
         }
     },
     {
-        path: '/mascotas/:petsId/observacion/nuevo',
-        name: 'ObservationForm',
-        component: ObservationForm,
-        meta: {
-            requiresAuth: true,
-        },
-    },
-    {
-        path: '/mascotas/:petsId/vacunas/nuevo',
+        path: '/mascotas/:pet_id/vacunas/nuevo',
         name: 'VaccineForm',
         component: VaccineForm,
         meta: {
@@ -95,7 +96,7 @@ const routes = [
         },
     },
     {
-        path: '/mascotas/:petsId/medicamentos/agregar',
+        path: '/mascotas/:pet_id/medicamentos/agregar',
         name: 'MedicinesAddForm',
         component: MedicinesAddForm,
         meta: {

@@ -12,12 +12,12 @@ class WeightRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'date' => 'required|date|before_or_equal:'.date('m/d/Y'),
             'weight' => 'required|numeric|min:1',
-            'pets_id' => 'required|exists:pets,id|integer'
+            'pet_id' => 'required|exists:pets,id|integer'
         ];
     }
 
@@ -30,9 +30,9 @@ class WeightRequest extends FormRequest
             'weight.required' => Validation::msg_required('el peso'),
             'weight.numeric' => Validation::msg_numeric('el peso'),
             'weight.min' => Validation::msg_required('el peso'),
-            'pets_id.required' => Validation::msg_not_found('la mascota relacionada'),
-            'pets_id.exists' => Validation::msg_not_found('la mascota relacionada'),
-            'pets_id.integer' => Validation::msg_not_found('la mascota relacionada'),
+            'pet_id.required' => Validation::msg_not_found('la mascota relacionada'),
+            'pet_id.exists' => Validation::msg_not_found('la mascota relacionada'),
+            'pet_id.integer' => Validation::msg_not_found('la mascota relacionada'),
         ];
     }
 }

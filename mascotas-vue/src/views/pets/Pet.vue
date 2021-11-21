@@ -1,15 +1,18 @@
 <template>
-  <div fluid>
+  <v-container fluid>
     <TitleBar title="Tus mascotas"></TitleBar>
-    <p v-if="loading">Cargando...</p>
-    <div v-else>
-        <PetMenu 
-        :active="parseInt($route.params.petsId)"
-        :pets="pets"></PetMenu>
 
-        <PetDetail :pet="findPet(parseInt($route.params.petsId))"></PetDetail>
+    <p v-if="loading">Cargando...</p>
+
+    <div v-else>
+      <PetMenu
+          :active="parseInt($route.params.pet_id)"
+          :pets="pets"></PetMenu
+      >
+
+      <PetDetail :pet="findPet(parseInt($route.params.pet_id))"></PetDetail>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -21,10 +24,10 @@ import petServices from "../../services/pets";
 export default {
   name: "Pet",
   components: {
-      TitleBar,
-      PetMenu,
-      PetDetail,
-    },
+    TitleBar,
+    PetMenu,
+    PetDetail,
+  },
   data: () => ({
     loading: true,
     pets: null,
@@ -36,12 +39,11 @@ export default {
           this.loading = false;
         });
   },
-
   methods: {
-      findPet($pets_id) {
-          return this.pets.find(pet => pet.id === $pets_id)
-      }
-  }
+    findPet($pet_id) {
+      return this.pets.find(pet => pet.id === $pet_id);
+    },
+  },
 }
 </script>
 

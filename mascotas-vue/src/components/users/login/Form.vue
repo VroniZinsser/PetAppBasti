@@ -1,9 +1,9 @@
 <template>
-    <v-form
-        action="#r"
-        method="post"
-        @submit.prevent=""
-    >
+  <v-form
+      action="#r"
+      method="post"
+      @submit.prevent=""
+  >
     <v-text-field
         type="email"
         required
@@ -32,28 +32,26 @@
         counter
         @click:append="showPassword = !showPassword"
     ></v-text-field>
-    </v-form>
-  
+  </v-form>
 </template>
 
 <script>
 export default {
-    data:() => ({
-        showPassword: false,
-        loading: true,
-        errors: {
-            email: null,
-            password: null,
-        },
-        rules: {
-            obligatory: value => !!value || 'Este campo es obligatorio.',
-            email: value => {
-                const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-                return pattern.test(value) || 'El correo electrónico no es válido.'
-            }
-        }
-    })
-
+  data: () => ({
+    showPassword: false,
+    loading: true,
+    errors: {
+      email: null,
+      password: null,
+    },
+    rules: {
+      obligatory: value => !!value || 'Este campo es obligatorio.',
+      email: value => {
+        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return pattern.test(value) || 'El correo electrónico no es válido.';
+      }
+    }
+  }),
 }
 </script>
 

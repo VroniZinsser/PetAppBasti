@@ -1,7 +1,7 @@
 <template>
-    <div class="title-bar">
-        <h1>{{ title }}</h1>
-    </div>   
+  <div class="title-bar">
+    <h1>{{ title }}</h1>
+  </div>
 </template>
 <script>
 export default {
@@ -11,6 +11,6 @@ export default {
       type: String,
       required: true
     },
-  }, 
+  },
 }
 </script>
