@@ -33,7 +33,7 @@ class AuthController extends Controller
         if (!$token = auth()->attempt($credentials)) {
             return response()->json([
                 'success' => false,
-                'error' => 'Uno o ambos campos son incorrectos',
+                'message' => 'Uno o ambos campos son incorrectos',
             ], 401);
         }
 
