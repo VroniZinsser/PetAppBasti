@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import UserCreateForm from "../views/users/CreateForm";
-import UserLoginForm from "../views/users/LoginForm";
+import Login from "../views/Auth/Login";
 import PetAddForm from "../views/pets/AddForm";
 import ShowMap from "../views/map/ShowMap"
 import PetShowList from "../views/pets/ShowList"
@@ -11,6 +11,7 @@ import ObservationForm from "../views/pets/ObservationForm"
 import VaccineForm from "../views/pets/VaccineForm";
 import WeightForm from "../views/pets/WeightForm";
 import MedicinesAddForm from "../views/pets/medicines/MedicinesAddForm";
+import authService from "../services/auth";
 
 Vue.use(VueRouter)
 
@@ -27,14 +28,6 @@ const routes = [
         meta: {
             requiresAuth: true,
             role: 'professional'
-        }
-    },
-    {
-        path: '/usuarios/login',
-        name: 'UserLogin',
-        component: UserLoginForm,
-        meta: {
-            requiresAuth: true
         }
     },
     {
@@ -112,11 +105,37 @@ const routes = [
         component: function () {
             return import(/* webpackChunkName: "about" */ '../views/About.vue')
         }
-    }
+    },
+    {
+        path: '/ingresar',
+        name: 'Login',
+        component: Login,
+        meta: {
+            requiresGuest: true,
+        }
+    },
 ]
 
 const router = new VueRouter({
     routes
 })
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(route => route.meta.requiresAuth === true)) {
+        if (!authService.auth()) {
+            next({name: 'Login'});
+        } else {
+            next()
+        }
+    } else if (to.matched.some(route => route.meta.requiresGuest === true)) {
+        if (authService.auth()) {
+            next({name: 'Home'});
+        } else {
+            next()
+        }
+    }else{
+        next()
+    }
+});
 
 export default router
