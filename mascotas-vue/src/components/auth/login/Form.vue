@@ -1,45 +1,50 @@
 <template>
   <v-form
-      action="#r"
+      action="autenticacion"
       method="post"
-      @submit.prevent=""
+      ref="loginForm"
+      @submit.prevent="login"
   >
-    <v-text-field
+    <InputText
         type="email"
-        required
-        name="email"
-        id="email"
-        class="form-control"
-        label="Correo electrónico*"
+        label="Correo electrónico"
+        v-model="formData.email"
+        :loading="loading"
         :rules="[rules.obligatory, rules.email]"
-        :messages="errors.email ? errors.email[0] : ''"
-        :error="errors.first_name !== null"
-        :disabled="loading"
-    ></v-text-field>
+        :errors="errors.email"
+    ></InputText>
 
-    <v-text-field
+    <InputText
         :type="showPassword ? 'text' : 'password'"
-        required
-        name="password"
-        id="password"
-        class="form-control"
-        label="Contraseña*"
+        label="Contraseña"
+        v-model="formData.password"
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-        :rules="[rules.obligatory]"
-        :messages="errors.password ? errors.password[0] : ''"
-        :error="errors.password !== null"
-        :disabled="loading"
-        counter
         @click:append="showPassword = !showPassword"
-    ></v-text-field>
+        :loading="loading"
+        :rules="[rules.obligatory]"
+        :errors="errors.password"
+    ></InputText>
+
+    <v-btn type="submit" :disabled="loading">Iniciar sesión</v-btn>
   </v-form>
 </template>
 
 <script>
+import InputText from "../../general/inputs/InputText";
+import authService from "../../../services/auth";
+import store from "../../../store";
+
 export default {
+  name: 'Form',
+  components: {InputText},
   data: () => ({
     showPassword: false,
-    loading: true,
+    loading: false,
+    store,
+    formData: {
+      email: null,
+      password: null,
+    },
     errors: {
       email: null,
       password: null,
@@ -49,9 +54,46 @@ export default {
       email: value => {
         const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return pattern.test(value) || 'El correo electrónico no es válido.';
-      }
-    }
+      },
+    },
   }),
+  methods: {
+    /**
+     * Attempts to authenticate the user
+     */
+    login() {
+      if (this.$refs.loginForm.validate()) {
+        this.loading = true;
+
+        this.errors = {
+          email: null,
+          password: null,
+        }
+
+        authService.login(this.formData)
+            .then(res => {
+              if (!res.success) {
+                if (res.errors) {
+                  this.errors = {
+                    email: null,
+                    password: null,
+                    ...res.errors
+                  }
+                } else {
+                  alert('Uno o ambos campos son incorrectos');
+                }
+                // TODO: Implementar vaciar contraseña luego de un error. E intentar que no aparezca el mensaje de validación de que el campo es obligatorio.
+              } else {
+                authService.saveAuthUser(res.data.user);
+
+                this.$router.push({name: 'Home'});
+              }
+
+              this.loading = false
+            });
+      }
+    },
+  }
 }
 </script>
 
