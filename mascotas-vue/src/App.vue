@@ -20,12 +20,19 @@
             <span>{{ link.text }}</span>
           </router-link>
         </li>
-        <li>
+        <li v-if="store.user.id">
           <a href="#" @click.prevent="dialog = true">
             <span class="material-icons">account_circle</span>
             <span class="sr-only">Abrir opciones (abre ventana modal)</span>
           </a>
         </li>
+        <li v-else>
+          <router-link :to="{name: 'Login'}" exact>
+            <span class="material-icons">login</span>
+            <span>Ingresar</span>
+          </router-link>
+        </li>
+
       </ul>
     </v-app-bar>
 
@@ -34,7 +41,7 @@
       <v-card id="config-list">
         <ul>
           <li><a href="#">Configuración</a></li>
-          <li><a href="#" class="danger-text">Cerrar sesión</a></li>
+          <li><a class="danger-text" @click.prevent="logout">Cerrar sesión</a></li>
           <li>
             <v-btn @click="dialog=false">Cancelar</v-btn>
           </li>
@@ -51,12 +58,15 @@
 <script>
 
 import {PATH_IMG} from "./constants";
+import authService from "./services/auth";
+import store from "./store";
 
 export default {
   name: 'App',
 
   data: () => ({
     dialog: false,
+    store,
     routerLinks: [
       {
         name: 'Home',
@@ -81,9 +91,29 @@ export default {
     ]
   }),
   methods: {
+    /**
+     * Returns the path to the image folder concatenated with the path passed by parameter
+     *
+     * @param {string} path
+     * @returns {string}
+     */
     getCompletePath(path) {
       return PATH_IMG + path
-    }
+    },
+
+    /**
+     * Logs out the user, and redirects to the login view
+     */
+    logout() {
+      authService.logout()
+          .then(() => {
+            this.dialog = false;
+            this.$router.push({name: 'Login'});
+          });
+    },
+  },
+  mounted() {
+    authService.refreshAuthUser();
   }
 };
 </script>
