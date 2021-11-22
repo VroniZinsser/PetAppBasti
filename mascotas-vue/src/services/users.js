@@ -13,7 +13,8 @@ const userService = {
         return fetch(`${API}usuarios/crear-profesional`, {
             method: 'POST',
             body: JSON.stringify(user),
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
         })
             .then(rta => rta.json())
             .then(respuesta => {
@@ -32,7 +33,10 @@ const userService = {
      * @returns {Promise<any>}
      */
     createForm() {
-        return fetch(`${API}usuarios/crear-profesional`)
+        return fetch(`${API}usuarios/crear-profesional`, {
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
+        })
             .then(res => res.json());
     },
 
@@ -42,7 +46,10 @@ const userService = {
      * @returns {Promise<any>}
      */
     getProfessionals() {
-        return fetch(`${API}usuarios/profesionales`)
+        return fetch(`${API}usuarios/profesionales`, {
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
+        })
             .then(res => res.json());
     },
 }
