@@ -3,6 +3,7 @@
     <div class="pet-profile-header">
       <h2>Perfil</h2>
     </div>
+
     <div class="pet-profile-body">
       <ul>
         <li>
@@ -19,7 +20,7 @@
         </li>
         <li>
           <span>Castrado:</span>
-          <span>{{ pet.neutered ? 'Sí' : 'No'}}</span>
+          <span>{{ pet.neutered ? 'Sí' : 'No' }}</span>
         </li>
         <li>
           <span>Sexo:</span>
@@ -35,29 +36,27 @@
         </li>
       </ul>
     </div>
+
     <div class="pet-profile-footer">
       <a href="#">Editar perfil</a>
     </div>
-    
   </div>
 </template>
 
 <script>
-import  {formatDate}  from "../../../helpers";
+import {formatDate} from "../../../helpers";
+
 export default {
   name: "PetProfile",
   props: {
     pet: {
       type: Object,
-      required: true
+      required: true,
     },
   },
-
   data() {
     return {
-      formatted_date_of_birth: formatDate(this.pet.date_of_birth),
-    }
-  },
-
+    formatted_date_of_birth: formatDate(this.pet.date_of_birth),
+  }}
 }
 </script>

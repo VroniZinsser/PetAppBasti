@@ -2,7 +2,6 @@ import {API} from "../constants";
 
 //TODO: change hardcoded pet-ids in rest urls
 const weightService = {
-
     /**
      * Get all weights of one pet
      *
@@ -14,14 +13,14 @@ const weightService = {
         }).then(res => res.json());
     },
 
-    
+
     /**
      * Creates new weight
      *
      * @param weight
      * @returns {Promise<any>}
      */
-     create(weight) {
+    create(weight) {
         return fetch(`${API}pesos`, {
             method: 'POST',
             body: JSON.stringify(weight),

@@ -1,7 +1,9 @@
 <template>
-  <div fluid>
+  <v-container fluid>
     <TitleBar title="Tus mascotas"></TitleBar>
+
     <p v-if="loading">Cargando...</p>
+
     <div v-else>
         <PetMenu 
         :active="activePet.id"
@@ -9,7 +11,7 @@
 
         <PetDetail :pet="activePet"></PetDetail>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -21,10 +23,10 @@ import petServices from "../../services/pets";
 export default {
   name: "Pets",
   components: {
-      TitleBar,
-      PetMenu,
-      PetDetail,
-    },
+    TitleBar,
+    PetMenu,
+    PetDetail,
+  },
   data: () => ({
     loading: true,
     pets: null,
@@ -38,7 +40,6 @@ export default {
           this.loading = false;
         });
   },
-
   methods: {
     showPet(pet_id) {
       this.activePet = this.pets.find(pet => pet.id === pet_id);

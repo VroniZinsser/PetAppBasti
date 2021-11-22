@@ -1,7 +1,6 @@
 import {API} from "../constants";
 
 const petServices = {
-
     /**
      * Returns the data necessary for the creation of the add pet form
      *
@@ -38,15 +37,34 @@ const petServices = {
     },
 
     /**
-     * Update single fields of the pet
+     * Updates only the observation field of the pet
      *
+     * @param pet_id
      * @param data
      * @returns {Promise<any>}
      */
-     patch(data) {
-        return fetch(`${API}mascotas/${data.pets_id}`, {
-            method: 'PATCH',
-            body: JSON.stringify(data),
+    updateObservation(pet_id, data) {
+        return fetch(`${API}mascotas/${pet_id}/observacion`, {
+            method: 'POST',
+            body: JSON.stringify({
+                action: 'update',
+                data: data,
+            }),
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+        }).then(res => res.json());
+    },
+
+    /**
+     * Deletes content from observation field
+     *
+     * @returns {Promise<any>}
+     */
+    deleteObservation(pet_id) {
+        return fetch(`${API}mascotas/${pet_id}/observacion`, {
+            method: 'POST',
+            body: JSON.stringify({
+                action: 'delete',
+            }),
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
         }).then(res => res.json());
     },

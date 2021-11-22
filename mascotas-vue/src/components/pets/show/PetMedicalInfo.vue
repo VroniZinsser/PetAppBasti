@@ -6,7 +6,6 @@
     <Vaccine :vaccines="vaccines"></Vaccine>
 
   </div>
-    
 </template>
 
 <script>
@@ -21,7 +20,7 @@ export default {
   props: {
     pet: {
       type: Object,
-      required: true
+      required: true,
     },
   },
   data: () => ({

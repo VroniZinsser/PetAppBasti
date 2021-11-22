@@ -12,20 +12,21 @@ class WeightController extends Controller
     protected $weightRepository;
 
     public function __construct(
-        WeightRepository $weightRepository,
+        WeightRepository $weightRepository
     )
     {
         $this->weightRepository = $weightRepository;
     }
 
-     /**
+    /**
      * Returns all weights of a pet
      *
+     * @param $pet_id
      * @return JsonResponse
      */
-    public function getWeightsByPet($pets_id): JsonResponse
+    public function getWeightsByPet($pet_id): JsonResponse
     {
-        $weights = $this->weightRepository->getWeightsByPet($pets_id)->values();
+        $weights = $this->weightRepository->getWeightsByPet($pet_id)->values();
         return response()->json([
             'data' => compact('weights'),
         ]);
@@ -34,11 +35,12 @@ class WeightController extends Controller
     /**
      * Adds a new weight to a pet
      *
+     * @param WeightRequest $request
      * @return JsonResponse
      */
     public function createWeight(WeightRequest $request): JsonResponse
     {
-        $weight = $this->weightRepository->create($request->get('date'), $request->get('weight'), $request->get('pets_id'));
+        $weight = $this->weightRepository->create($request->get('date'), $request->get('weight'), $request->get('pet_id'));
 
         return response()->json([
             'success' => true,
@@ -50,6 +52,7 @@ class WeightController extends Controller
     /**
      * Gets a weight by its id
      *
+     * @param $weight_id
      * @return JsonResponse
      */
     public function findWeight($weight_id): JsonResponse
@@ -63,6 +66,8 @@ class WeightController extends Controller
     /**
      * Updates a weight with the given id
      *
+     * @param Request $request
+     * @param $weight_id
      * @return JsonResponse
      */
     public function updateWeight(Request $request, $weight_id): JsonResponse
@@ -76,6 +81,7 @@ class WeightController extends Controller
     /**
      * Deletes a weight with the given id
      *
+     * @param $weight_id
      * @return JsonResponse
      */
     public function deleteWeight($weight_id): JsonResponse

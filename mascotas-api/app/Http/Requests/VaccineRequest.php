@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Messages\Validation;
 
 class VaccineRequest extends FormRequest
 {
@@ -12,24 +13,24 @@ class VaccineRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => 'required',
             'date' => 'required|date|before_or_equal:'.date('m/d/Y'),
-            'pets_id' => 'required|exists:pets,id|integer'
+            'pet_id' => 'required|exists:pets,id|integer'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required' => 'El nombre de vacuna es obligatorio',
-            'date.required' => 'La fecha es obligatoria',
-            'date.date' => 'Por favor ingresá una fecha válida',
-            'pets_id.required' => 'El peso tiene que estar relacionado a una mascota',
-            'pets_id.exists' => 'La mascota seleccionada no existe',
-            'pets_id.integer' => 'La mascota seleccionada no es válida'
+            'name.required' => Validation::msg_required('el nombre de la vacuna'),
+            'date.required' => Validation::msg_required('la fecha'),
+            'date.date' => Validation::msg_valid_value('la fecha', true),
+            'pet_id.required' => Validation::msg_not_found('la mascota relacionada'),
+            'pet_id.exists' => Validation::msg_not_found('la mascota relacionada'),
+            'pet_id.integer' => Validation::msg_not_found('la mascota relacionada'),
         ];
     }
 }

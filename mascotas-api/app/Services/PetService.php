@@ -13,24 +13,21 @@ class PetService implements PetRepository
     /**
      * @inheritDoc
      */
-    public function updateOrCreate(PetDTO $dto, int $owner): Pet
+    public function updateOrCreate(PetDTO $dto, int $owner_id): Pet
     {
-        $pet = Pet::updateOrCreate(
-            ['id' => $dto->getId()],
-            [
-                'breed' => $dto->getBreed(),
-                'date_of_birth' => $dto->getDate_of_birth(),
-                'name' => $dto->getName(),
-                'neutered' => $dto->getNeutered(),
-                'temperament' => $dto->getTemperament(),
-                'observation' => $dto->getObservation(),
-                'images_id' => $dto->getImages_id(),
-                'sexes_id' => $dto->getSexes_id(),
-                'species_id' => $dto->getSpecies_id(),
-            ]
-        );
+        $pet = Pet::findOrNew($dto->get_id());
+        $pet->breed = $dto->get_breed();
+        $pet->date_of_birth = $dto->get_date_of_birth();
+        $pet->name = $dto->get_name();
+        $pet->neutered = $dto->get_neutered();
+        $pet->temperament = $dto->get_temperament();
+        $pet->observation = $dto->get_observation();
+        $pet->images_id = $dto->get_image_id();
+        $pet->sexes_id = $dto->get_sex_id();
+        $pet->species_id = $dto->get_species_id();
+        $pet->save();
 
-        $pet->owners()->attach([$owner]);
+        $pet->owners()->attach([$owner_id]);
 
         return $pet;
     }
@@ -38,9 +35,9 @@ class PetService implements PetRepository
     /**
      * @inheritDoc
      */
-    public function getPetsByUser(int $owners_id): object
+    public function getPetsByUser(int $owner_id): object
     {
-        $user = User::find($owners_id);
+        $user = User::find($owner_id);
 
         $user->load(['pets', 'pets.image', 'pets.sex', 'pets.species']);
 
@@ -50,9 +47,10 @@ class PetService implements PetRepository
     /**
      * @inheritDoc
      */
-    public function patchObservation(int $pets_id, ?string $observation): Pet
+
+    public function updateObservation(int $pet_id, string $observation): Pet
     {
-        $pet = Pet::find($pets_id);
+        $pet = Pet::findOrFail($pet_id);
         $pet->observation = $observation;
         $pet->save();
 
