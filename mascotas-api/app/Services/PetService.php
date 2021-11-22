@@ -39,7 +39,7 @@ class PetService implements PetRepository
     {
         $user = User::find($owner_id);
 
-        $user->load(['pets', 'pets.image', 'pets.sex', 'pets.species']);
+        $user->load(['pets', 'pets.image', 'pets.sex', 'pets.species', 'pets.medicines', 'pets.vaccines', 'pets.weights', 'pets.medicines.hours']);
 
         return $user->pets;
     }

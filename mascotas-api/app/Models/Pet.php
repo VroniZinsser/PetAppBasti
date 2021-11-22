@@ -53,8 +53,6 @@ class Pet extends Model
         return $this->belongsTo(Image::class, 'images_id');
     } 
 
-  
-
     /**
      * Returns pet owners
      *
@@ -62,6 +60,30 @@ class Pet extends Model
      */
     public function owners(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'users_has_pets', 'pet_id', 'user_id');
+        return $this->belongsToMany(User::class, 'users_has_pets', 'pets_id', 'users_id');
+    }
+
+    /**
+     * Get the medicines of the pet.
+     */
+    public function medicines()
+    {
+        return $this->hasMany(Medicine::class, 'pets_id');
+    }
+
+    /**
+     * Get the vaccines of the pet.
+     */
+    public function vaccines()
+    {
+        return $this->hasMany(Vaccine::class, 'pets_id');
+    }
+
+    /**
+     * Get the weights of the pet.
+     */
+    public function weights()
+    {
+        return $this->hasMany(Weight::class, 'pets_id');
     }
 }
