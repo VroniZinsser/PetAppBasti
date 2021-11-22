@@ -1,9 +1,25 @@
 <template>
   <div class="pet-medical-info">
-    <Weight :weights="weights" :placeholder="placeholder.weight" :pet_name="pet.name"></Weight>
-    <Medicine :medicines="medicines" :placeholder="placeholder.medicine" :pet_name="pet.name"></Medicine>
-    <Observation :observation="pet.observation" :placeholder="placeholder.observation" :pet_name="pet.name"></Observation>
-    <Vaccine :vaccines="vaccines" :placeholder="placeholder.vaccine" :pet_name="pet.name"></Vaccine>
+    <Weight 
+      :weights="weights" 
+      :placeholder="placeholder.weight" 
+      :pet_name="pet.name">
+    </Weight>
+    <Medicine 
+      :medicines="medicines" 
+      :placeholder="placeholder.medicine" 
+      :pet_name="pet.name">
+    </Medicine>
+    <Observation 
+      :observation="pet.observation" 
+      :placeholder="placeholder.observation" 
+      :pet_name="pet.name">
+    </Observation>
+    <Vaccine 
+      :vaccines="vaccines" 
+      :placeholder="placeholder.vaccine" 
+      :pet_name="pet.name">
+    </Vaccine>
   </div>
 </template>
 
@@ -39,7 +55,7 @@ export default {
       },
       weight: {
         img_src: createImgPath('ui/no_vaccine.png'),
-        text: `¿Cuánto pesa :petName? Si lo anotás regularmente podés llevar un mejor control sobre su salud.`,
+        text: `¿Cuánto pesa :petName? Anotalo regularmente para llevar un mejor control sobre su salud.`,
         cta: {
             url: '#',
             text: 'Agregar peso'

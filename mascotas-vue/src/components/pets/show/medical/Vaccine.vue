@@ -4,14 +4,14 @@
             <h2>Vacunas</h2>
             <a v-if="vaccines.length > 0" href="#">Ver más</a>
         </div>
-        <NoData 
+        <Placeholder 
             v-if="vaccines.length === 0"
             :img_src="placeholder.img_src"
             :text="placeholder.text"
             :cta_url="placeholder.cta.url"
             :cta_text="placeholder.cta.text"
             :pet_name="pet_name">
-        </NoData>
+        </Placeholder>
         <div v-else class="medical-container-body">
             <VaccineItem 
                 v-for="vaccine in vaccines" 
@@ -24,7 +24,7 @@
 <script>
 
 import VaccineItem from "@/components/pets/show/medical/VaccineItem";
-import NoData from "@/components/pets/show/medical/NoData";
+import Placeholder from "@/components/pets/show/medical/Placeholder";
 export default {
     name: "Vaccine",
     props: {
@@ -42,7 +42,7 @@ export default {
         },
     },
     components: {
-        NoData,
+        Placeholder,
         VaccineItem
     },
 }

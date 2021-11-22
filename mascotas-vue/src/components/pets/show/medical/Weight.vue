@@ -4,14 +4,14 @@
             <span>Peso actual: </span>
             <a v-if="weights.length > 0" href="#">Ver más</a>
         </div>
-        <NoData 
+        <Placeholder 
             v-if="weights.length === 0"
             :img_src="placeholder.img_src"
             :text="placeholder.text"
             :cta_url="placeholder.cta.url"
             :cta_text="placeholder.cta.text"
             :pet_name="pet_name">
-        </NoData>
+        </Placeholder>
         <div v-else class="medical-container-body">
             <ul>
                 <li v-for="weight in weights" :key="weight.id">{{weight.weight}}</li>
@@ -20,7 +20,7 @@
     </div>
 </template>
 <script>
-import NoData from "@/components/pets/show/medical/NoData";
+import Placeholder from "@/components/pets/show/medical/Placeholder";
 export default {
     name: "Weight",
     props: {
@@ -38,7 +38,7 @@ export default {
         }
     },
     components: {
-        NoData,
+        Placeholder,
     },
 }
 </script>

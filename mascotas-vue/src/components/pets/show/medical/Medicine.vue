@@ -1,14 +1,14 @@
 <template>
     <div class="medical-container medicine">
         <h2>Medicamentos</h2>
-        <NoData 
+        <Placeholder 
             v-if="medicines.length === 0"
             :img_src="placeholder.img_src"
             :text="placeholder.text"
             :cta_url="placeholder.cta.url"
             :cta_text="placeholder.cta.text"
             :pet_name="pet_name">
-        </NoData>
+        </Placeholder>
         <div v-else class="medical-container-body">
             <MedicineItem 
                 v-for="medicine in medicines" 
@@ -21,7 +21,7 @@
     
 </template>
 <script>
-import NoData from "@/components/pets/show/medical/NoData";
+import Placeholder from "@/components/pets/show/medical/Placeholder";
 import MedicineItem from "@/components/pets/show/medical/MedicineItem";
 import MedicineItemMore from "@/components/pets/show/medical/MedicineItemMore";
 export default {
@@ -41,7 +41,7 @@ export default {
         },
     },
     components: {
-        NoData,
+        Placeholder,
         MedicineItem,
         MedicineItemMore
     },

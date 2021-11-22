@@ -8,7 +8,7 @@
 <script>
 
 export default {
-    name: "NoData",
+    name: "Placeholder",
     props: {
         img_src: {
             type: String,
