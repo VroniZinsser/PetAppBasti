@@ -3,10 +3,11 @@
         <h2>Medicamentos</h2>
         <NoData 
             v-if="medicines.length === 0"
-            :img_src="noData.img_src"
-            :text="noData.text"
-            :cta_url="noData.cta.url"
-            :cta_text="noData.cta.text">
+            :img_src="placeholder.img_src"
+            :text="placeholder.text"
+            :cta_url="placeholder.cta.url"
+            :cta_text="placeholder.cta.text"
+            :pet_name="pet_name">
         </NoData>
         <div v-else class="medical-container-body">
             <MedicineItem 
@@ -23,7 +24,6 @@
 import NoData from "@/components/pets/show/medical/NoData";
 import MedicineItem from "@/components/pets/show/medical/MedicineItem";
 import MedicineItemMore from "@/components/pets/show/medical/MedicineItemMore";
-import {createImgPath} from "@/helpers";
 export default {
     name: "Medicine",
     props: {
@@ -31,27 +31,19 @@ export default {
             type: Array,
             required: true,
         },
-        petName: {
+        placeholder: {
+            type: Object,
+            required: true,
+        },
+        pet_name: {
             type: String,
             required: true,
-        }
+        },
     },
     components: {
         NoData,
         MedicineItem,
         MedicineItemMore
     },
-    data() {
-        return {
-            noData: {
-                img_src: createImgPath('ui/no_medicine.png'),
-                text: `Agregá medicamentos actuales o del pasado para el registro de medicación de ${this.petName}.`,
-                cta: {
-                    url: '#',
-                    text: 'Agregar medicamento'
-                }
-            }
-        }
-    }
 }
 </script>

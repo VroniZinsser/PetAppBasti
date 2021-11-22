@@ -281,6 +281,24 @@
   background: #F2BF8C;
 }
 
+.no-data {
+  width: 280px;
+  margin: auto;
+  text-align: center;
+}
+.no-data img {
+  width: 80px;
+  display: block;
+  margin: 16px auto;
+}
+.no-data p {
+  font-size: 14px;
+  color: gray;
+}
+.no-data .add-data-link {
+  color: #CC613E;
+}
+
 @media screen and (min-width: 768px) {
   .pet-detail {
     display: grid;

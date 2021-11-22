@@ -1,7 +1,7 @@
 <template>
     <div class="no-data">
         <img :src="img_src" :alt="cta_text">
-        <p>{{text}}</p>
+        <p>{{ replacePetName(text, pet_name) }}</p>
         <a :href="cta_url" class="add-data-link">{{cta_text}}</a>
     </div>
 </template>
@@ -25,6 +25,16 @@ export default {
         cta_text: {
             type: String,
             required: true,
+        },
+        pet_name: {
+            type: String,
+            required: true,
+        }
+    },
+
+    methods: {
+        replacePetName(text, petName) {
+            return text.replace(':petName', petName);
         }
     }
 }

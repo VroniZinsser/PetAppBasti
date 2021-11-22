@@ -16,7 +16,15 @@ export default {
     props: {
         observation: {
             type: String,
-        }
+        },
+        placeholder: {
+            type: Object,
+            required: true,
+        },
+        pet_name: {
+            type: String,
+            required: true,
+        },
     }
 }
 </script>
