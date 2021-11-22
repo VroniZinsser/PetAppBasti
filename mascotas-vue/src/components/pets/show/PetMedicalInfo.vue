@@ -1,7 +1,7 @@
 <template>
   <div class="pet-medical-info">
     <Weight :weights="weights"></Weight>
-    <Medicine :medicines="medicines"></Medicine>
+    <Medicine :medicines="medicines" :petName="pet.name"></Medicine>
     <Observation :observation="pet.observation"></Observation>
     <Vaccine :vaccines="vaccines"></Vaccine>
 
