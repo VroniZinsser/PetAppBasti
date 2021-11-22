@@ -4,14 +4,14 @@
         class="menu-item-link" 
         :class="is_active ? 'active' : ''"
         @click="$parent.$emit('show-pet', pet.id)">
-        <img :src="getCompletePath(pet.image.src)" :alt="pet.image.alt">
+        <img :src="createImgPath(pet.image.src)" :alt="pet.image.alt">
         <span>{{ pet.name }}</span>
       </div>
   </div>
 </template>
 
 <script>
-import {PATH_IMG} from "../../../constants";
+import {createImgPath} from "@/helpers";
 
 export default {
   name: "PetMenuItem",
@@ -25,10 +25,10 @@ export default {
       required: true,
     },
   },
-  methods: {
-    getCompletePath(path) {
-      return PATH_IMG + path;
-    },
-  },
+  data() {
+    return {
+      createImgPath: createImgPath,
+    }
+  }
 }
 </script>

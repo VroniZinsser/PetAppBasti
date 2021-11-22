@@ -1,7 +1,7 @@
 <template>
   <div class="pet-detail">
     <div class="pet-image">
-      <img :src="getCompletePath(pet.image.src)" :alt="pet.image.alt">
+      <img :src="createImgPath(pet.image.src)" :alt="pet.image.alt">
 
       <div class="gender-icon-container">
         <span class="material-icons">{{ getGenderIcon(pet.sexes_id) }}</span>
@@ -37,7 +37,7 @@
 </template>
 <script>
 
-import {PATH_IMG} from "../../../constants";
+import {createImgPath} from "@/helpers";
 import PetProfile from "@/components/pets/show/PetProfile";
 import PetMedicalInfo from "@/components/pets/show/PetMedicalInfo";
 
@@ -58,13 +58,10 @@ export default {
     return {
       tab: null,
       activeItem: 'pet-medical-info',
+      createImgPath: createImgPath,
     }
   },
   methods: {
-    getCompletePath(path) {
-      return PATH_IMG + path;
-    },
-
     getGenderIcon(sex_id) {
       return sex_id === 1 ? "female" : "male";
     },

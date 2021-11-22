@@ -1,7 +1,7 @@
 <template>
   <ul>
     <li v-for="pet in pets" :key="pet.id">
-      <v-img :src="getCompletePath(pet.image.src)" :alt="pet.image.alt" width="60px"></v-img>
+      <v-img :src="createImgPath(pet.image.src)" :alt="pet.image.alt" width="60px"></v-img>
       <p>{{ pet.name }}</p>
       <p>{{ pet.species.name }}</p>
       <v-btn to="#"><span class="icon-show"></span>Ver detalles</v-btn>
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import {PATH_IMG} from "../../../constants";
+import {createImgPath} from "@/helpers";
 
 export default {
   name: "List",
@@ -21,9 +21,9 @@ export default {
       type: Array,
     }
   },
-  methods: {
-    getCompletePath(path) {
-      return PATH_IMG + path
+  data() {
+    return {
+      createImgPath: createImgPath,
     }
   }
 }
