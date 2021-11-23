@@ -16,6 +16,16 @@
   opacity: 0.5;
 }
 
+.loader {
+  background: #EFE5DC;
+  background-image: url("../loader.gif");
+  background-size: 50px;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100vw;
+  height: calc(100vh - 133px);
+}
+
 #skip-to-content a {
   margin: 0;
   padding: 6px;

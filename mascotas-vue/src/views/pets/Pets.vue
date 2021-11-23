@@ -2,7 +2,7 @@
   <v-container fluid>
     <TitleBar title="Tus mascotas"></TitleBar>
 
-    <p v-if="loading">Cargando...</p>
+    <Loader v-if="loading"></Loader>
 
     <div v-else>
         <PetMenu 
@@ -16,6 +16,7 @@
 
 <script>
 import TitleBar from "../../components/general/layouts/TitleBar";
+import Loader from "../../components/general/notifications/Loader";
 import PetMenu from "../../components/pets/show/PetMenu";
 import PetDetail from "../../components/pets/show/PetDetail";
 import petServices from "../../services/pets";
@@ -26,6 +27,7 @@ export default {
     TitleBar,
     PetMenu,
     PetDetail,
+    Loader,
   },
   data: () => ({
     loading: true,
