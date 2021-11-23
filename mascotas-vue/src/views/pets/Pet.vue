@@ -40,8 +40,8 @@ export default {
         });
   },
   methods: {
-    findPet($pets_id) {
-      return this.pets.find(pet => pet.id === $pets_id);
+    findPet($pet_id) {
+      return this.pets.find(pet => pet.id === $pet_id);
     },
   },
 }
