@@ -28,6 +28,25 @@ const userService = {
     },
 
     /**
+     * Attempt to create a new user with the owner characteristic in the database, and returns the created user in case of success
+     *
+     * @param {{}} data
+     * @param {string} data.first_name
+     * @param {string} data.last_name
+     * @param {string} data.email
+     * @param {string} data.password
+     * @returns {Promise<any>}
+     */
+    createOwner(data) {
+        return fetch(`${API}usuarios/amo`, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
+        }).then(res => res.json());
+    },
+
+    /**
      * Returns necessary data for the users creation form
      *
      * @returns {Promise<any>}
