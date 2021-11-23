@@ -7,9 +7,11 @@
         :title="store.status.title"
     />
 
-    <h1>Login</h1>
+    <h1>Ingresar</h1>
 
     <Form/>
+    
+    <p>¿Todavía no tienes una cuenta? <router-link :to="{name: 'OwnerSingUp'}">Registrarme</router-link></p>
   </v-container>
 </template>
 
