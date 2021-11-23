@@ -12,6 +12,7 @@ import VaccineForm from "../views/pets/VaccineForm";
 import WeightForm from "../views/pets/WeightForm";
 import MedicinesAddForm from "../views/pets/medicines/MedicinesAddForm";
 import authService from "../services/auth";
+import OwnerSingUp from "../views/Auth/sing-up/OwnerSingUp";
 
 Vue.use(VueRouter)
 
@@ -26,7 +27,7 @@ const routes = [
         name: 'UserCreate',
         component: UserCreateForm,
         meta: {
-            requiresAuth: true,
+            requiresGuest: true,
             role: 'professional'
         }
     },
@@ -110,6 +111,14 @@ const routes = [
         path: '/ingresar',
         name: 'Login',
         component: Login,
+        meta: {
+            requiresGuest: true,
+        }
+    },
+    {
+        path: '/registrarme/amo',
+        name: 'OwnerSingUp',
+        component: OwnerSingUp,
         meta: {
             requiresGuest: true,
         }
