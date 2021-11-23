@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Messages\Validation;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LoginRequest extends FormRequest
@@ -24,18 +25,22 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|max:60',
+            'email' => 'required|email',
             'password' => 'required',
         ];
     }
 
+    /**
+     * Get the messages in case a rule is not fulfilled
+     *
+     * @return string[]
+     */
     public function messages(): array
     {
         return [
-            'email.required' => 'Por favor ingresá tu correo electrónico',
-            'email.email' => 'Este correo electrónico no es válido.',
-            'email.max' => 'El correo no puede contener más de :max caracteres',
-            'password.required' => 'Por favor ingresá una contraseña',
+            'email.required' => Validation::msg_required('tu correo electrónico'),
+            'email.email' => Validation::msg_valid_value('el correo electrónico'),
+            'password.required' => Validation::msg_required('una contraseña'),
         ];
     }
 }

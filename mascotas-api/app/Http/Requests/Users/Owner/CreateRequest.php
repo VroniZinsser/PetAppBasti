@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Users\Owner;
 
+use App\Messages\Validation;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateRequest extends FormRequest
@@ -39,21 +40,21 @@ class CreateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'first_name.required' => 'Por favor ingresá tu nombre',
-            'first_name.max' => 'El nombre no puede contener más de :max caracteres',
-            'first_name.min' => 'El nombre no puede contener menos de :min caracteres',
-            'first_name.string' => 'El nombre solo puede contener letras',
-            'last_name.required' => 'Por favor ingresá tu apellido',
-            'last_name.max' => 'El apellido no puede contener mas de :max caracteres',
-            'last_name.min' => 'El apellido no puede contener menos de :min caracteres',
-            'last_name.string' => 'El apellido solo puede contener letras',
-            'email.required' => 'Por favor ingresá tu correo electrónico',
-            'email.email' => 'Este correo electrónico no es válido.',
-            'email.max' => 'El correo no puede contener más de :max caracteres',
-            'email.unique' => 'Ya existe una cuenta con este correo electrónico',
-            'password.required' => 'Por favor ingresá una contraseña',
-            'password.min' => 'La contraseña debe tener como mínimo :min caracteres',
-            'password.regex' => 'La contraseña debe contener un número',
+            'first_name.required' => Validation::msg_required('tu nombre'),
+            'first_name.max' => Validation::msg_max_caracters('el nombre', ':max'),
+            'first_name.min' => Validation::msg_min_caracters('el nombre', ':min'),
+            'first_name.string' => Validation::msg_valid_value('el nombre'),
+            'last_name.required' => Validation::msg_required('tu apellido'),
+            'last_name.max' => Validation::msg_max_caracters('el apellido', ':max'),
+            'last_name.min' => Validation::msg_min_caracters('el apellido', ':min'),
+            'last_name.string' => Validation::msg_valid_value('el apellido'),
+            'email.required' => Validation::msg_required('tu correo electrónico'),
+            'email.email' => Validation::msg_valid_value('el correo electrónico'),
+            'email.max' => Validation::msg_max_caracters('el correo electrónico', ':max'),
+            'email.unique' => Validation::msg_other('email_unique'),
+            'password.required' => Validation::msg_required('una contraseña'),
+            'password.min' => Validation::msg_min_caracters('la contraseña', ':min'),
+            'password.regex' => Validation::msg_other('password_requirements'),
         ];
     }
 }
