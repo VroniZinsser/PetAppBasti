@@ -27,6 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('usuarios/profesionales', [UserController::class, 'getProfessionals']);
 Route::get('usuarios/crear-profesional', [UserController::class, 'createFormProfessional']);
 Route::post('usuarios/crear-profesional', [UserController::class, 'createProfessional']);
+Route::post('usuarios/amo', [UserController::class, 'createOwner']);
 Route::get('/mascotas', [PetController::class, 'getOwnerPets']);
 Route::get('/mascotas/agregar', [PetController::class, 'addForm']);
 Route::post('/mascotas/agregar', [PetController::class, 'addPet']);
