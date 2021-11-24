@@ -53,7 +53,7 @@ export default {
         }
       },
       weight: {
-        img_src: createImgPath('ui/no_vaccine.png'),
+        img_src: createImgPath('ui/no_weight.png'),
         text: `¿Cuánto pesa :petName? Anotalo regularmente para llevar un mejor control sobre su salud.`,
         cta: {
             url: '#',
@@ -69,7 +69,7 @@ export default {
         }
       },
       observation: {
-        img_src: createImgPath('ui/no_vaccine.png'),
+        img_src: createImgPath('ui/no_observation.png'),
         text: `Aquí tenés espacio para anotar observaciones, dudas o comentarios.`,
         cta: {
             url: '#',
