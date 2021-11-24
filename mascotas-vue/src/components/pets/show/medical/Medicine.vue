@@ -1,6 +1,8 @@
 <template>
     <div class="medical-container medicine">
-        <h2>Medicamentos</h2>
+        <div class="medical-container-header">
+            <h2>Medicamentos</h2>
+        </div>
         <Placeholder 
             v-if="medicines.length === 0"
             :img_src="placeholder.img_src"

@@ -107,6 +107,7 @@ $pet-img-max-height: 270px;
         @include tablet-up {
             display: block;
             position: static;
+            margin-right: -15px;
         }
     }
     

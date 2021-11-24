@@ -114,6 +114,15 @@
   width: 100%;
   min-height: 200px;
 }
+.pet-medical-info .medical-container .medical-container-body, .pet-medical-info .medical-container .medical-container-header {
+  max-width: 426px;
+  margin: auto;
+}
+@media screen and (min-width: 768px) {
+  .pet-medical-info .medical-container .medical-container-body, .pet-medical-info .medical-container .medical-container-header {
+    max-width: none;
+  }
+}
 .pet-medical-info .medical-container .medical-container-header {
   display: flex;
   align-items: center;
@@ -147,7 +156,12 @@
 }
 @media screen and (min-width: 768px) {
   .pet-medical-info .medical-container.medicine .medical-container-body .medicine-item {
-    min-width: calc((100vw - 320px) * 0.7);
+    min-width: calc((100vw - 320px) * 0.6);
+  }
+}
+@media screen and (min-width: 992px) {
+  .pet-medical-info .medical-container.medicine .medical-container-body .medicine-item {
+    min-width: 350px;
   }
 }
 .pet-medical-info .medical-container.medicine .medical-container-body .medicine-item .medicine-item-info span {
@@ -247,6 +261,15 @@
   }
 }
 
+.pet-profile .pet-profile-body, .pet-profile .pet-profile-footer, .pet-profile .pet-profile-header {
+  max-width: 426px;
+  margin: auto;
+}
+@media screen and (min-width: 768px) {
+  .pet-profile .pet-profile-body, .pet-profile .pet-profile-footer, .pet-profile .pet-profile-header {
+    max-width: none;
+  }
+}
 .pet-profile .pet-profile-header, .pet-profile .pet-profile-body {
   padding: 16px;
   border-bottom: 1px solid rgba(51, 51, 51, 0.3);
@@ -399,6 +422,7 @@
   .pet-detail .tab-item {
     display: block;
     position: static;
+    margin-right: -15px;
   }
 }
 

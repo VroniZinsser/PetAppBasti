@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <div>
     <TitleBar title="Tus mascotas"></TitleBar>
 
     <Loader v-if="loading"></Loader>
@@ -11,7 +11,7 @@
 
         <PetDetail :pet="activePet"></PetDetail>
     </div>
-  </v-container>
+  </div>
 </template>
 
 <script>

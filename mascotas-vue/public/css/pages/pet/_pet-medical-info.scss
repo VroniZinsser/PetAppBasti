@@ -13,6 +13,15 @@
         // TODO: remove height. It is only for testing
         min-height: 200px; 
 
+        .medical-container-body, .medical-container-header {
+            max-width: 426px;
+            margin: auto;
+
+            @include tablet-up {
+                max-width: none;
+            }
+        }
+
         .medical-container-header {
             display: flex;
             align-items: center;
@@ -44,7 +53,10 @@
                     min-width: 70vw;
                     margin-right: 16px;
                     @include tablet-up {
-                        min-width: calc((100vw - 320px) * 0.7); 
+                        min-width: calc((100vw - 320px) * 0.6); 
+                    }
+                    @include desktop-up {
+                        min-width: 350px;
                     }
                     .medicine-item-info {
                         span {
