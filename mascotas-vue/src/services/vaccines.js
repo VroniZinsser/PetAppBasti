@@ -4,13 +4,13 @@ const vaccineService = {
     /**
      * Creates new vaccine
      *
-     * @param vaccine
+     * @param data Array
      * @returns {Promise<any>}
      */
-    create(vaccine) {
+    create(data) {
         return fetch(`${API}vacunas`, {
             method: 'POST',
-            body: JSON.stringify(vaccine),
+            body: JSON.stringify(data),
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
         }).then(res => res.json());
     },

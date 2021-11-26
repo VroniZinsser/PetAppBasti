@@ -14,13 +14,13 @@ const petServices = {
     /**
      * Add the pet to the database
      *
-     * @param pet
+     * @param data Array
      * @returns {Promise<any>}
      */
-    addPet(pet) {
+    addPet(data) {
         return fetch(`${API}mascotas/agregar`, {
             method: 'POST',
-            body: JSON.stringify(pet),
+            body: JSON.stringify(data),
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
         }).then(res => res.json());
     },
