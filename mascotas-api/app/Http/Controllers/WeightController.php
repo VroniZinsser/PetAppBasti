@@ -26,7 +26,7 @@ class WeightController extends Controller
     {
         $weights = $this->weightRepository->getWeightsByPet($pet_id);
         return response()->json([
-            'data' => $weights,
+            'data' => compact('weights'),
         ]);
     }
 
@@ -42,7 +42,7 @@ class WeightController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => $weight,
+            'data' => compact('weight')
         ]);
     }
 
@@ -57,7 +57,7 @@ class WeightController extends Controller
     {
         $weight = $this->weightRepository->find($weight_id);
         return response()->json([
-            'data' => $weight,
+            'data' => compact('weight')
         ]);
     }
 
@@ -73,7 +73,7 @@ class WeightController extends Controller
         $weight = $this->weightRepository->update($weight_id, $request->get('date'), $request->get('weight'));
         return response()->json([
             'success' => true,
-            'data' => $weight,
+            'data' => compact('weight')
         ]);
     }
 

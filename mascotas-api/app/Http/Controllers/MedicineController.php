@@ -39,7 +39,7 @@ class MedicineController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => $medicine
+            'data' => compact('medicine')
         ]);
     }
 
@@ -53,7 +53,7 @@ class MedicineController extends Controller
     {
         $medicine = $this->medicineRepository->find($medicine_id);
         return response()->json([
-            'data' => $medicine,
+            'data' => compact('medicine')
         ]);
     }
 
@@ -76,7 +76,7 @@ class MedicineController extends Controller
         );
         return response()->json([
             'success' => true,
-            'data' => $medicine
+            'data' => compact('medicine')
         ]);
     }
 
@@ -104,7 +104,7 @@ class MedicineController extends Controller
         $hours = $this->hourRepository->getAll();
 
         return response()->json([
-            "data" => $hours
+            "data" => compact('hours')
         ]);
     }
 }

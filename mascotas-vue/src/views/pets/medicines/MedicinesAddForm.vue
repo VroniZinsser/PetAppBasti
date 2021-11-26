@@ -28,7 +28,7 @@ export default {
   mounted() {
     medicineServices.addForm()
         .then(res => {
-          this.hours = res.data;
+          this.hours = res.data.hours;
           this.loading = false;
         })
   }
