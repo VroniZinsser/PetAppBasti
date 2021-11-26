@@ -54,4 +54,21 @@ class UserService implements UserRepository {
         $user->save();
         return $user;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function find(int $id): User
+    {
+        return User::find($id);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function delete(int $id): bool
+    {
+        User::find($id)->delete();
+        return true;
+    }
 }

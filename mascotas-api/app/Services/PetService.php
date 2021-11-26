@@ -47,6 +47,23 @@ class PetService implements PetRepository
     /**
      * @inheritDoc
      */
+    public function find(int $id): Pet
+    {
+        return Pet::find($id);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function delete(int $id): bool
+    {
+        Pet::find($id)->delete();
+        return true;
+    }
+
+    /**
+     * @inheritDoc
+     */
 
     public function updateObservation(int $pet_id, string $observation): Pet
     {
