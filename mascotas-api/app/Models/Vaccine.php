@@ -13,7 +13,6 @@ class Vaccine extends Model
     protected $fillable = [
         'name',
         'date',
-        'pets_id',
     ];
 
     /**

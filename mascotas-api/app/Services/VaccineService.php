@@ -39,12 +39,11 @@ class VaccineService implements VaccineRepository
     /**
      * @inheritDoc
      */
-    public function update(int $id, string $name, string $date, int $pet_id): Vaccine
+    public function update(int $id, string $name, string $date): Vaccine
     {
         $vaccine = Vaccine::find($id);
         $vaccine->name = $name;
         $vaccine->date = $date;
-        $vaccine->pets_id = $pet_id;
         $vaccine->save();
         return $vaccine;
     }

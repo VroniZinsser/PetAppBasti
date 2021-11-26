@@ -70,7 +70,7 @@ class VaccineController extends Controller
      */
     public function updateVaccine(VaccineRequest $request, $vaccine_id): JsonResponse
     {
-        $vaccine = $this->vaccineRepository->update($vaccine_id, $request->get('name'), $request->get('date'), $request->get('pets_id'));
+        $vaccine = $this->vaccineRepository->update($vaccine_id, $request->get('name'), $request->get('date'));
         return response()->json([
             'success' => true,
             'data' => $vaccine,

@@ -39,10 +39,9 @@ interface VaccineRepository
      * @param int $id
      * @param string $name
      * @param string $date
-     * @param int $pet_id
      * @return Vaccine The updated vaccine
      */
-    public function update (int $id, string $name, string $date, int $pet_id): Vaccine;
+    public function update (int $id, string $name, string $date): Vaccine;
 
     /**
      * Deletes the vaccine with the given id and returns true if deletion was successful

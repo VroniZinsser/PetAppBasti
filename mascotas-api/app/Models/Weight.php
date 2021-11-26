@@ -13,7 +13,6 @@ class Weight extends Model
     protected $fillable = [
         'date',
         'weight',
-        'pets_id',
     ];
 
     /**
