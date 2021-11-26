@@ -36,6 +36,11 @@ Route::post('mascotas/{pet}/observacion', [PetController::class, 'updateObservat
 Route::get('/medicamentos/formulario-agregar', [MedicineController::class, 'addForm']);
 Route::post('/mascotas/{id}/medicamentos', [MedicineController::class, 'add']);
 
+Route::post('/medicamentos', [MedicineController::class, 'createMedicine']);
+Route::get('/medicamentos/{id}', [MedicineController::class, 'findMedicine']);
+Route::put('/medicamentos/{id}', [MedicineController::class, 'updateMedicine']);
+Route::delete('/medicamentos/{id}', [MedicineController::class, 'deleteMedicine']);
+
 Route::post('/vacunas', [VaccineController::class, 'createVaccine']);
 Route::get('/vacunas/{vaccine}', [VaccineController::class, 'findVaccine']);
 Route::put('/vacunas/{vaccine}', [VaccineController::class, 'updateVaccine']);

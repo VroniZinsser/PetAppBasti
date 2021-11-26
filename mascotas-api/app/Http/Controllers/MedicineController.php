@@ -24,17 +24,16 @@ class MedicineController extends Controller
      * Add a new medication to a pet
      *
      * @param AddRequest $request
-     * @param $pet_id
      * @return JsonResponse
      */
-    public function add(AddRequest $request, $pet_id): JsonResponse
+    public function createMedicine(AddRequest $request): JsonResponse
     {
-        $medicine = $this->medicineRepository->add(
+        $medicine = $this->medicineRepository->create(
             $request->get('name'),
             $request->get('quantity'),
             $request->get('start_date'),
             $request->get('end_date'),
-            $pet_id,
+            $request->get('pet_id'),
             $request->get('hours'));
 
         return response()->json([

@@ -12,13 +12,12 @@ const medicineServices = {
     },
 
     /**
-     * Add a new medication to a pet
-     * @param petId Int
+     * Creates a new medication
      * @param data Array
      * @returns {Promise<any>}
      */
-    add(petId, data) {
-        return fetch(`${API}mascotas/${petId}/medicamentos`, {
+    create(data) {
+        return fetch(`${API}medicamentos`, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}

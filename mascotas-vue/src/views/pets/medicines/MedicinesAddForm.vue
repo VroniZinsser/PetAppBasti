@@ -4,7 +4,10 @@
 
     <p v-if="loading">Cargando...</p>
 
-    <Form v-else :hours="hours"></Form>
+    <Form v-else 
+      :hours="hours"
+      :pet_id="$route.params.pet_id">
+    </Form>
   </v-container>
 </template>
 

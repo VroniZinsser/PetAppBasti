@@ -7,7 +7,7 @@ use App\Models\Medicine;
 interface MedicineRepository
 {
     /**
-     * Add a new medication to a pet
+     * Creates, inserts and returns the medicine
      *
      * @param string $name
      * @param string $quantity
@@ -17,5 +17,5 @@ interface MedicineRepository
      * @param array $hours
      * @return Medicine
      */
-    public function add(string $name, string $quantity, string $start_date, string $end_date, int $pet_id, array $hours): Medicine;
+    public function create(string $name, string $quantity, string $start_date, string $end_date, int $pet_id, array $hours): Medicine;
 }

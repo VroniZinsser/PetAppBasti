@@ -73,7 +73,11 @@ export default {
     hours: {
       type: Array,
       required: true
-    }
+    },
+  pet_id: {
+    type: String,
+    required: true,
+  },
   },
   data: function () {
     return {
@@ -84,6 +88,7 @@ export default {
         start_date: this.getCurrentDate(),
         end_date: this.getCurrentDate(),
         hours: [],
+        pet_id: this.pet_id,
       },
       errors: {
         name: null,
@@ -134,7 +139,7 @@ export default {
           hours: null,
         }
 
-        medicineServices.add(this.$route.params.petsId, this.formData)
+        medicineServices.create(this.formData)
             .then(res => {
 
               if (!res.success) {

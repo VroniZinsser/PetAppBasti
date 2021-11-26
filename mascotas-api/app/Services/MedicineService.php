@@ -12,7 +12,7 @@ class MedicineService implements MedicineRepository
     /**
      * @inheritDoc
      */
-    public function add(string $name, string $quantity, string $start_date, string $end_date, int $pet_id, array $hours): Medicine
+    public function create(string $name, string $quantity, string $start_date, string $end_date, int $pet_id, array $hours): Medicine
     {
         $medicine = $this->createMedicine($name, $quantity, $start_date, $end_date, $pet_id);
 
