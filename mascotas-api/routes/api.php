@@ -34,8 +34,6 @@ Route::patch('/mascotas/{pet}', [PetController::class, 'patchPet']);
 Route::post('mascotas/{pet}/observacion', [PetController::class, 'updateObservation']);
 
 Route::get('/medicamentos/formulario-agregar', [MedicineController::class, 'addForm']);
-Route::post('/mascotas/{id}/medicamentos', [MedicineController::class, 'add']);
-
 Route::post('/medicamentos', [MedicineController::class, 'createMedicine']);
 Route::get('/medicamentos/{id}', [MedicineController::class, 'findMedicine']);
 Route::put('/medicamentos/{id}', [MedicineController::class, 'updateMedicine']);
