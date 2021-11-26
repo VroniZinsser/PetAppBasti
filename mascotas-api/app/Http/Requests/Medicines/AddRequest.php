@@ -37,7 +37,7 @@ class AddRequest extends FormRequest
             "quantity" => "required|max:60",
             "start_date" => "required|date",
             "end_date" => "required|date|after_or_equal:start_date",
-            "id" => "required|integer|exists:pets,id",
+            "pet_id" => "required|integer|exists:pets,id",
             "hours" => "required|array|min:1|exists:hours,id",
         ];
     }
@@ -54,9 +54,9 @@ class AddRequest extends FormRequest
             "end_date.required" => Validation::msg_required('la fecha de fin'),
             "end_date.date" => Validation::msg_valid_value('la fecha de fin', true),
             "end_date.after_or_equal" => Validation::msg_after_equal('la fecha de fin', 'la fecha de inicio seleccionado'),
-            "id.required" => Validation::msg_not_found('la mascota relacionada'),
-            "id.integer" => Validation::msg_not_found('la mascota relacionada'),
-            "id.exists" => Validation::msg_not_found('la mascota relacionada'),
+            "pet_id.required" => Validation::msg_not_found('la mascota relacionada'),
+            "pet_id.integer" => Validation::msg_not_found('la mascota relacionada'),
+            "pet_id.exists" => Validation::msg_not_found('la mascota relacionada'),
             "hours.required" => Validation::msg_required('los horarios', true),
             "hours.array" => Validation::msg_valid_value('el horario'),
             "hours.min" => Validation::msg_required('como mínimo una hora'),
