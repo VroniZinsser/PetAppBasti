@@ -18,7 +18,7 @@ class CreateMedicinesHasHoursTable extends Migration
             $table->unsignedBigInteger('medicines_id');
             $table->unsignedTinyInteger('hours_id');
 
-            $table->foreign('medicines_id')->references('id')->on('medicines');
+            $table->foreign('medicines_id')->references('id')->on('medicines')->onDelete('cascade');;
             $table->foreign('hours_id')->references('id')->on('hours');
         });
     }

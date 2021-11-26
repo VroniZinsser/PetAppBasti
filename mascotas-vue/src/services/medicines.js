@@ -23,6 +23,31 @@ const medicineServices = {
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
         }).then(res => res.json());
     },
+
+    /**
+     * Updates a medication
+     * @param data Array
+     * @returns {Promise<any>}
+     */
+     update(data, id) {
+        return fetch(`${API}medicamentos/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+        }).then(res => res.json());
+    },
+
+     /**
+     * Deletes a medication
+     * @param data Array
+     * @returns {Promise<any>}
+     */
+      delete(id) {
+        return fetch(`${API}medicamentos/${id}`, {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+        }).then(res => res.json());
+    },
 }
 
 export default medicineServices;
