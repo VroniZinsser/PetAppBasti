@@ -7,7 +7,7 @@ const petServices = {
      * @returns {Promise<any>}
      */
     addForm() {
-        return fetch(`${API}mascotas/agregar`)
+        return fetch(`${API}mascotas/formulario-agregar`)
             .then(res => res.json());
     },
 
@@ -18,7 +18,7 @@ const petServices = {
      * @returns {Promise<any>}
      */
     addPet(data) {
-        return fetch(`${API}mascotas/agregar`, {
+        return fetch(`${API}mascotas`, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}

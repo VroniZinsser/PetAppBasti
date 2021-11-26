@@ -10,7 +10,7 @@ const userService = {
      * @return {Promise<{headers: Headers, ok: boolean, redirected: boolean, status: number, statusText: string, trailer: Promise<Headers>, type: ResponseType, url: string, clone(): Response, body: ReadableStream | null, bodyUsed: boolean, arrayBuffer(): Promise<ArrayBuffer>, blob(): Promise<Blob>, formData(): Promise<FormData>, json(): Promise<any>, text(): Promise<string>} | never>}
      */
     create(user) {
-        return fetch(`${API}usuarios/crear-profesional`, {
+        return fetch(`${API}profesionales`, {
             method: 'POST',
             body: JSON.stringify(user),
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
@@ -32,7 +32,7 @@ const userService = {
      * @returns {Promise<any>}
      */
     createForm() {
-        return fetch(`${API}usuarios/crear-profesional`)
+        return fetch(`${API}profesionales/formulario-agregar`)
             .then(res => res.json());
     },
 
@@ -42,7 +42,7 @@ const userService = {
      * @returns {Promise<any>}
      */
     getProfessionals() {
-        return fetch(`${API}usuarios/profesionales`)
+        return fetch(`${API}profesionales`)
             .then(res => res.json());
     },
 }
