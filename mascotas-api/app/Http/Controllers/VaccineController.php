@@ -26,7 +26,7 @@ class VaccineController extends Controller
     {
         $vaccines = $this->vaccineRepository->getVaccinesByPet($pet_id);
         return response()->json([
-            'data' => compact('vaccines'),
+            'data' => $vaccines,
         ]);
     }
 
@@ -57,7 +57,7 @@ class VaccineController extends Controller
         $vaccine = $this->vaccineRepository->find($vaccine_id);
 
         return response()->json([
-            'data' => compact('vaccine'),
+            'data' => $vaccine,
         ]);
     }
 
@@ -72,7 +72,8 @@ class VaccineController extends Controller
     {
         $vaccine = $this->vaccineRepository->update($vaccine_id, $request->get('name'), $request->get('date'), $request->get('pets_id'));
         return response()->json([
-            'data' => compact('vaccine'),
+            'success' => true,
+            'data' => $vaccine,
         ]);
     }
 
