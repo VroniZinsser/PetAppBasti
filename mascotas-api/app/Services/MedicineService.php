@@ -34,14 +34,13 @@ class MedicineService implements MedicineRepository
     /**
      * @inheritDoc
      */
-    public function update(int $id, string $name, string $quantity, string $start_date, string $end_date, int $pet_id, array $hours): Medicine
+    public function update(int $id, string $name, string $quantity, string $start_date, string $end_date, array $hours): Medicine
     {
         $medicine = Medicine::find($id);
         $medicine->name = $name;
         $medicine->quantity = $quantity;
         $medicine->start_date = $start_date;
         $medicine->end_date = $end_date;
-        $medicine->pets_id = $pet_id;
         $medicine->save();
         $this->addHoursToMedicine($medicine, $hours);
         return $medicine;

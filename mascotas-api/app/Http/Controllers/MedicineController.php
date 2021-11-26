@@ -72,7 +72,6 @@ class MedicineController extends Controller
             $request->get('quantity'),
             $request->get('start_date'),
             $request->get('end_date'),
-            $request->get('pet_id'),
             $request->get('hours')
         );
         return response()->json([

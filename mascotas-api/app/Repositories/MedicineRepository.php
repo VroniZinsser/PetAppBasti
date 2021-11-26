@@ -39,7 +39,7 @@ interface MedicineRepository
      * @param array $hours
      * @return Medicine The updated medicine
      */
-    public function update (int $id, string $name, string $quantity, string $start_date, string $end_date, int $pet_id, array $hours): Medicine;
+    public function update (int $id, string $name, string $quantity, string $start_date, string $end_date, array $hours): Medicine;
 
     /**
      * Deletes the medicine with the given id and returns true if deletion was successful
