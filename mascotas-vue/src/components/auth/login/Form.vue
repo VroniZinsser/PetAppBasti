@@ -21,7 +21,6 @@
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
         @click:append="showPassword = !showPassword"
         :loading="loading"
-        :rules="[rules.obligatory]"
         :errors="errors.password"
     ></InputText>
 
@@ -82,7 +81,7 @@ export default {
                 } else {
                   alert('Uno o ambos campos son incorrectos');
                 }
-                // TODO: Implementar vaciar contraseña luego de un error. E intentar que no aparezca el mensaje de validación de que el campo es obligatorio.
+                this.formData.password = null;
               } else {
                 authService.saveAuthUser(res.data.user);
 
