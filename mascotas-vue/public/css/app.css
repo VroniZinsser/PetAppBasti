@@ -1,3 +1,22 @@
+.image-source-notification a {
+  color: #CC613E !important;
+  text-decoration: none;
+}
+
+.no-pet .inner {
+  height: 75vh;
+}
+.no-pet .inner p {
+  text-align: center;
+}
+.no-pet .inner .no-pet-img {
+  opacity: 0.75;
+}
+.no-pet .image-source-notification {
+  max-width: 320px;
+  margin: auto;
+}
+
 @media screen and (min-width: 768px) {
   .pet-detail {
     display: grid;
