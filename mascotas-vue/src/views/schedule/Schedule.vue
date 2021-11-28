@@ -1,20 +1,18 @@
 <template>
   <v-container fluid>
-    <v-img
-      :src="getCompletePath('ui/construccion.svg')"
-    ></v-img>
+    <construction
+      pageName="tu agenda"
+      infoText="Aquí podrás ver todas tus tareas, ordenadas por fecha y horario"
+    ></construction>  
   </v-container>
 </template>
 
 <script>
-import {PATH_IMG} from "@/constants";
-
+import Construction from "@/components/general/layouts/Construction" 
 export default {
-  name: "Schedule",
-  methods: {
-    getCompletePath(path) {
-      return PATH_IMG + path
-    }
+  name: "Inbox",
+  components: {
+    Construction
   }
 }
 </script>
