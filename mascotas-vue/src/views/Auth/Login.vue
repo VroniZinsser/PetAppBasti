@@ -7,19 +7,21 @@
         :title="store.status.title"
     />
 
-    <h1>Login</h1>
+    <h1>Ingresar</h1>
 
     <Form/>
+    
+    <p>¿Todavía no tienes una cuenta? <router-link :to="{name: 'OwnerSingUp'}">Registrarme</router-link></p>
   </v-container>
 </template>
 
 <script>
-import Form from "@/components/users/login/Form";
+import Form from "@/components/auth/login/Form";
 import BaseNotification from "@/components/general/notifications/BaseNotification"
 import store from "@/store"
 
 export default {
-  name: "LoginForm",
+  name: "Login",
   components: {
     Form,
     BaseNotification,

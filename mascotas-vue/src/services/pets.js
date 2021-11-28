@@ -7,7 +7,10 @@ const petServices = {
      * @returns {Promise<any>}
      */
     addForm() {
-        return fetch(`${API}mascotas/agregar`)
+        return fetch(`${API}mascotas/agregar`, {
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
+        })
             .then(res => res.json());
     },
 
@@ -21,7 +24,8 @@ const petServices = {
         return fetch(`${API}mascotas/agregar`, {
             method: 'POST',
             body: JSON.stringify(pet),
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
         }).then(res => res.json());
     },
 
@@ -32,7 +36,8 @@ const petServices = {
      */
     getOwnerPets() {
         return fetch(`${API}mascotas`, {
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
         }).then(res => res.json());
     },
 
@@ -50,7 +55,8 @@ const petServices = {
                 action: 'update',
                 data: data,
             }),
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
         }).then(res => res.json());
     },
 
@@ -65,7 +71,8 @@ const petServices = {
             body: JSON.stringify({
                 action: 'delete',
             }),
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
         }).then(res => res.json());
     }
 };

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\PetController;
 use Illuminate\Http\Request;
@@ -24,26 +25,45 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('usuarios/profesionales', [UserController::class, 'getProfessionals']);
-Route::get('usuarios/crear-profesional', [UserController::class, 'createFormProfessional']);
-Route::post('usuarios/crear-profesional', [UserController::class, 'createProfessional']);
-Route::get('/mascotas', [PetController::class, 'getOwnerPets']);
-Route::get('/mascotas/agregar', [PetController::class, 'addForm']);
-Route::post('/mascotas/agregar', [PetController::class, 'addPet']);
-Route::patch('/mascotas/{pet}', [PetController::class, 'patchPet']);
+Route::middleware(['guest'])->group(function () {
+    Route::get('usuarios/crear-profesional', [UserController::class, 'createFormProfessional']);
+    Route::post('usuarios/crear-profesional', [UserController::class, 'createProfessional']);
+    Route::post('usuarios/amo', [UserController::class, 'createOwner']);
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/mascotas', [PetController::class, 'getOwnerPets']);
+    Route::get('/mascotas/agregar', [PetController::class, 'addForm']);
+    Route::post('/mascotas/agregar', [PetController::class, 'addPet']);
+    Route::patch('/mascotas/{pet}', [PetController::class, 'patchPet']);
+});
+
 // RPC route, handles update and elimination of observation
-Route::post('mascotas/{pet}/observacion', [PetController::class, 'updateObservation']);
+Route::post('mascotas/{pet}/observacion', [PetController::class, 'updateObservation'])->middleware(['auth']);
 
-Route::get('/medicamentos/formulario-agregar', [MedicineController::class, 'addForm']);
-Route::post('/mascotas/{id}/medicamentos', [MedicineController::class, 'add']);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/medicamentos/formulario-agregar', [MedicineController::class, 'addForm']);
+    Route::post('/mascotas/{id}/medicamentos', [MedicineController::class, 'add']);
+});
 
-Route::post('/vacunas', [VaccineController::class, 'createVaccine']);
-Route::get('/vacunas/{vaccine}', [VaccineController::class, 'findVaccine']);
-Route::put('/vacunas/{vaccine}', [VaccineController::class, 'updateVaccine']);
-Route::delete('/vacunas/{vaccine}', [VaccineController::class, 'deleteVaccine']);
-Route::get('/mascotas/{pet}/vacunas', [VaccineController::class, 'getVaccinesByPet']);
+Route::middleware(['auth'])->group(function () {
+    Route::post('/vacunas', [VaccineController::class, 'createVaccine']);
+    Route::get('/vacunas/{vaccine}', [VaccineController::class, 'findVaccine']);
+    Route::put('/vacunas/{vaccine}', [VaccineController::class, 'updateVaccine']);
+    Route::delete('/vacunas/{vaccine}', [VaccineController::class, 'deleteVaccine']);
+    Route::get('/mascotas/{pet}/vacunas', [VaccineController::class, 'getVaccinesByPet']);
+});
 
-Route::post('/pesos', [WeightController::class, 'createWeight']);
-Route::get('/pesos/{weight}', [WeightController::class, 'findWeight']);
-Route::put('/pesos/{weight}', [WeightController::class, 'updateWeight']);
-Route::delete('/pesos/{weight}', [WeightController::class, 'deleteWeight']);
-Route::get('/mascotas/{pet}/pesos', [WeightController::class, 'getWeightsByPet']);
+Route::middleware(['auth'])->group(function () {
+    Route::post('/pesos', [WeightController::class, 'createWeight']);
+    Route::get('/pesos/{weight}', [WeightController::class, 'findWeight']);
+    Route::put('/pesos/{weight}', [WeightController::class, 'updateWeight']);
+    Route::delete('/pesos/{weight}', [WeightController::class, 'deleteWeight']);
+    Route::get('/mascotas/{pet}/pesos', [WeightController::class, 'getWeightsByPet']);
+});
+
+Route::prefix('/autenticacion')->group(function () {
+    Route::get("/", [AuthController::class, 'me'])->middleware(['auth']);
+    Route::post("/", [AuthController::class, 'login'])->middleware(['guest']);
+    Route::delete("/", [AuthController::class, 'logout'])->middleware(['auth']);
+});
