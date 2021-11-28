@@ -34,11 +34,13 @@
         :type="showPassword ? 'text' : 'password'"
         label="Contraseña"
         v-model="formData.password"
+        hint="La contraseña debe tener mínimo 6 caracteres y contener al menos un número"
+        persistent-hint
+        :loading="loading"
+        :rules="[rules.obligatory, rules.password, rules.passwordMin]"
+        :errors="errors.password"
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
         @click:append="showPassword = !showPassword"
-        :loading="loading"
-        :rules="[rules.obligatory]"
-        :errors="errors.password"
     ></InputText>
 
     <v-btn type="submit" :disabled="loading">Crear cuenta</v-btn>
@@ -69,11 +71,16 @@ export default {
       password: null,
     },
     rules: {
-      obligatory: value => !!value || 'Este campo es obligatorio.',
+      obligatory: value => !!value || 'Este campo es obligatorio',
       email: value => {
         const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return pattern.test(value) || 'El correo electrónico no es válido.';
+        return pattern.test(value) || 'El correo electrónico no es válido';
       },
+      password: value => {
+        const pattern = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
+        return pattern.test(value) || 'La contraseña debe contener como mínimo una letra y un número'
+      },
+      passwordMin: value => (value && value.length >= 6) || 'La contraseña debe de tener como mínimo 6 caracteres',
     },
   }),
   methods: {
@@ -102,7 +109,7 @@ export default {
                     ...res.errors
                   }
                 } else {
-                  alert('Hubo un error inesperado, inténtalo de nuevo más tarde y si el problema persiste póngase en contacto a través de...');
+                  alert('Hubo un error inesperado, inténtalo de nuevo más tarde y si el problema persiste póngase en contacto a través de basti.mascotas@gmail.com');
                 }
               } else {
                 let credentials = {
