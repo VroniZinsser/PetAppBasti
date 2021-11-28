@@ -73,25 +73,18 @@ const authService = {
     },
 
     /**
-     * Save in the store the user who is in local storage
-     */
-    refreshAuthUser() {
-        if (localStorage.getItem('user') !== null) {
-            const authUser = JSON.parse(localStorage.getItem('user'));
-            store.setUser(authUser);
-        }
-    },
-
-    /**
      * Returns a boolean, true if the user is authenticated, false if not.
      *
      * @returns {boolean}
      */
     auth() {
-        // TODO: Actualmente lo dejare con esta linea de código, porque si no me redirecciona aunque este autenticado, porque primero hace la consulta del router y luego se aplica el cambio en el store
-        return localStorage.getItem('user') !== null;
-        // return store.user.id !== null;
+        return store.user.id !== null;
     }
+}
+
+if (localStorage.getItem('user') !== null) {
+    const authUser = JSON.parse(localStorage.getItem('user'));
+    store.setUser(authUser);
 }
 
 export default authService;

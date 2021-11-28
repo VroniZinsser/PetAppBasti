@@ -112,8 +112,5 @@ export default {
           });
     },
   },
-  mounted() {
-    authService.refreshAuthUser();
-  }
 };
 </script>
