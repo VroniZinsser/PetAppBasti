@@ -59,7 +59,7 @@ export default {
     dialog: false,
     routerLinks: [
       {
-        name: 'Home',
+        name: 'Schedule',
         text: 'Agenda',
         icon: 'event',
       },
@@ -74,7 +74,7 @@ export default {
         icon: 'format_list_bulleted',
       },
       {
-        name: 'Home',
+        name: 'Inbox',
         text: 'Conversaciones',
         icon: 'chat_bubble',
       },

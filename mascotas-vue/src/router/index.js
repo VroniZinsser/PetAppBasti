@@ -11,6 +11,8 @@ import ObservationForm from "../views/pets/ObservationForm"
 import VaccineForm from "../views/pets/VaccineForm";
 import WeightForm from "../views/pets/WeightForm";
 import MedicinesAddForm from "../views/pets/medicines/MedicinesAddForm";
+import Schedule from "../views/schedule/Schedule";
+import Inbox from "../views/inbox/Inbox";
 
 Vue.use(VueRouter)
 
@@ -83,6 +85,22 @@ const routes = [
         path: '/mapa',
         name: 'ShowMap',
         component: ShowMap,
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/agenda',
+        name: 'Schedule',
+        component: Schedule,
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/casilla',
+        name: 'Inbox',
+        component: Inbox,
         meta: {
             requiresAuth: true,
         }
