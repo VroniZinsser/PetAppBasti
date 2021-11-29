@@ -1,29 +1,52 @@
 import {API} from "../constants";
 
-//TODO: change hardcoded pet-id in rest url
 const vaccineService = {
     /**
-     * Get all vaccines of one pet
+     * Creates new vaccine
      *
+     * @param {{}} data
+     * @param {string | date} data.name
+     * @param {string | date} data.date
+     * @param {int} data.pet_id
      * @returns {Promise<any>}
      */
-    getVaccinesByPet() {
-        return fetch(`${API}mascotas/1/vacunas`, {
+    create(data) {
+        return fetch(`${API}vacunas`, {
+            method: 'POST',
+            body: JSON.stringify(data),
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
             credentials: 'include'
         }).then(res => res.json());
     },
 
     /**
-     * Creates new vaccine
+     * Updates a vaccine
      *
-     * @param vaccine
+     * @param {{}} data
+     * @param {string | date} data.name
+     * @param {string | date} data.date
+     * @param {int} data.pet_id
+     * @param {int} id
      * @returns {Promise<any>}
      */
-    create(vaccine) {
-        return fetch(`${API}vacunas`, {
-            method: 'POST',
-            body: JSON.stringify(vaccine),
+    update(data, id) {
+        return fetch(`${API}vacunas/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
+        }).then(res => res.json());
+    },
+
+    /**
+     * Deletes a vaccine
+     *
+     * @param {int} id
+     * @returns {Promise<any>}
+     */
+    delete(id) {
+        return fetch(`${API}vacunas/${id}`, {
+            method: 'DELETE',
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
             credentials: 'include'
         }).then(res => res.json());

@@ -17,7 +17,8 @@ class UserController extends Controller
     protected $imageRepository;
 
 
-    public function __construct(UserRepository $userRepository, UserTypeRepository $userTypeRepository, ImageRepository $imageRepository) {
+    public function __construct(UserRepository $userRepository, UserTypeRepository $userTypeRepository, ImageRepository $imageRepository)
+    {
         $this->userRepository = $userRepository;
         $this->userTypeRepository = $userTypeRepository;
         $this->imageRepository = $imageRepository;
@@ -30,12 +31,12 @@ class UserController extends Controller
      */
     public function getProfessionals(): JsonResponse
     {
+        // TODO: find central place to define user type ids - professionals / admins / not professionals
+        $users = $this->userRepository->getUsersByTypes(array(5, 6, 7, 8));
+
         return response()->json([
             'success' => true,
-            'data' => [
-                // TODO: find central place to define user type ids - professionals / admins / not professionals
-                'users' => $this->userRepository->getUsersByTypes(array(5, 6, 7, 8))
-            ],
+            'data' => compact('users'),
         ]);
     }
 
@@ -63,9 +64,35 @@ class UserController extends Controller
 
         $user->userTypes()->sync($request->get('user_types'));
 
-        return  response()->json([
+        return response()->json([
             'success' => true,
-            'user' => $user
+            'data' => compact('user'),
+        ]);
+    }
+
+    /**
+     * Update a professional user in the database
+     *
+     * @param CreateRequest $request
+     * @return JsonResponse
+     */
+    public function updateProfessional(CreateRequest $request): JsonResponse
+    {
+        $dto = new UserDTO;
+        $dto->loadFromArray($request->input());
+
+        if ($photo = $request->get('photo')) {
+            $image = $this->imageRepository->uploadImage($photo, 'users/profile/', 'Perfil ' . $request->get('first_name') . ' ' . $request->get('last_name'));
+            $dto->set_profile_img_id($image->id);
+        }
+
+        $user = $this->userRepository->updateOrCreate($dto);
+
+        $user->userTypes()->sync($request->get('user_types'));
+
+        return response()->json([
+            'success' => true,
+            'data' => compact('user'),
         ]);
     }
 
@@ -84,14 +111,42 @@ class UserController extends Controller
     }
 
     /**
-     * Create a new user of type owner
+     * Gets a user by its id
+     *
+     * @param $user_id
+     * @return JsonResponse
+     */
+    public function findUser($user_id): JsonResponse
+    {
+        $user = $this->userRepository->find($user_id);
+
+        return response()->json([
+            'data' => compact('user')
+        ]);
+    }
+
+    /**
+     * Deletes a user with the given id
+     *
+     * @param $user_id
+     * @return JsonResponse
+     */
+    public function deleteUser($user_id): JsonResponse
+    {
+        $this->userRepository->delete($user_id);
+
+        return response()->json([
+            'success' => true,
+        ]);
+    }
+
+    /* Create a new user of type owner
      *
      * @param CreateOwnerRequest $request
      * @return JsonResponse
      */
     public function createOwner(CreateOwnerRequest $request): JsonResponse
     {
-
         $dto = new UserDTO;
         $dto->loadFromArray($request->input());
 

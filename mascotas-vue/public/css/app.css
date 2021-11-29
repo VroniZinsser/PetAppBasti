@@ -1,3 +1,22 @@
+.construction {
+  height: calc(100vh - 56px);
+}
+@media screen and (min-width: 768px) {
+  .construction {
+    height: calc(100vh - 64px);
+  }
+}
+.construction .construction-img {
+  max-width: 400px;
+  margin: auto;
+  opacity: 0.8;
+}
+.construction .info-container {
+  text-align: center;
+  max-width: 600px;
+  margin: 2em auto 0 auto;
+}
+
 .card {
   padding: 16px;
   background: white;

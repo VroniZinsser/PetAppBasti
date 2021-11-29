@@ -50,12 +50,12 @@ class PetController extends Controller
     }
 
     /**
-     * Agrega una mascota a la base de datos
+     * Creates a new pet
      *
      * @param AddRequest $request
      * @return JsonResponse
      */
-    public function addPet(AddRequest $request): JsonResponse
+    public function createPet(AddRequest $request): JsonResponse
     {
         $photo = $request->get('photo');
         $image_id = $request->get('species_id');
@@ -72,7 +72,31 @@ class PetController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => $pet,
+            'data' => compact('pet'),
+        ]);
+    }
+
+    /**
+     * Updates a pet with the given id
+     *
+     * @param AddRequest $request
+     * @return JsonResponse
+     */
+    public function updatePet(AddRequest $request): JsonResponse
+    {
+        $dto = new PetDTO();
+        $dto->loadFromArray($request->input());
+
+        if ($photo = $request->get('photo')) {
+            $image = $this->imageRepository->uploadImage($photo, 'pets/', 'Mascota ' . $request->get('name'));
+            $dto->set_image_id($image->id);
+        }
+
+        $pet = $this->petRepository->updateOrCreate($dto, 1);
+
+        return response()->json([
+            'success' => true,
+            'data' => compact('pet'),
         ]);
     }
 
@@ -114,7 +138,7 @@ class PetController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => $pet,
+            'data' => compact('pet'),
         ]);
     }
 
@@ -125,11 +149,41 @@ class PetController extends Controller
      */
     public function getOwnerPets(): JsonResponse
     {
+        $pets = $this->petRepository->getPetsByUser(1);
+
         return response()->json([
             'success' => true,
-            'data' => [
-                'pets' => $this->petRepository->getPetsByUser(1)
-            ],
+            'data' => compact('pets'),
+        ]);
+    }
+
+    /**
+     * Gets a pet by its id
+     *
+     * @param $pet_id
+     * @return JsonResponse
+     */
+    public function findPet($pet_id): JsonResponse
+    {
+        $pet = $this->petRepository->find($pet_id);
+
+        return response()->json([
+            'data' => compact('pet')
+        ]);
+    }
+
+    /**
+     * Deletes a pet with the given id
+     *
+     * @param $pet_id
+     * @return JsonResponse
+     */
+    public function deletePet($pet_id): JsonResponse
+    {
+        $this->petRepository->delete($pet_id);
+
+        return response()->json([
+            'success' => true,
         ]);
     }
 
