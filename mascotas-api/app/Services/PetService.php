@@ -25,6 +25,7 @@ class PetService implements PetRepository
         $pet->images_id = $dto->get_image_id();
         $pet->sexes_id = $dto->get_sex_id();
         $pet->species_id = $dto->get_species_id();
+
         $pet->save();
 
         $pet->owners()->attach([$owner_id]);
@@ -58,6 +59,7 @@ class PetService implements PetRepository
     public function delete(int $id): bool
     {
         Pet::find($id)->delete();
+
         return true;
     }
 
@@ -69,6 +71,7 @@ class PetService implements PetRepository
     {
         $pet = Pet::findOrFail($pet_id);
         $pet->observation = $observation;
+
         $pet->save();
 
         return $pet;

@@ -10,9 +10,9 @@
 
     <p v-if="loading">Cargando...</p>
 
-    <Form v-else 
-      :hours="hours"
-      :pet_id="$route.params.pet_id">
+    <Form v-else
+          :hours="hours"
+          :pet_id="$route.params.pet_id">
     </Form>
   </v-container>
 </template>
@@ -38,7 +38,7 @@ export default {
     }
   },
   mounted() {
-    medicineServices.addForm()
+    medicineServices.createForm()
         .then(res => {
           this.hours = res.data.hours;
           this.loading = false;

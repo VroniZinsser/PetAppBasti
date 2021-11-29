@@ -42,7 +42,9 @@ class MedicineService implements MedicineRepository
         $medicine->start_date = $start_date;
         $medicine->end_date = $end_date;
         $medicine->save();
+
         $this->addHoursToMedicine($medicine, $hours);
+
         return $medicine;
     }
 
@@ -52,6 +54,7 @@ class MedicineService implements MedicineRepository
     public function delete(int $id): bool
     {
         Medicine::find($id)->delete();
+
         return true;
     }
 

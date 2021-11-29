@@ -75,10 +75,10 @@ export default {
       type: Array,
       required: true
     },
-  pet_id: {
-    type: String,
-    required: true,
-  },
+    pet_id: {
+      type: String,
+      required: true,
+    },
   },
   data: function () {
     return {

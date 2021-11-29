@@ -36,7 +36,7 @@ export default {
     store,
   }),
   mounted() {
-    petServices.addForm()
+    petServices.createForm()
         .then(res => {
           this.sexes = res.data.sexes;
           this.species = res.data.species;
