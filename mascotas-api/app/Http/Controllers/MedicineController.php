@@ -107,4 +107,12 @@ class MedicineController extends Controller
             "data" => compact('hours')
         ]);
     }
+
+    public function getMedicinesByPet($petId) {
+        $medicines = $this->medicineRepository->getMedicinesByPet($petId)->values();
+        return response()->json([
+            'data' => compact('medicines'),
+        ]);
+
+    }
 }

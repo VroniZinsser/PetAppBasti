@@ -11,7 +11,8 @@ const vaccineService = {
         return fetch(`${API}vacunas`, {
             method: 'POST',
             body: JSON.stringify(data),
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
         }).then(res => res.json());
     },
 
@@ -24,7 +25,8 @@ const vaccineService = {
         return fetch(`${API}vacunas/${id}`, {
             method: 'PUT',
             body: JSON.stringify(data),
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
         }).then(res => res.json());
     },
 
@@ -36,7 +38,8 @@ const vaccineService = {
       delete(id) {
         return fetch(`${API}vacunas/${id}`, {
             method: 'DELETE',
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
         }).then(res => res.json());
     },
 };

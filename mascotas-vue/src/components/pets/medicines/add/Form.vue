@@ -65,6 +65,7 @@
 import InputText from "../../../general/inputs/InputText";
 import InputDate from "../../../general/inputs/InputDate";
 import medicineServices from "../../../../services/medicines";
+import store from "@/store";
 
 export default {
   name: "Form",
@@ -82,6 +83,7 @@ export default {
   data: function () {
     return {
       loading: false,
+      store,
       formData: {
         name: null,
         quantity: null,
@@ -143,7 +145,7 @@ export default {
             .then(res => {
 
               if (!res.success) {
-                if (this.errors) {
+                if (res.errors) {
                   this.errors = {
                     name: null,
                     quantity: null,
@@ -152,11 +154,21 @@ export default {
                     hours: null,
                     ...res.errors
                   }
+                  this.store.setStatus({
+                    msg: "Por favor corregí los datos del formulario.",
+                    type: 'warning',
+                  });
                 } else {
-                  alert("Hubo un error inesperado");
+                  this.store.setStatus({
+                    msg: 'Algo salió mal. El medicamento no se guardó correctamente.',
+                    type: 'error',
+                  });
                 }
               } else {
-                alert("Medicamento agregado con éxito")
+                this.store.setStatus({
+                  msg: '¡El nuevo medicamento está guardado!',
+                  type: 'success',
+                });
               }
             })
 

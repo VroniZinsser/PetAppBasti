@@ -11,7 +11,8 @@ const weightService = {
         return fetch(`${API}pesos`, {
             method: 'POST',
             body: JSON.stringify(data),
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
         }).then(res => res.json());
     },
 
@@ -24,7 +25,8 @@ const weightService = {
         return fetch(`${API}pesos/${id}`, {
             method: 'PUT',
             body: JSON.stringify(data),
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
         }).then(res => res.json());
     },
 
@@ -36,7 +38,8 @@ const weightService = {
       delete(id) {
         return fetch(`${API}pesos/${id}`, {
             method: 'DELETE',
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
         }).then(res => res.json());
     },
 };

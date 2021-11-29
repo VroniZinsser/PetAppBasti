@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Dtos\UserDTO;
+use App\Http\Requests\Users\Owner\CreateRequest as CreateOwnerRequest;
 use App\Repositories\UserRepository;
 use App\Repositories\UserTypeRepository;
 use App\Repositories\ImageRepository;
@@ -133,6 +134,29 @@ class UserController extends Controller
         $this->userRepository->delete($user_id);
         return response()->json([
             'success' => true,
+        ]);
+    }
+
+    /* Create a new user of type owner
+     *
+     * @param CreateOwnerRequest $request
+     * @return JsonResponse
+     */
+    public function createOwner(CreateOwnerRequest $request): JsonResponse
+    {
+        $dto = new UserDTO;
+        $dto->loadFromArray($request->input());
+
+        $user = $this->userRepository->updateOrCreate($dto);
+
+        // TODO: Transformar este método en una función del repositorio. Antes de esto hay que separar los roles de tipo de usuarios.
+        $user->userTypes()->sync([4]);
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'user' => $user
+            ]
         ]);
     }
 }

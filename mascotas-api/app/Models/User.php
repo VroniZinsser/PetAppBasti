@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\UserType;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -47,9 +47,9 @@ class User extends Authenticatable
     ];
 
     /**
-     * The usertypes that belong to the user.
+     * The user types that belong to the user.
      */
-    public function userTypes()
+    public function userTypes(): BelongsToMany
     {
         return $this->belongsToMany(UserType::class, 'users_has_user_types');
     }
@@ -81,5 +81,25 @@ class User extends Authenticatable
     public function pets(): BelongsToMany
     {
         return $this->belongsToMany(Pet::class, 'users_has_pets', 'user_id', 'pet_id');
+    }
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims(): array
+    {
+        return [];
     }
 }

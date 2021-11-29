@@ -16,7 +16,7 @@ class CreateWeightsTable extends Migration
         Schema::create('weights', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->unsignedSmallInteger('weight');
+            $table->unsignedInteger('weight');
             $table->unsignedBigInteger('pets_id');
             $table->foreign('pets_id')->references('id')->on('pets');
             $table->timestamps();

@@ -2,9 +2,13 @@
   <v-alert
       :type="type"
       class="alert"
+      dense
+      text
+      :color="notificationColor[type]"
+      :dismissible="closable"
   >
-    <h3 v-if="title != null"
-    >{{ title }}</h3>
+    <p v-if="title != null"
+    >{{ title }}</p>
     {{ text }}
   </v-alert>
 </template>
@@ -26,9 +30,17 @@ export default {
     },
     closable: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
+  data: () => ({ 
+    notificationColor: {
+      success: '#3fb094',
+      info: '#3FA7D6',
+      warning: '#d7ac38',
+      danger: '#BA3B46',
+    }
+  })
 }
 </script>
 

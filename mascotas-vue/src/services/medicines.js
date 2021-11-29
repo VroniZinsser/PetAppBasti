@@ -7,7 +7,10 @@ const medicineServices = {
      * @returns {Promise<any>}
      */
     addForm() {
-        return fetch(`${API}medicamentos/formulario-agregar`)
+        return fetch(`${API}medicamentos/formulario-agregar`, {
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
+        })
             .then(res => res.json());
     },
 
@@ -20,7 +23,8 @@ const medicineServices = {
         return fetch(`${API}medicamentos`, {
             method: 'POST',
             body: JSON.stringify(data),
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
         }).then(res => res.json());
     },
 

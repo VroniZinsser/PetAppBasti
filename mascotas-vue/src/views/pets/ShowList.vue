@@ -1,5 +1,11 @@
 <template>
   <v-container>
+    <BaseNotification
+        v-if="store.status.msg != null"
+        :type="store.status.type"
+        :text="store.status.msg"
+        :title="store.status.title"
+    />
     <h1>Tus mascotas</h1>
 
     <p v-if="loading">Cargando...</p>
@@ -17,13 +23,19 @@
 <script>
 import List from "../../components/pets/list/List";
 import petServices from "../../services/pets";
+import BaseNotification from "@/components/general/notifications/BaseNotification"
+import store from "@/store"
 
 export default {
   name: "ShowList",
-  components: {List},
+  components: {
+    List,
+    BaseNotification,  
+  },
   data: () => ({
     loading: true,
     pets: null,
+    store,
   }),
   mounted() {
     petServices.getOwnerPets()

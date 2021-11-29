@@ -13,7 +13,7 @@ class Validation {
         'min_caracters' => ':field no puede contener menos de :min caracteres',
         'not_found' => 'No se encontró :field',
         'numeric' => ':field solo puede contener números',
-        'password_requirements' => 'La contraseña debe contener un número',
+        'password_requirements' => 'La contraseña debe contener como mínimo una letra y un número',
         'required' => 'Por favor ingresá :field',
         'required_select' => 'Por favor seleccioná :field',
         'valid_value' => ':field que ingresaste no es :valid',
