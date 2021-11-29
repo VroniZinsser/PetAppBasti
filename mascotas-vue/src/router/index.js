@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import UserCreateForm from "../views/users/CreateForm";
-import UserLoginForm from "../views/users/LoginForm";
+import Login from "../views/Auth/Login";
 import PetAddForm from "../views/pets/AddForm";
 import ShowMap from "../views/map/ShowMap"
 import Pets from "../views/pets/Pets";
@@ -10,6 +10,10 @@ import ObservationForm from "../views/pets/ObservationForm"
 import VaccineForm from "../views/pets/VaccineForm";
 import WeightForm from "../views/pets/WeightForm";
 import MedicinesAddForm from "../views/pets/medicines/MedicinesAddForm";
+import authService from "../services/auth";
+import OwnerSingUp from "../views/Auth/sing-up/OwnerSingUp";
+import Schedule from "../views/schedule/Schedule";
+import Inbox from "../views/inbox/Inbox";
 
 Vue.use(VueRouter)
 
@@ -24,16 +28,8 @@ const routes = [
         name: 'UserCreate',
         component: UserCreateForm,
         meta: {
-            requiresAuth: true,
+            requiresGuest: true,
             role: 'professional'
-        }
-    },
-    {
-        path: '/usuarios/login',
-        name: 'UserLogin',
-        component: UserLoginForm,
-        meta: {
-            requiresAuth: true
         }
     },
     {
@@ -88,6 +84,22 @@ const routes = [
         }
     },
     {
+        path: '/agenda',
+        name: 'Schedule',
+        component: Schedule,
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/casilla',
+        name: 'Inbox',
+        component: Inbox,
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
         path: '/mascotas/:pet_id/vacunas/nuevo',
         name: 'VaccineForm',
         component: VaccineForm,
@@ -112,11 +124,45 @@ const routes = [
         component: function () {
             return import(/* webpackChunkName: "about" */ '../views/About.vue')
         }
-    }
+    },
+    {
+        path: '/ingresar',
+        name: 'Login',
+        component: Login,
+        meta: {
+            requiresGuest: true,
+        }
+    },
+    {
+        path: '/registrarme/amo',
+        name: 'OwnerSingUp',
+        component: OwnerSingUp,
+        meta: {
+            requiresGuest: true,
+        }
+    },
 ]
 
 const router = new VueRouter({
     routes
 })
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(route => route.meta.requiresAuth === true)) {
+        if (!authService.auth()) {
+            next({name: 'Login'});
+        } else {
+            next()
+        }
+    } else if (to.matched.some(route => route.meta.requiresGuest === true)) {
+        if (authService.auth()) {
+            next({name: 'Home'});
+        } else {
+            next()
+        }
+    }else{
+        next()
+    }
+});
 
 export default router

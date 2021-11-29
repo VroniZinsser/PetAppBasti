@@ -9,7 +9,8 @@ const vaccineService = {
      */
     getVaccinesByPet() {
         return fetch(`${API}mascotas/1/vacunas`, {
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
         }).then(res => res.json());
     },
 
@@ -23,7 +24,8 @@ const vaccineService = {
         return fetch(`${API}vacunas`, {
             method: 'POST',
             body: JSON.stringify(vaccine),
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
         }).then(res => res.json());
     },
 };

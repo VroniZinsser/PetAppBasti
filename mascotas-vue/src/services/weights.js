@@ -9,7 +9,8 @@ const weightService = {
      */
     getWeightsByPet() {
         return fetch(`${API}mascotas/1/pesos`, {
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
         }).then(res => res.json());
     },
 
@@ -24,7 +25,8 @@ const weightService = {
         return fetch(`${API}pesos`, {
             method: 'POST',
             body: JSON.stringify(weight),
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
         }).then(res => res.json());
     },
 };

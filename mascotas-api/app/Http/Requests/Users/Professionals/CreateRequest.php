@@ -15,8 +15,8 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|max:30|min:2|alpha',
-            'last_name' => 'required|max:30|min:2|alpha',
+            'first_name' => 'required|max:30|min:2|string',
+            'last_name' => 'required|max:30|min:2|string',
             'email' => 'required|email|max:60|unique:users,email',
             'email_visible' => 'required|boolean',
             'password' => 'required|min:6|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])/',
@@ -58,11 +58,11 @@ class CreateRequest extends FormRequest
             'first_name.required' => Validation::msg_required('tu nombre'),
             'first_name.max' => Validation::msg_max_caracters('el nombre', ':max'),
             'first_name.min' => Validation::msg_min_caracters('el nombre', ':min'),
-            'first_name.alpha' => Validation::msg_valid_value('el nombre'),
+            'first_name.string' => Validation::msg_valid_value('el nombre'),
             'last_name.required' => Validation::msg_required('tu apellido'),
             'last_name.max' => Validation::msg_max_caracters('el apellido', ':max'),
             'last_name.min' => Validation::msg_min_caracters('el apellido', ':min'),
-            'last_name.alpha' => Validation::msg_valid_value('el apellido'),
+            'last_name.string' => Validation::msg_valid_value('el apellido'),
             'email.required' => Validation::msg_required('tu correo electrónico'),
             'email.email' => Validation::msg_valid_value('el correo electrónico'),
             'email.max' => Validation::msg_max_caracters('el correo electrónico', ':max'),

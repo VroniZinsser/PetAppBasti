@@ -60,7 +60,7 @@ class Pet extends Model
      */
     public function owners(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'users_has_pets', 'pets_id', 'users_id');
+        return $this->belongsToMany(User::class, 'users_has_pets', 'pet_id', 'user_id');
     }
 
     /**
