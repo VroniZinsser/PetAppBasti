@@ -7,8 +7,8 @@
       :color="notificationColor[type]"
       :dismissible="closable"
   >
-    <h3 v-if="title != null"
-    >{{ title }}</h3>
+    <p v-if="title != null"
+    >{{ title }}</p>
     {{ text }}
   </v-alert>
 </template>
@@ -35,10 +35,10 @@ export default {
   },
   data: () => ({ 
     notificationColor: {
-      success: '#28a745',
-      info: '#17a2b8',
-      warning: '#ffc107',
-      danger: '#D64550',
+      success: '#3fb094',
+      info: '#3FA7D6',
+      warning: '#d7ac38',
+      danger: '#BA3B46',
     }
   })
 }
