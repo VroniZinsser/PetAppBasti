@@ -24,4 +24,20 @@ interface UserRepository
      * @return User The created or updated user
      */
      public function updateOrCreate(UserDTO $dto): User;
+
+     /**
+     * Returns the user with the given id
+     *
+     * @param int $id
+     * @return User
+     */
+    public function find(int $id): User;
+
+    /**
+     * Deletes the user with the given id and returns true if deletion was successful
+     *
+     * @param int $id
+     * @return boolean success
+     */
+    public function delete (int $id): bool;
 }

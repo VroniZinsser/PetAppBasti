@@ -16,11 +16,15 @@
 
     .pet-menu-item {
         margin-right: 1em;
-        a {
+        .menu-item-link {
             display: flex;
             flex-direction: column;
             align-items: center;
             text-decoration: none;
+
+            &:hover {
+                cursor: pointer;
+            }
     
             img {
                 width: 48px;

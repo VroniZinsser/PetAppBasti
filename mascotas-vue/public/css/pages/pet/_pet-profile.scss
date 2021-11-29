@@ -1,0 +1,61 @@
+.pet-profile {
+    .pet-profile-body, .pet-profile-footer, .pet-profile-header {
+        max-width: 426px;
+        margin: auto;
+        @include tablet-up {
+            max-width: none;
+        }
+    }
+    
+    .pet-profile-header, .pet-profile-body {
+        padding: 16px;
+        border-bottom: 1px solid transparentize($black-gray, 0.7);
+
+    }
+    .pet-profile-header {
+        h2 {
+            font-size: 22px;
+            font-weight: 700;
+        }
+    }
+    .pet-profile-body {
+        ul {
+            @include reset-list;
+
+            li {
+                margin-bottom: 16px;
+                display: flex;
+
+                &>span:first-child {
+                    font-weight: 700;
+                    display: block;
+                    width: 140px;
+                }
+                &.wide-content {
+                    flex-direction: column;
+                }
+            }
+        }
+    }
+
+    .pet-profile-footer {
+        padding: 16px;
+        
+        a {
+            background: $yellow;
+            display: block;
+            padding: 10px 0;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 700;
+            color: $black-gray;
+            border-radius: 4px;
+
+            &:hover, &:focus {
+                background: #F2BF8C;
+            }
+        }
+    }
+}

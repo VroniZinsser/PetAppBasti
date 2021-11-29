@@ -4,7 +4,7 @@
             <div>
                 <p>No agregaste ninguna mascota aún.</p>
                 <v-img 
-                    :src="getCompletePath('ui/no_pet.png')" 
+                    :src="createStaticImgPath('ui/no_pet.png')" 
                     alt="Mujer jugando con un perrito"
                     max-width="300"
                     class="no-pet-img"
@@ -20,19 +20,15 @@
 
 </template>
 <script>
-import {PATH_IMG} from "@/constants";
 import ImageSourceNotification from "@/components/general/notifications/ImageSourceNotification"
+import {createStaticImgPath} from "@/helpers"; 
 
 export default {
   name: "NoPet",
   data: () => ({
     showImgAlert: false,
+    createStaticImgPath,
   }),
   components: {ImageSourceNotification},
-  methods: {
-    getCompletePath(path) {
-      return PATH_IMG + path
-    }
-  }
-  }
+}
 </script>

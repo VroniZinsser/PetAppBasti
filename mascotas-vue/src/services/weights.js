@@ -1,30 +1,53 @@
 import {API} from "../constants";
 
-//TODO: change hardcoded pet-ids in rest urls
 const weightService = {
-    /**
-     * Get all weights of one pet
-     *
-     * @returns {Promise<any>}
-     */
-    getWeightsByPet() {
-        return fetch(`${API}mascotas/1/pesos`, {
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
-        }).then(res => res.json());
-    },
-
-
     /**
      * Creates new weight
      *
-     * @param weight
+     * @param {{}} data
+     * @param {int} data.weight
+     * @param {string | date} data.date
+     * @param {int} data.pet_id
      * @returns {Promise<any>}
      */
-    create(weight) {
+    create(data) {
         return fetch(`${API}pesos`, {
             method: 'POST',
-            body: JSON.stringify(weight),
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            body: JSON.stringify(data),
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
+        }).then(res => res.json());
+    },
+
+    /**
+     * Updates a weight
+     *
+     * @param {{}} data
+     * @param {int} data.weight
+     * @param {string | date} data.date
+     * @param {int} data.pet_id
+     * @param {int} id
+     * @returns {Promise<any>}
+     */
+    update(data, id) {
+        return fetch(`${API}pesos/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
+        }).then(res => res.json());
+    },
+
+    /**
+     * Deletes a weight
+     * @param {int} id
+     * @returns {Promise<any>}
+     */
+    delete(id) {
+        return fetch(`${API}pesos/${id}`, {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
         }).then(res => res.json());
     },
 };

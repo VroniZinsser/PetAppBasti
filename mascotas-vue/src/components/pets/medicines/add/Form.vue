@@ -65,6 +65,7 @@
 import InputText from "../../../general/inputs/InputText";
 import InputDate from "../../../general/inputs/InputDate";
 import medicineServices from "../../../../services/medicines";
+import store from "@/store";
 
 export default {
   name: "Form",
@@ -73,17 +74,23 @@ export default {
     hours: {
       type: Array,
       required: true
-    }
+    },
+    pet_id: {
+      type: String,
+      required: true,
+    },
   },
   data: function () {
     return {
       loading: false,
+      store,
       formData: {
         name: null,
         quantity: null,
         start_date: this.getCurrentDate(),
         end_date: this.getCurrentDate(),
         hours: [],
+        pet_id: this.pet_id,
       },
       errors: {
         name: null,
@@ -134,11 +141,11 @@ export default {
           hours: null,
         }
 
-        medicineServices.add(this.$route.params.petsId, this.formData)
+        medicineServices.create(this.formData)
             .then(res => {
 
               if (!res.success) {
-                if (this.errors) {
+                if (res.errors) {
                   this.errors = {
                     name: null,
                     quantity: null,
@@ -147,11 +154,21 @@ export default {
                     hours: null,
                     ...res.errors
                   }
+                  this.store.setStatus({
+                    msg: "Por favor corregí los datos del formulario.",
+                    type: 'warning',
+                  });
                 } else {
-                  alert("Hubo un error inesperado");
+                  this.store.setStatus({
+                    msg: 'Algo salió mal. El medicamento no se guardó correctamente.',
+                    type: 'error',
+                  });
                 }
               } else {
-                alert("Medicamento agregado con éxito")
+                this.store.setStatus({
+                  msg: '¡El nuevo medicamento está guardado!',
+                  type: 'success',
+                });
               }
             })
 

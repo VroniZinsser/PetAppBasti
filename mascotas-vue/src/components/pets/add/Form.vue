@@ -123,6 +123,7 @@
 
 <script>
 import petServices from "../../../services/pets";
+import store from "@/store";
 
 export default {
   name: "Form",
@@ -139,6 +140,7 @@ export default {
   data: () => ({
     loading: false,
     photo: null,
+    store,
     formData: {
       breed: 'Akita Inu',
       date_of_birth: '2021-10-06',
@@ -196,7 +198,7 @@ export default {
           .then(res => {
             this.loading = false;
             if (!res.success) {
-              if (this.errors) {
+              if (res.errors) {
                 this.errors = {
                   breed: null,
                   date_of_birth: null,
@@ -208,11 +210,22 @@ export default {
                   species_id: null,
                   ...res.errors
                 }
+                this.store.setStatus({
+                  msg: "Por favor corregí los datos del formulario.",
+                  type: 'warning',
+                });
               } else {
-                alert("Hubo un error inesperado");
+                this.store.setStatus({
+                  msg: 'Algo salió mal. Tu mascota no se guardó.',
+                  type: 'error',
+                });
               }
             } else {
-              alert("Mascota agregada con éxito")
+              this.store.setStatus({
+                msg: '¡Muy bien! Tu mascota está guardada.',
+                type: 'success',
+              });
+              this.$router.push('/mascotas');
             }
           })
     }

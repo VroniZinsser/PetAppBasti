@@ -1,0 +1,19 @@
+.no-data {
+    width: 280px;
+    margin: auto;
+    text-align: center;
+    img {
+        width: 80px;
+        display: block;
+        margin: 16px auto;
+    }
+
+    p {
+        font-size: 14px;
+        color: gray;
+    }
+
+    .add-data-link {
+        color: $brick;
+    }
+}
