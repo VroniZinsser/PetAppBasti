@@ -10,4 +10,11 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    protected function denyPermission() {
+        return response()->json([
+            'success' => false,
+            'msg' => 'No tenés el permiso para esta acción'
+        ], 403);
+    }
 }

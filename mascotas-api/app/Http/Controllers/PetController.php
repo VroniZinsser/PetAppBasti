@@ -88,10 +88,7 @@ class PetController extends Controller
     {
         $user_id = Auth::user()->id;
         if (!$this->petRepository->isOwner($user_id, $pet_id)) {
-            return response()->json([
-                'success' => false,
-                'msg' => 'No tenés el permiso para esta acción'
-            ], 403);
+            return $this->denyPermission();
         }
 
         $dto = new PetDTO();
@@ -121,6 +118,9 @@ class PetController extends Controller
      */
     public function updateObservation(Request $request, $pet_id): JsonResponse
     {
+        if (!$this->petRepository->isOwner(Auth::user()->id, $pet_id)) {
+            return $this->denyPermission();
+        }
         switch ($request->input('action')) {
             case 'update':
                 $this->validateObservation($request->all());
@@ -191,12 +191,8 @@ class PetController extends Controller
      */
     public function deletePet($pet_id): JsonResponse
     {
-        $user_id = Auth::user()->id;
-        if (!$this->petRepository->isOwner($user_id, $pet_id)) {
-            return response()->json([
-                'success' => false,
-                'msg' => 'No tenés el permiso para esta acción'
-            ], 403);
+        if (!$this->petRepository->isOwner(Auth::user()->id, $pet_id)) {
+            return $this->denyPermission();
         }
         $this->petRepository->delete($pet_id);
 
