@@ -17,7 +17,7 @@ import BaseNotification from "@/components/general/notifications/BaseNotificatio
 import store from "@/store"
 
 export default {
-  name: "ShowMap",
+  name: "Explore",
   components: {
     Map,
     BaseNotification
