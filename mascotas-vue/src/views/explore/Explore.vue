@@ -1,14 +1,16 @@
 <template>
-  <v-container fluid>
+  <div>
     <BaseNotification
         v-if="store.status.msg != null"
         :type="store.status.type"
         :text="store.status.msg"
         :title="store.status.title"
     />
-    <Map ref="hereMap"/>
-    <ExploreList :professionals="professionals"></ExploreList>
-  </v-container>
+    <div class="explore-container">
+      <Map ref="hereMap"/>
+      <ExploreList :professionals="professionals"></ExploreList>
+    </div>
+  </div>
 </template>
 
 <script>

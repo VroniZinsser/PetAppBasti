@@ -1,0 +1,23 @@
+.explore-list {
+    h2 {
+        margin: 1em;
+    }
+    .card {
+        box-shadow: none;
+        border-bottom: 1px solid $gray;
+        border-radius: 0;
+
+        &:first-child {
+            border-top: 1px solid $gray;
+        }
+    
+        .card-title {
+            display: block;
+        }
+    
+        .card-subtitle {
+            opacity: .6;
+        }
+    }
+}
+

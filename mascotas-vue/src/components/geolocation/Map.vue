@@ -1,6 +1,6 @@
 <template>
-  <div id="map">
-    <div id="mapContainer" style="height:600px;width:100%" ref="hereMap"></div>
+  <div class="map-container">
+    <div class="map-container-inner" ref="hereMap"></div>
   </div>
 </template>
 
@@ -92,11 +92,5 @@ export default {
 </script>
 
 <style scoped>
-#map {
-  width: 60vw;
-  min-width: 360px;
-  text-align: center;
-  margin: 5% auto;
-  background-color: #ccc;
-}
+
 </style>

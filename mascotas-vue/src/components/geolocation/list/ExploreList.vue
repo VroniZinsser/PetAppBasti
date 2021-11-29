@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="explore-list">
         <div>
-            <h2>Profesionales</h2>
+            <h2>Explorar</h2>
         </div>
         <div>
             <ExploreListItem 
