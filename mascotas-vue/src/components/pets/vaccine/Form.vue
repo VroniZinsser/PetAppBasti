@@ -33,6 +33,7 @@
 import InputText from "@/components/general/inputs/InputText";
 import InputDate from "@/components/general/inputs/InputDate";
 import vaccineService from "../../../services/vaccines";
+import store from "@/store";
 
 export default {
   name: "Form",
@@ -49,6 +50,7 @@ export default {
   data: function () {
     return {
       loading: false,
+      store,
       formData: {
         name: null,
         date: this.getCurrentDate(),
@@ -89,18 +91,31 @@ export default {
 
               if (!res.success) {
                 if (res.errors && res.errors.pet_id) {
-                  alert(res.errors.pet_id);
-                } else if (this.errors) {
+                  this.store.setStatus({
+                    msg: 'La mascota no existe.',
+                    type: 'error',
+                  });
+                } else if (res.errors) {
                   this.errors = {
                     name: null,
                     date: null,
                     ...res.errors
                   }
+                  this.store.setStatus({
+                    msg: "Por favor corregí los datos del formulario.",
+                    type: 'warning',
+                  });
                 } else {
-                  alert("Hubo un error inesperado");
+                  this.store.setStatus({
+                    msg: 'Algo salió mal. La vacuna no se guardó correctamente.',
+                    type: 'error',
+                  });
                 }
               } else {
-                alert("Vacuna guardado");
+                this.store.setStatus({
+                  msg: '¡La nueva vacuna está guardada!',
+                  type: 'success',
+                });
               }
             })
       }

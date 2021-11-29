@@ -34,6 +34,7 @@
 import InputText from "@/components/general/inputs/InputText";
 import InputDate from "@/components/general/inputs/InputDate";
 import weightService from "../../../services/weights";
+import store from "@/store";
 
 export default {
   name: "Form",
@@ -50,6 +51,7 @@ export default {
   data: function () {
     return {
       loading: false,
+      store,
       formData: {
         weight: null,
         date: this.getCurrentDate(),
@@ -95,18 +97,31 @@ export default {
 
               if (!res.success) {
                 if (res.errors && res.errors.pet_id) {
-                  alert(res.errors.pet_id);
-                } else if (this.errors) {
+                  this.store.setStatus({
+                    msg: 'La mascota no existe.',
+                    type: 'error',
+                  });
+                } else if (res.errors) {
                   this.errors = {
                     date: null,
                     weight: null,
                     ...res.errors
                   }
+                  this.store.setStatus({
+                    msg: "Por favor corregí los datos del formulario.",
+                    type: 'warning',
+                  });
                 } else {
-                  alert("Hubo un error inesperado");
+                  this.store.setStatus({
+                    msg: 'Algo salió mal. El peso no se guardó correctamente.',
+                    type: 'error',
+                  });
                 }
               } else {
-                alert("Peso guardado")
+                this.store.setStatus({
+                  msg: '¡El nuevo peso está guardado!',
+                  type: 'success',
+                });
               }
             })
       }

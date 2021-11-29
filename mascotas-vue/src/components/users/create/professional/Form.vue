@@ -339,8 +339,12 @@ export default {
                   photo: null,
                   ...res.errors
                 }
-
                 this.errors.address = this.concatAddressErrors(res.errors);
+                this.store.setStatus({
+                  msg: "Por favor corregí los datos del formulario.",
+                  type: 'warning'
+                });
+
               } else {
                 this.store.setStatus({
                   msg: "¡Algo salió mal! Por favor, intentalo nuevamente más tarde",

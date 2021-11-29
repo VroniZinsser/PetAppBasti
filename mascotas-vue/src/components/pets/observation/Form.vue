@@ -21,6 +21,7 @@
 <script>
 import InputText from "@/components/general/inputs/InputText";
 import petServices from "../../../services/pets";
+import store from "@/store";
 
 export default {
   name: "Form",
@@ -36,6 +37,7 @@ export default {
   data: function () {
     return {
       loading: false,
+      store,
       formData: {
         observation: null,
       },
@@ -59,17 +61,30 @@ export default {
               this.loading = false;
               if (!res.success) {
                 if (res.errors && res.errors.pets_id) {
-                  alert('La mascota no existe.');
-                } else if (this.errors) {
+                  this.store.setStatus({
+                    msg: 'La mascota no existe',
+                    type: 'error',
+                  });
+                } else if (res.errors) {
                   this.errors = {
                     'data.observation': null,
                     ...res.errors
                   }
+                  this.store.setStatus({
+                    msg: "Por favor corregí los datos del formulario.",
+                    type: 'warning',
+                  });
                 } else {
-                  alert("Hubo un error inesperado");
+                  this.store.setStatus({
+                    msg: 'Algo salió mal. La observación no se guardó correctamente.',
+                    type: 'error',
+                  });
                 }
               } else {
-                alert("Observación guardada")
+                this.store.setStatus({
+                  msg: '¡La observación está guardada!',
+                  type: 'success',
+                });
               }
             })
       }
