@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('usuarios/profesionales', [UserController::class, 'getProfessionals']);
+Route::get('profesionales', [UserController::class, 'getProfessionals'])->middleware(['auth']);
 
 Route::middleware(['guest'])->group(function () {
     Route::get('/profesionales/formulario-agregar', [UserController::class, 'createFormProfessional']);
