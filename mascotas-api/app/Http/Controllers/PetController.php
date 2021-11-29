@@ -11,6 +11,7 @@ use App\Repositories\SpeciesRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -68,7 +69,8 @@ class PetController extends Controller
         $dto = new PetDTO();
         $dto->loadFromArray($request->input());
         $dto->set_image_id($image_id);
-        $pet = $this->petRepository->updateOrCreate($dto, 1);
+        $owner_id = Auth::user()->id;
+        $pet = $this->petRepository->updateOrCreate($dto, $owner_id);
 
         return response()->json([
             'success' => true,
@@ -82,17 +84,26 @@ class PetController extends Controller
      * @param AddRequest $request
      * @return JsonResponse
      */
-    public function updatePet(AddRequest $request): JsonResponse
+    public function updatePet(AddRequest $request, int $pet_id): JsonResponse
     {
+        $user_id = Auth::user()->id;
+        if (!$this->petRepository->isOwner($user_id, $pet_id)) {
+            return response()->json([
+                'success' => false,
+                'msg' => 'No tenés el permiso para esta acción'
+            ], 403);
+        }
+
         $dto = new PetDTO();
         $dto->loadFromArray($request->input());
+        $dto->set_id($pet_id);
 
         if ($photo = $request->get('photo')) {
             $image = $this->imageRepository->uploadImage($photo, 'pets/', 'Mascota ' . $request->get('name'));
             $dto->set_image_id($image->id);
         }
 
-        $pet = $this->petRepository->updateOrCreate($dto, 1);
+        $pet = $this->petRepository->updateOrCreate($dto, $user_id);
 
         return response()->json([
             'success' => true,
@@ -149,7 +160,7 @@ class PetController extends Controller
      */
     public function getOwnerPets(): JsonResponse
     {
-        $pets = $this->petRepository->getPetsByUser(1);
+        $pets = $this->petRepository->getPetsByUser(Auth::user()->id);
 
         return response()->json([
             'success' => true,
@@ -180,6 +191,13 @@ class PetController extends Controller
      */
     public function deletePet($pet_id): JsonResponse
     {
+        $user_id = Auth::user()->id;
+        if (!$this->petRepository->isOwner($user_id, $pet_id)) {
+            return response()->json([
+                'success' => false,
+                'msg' => 'No tenés el permiso para esta acción'
+            ], 403);
+        }
         $this->petRepository->delete($pet_id);
 
         return response()->json([
