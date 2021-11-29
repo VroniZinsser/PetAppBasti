@@ -1,3 +1,6 @@
+import {PATH_IMG} from "@/constants";
+import {PATH_STATIC_IMG} from "@/constants";
+
 const formatDate = function(date) {
         if (!date) return null
 
@@ -6,6 +9,16 @@ const formatDate = function(date) {
     
 };
 
+const createImgPath = function(path) {
+    return PATH_IMG + path;
+}
+
+const createStaticImgPath = function(path) {
+    return PATH_STATIC_IMG + path;
+}
+
 export {
-    formatDate
+    formatDate,
+    createImgPath,
+    createStaticImgPath,
 }

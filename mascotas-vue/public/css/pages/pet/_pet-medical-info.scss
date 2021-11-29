@@ -1,0 +1,166 @@
+.pet-medical-info {
+    display: flex;
+    flex-direction: column;
+    
+    @include desktop-up { 
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .medical-container {
+        padding: 16px;
+        width: 100%;
+        // TODO: remove height. It is only for testing
+        min-height: 200px; 
+
+        .medical-container-body, .medical-container-header {
+            max-width: 426px;
+            margin: auto;
+
+            @include tablet-up {
+                max-width: none;
+            }
+        }
+
+        .medical-container-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            
+            h2 {
+                font-size: 20px;
+            }  
+
+            a {
+                color: black;
+                font-size: 14px;
+            }
+        }
+        
+        &.medicine {
+            background-color: $white-gray;
+            @include tablet-up {
+                width: calc(100vw - 320px);
+            }
+            .medical-container-body {
+                display: flex;
+                overflow-x: auto;
+
+                &::-webkit-scrollbar {
+                    width: 0;
+                }
+                .medicine-item {
+                    min-width: 70vw;
+                    margin-right: 16px;
+                    @include tablet-up {
+                        min-width: calc((100vw - 320px) * 0.6); 
+                    }
+                    @include desktop-up {
+                        min-width: 350px;
+                    }
+                    .medicine-item-info {
+                        span {
+                            display: block;
+                            margin-bottom: 8px;
+                        }
+
+                        &::after {
+                            content: "";
+                            display: block;
+                            border-bottom: 1px solid $black-gray;
+                            opacity: .3;
+                            padding-top: 8px;
+                            margin: 8px -16px;
+                        }
+                    }
+
+                    .medicine-item-hours {
+                        display: flex;
+                        flex-wrap: wrap;
+                        div {
+                            background: #F9F1F1;
+                            border-radius: 2px;
+                            padding: 3px;
+                            margin-right: 9px;
+                            margin-bottom: 8px;
+                        }
+                    }
+
+                }
+            }
+
+            .more {
+                min-width: 140px;
+                a {
+                    text-decoration: none;
+                }
+                .inner {
+                    width: 100%;
+                    height: 100%;
+                    p {
+                        color: $black-gray;
+                        font-weight: 700;
+                        font-size: 16px;
+                       
+                        span {
+                            font-weight: 400;
+                            font-size: 14px;
+                            opacity: .6;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.vaccine {
+            background-color: $white-gray;
+            @include desktop-up { 
+                background: $white-gray-min;
+            } 
+
+            .medical-container-body {
+                display: grid;
+                grid-auto-flow: row;
+                gap: 16px 20px;
+                justify-items: stretch;
+
+                @include tablet-up { 
+                    grid-template-columns: 1fr 1fr;
+                }
+
+                @include desktop-up { 
+                    grid-template-columns: 1fr 1fr 1fr;
+                }
+                
+                .vaccine-item {
+                    display: flex;
+                    justify-content: space-between;
+
+                    .card-date {
+                        padding-top: 3px;
+                    }
+                }
+            }
+        }
+        
+        &.weight {
+            @include tablet-up { 
+                background: $white-gray-min;
+            }
+            @include desktop-up { 
+                order: -2;
+                width: 50%;
+            }
+        }
+
+        &.observation {
+            @include tablet-up {
+                background: $light-gray;
+            }
+            @include desktop-up { 
+                order:-1;
+                width: 50%;
+            }
+        }
+    }
+}

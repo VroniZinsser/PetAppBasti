@@ -5,8 +5,7 @@ import UserCreateForm from "../views/users/CreateForm";
 import Login from "../views/Auth/Login";
 import PetAddForm from "../views/pets/AddForm";
 import ShowMap from "../views/map/ShowMap"
-import PetShowList from "../views/pets/ShowList"
-import Pet from "../views/pets/Pet";
+import Pets from "../views/pets/Pets";
 import ObservationForm from "../views/pets/ObservationForm"
 import VaccineForm from "../views/pets/VaccineForm";
 import WeightForm from "../views/pets/WeightForm";
@@ -35,8 +34,8 @@ const routes = [
     },
     {
         path: '/mascotas',
-        name: 'PetShowList',
-        component: PetShowList,
+        name: 'Pets',
+        component: Pets,
         meta: {
             requiresAuth: true,
         },
@@ -50,19 +49,20 @@ const routes = [
             requiresAuth: true,
         },
     },
+    // TODO: Add this route for single profile of a pet
+    // {
+    //     path: '/mascotas/:petsId',
+    //     name: 'PetProfile',
+    //     component: PetProfile,
+    //     meta: {
+    //         requiresAuth: true,
+    //     },
+    // },
 
     {
         path: '/mascotas/:pet_id/observacion/nuevo',
         name: 'ObservationForm',
         component: ObservationForm,
-        meta: {
-            requiresAuth: true,
-        },
-    },
-    {
-        path: '/mascotas/:pet_id',
-        name: 'Pet',
-        component: Pet,
         meta: {
             requiresAuth: true,
         },

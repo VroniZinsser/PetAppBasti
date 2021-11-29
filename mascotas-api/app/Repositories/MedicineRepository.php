@@ -18,4 +18,12 @@ interface MedicineRepository
      * @return Medicine
      */
     public function add(string $name, string $quantity, string $start_date, string $end_date, int $pet_id, array $hours): Medicine;
+
+    /**
+     * Returns all medicines that belong to a pet with the given id
+     * 
+     * @param int $petId
+     * @return Collection | []Vaccine
+     */
+    public function getMedicinesByPet(int $petId): object;
 }

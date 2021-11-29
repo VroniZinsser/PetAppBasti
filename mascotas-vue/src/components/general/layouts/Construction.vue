@@ -2,7 +2,7 @@
     <v-row class="construction" justify="center" align-content="center">
       <v-col>
         <v-img
-          :src="getCompletePath('ui/construccion.png')"
+          :src="createStaticImgPath('ui/construccion.png')"
           alt="Personas creando una página web"
           contain
           class="construction-img"
@@ -16,7 +16,7 @@
     </v-row>
 </template>
 <script>
-import {PATH_IMG} from "@/constants";
+import {createStaticImgPath} from "@/helpers";
 
 export default {
   name: "Construction",
@@ -29,10 +29,8 @@ export default {
       type: String,
     },
   },
-  methods: {
-    getCompletePath(path) {
-      return PATH_IMG + path
-    }
-  }
+  data: () => ({ 
+    createStaticImgPath,
+  }),
 }
 </script>

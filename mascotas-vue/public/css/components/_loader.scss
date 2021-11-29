@@ -1,0 +1,9 @@
+.loader {
+    background: $white-gray;
+    background-image: url('../loader.gif');
+    background-size: 50px;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100vw;
+    height: calc(100vh - 133px);
+}

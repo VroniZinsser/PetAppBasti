@@ -7,7 +7,7 @@
     <v-app-bar app>
       <div id="brand-image">
         <router-link :to="{name: 'Home'}">
-          <img :src="getCompletePath('brand/logotype.png')" alt="Logo de Basti">
+          <img :src="createStaticImgPath('brand/logotype.png')" alt="Logo de Basti">
         </router-link>
       </div>
 
@@ -57,7 +57,7 @@
 
 <script>
 
-import {PATH_IMG} from "./constants";
+import {createStaticImgPath} from "@/helpers";
 import authService from "./services/auth";
 import store from "./store";
 
@@ -66,6 +66,7 @@ export default {
 
   data: () => ({
     dialog: false,
+    createStaticImgPath,
     store,
     routerLinks: [
       {
@@ -79,7 +80,7 @@ export default {
         icon: 'search',
       },
       {
-        name: 'PetShowList',
+        name: 'Pets',
         text: 'Mascotas',
         icon: 'format_list_bulleted',
       },
@@ -91,16 +92,6 @@ export default {
     ]
   }),
   methods: {
-    /**
-     * Returns the path to the image folder concatenated with the path passed by parameter
-     *
-     * @param {string} path
-     * @returns {string}
-     */
-    getCompletePath(path) {
-      return PATH_IMG + path
-    },
-
     /**
      * Logs out the user, and redirects to the login view
      */
