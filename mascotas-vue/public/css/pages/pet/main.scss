@@ -109,6 +109,10 @@ $pet-img-max-height: 270px;
             position: static;
             margin-right: -15px;
         }
+        
+        @include desktop-up {
+            padding-bottom: 0;
+        }
     }
     
 }

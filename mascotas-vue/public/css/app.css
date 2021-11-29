@@ -425,6 +425,11 @@
     margin-right: -15px;
   }
 }
+@media screen and (min-width: 992px) {
+  .pet-detail .tab-item {
+    padding-bottom: 0;
+  }
+}
 
 header.theme--light.v-app-bar.v-toolbar.v-sheet {
   background-color: #F9F5F1;
