@@ -6,7 +6,7 @@ const petServices = {
      *
      * @returns {Promise<any>}
      */
-    addForm() {
+    createForm() {
         return fetch(`${API}mascotas/formulario-agregar`)
             .then(res => res.json());
     },
@@ -14,7 +14,15 @@ const petServices = {
     /**
      * Add the pet to the database
      *
-     * @param data Array
+     * @param {{}} data
+     * @param {string} data.breed
+     * @param {string | date} data.date_of_birth
+     * @param {string} data.name
+     * @param {boolean} data.neutered
+     * @param {string} data.photo
+     * @param {string} data.temperament
+     * @param {int} data.sex_id
+     * @param {int} data.species_id
      * @returns {Promise<any>}
      */
     addPet(data) {
@@ -39,8 +47,9 @@ const petServices = {
     /**
      * Updates only the observation field of the pet
      *
-     * @param pet_id
-     * @param data
+     * @param {string | int} pet_id
+     * @param {{}} data
+     * @param {string} data.observation
      * @returns {Promise<any>}
      */
     updateObservation(pet_id, data) {
@@ -57,6 +66,7 @@ const petServices = {
     /**
      * Deletes content from observation field
      *
+     * @param {string | int} pet_id
      * @returns {Promise<any>}
      */
     deleteObservation(pet_id) {

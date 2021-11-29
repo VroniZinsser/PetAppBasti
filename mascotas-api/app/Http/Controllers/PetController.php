@@ -150,6 +150,7 @@ class PetController extends Controller
     public function getOwnerPets(): JsonResponse
     {
         $pets = $this->petRepository->getPetsByUser(1);
+
         return response()->json([
             'success' => true,
             'data' => compact('pets'),
@@ -165,6 +166,7 @@ class PetController extends Controller
     public function findPet($pet_id): JsonResponse
     {
         $pet = $this->petRepository->find($pet_id);
+
         return response()->json([
             'data' => compact('pet')
         ]);
@@ -179,6 +181,7 @@ class PetController extends Controller
     public function deletePet($pet_id): JsonResponse
     {
         $this->petRepository->delete($pet_id);
+
         return response()->json([
             'success' => true,
         ]);

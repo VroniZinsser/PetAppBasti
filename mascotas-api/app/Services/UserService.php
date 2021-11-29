@@ -14,11 +14,9 @@ class UserService implements UserRepository {
      */
     public function getUsersByTypes(array $types): object
     {
-        $users = User::whereHas('userTypes', function($query) use($types) {
+        return User::whereHas('userTypes', function($query) use($types) {
             $query->whereIn('user_types.id', $types);
         })->get();
-
-        return $users;
     }
 
     /**
@@ -51,7 +49,9 @@ class UserService implements UserRepository {
         $user->web = $dto->get_web();
         $user->verified = $dto->get_verified();
         $user->profile_img_id = $dto->get_profile_img_id();
+
         $user->save();
+
         return $user;
     }
 
@@ -69,6 +69,7 @@ class UserService implements UserRepository {
     public function delete(int $id): bool
     {
         User::find($id)->delete();
+
         return true;
     }
 }

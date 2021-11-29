@@ -4,7 +4,10 @@ const weightService = {
     /**
      * Creates new weight
      *
-     * @param data Array
+     * @param {{}} data
+     * @param {int} data.weight
+     * @param {string | date} data.date
+     * @param {int} data.pet_id
      * @returns {Promise<any>}
      */
     create(data) {
@@ -17,10 +20,15 @@ const weightService = {
 
     /**
      * Updates a weight
-     * @param data Array
+     *
+     * @param {{}} data
+     * @param {int} data.weight
+     * @param {string | date} data.date
+     * @param {int} data.pet_id
+     * @param {int} id
      * @returns {Promise<any>}
      */
-     update(data, id) {
+    update(data, id) {
         return fetch(`${API}pesos/${id}`, {
             method: 'PUT',
             body: JSON.stringify(data),
@@ -28,12 +36,12 @@ const weightService = {
         }).then(res => res.json());
     },
 
-     /**
+    /**
      * Deletes a weight
-     * @param data Array
+     * @param {int} id
      * @returns {Promise<any>}
      */
-      delete(id) {
+    delete(id) {
         return fetch(`${API}pesos/${id}`, {
             method: 'DELETE',
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}

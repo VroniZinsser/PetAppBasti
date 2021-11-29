@@ -16,7 +16,8 @@ class UserController extends Controller
     protected $imageRepository;
 
 
-    public function __construct(UserRepository $userRepository, UserTypeRepository $userTypeRepository, ImageRepository $imageRepository) {
+    public function __construct(UserRepository $userRepository, UserTypeRepository $userTypeRepository, ImageRepository $imageRepository)
+    {
         $this->userRepository = $userRepository;
         $this->userTypeRepository = $userTypeRepository;
         $this->imageRepository = $imageRepository;
@@ -31,6 +32,7 @@ class UserController extends Controller
     {
         // TODO: find central place to define user type ids - professionals / admins / not professionals
         $users = $this->userRepository->getUsersByTypes(array(5, 6, 7, 8));
+
         return response()->json([
             'success' => true,
             'data' => compact('users'),
@@ -61,7 +63,7 @@ class UserController extends Controller
 
         $user->userTypes()->sync($request->get('user_types'));
 
-        return  response()->json([
+        return response()->json([
             'success' => true,
             'data' => compact('user'),
         ]);
@@ -75,7 +77,6 @@ class UserController extends Controller
      */
     public function updateProfessional(CreateRequest $request): JsonResponse
     {
-        
         $dto = new UserDTO;
         $dto->loadFromArray($request->input());
 
@@ -88,7 +89,7 @@ class UserController extends Controller
 
         $user->userTypes()->sync($request->get('user_types'));
 
-        return  response()->json([
+        return response()->json([
             'success' => true,
             'data' => compact('user'),
         ]);
@@ -117,6 +118,7 @@ class UserController extends Controller
     public function findUser($user_id): JsonResponse
     {
         $user = $this->userRepository->find($user_id);
+
         return response()->json([
             'data' => compact('user')
         ]);
@@ -131,6 +133,7 @@ class UserController extends Controller
     public function deleteUser($user_id): JsonResponse
     {
         $this->userRepository->delete($user_id);
+
         return response()->json([
             'success' => true,
         ]);

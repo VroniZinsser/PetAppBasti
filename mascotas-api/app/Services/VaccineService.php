@@ -32,7 +32,9 @@ class VaccineService implements VaccineRepository
         $vaccine->name = $name;
         $vaccine->date = $date;
         $vaccine->pets_id = $pet_id;
+
         $vaccine->save();
+
         return $vaccine;
     }
 
@@ -44,7 +46,9 @@ class VaccineService implements VaccineRepository
         $vaccine = Vaccine::find($id);
         $vaccine->name = $name;
         $vaccine->date = $date;
+
         $vaccine->save();
+
         return $vaccine;
     }
 
@@ -54,6 +58,7 @@ class VaccineService implements VaccineRepository
     public function delete(int $id): bool
     {
         Vaccine::find($id)->delete();
+
         return true;
     }
 }

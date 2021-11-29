@@ -4,7 +4,10 @@ const vaccineService = {
     /**
      * Creates new vaccine
      *
-     * @param data Array
+     * @param {{}} data
+     * @param {string | date} data.name
+     * @param {string | date} data.date
+     * @param {int} data.pet_id
      * @returns {Promise<any>}
      */
     create(data) {
@@ -17,10 +20,15 @@ const vaccineService = {
 
     /**
      * Updates a vaccine
-     * @param data Array
+     *
+     * @param {{}} data
+     * @param {string | date} data.name
+     * @param {string | date} data.date
+     * @param {int} data.pet_id
+     * @param {int} id
      * @returns {Promise<any>}
      */
-     update(data, id) {
+    update(data, id) {
         return fetch(`${API}vacunas/${id}`, {
             method: 'PUT',
             body: JSON.stringify(data),
@@ -28,12 +36,13 @@ const vaccineService = {
         }).then(res => res.json());
     },
 
-     /**
+    /**
      * Deletes a vaccine
-     * @param data Array
+     *
+     * @param {int} id
      * @returns {Promise<any>}
      */
-      delete(id) {
+    delete(id) {
         return fetch(`${API}vacunas/${id}`, {
             method: 'DELETE',
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
