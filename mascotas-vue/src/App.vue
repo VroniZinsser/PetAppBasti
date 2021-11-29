@@ -7,7 +7,7 @@
     <v-app-bar app>
       <div id="brand-image">
         <router-link :to="{name: 'Home'}">
-          <img :src="createImgPath('brand/logotype.png')" alt="Logo de Basti">
+          <img :src="createStaticImgPath('brand/logotype.png')" alt="Logo de Basti">
         </router-link>
       </div>
 
@@ -50,14 +50,14 @@
 
 <script>
 
-import {createImgPath} from "@/helpers";
+import {createStaticImgPath} from "@/helpers";
 
 export default {
   name: 'App',
 
   data: () => ({
     dialog: false,
-    createImgPath: createImgPath,
+    createStaticImgPath,
     routerLinks: [
       {
         name: 'Home',

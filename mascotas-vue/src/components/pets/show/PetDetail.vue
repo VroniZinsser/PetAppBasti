@@ -58,7 +58,7 @@ export default {
     return {
       tab: null,
       activeItem: 'pet-medical-info',
-      createImgPath: createImgPath,
+      createImgPath,
     }
   },
   methods: {

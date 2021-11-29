@@ -28,7 +28,7 @@ import Weight from "@/components/pets/show/medical/Weight";
 import Medicine from "@/components/pets/show/medical/Medicine";
 import Observation from "@/components/pets/show/medical/Observation";
 import Vaccine from "@/components/pets/show/medical/Vaccine";
-import {createImgPath} from "@/helpers";
+import {createStaticImgPath} from "@/helpers";
 
 export default {
   name: "PetMedicalInfo",
@@ -45,7 +45,7 @@ export default {
     weights: [],
     placeholder: {
       vaccine: {
-        img_src: createImgPath('ui/no_vaccine.png'),
+        img_src: createStaticImgPath('ui/no_vaccine.png'),
         text: `Agregá las vacunas que :petName ya ha obtenido.`,
         cta: {
             url: '#',
@@ -53,7 +53,7 @@ export default {
         }
       },
       weight: {
-        img_src: createImgPath('ui/no_weight.png'),
+        img_src: createStaticImgPath('ui/no_weight.png'),
         text: `¿Cuánto pesa :petName? Anotalo regularmente para llevar un mejor control sobre su salud.`,
         cta: {
             url: '#',
@@ -61,7 +61,7 @@ export default {
         }
       },
       medicine: {
-        img_src: createImgPath('ui/no_medicine.png'),
+        img_src: createStaticImgPath('ui/no_medicine.png'),
         text: `Agregá medicamentos actuales o del pasado para el registro de medicación de :petName.`,
         cta: {
             url: '#',
@@ -69,7 +69,7 @@ export default {
         }
       },
       observation: {
-        img_src: createImgPath('ui/no_observation.png'),
+        img_src: createStaticImgPath('ui/no_observation.png'),
         text: `Aquí tenés espacio para anotar observaciones, dudas o comentarios.`,
         cta: {
             url: '#',
