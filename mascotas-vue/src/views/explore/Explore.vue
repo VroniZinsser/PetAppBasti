@@ -7,11 +7,13 @@
         :title="store.status.title"
     />
     <Map ref="hereMap"/>
+    <ExploreList :professionals="professionals"></ExploreList>
   </v-container>
 </template>
 
 <script>
 import Map from "@/components/geolocation/Map";
+import ExploreList from "@/components/geolocation/list/ExploreList";
 import userService from "../../services/users";
 import BaseNotification from "@/components/general/notifications/BaseNotification"
 import store from "@/store"
@@ -20,7 +22,8 @@ export default {
   name: "Explore",
   components: {
     Map,
-    BaseNotification
+    BaseNotification,
+    ExploreList,
   },
   data: () => ({
     professionals: [],
