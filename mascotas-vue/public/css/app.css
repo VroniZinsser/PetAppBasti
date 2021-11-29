@@ -35,6 +35,11 @@
   opacity: 0.5;
 }
 
+.image-source-notification a {
+  color: #CC613E !important;
+  text-decoration: none;
+}
+
 .loader {
   background: #EFE5DC;
   background-image: url("../loader.gif");
@@ -43,6 +48,20 @@
   background-position: center;
   width: 100vw;
   height: calc(100vh - 133px);
+}
+
+.no-pet .inner {
+  height: 75vh;
+}
+.no-pet .inner p {
+  text-align: center;
+}
+.no-pet .inner .no-pet-img {
+  opacity: 0.75;
+}
+.no-pet .image-source-notification {
+  max-width: 320px;
+  margin: auto;
 }
 
 #skip-to-content a {

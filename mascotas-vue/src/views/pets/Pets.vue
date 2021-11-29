@@ -5,11 +5,15 @@
     <Loader v-if="loading"></Loader>
 
     <div v-else>
+      <div v-if="pets !== null && pets.length > 0">
         <PetMenu 
         :active="activePet.id"
         :pets="pets" @show-pet="showPet"></PetMenu>
 
         <PetDetail :pet="activePet"></PetDetail>
+      </div>
+      
+      <NoPet v-else></NoPet>
     </div>
   </div>
 </template>
@@ -20,6 +24,7 @@ import Loader from "../../components/general/notifications/Loader";
 import PetMenu from "../../components/pets/show/PetMenu";
 import PetDetail from "../../components/pets/show/PetDetail";
 import petServices from "../../services/pets";
+import NoPet from "@/components/pets/show/NoPet";
 
 export default {
   name: "Pets",
@@ -28,6 +33,7 @@ export default {
     PetMenu,
     PetDetail,
     Loader,
+    NoPet,
   },
   data: () => ({
     loading: true,

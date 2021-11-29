@@ -1,0 +1,16 @@
+.no-pet {
+    .inner {
+        height: 75vh;
+        p {
+            text-align: center;
+        }
+
+        .no-pet-img {
+            opacity: .75;
+        }
+    }
+    .image-source-notification {
+        max-width: 320px;
+        margin: auto;
+    }
+}
