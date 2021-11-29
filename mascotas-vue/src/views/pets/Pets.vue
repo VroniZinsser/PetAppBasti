@@ -5,11 +5,13 @@
     <Loader v-if="loading"></Loader>
 
     <div v-else>
-        <PetMenu 
-        :active="activePet.id"
-        :pets="pets" @show-pet="showPet"></PetMenu>
+      <CircleButtonLinkList :button-link-data="buttonLinkData"></CircleButtonLinkList>
 
-        <PetDetail :pet="activePet"></PetDetail>
+      <PetMenu
+          :active="activePet.id"
+          :pets="pets" @show-pet="showPet"></PetMenu>
+
+      <PetDetail :pet="activePet"></PetDetail>
     </div>
   </div>
 </template>
@@ -20,10 +22,12 @@ import Loader from "../../components/general/notifications/Loader";
 import PetMenu from "../../components/pets/show/PetMenu";
 import PetDetail from "../../components/pets/show/PetDetail";
 import petServices from "../../services/pets";
+import CircleButtonLinkList from "../../components/general/buttons/floating/CircleButtonLinkList";
 
 export default {
   name: "Pets",
   components: {
+    CircleButtonLinkList,
     TitleBar,
     PetMenu,
     PetDetail,
@@ -33,6 +37,32 @@ export default {
     loading: true,
     pets: null,
     activePet: null,
+    buttonLinkData: [
+      {
+        icon: 'pets',
+        text: 'Mascota',
+        pathName: 'PetAddForm',
+        default: true,
+      },
+      {
+        icon: 'fitness_center',
+        text: 'Peso',
+        pathName: 'WeightForm',
+        default: false,
+      },
+      {
+        icon: 'medication',
+        text: 'Medicamento',
+        pathName: 'MedicinesAddForm',
+        default: false,
+      },
+      {
+        icon: 'vaccines',
+        text: 'Vacuna',
+        pathName: 'VaccineForm',
+        default: false,
+      },
+    ]
   }),
   mounted() {
     petServices.getOwnerPets()
