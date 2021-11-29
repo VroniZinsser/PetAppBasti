@@ -1,3 +1,120 @@
+.sr-only {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.v-dialog.v-dialog--active {
+  box-shadow: none;
+}
+
+.construction {
+  height: calc(100vh - 56px);
+}
+@media screen and (min-width: 768px) {
+  .construction {
+    height: calc(100vh - 64px);
+  }
+}
+.construction .construction-img {
+  max-width: 400px;
+  margin: auto;
+  opacity: 0.8;
+}
+.construction .info-container {
+  text-align: center;
+  max-width: 600px;
+  margin: 2em auto 0 auto;
+}
+
+/* ---- Floating button ---- */
+.float-circle-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background: #FFCE8D;
+  box-shadow: 0 0 6px rgba(51, 51, 51, 0.25);
+  border-radius: 100px;
+  position: fixed;
+  right: 1rem;
+  bottom: 4.5rem;
+  z-index: 180;
+  transition: background-color 300ms;
+  color: #333333;
+}
+.float-circle-btn .material-icons {
+  font-size: 2rem;
+}
+
+.float-circle-btn.link {
+  background: #EFE5DC;
+  position: static;
+}
+.float-circle-btn.link:not(.default) {
+  padding: 8px;
+}
+.float-circle-btn.link:not(.default) .material-icons {
+  font-size: 1.8rem;
+}
+
+/* ---- Floating button list ---- */
+.v-dialog > .floating-links-list {
+  list-style: none;
+  width: auto;
+  display: flex;
+  flex-direction: column-reverse;
+  position: fixed;
+  right: 1rem;
+  bottom: 4.5rem;
+}
+.v-dialog > .floating-links-list li:not(:first-of-type) {
+  margin-bottom: 8px;
+}
+.v-dialog > .floating-links-list li a {
+  color: #FFFFFF;
+  text-decoration: none;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.v-dialog > .floating-links-list li a > span {
+  text-align: right;
+}
+.v-dialog > .floating-links-list li a .float-circle-btn {
+  margin-left: 1.25rem;
+}
+.v-dialog > .floating-links-list li a .float-circle-btn:not(.default) {
+  margin-left: 1.5rem;
+  margin-right: 4px;
+}
+
+@media screen and (min-width: 992px) {
+  /* ---- Floating button ---- */
+  .float-circle-btn {
+    right: 5rem;
+    bottom: 2rem;
+  }
+  .float-circle-btn:hover, .float-circle-btn:focus {
+    background: #D38462;
+  }
+
+  /* ---- Floating button list ---- */
+  .v-dialog > .floating-links-list {
+    right: 5rem;
+    bottom: 2rem;
+  }
+  .v-dialog > .floating-links-list a:hover > span, .v-dialog > .floating-links-list a:focus > span {
+    text-decoration: underline;
+  }
+  .v-dialog > .floating-links-list a:hover .float-circle-btn, .v-dialog > .floating-links-list a:focus .float-circle-btn {
+    background: #D38462;
+  }
+}
 .card {
   padding: 16px;
   background: white;
