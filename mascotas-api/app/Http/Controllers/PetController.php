@@ -82,11 +82,13 @@ class PetController extends Controller
      * Updates a pet with the given id
      *
      * @param AddRequest $request
+     * @param int $pet_id
      * @return JsonResponse
      */
     public function updatePet(AddRequest $request, int $pet_id): JsonResponse
     {
         $user_id = Auth::user()->id;
+
         if (!$this->petRepository->isOwner($user_id, $pet_id)) {
             return $this->denyPermission();
         }
@@ -194,6 +196,7 @@ class PetController extends Controller
         if (!$this->petRepository->isOwner(Auth::user()->id, $pet_id)) {
             return $this->denyPermission();
         }
+
         $this->petRepository->delete($pet_id);
 
         return response()->json([

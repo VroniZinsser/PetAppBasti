@@ -49,10 +49,11 @@ const petServices = {
      * @param {string} data.temperament
      * @param {int} data.sex_id
      * @param {int} data.species_id
+     * @param pet_id
      * @returns {Promise<any>}
      */
-     updatePet(data, $pet_id) {
-        return fetch(`${API}mascotas/${$pet_id}`, {
+     updatePet(data, pet_id) {
+        return fetch(`${API}mascotas/${pet_id}`, {
             method: 'PUT',
             body: JSON.stringify(data),
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
@@ -66,8 +67,8 @@ const petServices = {
      * @param {int} pet_id
      * @returns {Promise<any>}
      */
-     deletePet($pet_id) {
-        return fetch(`${API}mascotas/${$pet_id}`, {
+     deletePet(pet_id) {
+        return fetch(`${API}mascotas/${pet_id}`, {
             method: 'DELETE',
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
             credentials: 'include'
