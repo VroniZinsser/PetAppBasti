@@ -122,7 +122,7 @@
     <v-btn
         type="submit"
         :disabled="loading"
-    >{{ this.pet ? 'Editar' : 'Agregar' }}
+    >Guardar
     </v-btn>
   </v-form>
 </template>
