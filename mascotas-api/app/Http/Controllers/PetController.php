@@ -100,6 +100,10 @@ class PetController extends Controller
         if ($photo = $request->get('photo')) {
             $image = $this->imageRepository->uploadImage($photo, 'pets/', 'Mascota ' . $request->get('name'));
             $dto->set_image_id($image->id);
+        }else{
+//            $pet = $this->petRepository->find($pet_id);
+
+            $dto->set_image_id($this->petRepository->find($pet_id)->images_id);
         }
 
         $pet = $this->petRepository->updateOrCreate($dto, $user_id);
