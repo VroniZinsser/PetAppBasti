@@ -23,7 +23,11 @@
         <PetDetail :pet="activePet" @deleted="refreshPets()"></PetDetail>
       </div>
 
-      <NoPet v-else></NoPet>
+      <div v-else>
+        <CircleButtonLinkList :button-link-data="[buttonLinkData[0]]"></CircleButtonLinkList>
+
+        <NoPet></NoPet>
+      </div>
     </div>
   </div>
 </template>
@@ -92,7 +96,7 @@ export default {
           this.pets = res.data.pets;
           this.activePet = res.data.pets[0];
           this.loading = false;
-          
+
           this.refreshButtonLinksData();
         });
   }
@@ -119,10 +123,12 @@ export default {
           });
     },
 
-    refreshButtonLinksData(){
-      this.buttonLinkData[1].pathParams.pet_id = this.activePet.id
-      this.buttonLinkData[2].pathParams.pet_id = this.activePet.id
-      this.buttonLinkData[3].pathParams.pet_id = this.activePet.id
+    refreshButtonLinksData() {
+      if (this.pathParams) {
+        this.buttonLinkData[1].pathParams.pet_id = this.activePet.id
+        this.buttonLinkData[2].pathParams.pet_id = this.activePet.id
+        this.buttonLinkData[3].pathParams.pet_id = this.activePet.id
+      }
     }
   }
 }
