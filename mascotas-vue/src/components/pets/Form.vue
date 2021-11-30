@@ -1,5 +1,9 @@
 <template>
-  <v-form method="post" action="mascotas/agregar" @submit.prevent="addPet">
+  <v-form
+      :method="this.pet ? 'PUT' : 'POST'"
+      :action="this.pet ? 'mascotas/editar' : 'mascotas/agregar'"
+      @submit.prevent="sendForm"
+  >
     <v-text-field
         type="text"
         required
@@ -83,10 +87,12 @@
     <fieldset>
       <legend>Sexo *</legend>
 
-      <v-radio-group v-model="formData.sex_id"
-                     :rules="[rules.obligatory]"
-                     :messages="errors.sex_id ? errors.sex_id[0] : ''"
-                     :error="errors.sex_id !== null">
+      <v-radio-group
+          v-model="formData.sex_id"
+          :rules="[rules.obligatory]"
+          :messages="errors.sex_id ? errors.sex_id[0] : ''"
+          :error="errors.sex_id !== null">
+
         <v-radio
             v-for="i in sexes"
             :key="i.id"
@@ -116,13 +122,13 @@
     <v-btn
         type="submit"
         :disabled="loading"
-    >Agregar
+    >{{ this.pet ? 'Editar' : 'Agregar' }}
     </v-btn>
   </v-form>
 </template>
 
 <script>
-import petServices from "../../../services/pets";
+import petServices from "../../services/pets";
 import store from "@/store";
 
 export default {
@@ -136,20 +142,23 @@ export default {
       type: Array,
       required: true,
     },
+    pet: {
+      type: Object
+    }
   },
   data: () => ({
     loading: false,
     photo: null,
     store,
     formData: {
-      breed: 'Akita Inu',
-      date_of_birth: '2021-10-06',
-      name: 'Hachi',
-      neutered: true,
+      breed: null,
+      date_of_birth: null,
+      name: null,
+      neutered: null,
       photo: null,
-      temperament: 'Amigable',
-      sex_id: 1,
-      species_id: 1,
+      temperament: null,
+      sex_id: null,
+      species_id: null,
     },
     errors: {
       breed: null,
@@ -180,55 +189,119 @@ export default {
       reader.readAsDataURL(this.photo);
     },
 
-    addPet() {
+    /**
+     * Submit the form and check if it is to edit the mascot or to create a new one.
+     */
+    sendForm() {
       this.loading = true;
 
       this.errors = {
         breed: null,
         date_of_birth: null,
         name: null,
-        neutered: null,
+        neutered: false,
         photo: null,
         temperament: null,
         sex_id: null,
         species_id: null,
       }
 
-      petServices.addPet(this.formData)
-          .then(res => {
-            this.loading = false;
-            if (!res.success) {
-              if (res.errors) {
-                this.errors = {
-                  breed: null,
-                  date_of_birth: null,
-                  name: null,
-                  neutered: null,
-                  photo: null,
-                  temperament: null,
-                  sex_id: null,
-                  species_id: null,
-                  ...res.errors
+
+      if (!this.pet) {
+        petServices.addPet(this.formData)
+            .then(res => {
+              this.loading = false;
+              if (!res.success) {
+                if (res.errors) {
+                  this.errors = {
+                    breed: null,
+                    date_of_birth: null,
+                    name: null,
+                    neutered: null,
+                    photo: null,
+                    temperament: null,
+                    sex_id: null,
+                    species_id: null,
+                    ...res.errors
+                  }
+
+                  this.store.setStatus({
+                    msg: "Por favor corregí los datos del formulario.",
+                    type: 'warning',
+                  });
+                } else {
+                  this.store.setStatus({
+                    msg: 'Algo salió mal. Tu mascota no se guardó.',
+                    type: 'error',
+                  });
                 }
-                this.store.setStatus({
-                  msg: "Por favor corregí los datos del formulario.",
-                  type: 'warning',
-                });
               } else {
                 this.store.setStatus({
-                  msg: 'Algo salió mal. Tu mascota no se guardó.',
-                  type: 'error',
+                  msg: '¡Muy bien! Tu mascota está guardada.',
+                  type: 'success',
                 });
+
+                this.$router.push('/mascotas');
               }
-            } else {
-              this.store.setStatus({
-                msg: '¡Muy bien! Tu mascota está guardada.',
-                type: 'success',
-              });
-              this.$router.push('/mascotas');
-            }
-          })
+            })
+      } else {
+        petServices.updatePet(this.formData, this.pet.id)
+            .then(res => {
+              this.loading = false;
+              if (!res.success) {
+                if (res.errors) {
+                  this.errors = {
+                    breed: null,
+                    date_of_birth: null,
+                    name: null,
+                    neutered: null,
+                    photo: null,
+                    temperament: null,
+                    sex_id: null,
+                    species_id: null,
+                    ...res.errors
+                  }
+
+                  this.store.setStatus({
+                    msg: "Por favor corregí los datos del formulario.",
+                    type: 'warning',
+                  });
+                } else {
+                  this.store.setStatus({
+                    msg: 'Algo salió mal. No se guardaron los cambios.',
+                    type: 'error',
+                  });
+                }
+              } else {
+                this.store.setStatus({
+                  msg: '¡Muy bien! Cambios guardados con éxito.',
+                  type: 'success',
+                });
+
+                this.$router.push('/mascotas');
+              }
+            })
+      }
     }
   },
+  mounted() {
+    if (this.pet) {
+      this.formData = {
+        breed: null,
+        date_of_birth: null,
+        name: null,
+        neutered: this.pet.neutered === 1,
+        photo: null,
+        temperament: null,
+        sex_id: this.pet.sexes_id,
+        species_id: null,
+        ...this.pet
+      }
+    }
+
+    if (!this.formData.neutered) {
+      this.formData.neutered = false
+    }
+  }
 }
 </script>

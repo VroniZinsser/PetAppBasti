@@ -38,7 +38,9 @@
     </div>
 
     <div class="pet-profile-footer">
-      <a href="#">Editar perfil</a>
+      <router-link :to="{name: 'PetEditForm', params: {'pet_id': this.pet.id}}">
+        Editar perfil
+      </router-link>
     </div>
   </div>
 </template>
@@ -56,7 +58,8 @@ export default {
   },
   data() {
     return {
-    formatted_date_of_birth: formatDate(this.pet.date_of_birth),
-  }}
+      formatted_date_of_birth: formatDate(this.pet.date_of_birth),
+    }
+  }
 }
 </script>

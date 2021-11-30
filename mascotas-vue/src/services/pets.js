@@ -15,6 +15,20 @@ const petServices = {
     },
 
     /**
+     * Search for a pet and return its data
+     *
+     * @param {string | int} pet_id
+     * @returns {Promise<any>}
+     */
+    find(pet_id) {
+        return fetch(`${API}mascotas/${pet_id}`, {
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
+        })
+            .then(res => res.json());
+    },
+
+    /**
      * Add the pet to the database
      *
      * @param {{}} data
@@ -52,7 +66,7 @@ const petServices = {
      * @param pet_id
      * @returns {Promise<any>}
      */
-     updatePet(data, pet_id) {
+    updatePet(data, pet_id) {
         return fetch(`${API}mascotas/${pet_id}`, {
             method: 'PUT',
             body: JSON.stringify(data),
@@ -67,7 +81,7 @@ const petServices = {
      * @param {int} pet_id
      * @returns {Promise<any>}
      */
-     deletePet(pet_id) {
+    deletePet(pet_id) {
         return fetch(`${API}mascotas/${pet_id}`, {
             method: 'DELETE',
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
@@ -130,7 +144,7 @@ const petServices = {
      * @param petId
      * @returns {Promise<any>}
      */
-     getVaccines(petId) {
+    getVaccines(petId) {
         return fetch(`${API}mascotas/${petId}/vacunas`, {
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
         }).then(res => res.json());
@@ -142,7 +156,7 @@ const petServices = {
      * @param petId
      * @returns {Promise<any>}
      */
-     getWeights(petId) {
+    getWeights(petId) {
         return fetch(`${API}mascotas/${petId}/pesos`, {
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
         }).then(res => res.json());
