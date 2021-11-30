@@ -1,3 +1,115 @@
+/* ---- Floating button ---- */
+
+.float-circle-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+
+  background: $yellow;
+  box-shadow: 0 0 6px rgba(51, 51, 51, 0.25);
+  border-radius: 100px;
+
+  position: fixed;
+  right: 1rem;
+  bottom: 4.5rem;
+  z-index: 180;
+
+  transition: background-color 300ms;
+
+  color: $black-gray;
+
+  .material-icons {
+    font-size: 2rem;
+  }
+}
+
+.float-circle-btn.link {
+  background: $white-gray;
+  position: static;
+
+  &:not(.default) {
+    padding: 8px;
+
+    .material-icons {
+      font-size: 1.8rem;
+    }
+  }
+}
+
+/* ---- Floating button list ---- */
+
+.v-dialog > .floating-links-list {
+  list-style: none;
+  width: auto;
+
+  display: flex;
+  flex-direction: column-reverse;
+
+  position: fixed;
+  right: 1rem;
+  bottom: 4.5rem;
+
+  li {
+    &:not(:first-of-type) {
+      margin-bottom: 8px;
+    }
+
+    a {
+      color: #FFFFFF;
+      text-decoration: none;
+
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      > span {
+        text-align: right;
+      }
+
+      .float-circle-btn {
+        margin-left: 1.25rem;
+
+        &:not(.default) {
+          margin-left: 1.5rem;
+          margin-right: 4px;
+        }
+      }
+    }
+  }
+}
+
+@include desktop-up {
+  /* ---- Floating button ---- */
+
+  .float-circle-btn {
+    right: 5rem;
+    bottom: 2rem;
+
+    &:hover, &:focus {
+      background: $clay;
+    }
+  }
+
+  /* ---- Floating button list ---- */
+
+  .v-dialog > .floating-links-list {
+    right: 5rem;
+    bottom: 2rem;
+
+    a:hover, a:focus {
+      > span {
+        text-decoration: underline;
+      }
+
+      .float-circle-btn {
+        background: $clay;
+      }
+    }
+  }
+}
+
 .drop-drown-container {
   width: auto;
 }
