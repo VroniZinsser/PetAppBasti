@@ -1,19 +1,20 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import UserCreateForm from "../views/users/CreateForm";
-import Login from "../views/Auth/Login";
-import PetAddForm from "../views/pets/AddForm";
+import authService from "../services/auth";
 import Explore from "../views/explore/Explore"
-import Pets from "../views/pets/Pets";
+import Home from '../views/Home.vue'
+import Inbox from "../views/inbox/Inbox";
+import Login from "../views/Auth/Login";
+import MedicinesAddForm from "../views/pets/medicines/MedicinesAddForm";
 import ObservationForm from "../views/pets/ObservationForm"
+import OwnerSingUp from "../views/Auth/sing-up/OwnerSingUp";
+import Pets from "../views/pets/Pets";
+import PetAddForm from "../views/pets/AddForm";
+import PetEditForm from "../views/pets/EditForm";
+import ProfessionalSingUp from "../views/users/ProfessionalSingUp";
+import Schedule from "../views/schedule/Schedule";
 import VaccineForm from "../views/pets/VaccineForm";
 import WeightForm from "../views/pets/WeightForm";
-import MedicinesAddForm from "../views/pets/medicines/MedicinesAddForm";
-import authService from "../services/auth";
-import OwnerSingUp from "../views/Auth/sing-up/OwnerSingUp";
-import Schedule from "../views/schedule/Schedule";
-import Inbox from "../views/inbox/Inbox";
 
 Vue.use(VueRouter)
 
@@ -22,66 +23,6 @@ const routes = [
         path: '/',
         name: 'Home',
         component: Home
-    },
-    {
-        path: '/usuarios/crear-profesional',
-        name: 'UserCreate',
-        component: UserCreateForm,
-        meta: {
-            requiresGuest: true,
-            role: 'professional'
-        }
-    },
-    {
-        path: '/mascotas',
-        name: 'Pets',
-        component: Pets,
-        meta: {
-            requiresAuth: true,
-        },
-    },
-
-    {
-        path: '/mascotas/agregar',
-        name: 'PetAddForm',
-        component: PetAddForm,
-        meta: {
-            requiresAuth: true,
-        },
-    },
-    // TODO: Add this route for single profile of a pet
-    // {
-    //     path: '/mascotas/:petsId',
-    //     name: 'PetProfile',
-    //     component: PetProfile,
-    //     meta: {
-    //         requiresAuth: true,
-    //     },
-    // },
-
-    {
-        path: '/mascotas/:pet_id/observacion/nuevo',
-        name: 'ObservationForm',
-        component: ObservationForm,
-        meta: {
-            requiresAuth: true,
-        },
-    },
-    {
-        path: '/mascotas/:pet_id/pesos/nuevo',
-        name: 'WeightForm',
-        component: WeightForm,
-        meta: {
-            requiresAuth: true,
-        },
-    },
-    {
-        path: '/explorar',
-        name: 'Explore',
-        component: Explore,
-        meta: {
-            requiresAuth: true,
-        }
     },
     {
         path: '/agenda',
@@ -100,29 +41,11 @@ const routes = [
         }
     },
     {
-        path: '/mascotas/:pet_id/vacunas/nuevo',
-        name: 'VaccineForm',
-        component: VaccineForm,
+        path: '/explorar',
+        name: 'Explore',
+        component: Explore,
         meta: {
             requiresAuth: true,
-        },
-    },
-    {
-        path: '/mascotas/:pet_id/medicamentos/agregar',
-        name: 'MedicinesAddForm',
-        component: MedicinesAddForm,
-        meta: {
-            requiresAuth: true,
-        },
-    },
-    {
-        path: '/about',
-        name: 'About',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: function () {
-            return import(/* webpackChunkName: "about" */ '../views/About.vue')
         }
     },
     {
@@ -140,6 +63,71 @@ const routes = [
         meta: {
             requiresGuest: true,
         }
+    },
+    {
+        path: '/registrarme/profesional',
+        name: 'UserCreate',
+        component: ProfessionalSingUp,
+        meta: {
+            requiresGuest: true,
+            role: 'professional'
+        }
+    },
+    {
+        path: '/mascotas',
+        name: 'Pets',
+        component: Pets,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/mascotas/agregar',
+        name: 'PetAddForm',
+        component: PetAddForm,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/mascotas/:pet_id/editar',
+        name: 'PetEditForm',
+        component: PetEditForm,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/mascotas/:pet_id/medicamentos/agregar',
+        name: 'MedicinesAddForm',
+        component: MedicinesAddForm,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/mascotas/:pet_id/observacion',
+        name: 'ObservationForm',
+        component: ObservationForm,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/mascotas/:pet_id/pesos/agregar',
+        name: 'WeightForm',
+        component: WeightForm,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/mascotas/:pet_id/vacunas/agregar',
+        name: 'VaccineForm',
+        component: VaccineForm,
+        meta: {
+            requiresAuth: true,
+        },
     },
 ]
 
@@ -160,7 +148,7 @@ router.beforeEach((to, from, next) => {
         } else {
             next()
         }
-    }else{
+    } else {
         next()
     }
 });
