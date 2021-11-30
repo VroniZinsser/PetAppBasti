@@ -42,24 +42,28 @@ export default {
         icon: 'pets',
         text: 'Mascota',
         pathName: 'PetAddForm',
+        pathParams: {},
         default: true,
       },
       {
         icon: 'fitness_center',
         text: 'Peso',
         pathName: 'WeightForm',
+        pathParams: {pet_id: null},
         default: false,
       },
       {
         icon: 'medication',
         text: 'Medicamento',
         pathName: 'MedicinesAddForm',
+        pathParams: {pet_id: null},
         default: false,
       },
       {
         icon: 'vaccines',
         text: 'Vacuna',
         pathName: 'VaccineForm',
+        pathParams: {pet_id: null},
         default: false,
       },
     ]
@@ -70,6 +74,10 @@ export default {
           this.pets = res.data.pets;
           this.activePet = res.data.pets[0];
           this.loading = false;
+
+          this.buttonLinkData[1].pathParams.pet_id = this.activePet.id
+          this.buttonLinkData[2].pathParams.pet_id = this.activePet.id
+          this.buttonLinkData[3].pathParams.pet_id = this.activePet.id
         });
   },
   methods: {

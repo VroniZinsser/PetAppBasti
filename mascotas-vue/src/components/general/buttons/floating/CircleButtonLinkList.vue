@@ -9,6 +9,7 @@
               :icon="data.icon"
               :link-text="data.text"
               :path-name="data.pathName"
+              :path-params="data.pathParams"
               :default="data.default"></CircleButtonLink>
         </li>
       </ul>
