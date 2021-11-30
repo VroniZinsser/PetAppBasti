@@ -1,13 +1,13 @@
 <template>
   <div>
-    <TitleBar title="Tus mascotas"></TitleBar>
-
     <BaseNotification
         v-if="store.status.msg != null"
         :type="store.status.type"
         :text="store.status.msg"
         :title="store.status.title"
     />
+
+    <TitleBar title="Tus mascotas"></TitleBar>
 
     <Loader v-if="loading"></Loader>
 
@@ -92,16 +92,16 @@ export default {
           this.pets = res.data.pets;
           this.activePet = res.data.pets[0];
           this.loading = false;
-
-          this.buttonLinkData[1].pathParams.pet_id = this.activePet.id
-          this.buttonLinkData[2].pathParams.pet_id = this.activePet.id
-          this.buttonLinkData[3].pathParams.pet_id = this.activePet.id
+          
+          this.refreshButtonLinksData();
         });
   }
   ,
   methods: {
     showPet(pet_id) {
       this.activePet = this.pets.find(pet => pet.id === pet_id);
+
+      this.refreshButtonLinksData();
     }
     ,
 
@@ -112,8 +112,17 @@ export default {
           .then(res => {
             this.pets = res.data.pets;
             this.activePet = res.data.pets[0];
+
+            this.refreshButtonLinksData();
+
             this.loading = false;
           });
+    },
+
+    refreshButtonLinksData(){
+      this.buttonLinkData[1].pathParams.pet_id = this.activePet.id
+      this.buttonLinkData[2].pathParams.pet_id = this.activePet.id
+      this.buttonLinkData[3].pathParams.pet_id = this.activePet.id
     }
   }
 }
