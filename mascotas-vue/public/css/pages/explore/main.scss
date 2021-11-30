@@ -1,0 +1,15 @@
+@import "explore-list";
+@import "map";
+
+.explore-container {
+    display: flex;
+    flex-direction: column;
+
+    @include tablet-up {
+        flex-direction: row-reverse;
+    }
+
+    .explore-list {
+        min-width: 280px;
+    }
+}

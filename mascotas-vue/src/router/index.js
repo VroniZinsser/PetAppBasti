@@ -4,7 +4,7 @@ import Home from '../views/Home.vue'
 import UserCreateForm from "../views/users/CreateForm";
 import Login from "../views/Auth/Login";
 import PetAddForm from "../views/pets/AddForm";
-import ShowMap from "../views/map/ShowMap"
+import Explore from "../views/explore/Explore"
 import Pets from "../views/pets/Pets";
 import ObservationForm from "../views/pets/ObservationForm"
 import VaccineForm from "../views/pets/VaccineForm";
@@ -76,9 +76,9 @@ const routes = [
         },
     },
     {
-        path: '/mapa',
-        name: 'ShowMap',
-        component: ShowMap,
+        path: '/explorar',
+        name: 'Explore',
+        component: Explore,
         meta: {
             requiresAuth: true,
         }

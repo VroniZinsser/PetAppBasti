@@ -75,7 +75,7 @@ export default {
         icon: 'event',
       },
       {
-        name: 'ShowMap',
+        name: 'Explore',
         text: 'Explorar',
         icon: 'search',
       },

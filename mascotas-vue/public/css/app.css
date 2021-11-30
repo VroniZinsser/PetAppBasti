@@ -85,6 +85,68 @@
   transition: top 0.1s ease-in;
 }
 
+.explore-list {
+  overflow-y: auto;
+  height: calc(100vh - 64px);
+}
+.explore-list h1 {
+  font-size: 1.375rem;
+  font-weight: bold;
+  padding: 1rem;
+}
+.explore-list > ul {
+  list-style: none;
+  padding-left: 0 !important;
+}
+.explore-list .card {
+  box-shadow: none;
+  border-radius: 0;
+  border-bottom: 1px solid rgba(51, 51, 51, 0.4);
+}
+.explore-list .card:first-child {
+  border-top: 1px solid rgba(51, 51, 51, 0.4);
+}
+.explore-list .card .professional-name {
+  margin-bottom: 0.5rem;
+}
+.explore-list .card .card-subtitle {
+  font-size: 0.875rem;
+  line-height: 160%;
+  opacity: 0.6;
+  margin: 0;
+}
+
+.map-container {
+  width: 100%;
+}
+
+.map-container-inner {
+  height: 80vh;
+}
+@media screen and (min-width: 768px) {
+  .map-container-inner {
+    height: calc(100vh - 56px);
+  }
+}
+@media screen and (min-width: 992px) {
+  .map-container-inner {
+    height: calc(100vh - 64px);
+  }
+}
+
+.explore-container {
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (min-width: 768px) {
+  .explore-container {
+    flex-direction: row-reverse;
+  }
+}
+.explore-container .explore-list {
+  min-width: 280px;
+}
+
 .pet-menu {
   padding: 12px 16px;
 }
