@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import authService from "../services/auth";
 import Explore from "../views/explore/Explore"
-import Home from '../views/Home.vue'
+// import Home from '../views/Home.vue'
 import Inbox from "../views/inbox/Inbox";
 import Login from "../views/Auth/Login";
 import MedicinesAddForm from "../views/pets/medicines/MedicinesAddForm";
@@ -22,7 +22,7 @@ const routes = [
     {
         path: '/',
         name: 'Home',
-        component: Home
+        component: Pets
     },
     {
         path: '/agenda',
