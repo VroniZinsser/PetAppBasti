@@ -14,6 +14,8 @@
     text-decoration: none;
     color: $black-gray !important;
 
+    transition: background-color 300ms;
+
     &:hover, &:focus {
         background: $clay;
     }

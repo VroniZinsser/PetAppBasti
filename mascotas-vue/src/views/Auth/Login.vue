@@ -1,6 +1,6 @@
 <template>
   <FormContainer
-    headline="Ingesar"
+    headline="Ingresar"
     form_class="form-login"
     :is_short_form="true"
   >

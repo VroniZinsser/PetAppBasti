@@ -61,9 +61,9 @@ $navbar-height-mobile: 56px;
 $navbar-height-desktop: 64px;
 
 @mixin fill-viewport-height-min {
-  min-height: calc(100vh - $navbar-height-mobile);
+  min-height: calc(100vh - 56px);
   
   @include desktop-up() {
-    min-height: calc(100vh - $navbar-height-desktop);
+    min-height: calc(100vh - 64px);
   }
 }
