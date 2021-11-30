@@ -1,12 +1,15 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="short-form-container">  
+    <div class="form-heading">
+      <h1>¿Cuánto pesa tu mascota?</h1>
+    </div>
     <BaseNotification
         v-if="store.status.msg != null"
         :type="store.status.type"
         :text="store.status.msg"
         :title="store.status.title"
     />
-    <h1>Agregar peso</h1>
+    <p>Si pesás a tu mascota regularmente será mucho más fácil llevar un control sobre su dieta.</p>
 
     <Form
         :pet_id="$route.params.pet_id"
