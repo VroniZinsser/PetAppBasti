@@ -6,8 +6,10 @@
         :text="store.status.msg"
         :title="store.status.title"
     />
+
     <div class="explore-container">
       <Map ref="hereMap"/>
+
       <ExploreList :professionals="professionals"></ExploreList>
     </div>
   </div>
