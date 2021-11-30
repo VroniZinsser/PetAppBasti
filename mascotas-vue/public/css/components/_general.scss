@@ -6,6 +6,22 @@
     }
 }
 
+@mixin button-main {
+  background: $yellow;
+  box-shadow: $shadow-x0-y4;
+  border-radius: 4px;
+  padding: 10px;
+  width: 100%;
+  font-weight: bold;
+  line-height: 23px;
+  text-transform: initial;
+  font-size: 16px;
+
+  @include tablet-up {
+    max-width: 250px;
+  }
+}
+
 .card {
   padding: 16px;
   background: white;

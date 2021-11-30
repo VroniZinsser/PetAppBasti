@@ -15,7 +15,7 @@
         required
     ></InputText>
 
-    <v-btn type="submit" :disabled="loading">Guardar</v-btn>
+    <button type="submit" :disabled="loading">Guardar</button>
   </v-form>
 </template>
 <script>

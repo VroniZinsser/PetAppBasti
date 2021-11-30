@@ -113,11 +113,11 @@
         :disabled="loading"
     ></v-file-input>
 
-    <v-btn
+    <button
         type="submit"
         :disabled="loading"
     >Agregar
-    </v-btn>
+    </button>
   </v-form>
 </template>
 

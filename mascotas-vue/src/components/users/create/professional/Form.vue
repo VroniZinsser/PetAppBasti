@@ -202,7 +202,7 @@
         ></InputText>
       </fieldset>
 
-      <v-btn type="submit">Crear cuenta</v-btn>
+      <button type="submit">Crear cuenta</button>
     </v-container>
   </v-form>
 </template>
