@@ -2,6 +2,8 @@
   <div class="pet-profile">
     <div class="pet-profile-header">
       <h2>Perfil</h2>
+
+      <Dropdown @deletePet="deletePet()"></Dropdown>
     </div>
 
     <div class="pet-profile-body">
@@ -47,9 +49,13 @@
 
 <script>
 import {formatDate} from "../../../helpers";
+import Dropdown from "../../general/buttons/Dropdown";
+import petServices from "../../../services/pets";
+import store from "../../../store";
 
 export default {
   name: "PetProfile",
+  components: {Dropdown},
   props: {
     pet: {
       type: Object,
@@ -58,7 +64,28 @@ export default {
   },
   data() {
     return {
+      store,
       formatted_date_of_birth: formatDate(this.pet.date_of_birth),
+    }
+  },
+  methods: {
+    deletePet() {
+      petServices.deletePet(this.pet.id)
+          .then(res => {
+            if (!res.success) {
+              this.store.setStatus({
+                msg: 'Algo salió mal. No se pudo eliminar la mascota.',
+                type: 'error',
+              });
+            } else {
+              this.store.setStatus({
+                msg: 'Mascota eliminada con éxito',
+                type: 'success',
+              });
+            }
+
+            this.$emit('deleted');
+          })
     }
   }
 }
