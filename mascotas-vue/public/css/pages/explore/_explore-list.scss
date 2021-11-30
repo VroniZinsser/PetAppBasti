@@ -1,23 +1,37 @@
 .explore-list {
-    h2 {
-        margin: 1em;
-    }
-    .card {
-        box-shadow: none;
-        border-bottom: 1px solid $gray;
-        border-radius: 0;
+  overflow-y: auto;
+  height: calc(100vh - 64px);
 
-        &:first-child {
-            border-top: 1px solid $gray;
-        }
-    
-        .card-title {
-            display: block;
-        }
-    
-        .card-subtitle {
-            opacity: .6;
-        }
+  h1 {
+    font-size: 1.375rem;
+    font-weight: bold;
+    padding: 1rem;
+  }
+
+  > ul {
+    list-style: none;
+    padding-left: 0 !important;
+  }
+
+  .card {
+    box-shadow: none;
+    border-radius: 0;
+    border-bottom: 1px solid rgba($black-gray, 0.4);
+
+    &:first-child {
+      border-top: 1px solid rgba($black-gray, 0.4);
     }
+
+    .professional-name {
+      margin-bottom: .5rem;
+    }
+
+    .card-subtitle {
+      font-size: 0.875rem;
+      line-height: 160%;
+      opacity: .6;
+      margin: 0;
+    }
+  }
 }
 

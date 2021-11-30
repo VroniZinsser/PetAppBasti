@@ -1,15 +1,16 @@
 <template>
     <div class="explore-list">
         <div>
-            <h2>Explorar</h2>
+            <h1>Explorar</h1>
         </div>
-        <div>
+
+        <ul>
             <ExploreListItem 
                 v-for="professional in professionals" 
                 :key="professional.id" 
                 :professional="professional">
             </ExploreListItem>
-        </div>
+        </ul>
     </div>
     
 </template>
