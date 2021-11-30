@@ -18,7 +18,7 @@ class CreateWeightsTable extends Migration
             $table->date('date');
             $table->unsignedInteger('weight');
             $table->unsignedBigInteger('pets_id');
-            $table->foreign('pets_id')->references('id')->on('pets');
+            $table->foreign('pets_id')->references('id')->on('pets')->onDelete('cascade');
             $table->timestamps();
         });
     }

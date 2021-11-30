@@ -18,7 +18,7 @@ class CreateVaccinesTable extends Migration
             $table->string('name', 60);
             $table->date('date');
             $table->unsignedBigInteger('pets_id');
-            $table->foreign('pets_id')->references('id')->on('pets');
+            $table->foreign('pets_id')->references('id')->on('pets')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -22,7 +22,7 @@ class CreateMedicinesTable extends Migration
             $table->unsignedBigInteger('pets_id');
             $table->timestamps();
 
-            $table->foreign('pets_id')->references('id')->on('pets');
+            $table->foreign('pets_id')->references('id')->on('pets')->onDelete('cascade');
         });
     }
 

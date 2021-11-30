@@ -25,6 +25,14 @@ class PetDTO extends BaseDTO
     }
 
     /**
+     * Sets the id of the pet
+     */
+    public function set_id($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * Get the value of breed
      */
     public function get_breed()

@@ -76,4 +76,14 @@ class PetService implements PetRepository
 
         return $pet;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function isOwner(int $user_id, int $pet_id): bool
+    {
+        $owner = Pet::find($pet_id)->owners()->find($user_id);
+
+        return $owner !== null;
+    }
 }
