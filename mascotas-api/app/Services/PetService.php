@@ -28,7 +28,8 @@ class PetService implements PetRepository
 
         $pet->save();
 
-        $pet->owners()->attach([$owner_id]);
+        if ($pet->id !== $dto->get_id())
+            $pet->owners()->attach([$owner_id]);
 
         return $pet;
     }
