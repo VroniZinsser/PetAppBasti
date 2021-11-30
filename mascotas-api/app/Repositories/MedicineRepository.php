@@ -7,7 +7,7 @@ use App\Models\Medicine;
 interface MedicineRepository
 {
     /**
-     * Add a new medication to a pet
+     * Creates, inserts and returns the medicine
      *
      * @param string $name
      * @param string $quantity
@@ -17,13 +17,34 @@ interface MedicineRepository
      * @param array $hours
      * @return Medicine
      */
-    public function add(string $name, string $quantity, string $start_date, string $end_date, int $pet_id, array $hours): Medicine;
+    public function create(string $name, string $quantity, string $start_date, string $end_date, int $pet_id, array $hours): Medicine;
 
     /**
-     * Returns all medicines that belong to a pet with the given id
-     * 
-     * @param int $petId
-     * @return Collection | []Vaccine
+     * Returns the medicine with the given id
+     *
+     * @param int $id
+     * @return Medicine
      */
-    public function getMedicinesByPet(int $petId): object;
+    public function find(int $id): Medicine;
+
+    /**
+     * Updates and returns the medicine with the given id
+     *
+     * @param int $id
+     * @param string $name
+     * @param string $quantity
+     * @param string $start_date
+     * @param string $end_date
+     * @param array $hours
+     * @return Medicine The updated medicine
+     */
+    public function update(int $id, string $name, string $quantity, string $start_date, string $end_date, array $hours): Medicine;
+
+    /**
+     * Deletes the medicine with the given id and returns true if deletion was successful
+     *
+     * @param int $id
+     * @return boolean success
+     */
+    public function delete(int $id): bool;
 }

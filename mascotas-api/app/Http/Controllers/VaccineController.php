@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\VaccineRequest;
 use App\Repositories\VaccineRepository;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class VaccineController extends Controller
 {
@@ -42,7 +41,7 @@ class VaccineController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => $vaccine,
+            'data' => compact('vaccine'),
         ]);
     }
 
@@ -70,8 +69,10 @@ class VaccineController extends Controller
      */
     public function updateVaccine(VaccineRequest $request, $vaccine_id): JsonResponse
     {
-        $vaccine = $this->vaccineRepository->update($vaccine_id, $request->get('name'), $request->get('date'), $request->get('pets_id'));
+        $vaccine = $this->vaccineRepository->update($vaccine_id, $request->get('name'), $request->get('date'));
+
         return response()->json([
+            'success' => true,
             'data' => compact('vaccine'),
         ]);
     }
@@ -85,6 +86,7 @@ class VaccineController extends Controller
     public function deleteVaccine($vaccine_id): JsonResponse
     {
         $this->vaccineRepository->delete($vaccine_id);
+
         return response()->json([
             'success' => true,
         ]);

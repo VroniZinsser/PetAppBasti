@@ -31,7 +31,7 @@
     </div>
 
     <div class="tab-item pet-profile" :class="{ 'show': isActive('pet-profile') }">
-      <PetProfile :pet="pet"></PetProfile>
+      <PetProfile :pet="pet" @deleted="$emit('deleted')"></PetProfile>
     </div>
   </div>
 </template>

@@ -27,7 +27,7 @@ import store from "@/store"
 import BaseNotification from "@/components/general/notifications/BaseNotification"
 
 export default {
-  name: "CreateForm",
+  name: "ProfessionalSingUp",
   components: {
     Form,
     BaseNotification,

@@ -11,9 +11,7 @@ class WeightController extends Controller
 {
     protected $weightRepository;
 
-    public function __construct(
-        WeightRepository $weightRepository
-    )
+    public function __construct(WeightRepository $weightRepository)
     {
         $this->weightRepository = $weightRepository;
     }
@@ -44,7 +42,7 @@ class WeightController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => $weight,
+            'data' => compact('weight')
         ]);
     }
 
@@ -58,8 +56,9 @@ class WeightController extends Controller
     public function findWeight($weight_id): JsonResponse
     {
         $weight = $this->weightRepository->find($weight_id);
+
         return response()->json([
-            'data' => compact('weight'),
+            'data' => compact('weight')
         ]);
     }
 
@@ -73,8 +72,10 @@ class WeightController extends Controller
     public function updateWeight(Request $request, $weight_id): JsonResponse
     {
         $weight = $this->weightRepository->update($weight_id, $request->get('date'), $request->get('weight'));
+
         return response()->json([
-            'data' => compact('weight'),
+            'success' => true,
+            'data' => compact('weight')
         ]);
     }
 
@@ -87,6 +88,7 @@ class WeightController extends Controller
     public function deleteWeight($weight_id): JsonResponse
     {
         $this->weightRepository->delete($weight_id);
+
         return response()->json([
             'success' => true,
         ]);
