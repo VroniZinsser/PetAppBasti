@@ -1,31 +1,25 @@
 <template>
-  <v-container fluid>
-    <BaseNotification
-        v-if="store.status.msg != null"
-        :type="store.status.type"
-        :text="store.status.msg"
-        :title="store.status.title"
-    />
-    <h1>Agregar observación</h1>
-
-    <Form :pet_id="$route.params.pet_id"></Form>
-  </v-container>
+  <FormContainer
+    headline="¿Hay algo que te llamó la atención?"
+    form_class="form-observation"
+    :is_short_form="true"
+  >
+    <p>Tu espacio libre para anotar observaciones acerca del comportamiento o la salud de tu mascota.</p>
+    <Form
+        :pet_id="$route.params.pet_id"
+    ></Form>
+  </FormContainer>
 </template>
 
 <script>
 import Form from "../../components/pets/observation/Form";
-import BaseNotification from "@/components/general/notifications/BaseNotification";
-import store from "@/store";
-
+import FormContainer from "../../components/general/forms/FormContainer";
 
 export default {
   name: "ObservationForm",
   components: {
     Form,
-    BaseNotification
+    FormContainer
   },
-  data: () => ({
-    store,
-  })
 }
 </script>

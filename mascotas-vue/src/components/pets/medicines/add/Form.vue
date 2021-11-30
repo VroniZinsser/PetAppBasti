@@ -57,7 +57,7 @@
         :error="errors.hours !== null"
     ></v-select>
 
-    <button type="submit" :disabled="loading">Agregar</button>
+    <button class="main-btn" type="submit" :disabled="loading">Agregar</button>
   </v-form>
 </template>
 

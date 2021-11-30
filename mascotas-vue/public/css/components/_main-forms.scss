@@ -1,5 +1,6 @@
 .form {
     @include fill-viewport-height-min;
+    padding-bottom: $navbar-height-mobile;
 
     @include tablet-up {
         background: linear-gradient(
@@ -9,6 +10,10 @@
         background-size: contain;
         background-position: center right;
         background-repeat: no-repeat;
+    }
+
+    @include desktop-up {
+        padding-bottom: 0;
     }
 
     .form-container {
@@ -36,7 +41,6 @@
 
         .form-body {
             padding: 1rem;
-            padding-top: 4rem;
         }
 
         .form-content {
@@ -45,6 +49,12 @@
             margin: 0 auto;
         }
 
+    }
+
+    &.short-form {
+        .form-body {
+            padding-top: 4rem;
+        }
     }
 }
 

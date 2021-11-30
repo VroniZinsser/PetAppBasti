@@ -26,7 +26,7 @@
         @update-date="updateDate"
     ></InputDate>
 
-    <button type="submit" :disabled="loading">Guardar</button>
+    <button class="main-btn" type="submit" :disabled="loading">Agregar</button>
   </v-form>
 </template>
 <script>

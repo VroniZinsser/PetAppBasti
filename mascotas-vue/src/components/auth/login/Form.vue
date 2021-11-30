@@ -24,7 +24,7 @@
         :errors="errors.password"
     ></InputText>
 
-    <v-btn type="submit" :disabled="loading">Iniciar sesión</v-btn>
+    <button class="main-btn" type="submit" :disabled="loading">Iniciar sesión</button>
   </v-form>
 </template>
 

@@ -1,12 +1,9 @@
 <template>
-  <v-container fluid>
-    <BaseNotification
-        v-if="store.status.msg != null"
-        :type="store.status.type"
-        :text="store.status.msg"
-        :title="store.status.title"
-    />
-    <h1>Agregar mascota</h1>
+  <FormContainer
+    headline="Agregar una nueva mascota"
+    form_class="form-pet"
+    :is_short_form="false"
+  >
 
     <p v-if="loading">Cargando...</p>
 
@@ -14,26 +11,24 @@
           :sexes="sexes"
           :species="species"
     ></Form>
-  </v-container>
+  </FormContainer>
 </template>
 
 <script>
 import Form from "../../components/pets/add/Form";
+import FormContainer from "../../components/general/forms/FormContainer";
 import petServices from "../../services/pets";
-import BaseNotification from "@/components/general/notifications/BaseNotification";
-import store from "@/store";
 
 export default {
   name: "CreateForm",
   components: {
     Form,
-    BaseNotification,  
+    FormContainer,
   },
   data: () => ({
     loading: true,
     sexes: [],
     species: [],
-    store,
   }),
   mounted() {
     petServices.createForm()
