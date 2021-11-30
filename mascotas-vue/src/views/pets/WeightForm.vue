@@ -1,20 +1,28 @@
 <template>
-  <v-container fluid class="short-form-container">  
-    <div class="form-heading">
-      <h1>¿Cuánto pesa tu mascota?</h1>
-    </div>
-    <BaseNotification
-        v-if="store.status.msg != null"
-        :type="store.status.type"
-        :text="store.status.msg"
-        :title="store.status.title"
-    />
-    <p>Si pesás a tu mascota regularmente será mucho más fácil llevar un control sobre su dieta.</p>
+  <div class="form form-weight short-form">
+    <div class="form-container">
+      <div class="form-header">
+        <div class="form-content">
+          <h1>¿Cuánto pesa tu mascota?</h1>
+        </div>
+      </div>
+      <div class="form-body">
+        <div class="form-content">
+          <BaseNotification
+            v-if="store.status.msg != null"
+            :type="store.status.type"
+            :text="store.status.msg"
+            :title="store.status.title"
+          />
+          <p>Si pesás a tu mascota regularmente será mucho más fácil llevar un control sobre su dieta.</p>
 
-    <Form
-        :pet_id="$route.params.pet_id"
-    ></Form>
-  </v-container>
+          <Form
+              :pet_id="$route.params.pet_id"
+          ></Form>
+        </div>
+      </div>
+    </div>  
+  </div>
 </template>
 
 <script>
