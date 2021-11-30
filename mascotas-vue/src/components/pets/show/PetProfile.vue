@@ -36,10 +36,10 @@
         </li>
       </ul>
     </div>
-
+    
     <div class="pet-profile-footer">
-      <a href="#">Editar perfil</a>
-    </div>
+        <a href="#" class="main-btn">Editar perfil</a>
+    </div>      
   </div>
 </template>
 

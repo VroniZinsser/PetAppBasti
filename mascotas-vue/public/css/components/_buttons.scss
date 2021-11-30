@@ -1,0 +1,20 @@
+.main-btn {
+    display: block;
+    background: $yellow;
+    box-shadow: $shadow-x0-y4;
+    border-radius: 4px;
+    padding: .625rem;
+    width: 100%;
+
+    font-weight: bold;
+    line-height: 23px;
+    text-transform: initial;
+    font-size: 1rem;
+    text-align: center;
+    text-decoration: none;
+    color: $black-gray !important;
+
+    &:hover, &:focus {
+        background: $clay;
+    }
+}
