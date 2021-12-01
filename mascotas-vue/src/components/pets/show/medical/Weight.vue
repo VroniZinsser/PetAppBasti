@@ -8,9 +8,10 @@
             v-if="weights.length === 0"
             :img_src="placeholder.img_src"
             :text="placeholder.text"
-            :cta_url="placeholder.cta.url"
+            :path_name="placeholder.cta.path_name"
             :cta_text="placeholder.cta.text"
-            :pet_name="pet_name">
+            :pet_name="pet_name"
+            :pet_id="pet_id">
         </Placeholder>
         <div v-else class="medical-container-body">
             <ul>
@@ -34,6 +35,10 @@ export default {
         },
         pet_name: {
             type: String,
+            required: true,
+        },
+        pet_id: {
+            type: Number,
             required: true,
         }
     },
