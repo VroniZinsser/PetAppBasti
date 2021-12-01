@@ -151,6 +151,25 @@
                 order: -2;
                 width: 50%;
             }
+
+            ul {
+                @include reset-list;
+                margin-top: 2rem;
+                width: fit-content;
+                text-align: right;
+
+                li {
+                    margin-bottom: .33rem;
+                }
+            }
+
+            .current-weight {
+                font-size: 1.5rem;
+            }
+            .weight-date {
+                font-size: 12px;
+                opacity: 0.5;
+            }
         }
 
         &.observation {
