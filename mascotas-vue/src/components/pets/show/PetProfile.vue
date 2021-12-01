@@ -82,6 +82,7 @@ export default {
                 msg: 'Mascota eliminada con éxito',
                 type: 'success',
               });
+              this.store.setActivePet(null);
             }
 
             this.$emit('deleted');

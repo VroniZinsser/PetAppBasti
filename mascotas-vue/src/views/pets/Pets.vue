@@ -17,7 +17,7 @@
 
         <PetMenu
             :active="activePet.id"
-            :pets="pets" @show-pet="showPet"
+            :pets="pets" @show-pet="updateActivePet"
         ></PetMenu>
 
         <PetDetail :pet="activePet" @deleted="refreshPets()"></PetDetail>
@@ -91,33 +91,33 @@ export default {
     store
   }),
   mounted() {
-    petServices.getOwnerPets()
-        .then(res => {
-          this.pets = res.data.pets;
-          this.activePet = res.data.pets[0];
-          this.loading = false;
+    this.refreshPets();
+  },
 
-          this.refreshButtonLinksData();
-        });
-  }
-  ,
   methods: {
-    showPet(pet_id) {
+    /**
+     * set active pet to the given id, refresh buttons and update active pet in the store
+     */
+    updateActivePet(pet_id) {
       this.activePet = this.pets.find(pet => pet.id === pet_id);
-
       this.refreshButtonLinksData();
-    }
-    ,
+      this.store.setActivePet(pet_id);
+    },
 
+    /**
+     * Retrieve owners' pets from the server and update active pet
+     * with the petId saved in the store or otherwise with the first pet from the server response 
+     */
     refreshPets() {
       this.loading = true;
 
       petServices.getOwnerPets()
           .then(res => {
             this.pets = res.data.pets;
-            this.activePet = res.data.pets[0];
-
-            this.refreshButtonLinksData();
+            if (this.pets !== null && this.pets.length > 0) {
+              let activePetId = this.store.activePet.id ? this.store.activePet.id : res.data.pets[0].id;
+              this.updateActivePet(activePetId);
+            }
 
             this.loading = false;
           });
