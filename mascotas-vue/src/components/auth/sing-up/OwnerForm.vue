@@ -43,7 +43,7 @@
         @click:append="showPassword = !showPassword"
     ></InputText>
 
-    <v-btn type="submit" :disabled="loading">Crear cuenta</v-btn>
+    <button class="main-btn" type="submit" :disabled="loading">Crear cuenta</button>
   </v-form>
 </template>
 

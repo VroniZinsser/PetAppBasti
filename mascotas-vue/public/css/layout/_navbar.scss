@@ -7,7 +7,7 @@ header.theme--light.v-app-bar.v-toolbar.v-sheet {
   bottom: 0;
   top: auto;
   box-shadow: $shadow-x0-y-4;
-  max-height: 64px;
+  max-height: $navbar-height-desktop;
 
   .v-toolbar__content {
     padding: 0;

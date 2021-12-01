@@ -8,8 +8,9 @@
   >
     <template v-slot:activator="{ on }">
       <v-text-field
+          outlined
           v-model="dateFormatted"
-          prepend-icon="mdi-calendar"
+          prepend-inner-icon="mdi-calendar"
           v-bind="$attrs"
           v-on="on"
           :id="identifier"
@@ -18,6 +19,7 @@
           :error="errors !== null"
           :messages="errors ? errors[0] : ''"
           :disabled="loading"
+          color="#3fb094"
       ></v-text-field>
     </template>
     <v-date-picker

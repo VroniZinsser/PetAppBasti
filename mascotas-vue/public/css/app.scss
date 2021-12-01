@@ -5,6 +5,7 @@
 @import "components/general";
 @import "components/image-source-notification";
 @import "components/loader";
+@import "components/main-forms";
 @import "components/no-pet";
 @import "components/skip-to-content";
 @import "pages/explore/main";
@@ -14,4 +15,11 @@
 
 * {
   font-family: 'Jost', sans-serif;
+}
+
+.v-main__wrap{
+  min-height: 100%;
+  >div{
+    min-height: 100%;
+  }
 }

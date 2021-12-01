@@ -1,41 +1,34 @@
 <template>
-  <v-container fluid>
-    <BaseNotification
-        v-if="store.status.msg != null"
-        :type="store.status.type"
-        :text="store.status.msg"
-        :title="store.status.title"
-    />
-
-    <h1>Crear Usuario</h1>
-
+  <FormContainer
+    headline="Registrarme"
+    form_class="form-signup-professional"
+    :is_short_form="false"
+  >
     <p v-if="loading">Cargando...</p>
 
     <Form
         v-else-if="this.$route.meta.role === 'professional'"
         :user_types="user_types">
     </Form>
-  </v-container>
+  </FormContainer>
 
 </template>
 
 <script>
 
 import Form from "@/components/users/create/professional/Form";
+import FormContainer from "../../components/general/forms/FormContainer";
 import userService from "@/services/users"
-import store from "@/store"
-import BaseNotification from "@/components/general/notifications/BaseNotification"
 
 export default {
   name: "ProfessionalSingUp",
   components: {
     Form,
-    BaseNotification,
+    FormContainer,
   },
   data: () => ({
     loading: true,
     user_types: [],
-    store,
   }),
   mounted() {
     userService.createForm()

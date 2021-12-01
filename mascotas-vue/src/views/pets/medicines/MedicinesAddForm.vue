@@ -1,40 +1,35 @@
 <template>
-  <v-container fluid>
-    <BaseNotification
-        v-if="store.status.msg != null"
-        :type="store.status.type"
-        :text="store.status.msg"
-        :title="store.status.title"
-    />
-    <h1>Agregar un medicamento</h1>
-
+  <FormContainer
+    headline="Agregá un nuevo medicamento"
+    form_class="form-medicine"
+    :is_short_form="false"
+  >
+    <p>Podés agregar medicamentos actuales pero también medicamentos del pasado para tener un registro.</p>
     <p v-if="loading">Cargando...</p>
 
     <Form v-else
           :hours="hours"
           :pet_id="$route.params.pet_id">
     </Form>
-  </v-container>
+  </FormContainer>
 </template>
 
 <script>
 
 import Form from '@/components/pets/medicines/add/Form';
 import medicineServices from "@/services/medicines";
-import BaseNotification from "@/components/general/notifications/BaseNotification";
-import store from "@/store";
+import FormContainer from "@/components/general/forms/FormContainer";
 
 export default {
   name: "MedicinesAddForm",
   components: {
     Form,
-    BaseNotification
+    FormContainer,
   },
   data: function (){
     return {
       loading: true,
       hours: [],
-      store,
     }
   },
   mounted() {

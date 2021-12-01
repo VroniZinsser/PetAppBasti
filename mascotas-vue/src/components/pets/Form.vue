@@ -5,6 +5,7 @@
       @submit.prevent="sendForm"
   >
     <v-text-field
+        outlined
         type="text"
         required
         name="name"
@@ -16,9 +17,11 @@
         :messages="errors.name ? errors.name[0] : ''"
         :error="errors.name !== null"
         :disabled="loading"
+        color="#3fb094"
     ></v-text-field>
 
     <v-text-field
+        outlined
         type="text"
         required
         name="breed"
@@ -29,9 +32,11 @@
         :messages="errors.breed ? errors.breed[0] : ''"
         :error="errors.breed !== null"
         :disabled="loading"
+        color="#3fb094"
     ></v-text-field>
 
     <v-text-field
+        outlined
         type="text"
         required
         name="temperament"
@@ -42,6 +47,7 @@
         :messages="errors.temperament ? errors.temperament[0] : ''"
         :error="errors.temperament !== null"
         :disabled="loading"
+        color="#3fb094"
     ></v-text-field>
 
     <v-checkbox
@@ -53,9 +59,11 @@
         :messages="errors.neutered ? errors.neutered[0] : ''"
         :error="errors.neutered !== null"
         :disabled="loading"
+        color="#3fb094"
     ></v-checkbox>
 
     <v-text-field
+        outlined
         type="date"
         required
         name="date_of_birth"
@@ -66,9 +74,11 @@
         :messages="errors.date_of_birth ? errors.date_of_birth[0] : ''"
         :error="errors.date_of_birth !== null"
         :disabled="loading"
+        color="#3fb094"
     ></v-text-field>
 
     <v-select
+        outlined
         required
         name="species_id"
         id="species_id"
@@ -82,6 +92,7 @@
         :items="species"
         :item-text="'name'"
         :item-value="'id'"
+        color="#3fb094"
     ></v-select>
 
     <fieldset>
@@ -99,6 +110,7 @@
             :label="`${i.name}`"
             :value="i.id"
             :disabled="loading"
+            color="#3fb094"
         ></v-radio>
       </v-radio-group>
     </fieldset>
@@ -106,6 +118,7 @@
     <img :src="formData.photo" alt="Preview de la imagen" v-if="formData.photo">
 
     <v-file-input
+        outlined
         v-model="photo"
         ref="photo"
         show-size
@@ -117,13 +130,10 @@
         :messages="errors.photo ? errors.photo[0] : ''"
         :error="errors.photo !== null"
         :disabled="loading"
+        color="#3fb094"
     ></v-file-input>
 
-    <v-btn
-        type="submit"
-        :disabled="loading"
-    >Guardar
-    </v-btn>
+    <button class="main-btn" type="submit" :disabled="loading">Guardar</button>
   </v-form>
 </template>
 

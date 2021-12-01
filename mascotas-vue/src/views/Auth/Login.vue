@@ -1,35 +1,29 @@
 <template>
-  <v-container fluid>
-    <BaseNotification
-        v-if="store.status.msg != null"
-        :type="store.status.type"
-        :text="store.status.msg"
-        :title="store.status.title"
-    />
-
-    <h1>Ingresar</h1>
+  <FormContainer
+    headline="Ingresar"
+    form_class="form-login"
+    :is_short_form="true"
+  >
 
     <Form/>
     
-    <p>¿Todavía no tienes una cuenta? <router-link :to="{name: 'OwnerSingUp'}">Registrarme</router-link></p>
-  </v-container>
+    <p>¿Todavía no tenés una cuenta? <router-link :to="{name: 'OwnerSingUp'}">Registrarme</router-link></p>
+  </FormContainer>
 </template>
 
 <script>
 import Form from "@/components/auth/login/Form";
-import BaseNotification from "@/components/general/notifications/BaseNotification"
-import store from "@/store"
+import FormContainer from "../../components/general/forms/FormContainer";
 
 export default {
   name: "Login",
   components: {
     Form,
-    BaseNotification,
+    FormContainer,
   },
   data: () => ({
     loading: true,
     user_types: [],
-    store,
   }),
 }
 </script>

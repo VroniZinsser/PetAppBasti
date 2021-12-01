@@ -13,6 +13,8 @@
       :error="errors !== null"
       :messages="errors ? errors[0] : ''"
       :disabled="loading"
+      outlined
+      color="#3fb094"
   ></v-autocomplete>
 </template>
 

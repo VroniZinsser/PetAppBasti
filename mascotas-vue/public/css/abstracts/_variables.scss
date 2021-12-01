@@ -54,7 +54,20 @@ $shadow-x0-y2: 0px 2px 6px rgba(#333333, 0.15);
 }
 
 @mixin desktop-up {
-  @media screen and (min-width: 992px) {
-    @content;
+  @media screen and (min-width: 992px) { 
+    @content; 
+  }
+}
+
+// Heights
+
+$navbar-height-mobile: 56px;
+$navbar-height-desktop: 64px;
+
+@mixin fill-viewport-height-min {
+  min-height: calc(100vh - 56px);
+  
+  @include desktop-up() {
+    min-height: calc(100vh - 64px);
   }
 }

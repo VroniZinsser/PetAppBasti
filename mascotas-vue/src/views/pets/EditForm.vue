@@ -1,13 +1,9 @@
 <template>
-  <v-container fluid>
-    <BaseNotification
-        v-if="store.status.msg != null"
-        :type="store.status.type"
-        :text="store.status.msg"
-        :title="store.status.title"
-    />
-
-    <h1>Editar mascota</h1>
+  <FormContainer
+    headline="Editar mascota"
+    form_class="form-pet-edit"
+    :is_short_form="false"
+  >
 
     <Loader v-if="loading"></Loader>
 
@@ -16,24 +12,26 @@
           :species="species"
           :pet="pet"
     ></Form>
-  </v-container>
+  </FormContainer>
 </template>
 
 <script>
-import BaseNotification from "../../components/general/notifications/BaseNotification";
 import Form from "../../components/pets/Form";
+import FormContainer from "../../components/general/forms/FormContainer";
 import Loader from "../../components/general/notifications/Loader";
 import petServices from "../../services/pets";
-import store from "@/store";
 
 export default {
   name: "EditForm",
-  components: {Loader, BaseNotification, Form},
+  components: {
+    Loader, 
+    Form,
+    FormContainer,
+  },
   data: () => ({
     loading: true,
     sexes: [],
     species: [],
-    store,
     pet: null
   }),
 

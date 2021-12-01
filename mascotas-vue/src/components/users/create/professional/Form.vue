@@ -50,6 +50,7 @@
             :label="`Mostrar correo electrónico en mi perfil: ${user.email_visible ? 'Sí' : 'No'}`"
             hint="Si activás esta función, los clientes te podrán contactar por correo electrónico."
             persistent-hint
+            color="#3fb094"
         ></v-switch>
 
         <InputText
@@ -84,6 +85,7 @@
         <legend>Perfil público</legend>
 
         <v-select
+            outlined
             v-model="user.user_types"
             :items="user_types"
             :item-text="'name'"
@@ -95,6 +97,7 @@
             :error="errors.user_types !== null"
             :disabled="loading"
             :rules="[rules.selectionRequired]"
+            color="#3fb094"
         ></v-select>
 
         <InputText
@@ -126,6 +129,7 @@
         ></InputText>
 
         <v-file-input
+            outlined
             v-model="photo"
             required
             ref="photo"
@@ -139,9 +143,11 @@
             :messages="errors.photo ? errors.photo[0] : ''"
             :error="errors.photo !== null"
             :disabled="loading"
+            color="#3fb094"
         ></v-file-input>
 
         <v-textarea
+            outlined
             name="description"
             id="description"
             class="form-control"
@@ -151,6 +157,7 @@
             :error="errors.description !== null"
             :disabled="loading"
             placeholder="Hola, soy Martina y soy veterinaria con alma y corazón..."
+            color="#3fb094"
         ></v-textarea>
       </fieldset>
 
@@ -202,7 +209,7 @@
         ></InputText>
       </fieldset>
 
-      <v-btn type="submit">Crear cuenta</v-btn>
+      <button class="main-btn" type="submit">Crear cuenta</button>
     </v-container>
   </v-form>
 </template>
@@ -409,9 +416,5 @@ export default {
 </script>
 
 <style scoped>
-fieldset {
-  padding: 1em;
-  margin: 1em 0;
-}
 
 </style>

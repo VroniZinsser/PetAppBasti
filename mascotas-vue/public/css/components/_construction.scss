@@ -1,9 +1,5 @@
 .construction {
-    height: calc(100vh - 56px);
-
-    @include tablet-up {
-        height: calc(100vh - 64px);
-    }
+    @include fill-viewport-height-min;
 
     .construction-img {
         max-width: 400px;

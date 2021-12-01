@@ -1,32 +1,25 @@
 <template>
-  <v-container fluid>
-    <BaseNotification
-        v-if="store.status.msg != null"
-        :type="store.status.type"
-        :text="store.status.msg"
-        :title="store.status.title"
-    />
-    <h1>Agregar peso</h1>
-
+  <FormContainer
+    headline="¿Cuánto pesa tu mascota?"
+    form_class="form-weight"
+    :is_short_form="true"
+  >
+    <p>Si pesás a tu mascota regularmente será mucho más fácil llevar un control sobre su dieta.</p>
     <Form
         :pet_id="$route.params.pet_id"
     ></Form>
-  </v-container>
+  </FormContainer>
 </template>
 
 <script>
 import Form from "../../components/pets/weight/Form";
-import BaseNotification from "@/components/general/notifications/BaseNotification";
-import store from "@/store";
+import FormContainer from "../../components/general/forms/FormContainer";
 
 export default {
   name: "WeightForm",
   components: {
     Form,
-    BaseNotification,
+    FormContainer
   },
-  data: () => ({
-    store,
-  })
 }
 </script>
