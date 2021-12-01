@@ -104,6 +104,21 @@ class ImagesSeeder extends Seeder
                 'src' => 'credential.jpg',
                 'alt' => 'Foto del titulo del experto Zas Ara invalida',
             ],
+            [
+                'id' => 17,
+                'src' => $this->petPath . 'cat_cris_2.jpg',
+                'alt' => 'Foto del titulo del experto Zas Ara invalida',
+            ],
+            [
+                'id' => 18,
+                'src' => $this->petPath . 'cat_cris_1.jpg',
+                'alt' => 'Foto del titulo del experto Zas Ara invalida',
+            ],
+            [
+                'id' => 19,
+                'src' => $this->petPath . 'dog_cris.jpg',
+                'alt' => 'Foto del titulo del experto Zas Ara invalida',
+            ],
         ]);
     }
 }
