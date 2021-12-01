@@ -96,6 +96,11 @@ export default {
      * Logs out the user, and redirects to the login view
      */
     logout() {
+      this.store.setActivePet(null);
+      this.store.setStatus({
+        msg: 'Gracias y hasta la próxima',
+        type: 'success',
+      });
       authService.logout()
           .then(() => {
             this.dialog = false;

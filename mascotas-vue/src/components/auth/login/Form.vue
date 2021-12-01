@@ -84,6 +84,11 @@ export default {
                 this.formData.password = null;
               } else {
                 authService.saveAuthUser(res.data.user);
+                this.store.setStatus({
+                    msg: null,
+                    type: 'success',
+                    title: null
+                  });
 
                 this.$router.push({name: 'Pets'});
               }
