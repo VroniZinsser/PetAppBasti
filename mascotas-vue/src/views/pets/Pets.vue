@@ -124,7 +124,7 @@ export default {
     },
 
     refreshButtonLinksData() {
-      if (this.pathParams) {
+      if (this.pets !== null && this.pets.length > 0) {
         this.buttonLinkData[1].pathParams.pet_id = this.activePet.id
         this.buttonLinkData[2].pathParams.pet_id = this.activePet.id
         this.buttonLinkData[3].pathParams.pet_id = this.activePet.id
