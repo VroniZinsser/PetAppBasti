@@ -25,7 +25,7 @@ $shadow-x0-y2: 0px 2px 6px rgba(#333333, 0.15);
 
 @mixin reset-list {
   margin: 0;
-  padding: 0!important;
+  padding: 0 !important;
   list-style: none;
 }
 
@@ -48,11 +48,15 @@ $shadow-x0-y2: 0px 2px 6px rgba(#333333, 0.15);
 // Media queries
 
 @mixin tablet-up {
-  @media screen and (min-width: 768px) { @content; }
+  @media screen and (min-width: 768px) {
+    @content;
+  }
 }
 
 @mixin desktop-up {
-  @media screen and (min-width: 992px) { @content; }
+  @media screen and (min-width: 992px) { 
+    @content; 
+  }
 }
 
 // Heights

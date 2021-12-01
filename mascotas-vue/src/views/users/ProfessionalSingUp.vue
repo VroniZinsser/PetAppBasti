@@ -21,7 +21,7 @@ import FormContainer from "../../components/general/forms/FormContainer";
 import userService from "@/services/users"
 
 export default {
-  name: "CreateForm",
+  name: "ProfessionalSingUp",
   components: {
     Form,
     FormContainer,

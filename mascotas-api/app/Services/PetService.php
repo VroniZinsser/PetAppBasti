@@ -28,7 +28,8 @@ class PetService implements PetRepository
 
         $pet->save();
 
-        $pet->owners()->attach([$owner_id]);
+        if ($pet->id !== $dto->get_id())
+            $pet->owners()->attach([$owner_id]);
 
         return $pet;
     }
@@ -75,5 +76,15 @@ class PetService implements PetRepository
         $pet->save();
 
         return $pet;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isOwner(int $user_id, int $pet_id): bool
+    {
+        $owner = Pet::find($pet_id)->owners()->find($user_id);
+
+        return $owner !== null;
     }
 }

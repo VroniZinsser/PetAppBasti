@@ -76,7 +76,7 @@ export default {
       required: true
     },
     pet_id: {
-      type: String,
+      type: [Number, String],
       required: true,
     },
   },

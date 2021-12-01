@@ -7,112 +7,115 @@ $pet-img-max-width: 450px;
 $pet-img-max-height: 270px;
 
 .pet-detail {
-    @include tablet-up { 
-        display: grid;
-        grid-template-columns: 320px 1fr;
-        grid-template-areas: 
+  @include tablet-up {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    grid-template-areas:
             "pet-image      pet-medical-info"
             "pet-profile    pet-medical-info"
             ".              pet-medical-info";
-    }
-    .pet-medical-info {
-        grid-area: pet-medical-info;
-    }
-    .pet-profile {
-        grid-area: pet-profile;
-    }
-    .pet-image {
-        grid-area: pet-image;
-        position: relative;
-        max-width: $pet-img-max-width;
-        margin: auto;
+  }
 
-        img {
-            // keep aspect ratio of 0.6 
-            width: 100%;
-            height: 60vw;
-            max-width: $pet-img-max-width;
-            max-height: $pet-img-max-height;
-            object-fit: cover;
-            display: block;
+  .pet-medical-info {
+    grid-area: pet-medical-info;
+  }
 
-            @include tablet-up {
-                width: 320px;
-                height: 200px;
-            }
-        }
-        
-        .gender-icon-container {
-            position: absolute;
-            top: 0;
-            right: 0;
-            padding: 3px;
-            background: transparentize($white-gray-min, 0.1);
-            border-radius: 0px 0px 0px 4px;
+  .pet-profile {
+    grid-area: pet-profile;
+  }
 
-            span {
-                display: block;
-            }
-        }
+  .pet-image {
+    grid-area: pet-image;
+    position: relative;
+    max-width: $pet-img-max-width;
+    margin: auto;
+
+    img {
+      // keep aspect ratio of 0.6
+      width: 100%;
+      height: 60vw;
+      max-width: $pet-img-max-width;
+      max-height: $pet-img-max-height;
+      object-fit: cover;
+      display: block;
+
+      @include tablet-up {
+        width: 320px;
+        height: 200px;
+      }
     }
 
-    
+    .gender-icon-container {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 3px;
+      background: transparentize($white-gray-min, 0.1);
+      border-radius: 0px 0px 0px 4px;
 
-    .tab-button-container {
-        display: flex;
-        border-radius: 0px 0px 4px 4px;
-        box-shadow: $shadow-x0-y4;
-        
+      span {
+        display: block;
+      }
+    }
+  }
 
-        @include tablet-up {
-            display: none;
-        }
 
-        button {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            font-size: 18px;
+  .tab-button-container {
+    display: flex;
+    border-radius: 0px 0px 4px 4px;
+    box-shadow: $shadow-x0-y4;
 
-            &:first-child {
-                border-radius: 0px 0px 0px 4px;  
-                padding-left: 60px;
-            }
-            &:last-child {
-                border-radius: 0px 0px 4px 0px;
-                padding-right: 60px;
-            }
 
-            &.active {
-                @include link-active;
-            }
-
-            &:active {
-                background: $white-gray-min;
-            }
-        }
-        
+    @include tablet-up {
+      display: none;
     }
 
-    .tab-item {
-        display: none;
-        position: absolute;
-        width: 100%;
-        padding-bottom: $navbar-height-mobile;
+    button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
 
-        &.show {
-            display: block;
-        }
+      &:first-child {
+        border-radius: 0px 0px 0px 4px;
+        padding-left: 60px;
+      }
 
-        @include tablet-up {
-            display: block;
-            position: static;
-            margin-right: -15px;
-        }
-        
-        @include desktop-up {
-            padding-bottom: 0;
-        }
+      &:last-child {
+        border-radius: 0px 0px 4px 0px;
+        padding-right: 60px;
+      }
+
+      &.active {
+        @include link-active;
+      }
+
+      &:active {
+        background: $white-gray-min;
+      }
     }
-    
+
+  }
+
+  .tab-item {
+    display: none;
+    position: absolute;
+    width: 100%;
+    padding-bottom: 56px;
+
+    &.show {
+      display: block;
+    }
+
+    @include tablet-up {
+      display: block;
+      position: static;
+      margin-right: -15px;
+    }
+
+    @include desktop-up {
+      padding-bottom: 0;
+    }
+  }
+
 }

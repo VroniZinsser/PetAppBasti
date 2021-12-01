@@ -2,6 +2,8 @@
   <div class="pet-profile">
     <div class="pet-profile-header">
       <h2>Perfil</h2>
+
+      <Dropdown @deletePet="deletePet()"></Dropdown>
     </div>
 
     <div class="pet-profile-body">
@@ -38,16 +40,22 @@
     </div>
     
     <div class="pet-profile-footer">
-        <a href="#" class="main-btn">Editar perfil</a>
-    </div>      
+      <router-link :to="{name: 'PetEditForm', params: {'pet_id': this.pet.id}}" class="main-btn">
+        Editar perfil
+      </router-link>
+    </div>
   </div>
 </template>
 
 <script>
 import {formatDate} from "../../../helpers";
+import Dropdown from "../../general/buttons/Dropdown";
+import petServices from "../../../services/pets";
+import store from "../../../store";
 
 export default {
   name: "PetProfile",
+  components: {Dropdown},
   props: {
     pet: {
       type: Object,
@@ -56,7 +64,29 @@ export default {
   },
   data() {
     return {
-    formatted_date_of_birth: formatDate(this.pet.date_of_birth),
-  }}
+      store,
+      formatted_date_of_birth: formatDate(this.pet.date_of_birth),
+    }
+  },
+  methods: {
+    deletePet() {
+      petServices.deletePet(this.pet.id)
+          .then(res => {
+            if (!res.success) {
+              this.store.setStatus({
+                msg: 'Algo salió mal. No se pudo eliminar la mascota.',
+                type: 'error',
+              });
+            } else {
+              this.store.setStatus({
+                msg: 'Mascota eliminada con éxito',
+                type: 'success',
+              });
+            }
+
+            this.$emit('deleted');
+          })
+    }
+  }
 }
 </script>

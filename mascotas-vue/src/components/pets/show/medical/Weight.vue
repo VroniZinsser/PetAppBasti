@@ -2,7 +2,7 @@
     <div class="medical-container weight">
         <div class="medical-container-header">
             <span>Peso actual: </span>
-            <a v-if="weights.length > 0" href="#">Ver más</a>
+            <!-- <a v-if="weights.length > 0" href="#">Ver más</a> -->
         </div>
         <Placeholder 
             v-if="weights.length === 0"

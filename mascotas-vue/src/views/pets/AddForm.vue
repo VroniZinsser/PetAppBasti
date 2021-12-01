@@ -5,7 +5,7 @@
     :is_short_form="false"
   >
 
-    <p v-if="loading">Cargando...</p>
+    <Loader v-if="loading"></Loader>
 
     <Form v-else
           :sexes="sexes"
@@ -15,13 +15,15 @@
 </template>
 
 <script>
-import Form from "../../components/pets/add/Form";
+import Form from "../../components/pets/Form";
 import FormContainer from "../../components/general/forms/FormContainer";
 import petServices from "../../services/pets";
+import Loader from "../../components/general/notifications/Loader";
 
 export default {
   name: "CreateForm",
   components: {
+    Loader,
     Form,
     FormContainer,
   },
@@ -35,9 +37,8 @@ export default {
         .then(res => {
           this.sexes = res.data.sexes;
           this.species = res.data.species;
+          this.loading = false;
         });
-
-    this.loading = false;
   }
 }
 </script>

@@ -44,7 +44,7 @@ export default {
   },
   props: {
     pet_id: {
-      type: String,
+      type: [String, Number],
       required: true,
     },
   },

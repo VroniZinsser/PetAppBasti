@@ -85,7 +85,7 @@ export default {
               } else {
                 authService.saveAuthUser(res.data.user);
 
-                this.$router.push({name: 'Home'});
+                this.$router.push({name: 'Pets'});
               }
 
               this.loading = false

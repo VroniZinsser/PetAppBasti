@@ -2,7 +2,7 @@
     <div class="medical-container observation">
         <div class="medical-container-header">
             <h2>Notas</h2>
-            <a v-if="observation" href="#">Ver más</a>
+            <!-- <a v-if="observation" href="#">Ver más</a> -->
         </div>
         <Placeholder 
             v-if="!observation"

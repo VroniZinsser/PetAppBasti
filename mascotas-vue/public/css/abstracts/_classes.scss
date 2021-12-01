@@ -1,3 +1,7 @@
 .sr-only {
   @include sr-only
 }
+
+.v-dialog.v-dialog--active{
+  box-shadow: none;
+}

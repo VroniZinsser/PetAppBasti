@@ -47,4 +47,13 @@ interface PetRepository
      * @return boolean success
      */
     public function delete (int $id): bool;
+
+    /**
+     * Returns true if the given user id matches with the owners of the pet
+     *
+     * @param int $user_id
+     * @param int $pet_id
+     * @return boolean
+     */
+    public function isOwner(int $user_id, int $pet_id): Bool;
 }
