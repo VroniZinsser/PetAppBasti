@@ -85,6 +85,7 @@ export default {
                   msg: '¡La observación está guardada!',
                   type: 'success',
                 });
+                this.$router.push({name: 'Pets'});
               }
             })
       }

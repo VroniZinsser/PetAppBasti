@@ -169,6 +169,7 @@ export default {
                   msg: '¡El nuevo medicamento está guardado!',
                   type: 'success',
                 });
+                this.$router.push({name: 'Pets'});
               }
             })
 

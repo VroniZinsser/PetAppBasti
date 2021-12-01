@@ -116,6 +116,7 @@ export default {
                   msg: '¡La nueva vacuna está guardada!',
                   type: 'success',
                 });
+                this.$router.push({name: 'Pets'});
               }
             })
       }
