@@ -1,11 +1,6 @@
 <template>
   <div>
-    <BaseNotification
-        v-if="store.status.msg != null"
-        :type="store.status.type"
-        :text="store.status.msg"
-        :title="store.status.title"
-    />
+    
 
     <TitleBar title="Tus mascotas"></TitleBar>
 
@@ -19,6 +14,13 @@
             :active="activePet.id"
             :pets="pets" @show-pet="updateActivePet"
         ></PetMenu>
+
+        <BaseNotification
+        v-if="store.status.msg != null"
+        :type="store.status.type"
+        :text="store.status.msg"
+        :title="store.status.title"
+    />
 
         <PetDetail :pet="activePet" @deleted="refreshPets()"></PetDetail>
       </div>

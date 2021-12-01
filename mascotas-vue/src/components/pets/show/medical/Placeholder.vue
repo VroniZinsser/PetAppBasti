@@ -3,7 +3,6 @@
         <img :src="img_src" :alt="cta_text">
         <p>{{ replacePetName(text, pet_name) }}</p>
         <router-link :to="{name: this.path_name, params: { pet_id: this.pet_id }}">{{cta_text}}</router-link>
-        <!-- <a :href="cta_url" class="add-data-link">{{cta_text}}</a> -->
     </div>
 </template>
 <script>
