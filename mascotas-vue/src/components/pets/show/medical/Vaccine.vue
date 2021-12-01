@@ -2,7 +2,7 @@
     <div class="medical-container vaccine">
         <div class="medical-container-header">
             <h2>Vacunas</h2>
-            <a v-if="vaccines.length > 0" href="#">Ver más</a>
+            <!-- <a v-if="vaccines.length > 0" href="#">Ver más</a> -->
         </div>
         <Placeholder 
             v-if="vaccines.length === 0"

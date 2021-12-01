@@ -27,7 +27,7 @@ class MedicinesSeeder extends Seeder
             ],
             [
                 'id' => 2,
-                'name' => 'Aspirina',
+                'name' => 'Doxicilina',
                 'quantity' => '1/2 pastilla',
                 'start_date' => '2021/11/14',
                 'end_date' => '2021/11/14',
