@@ -6,7 +6,7 @@
       @submit.prevent="updateObservation"
   >
     <Textarea
-        label="Observación"
+        label="Nota"
         v-model="formData.observation"
         identifier="observation"
         :loading="loading"
@@ -97,7 +97,6 @@ export default {
   },
   mounted() {
     if(this.observation){
-      console.log("entre 2: " + this.observation)
       this.formData.observation = this.observation
     }
   }

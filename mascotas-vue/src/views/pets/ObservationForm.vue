@@ -35,7 +35,6 @@ export default {
         .then(res => {
           this.loading = false
           if (res.success) {
-            console.log("entre")
             this.observation = res.data.observation;
           }
         })
