@@ -1,13 +1,12 @@
 <template>
+  <Loader v-if="loading"></Loader>
   <FormContainer
     headline="Editar mascota"
     form_class="form-pet-edit"
     :is_short_form="false"
+    v-else
   >
-
-    <Loader v-if="loading"></Loader>
-
-    <Form v-else
+    <Form
           :sexes="sexes"
           :species="species"
           :pet="pet"
