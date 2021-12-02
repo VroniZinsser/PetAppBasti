@@ -146,7 +146,8 @@ const petServices = {
      */
     getVaccines(petId) {
         return fetch(`${API}mascotas/${petId}/vacunas`, {
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
         }).then(res => res.json());
     },
 
@@ -158,9 +159,17 @@ const petServices = {
      */
     getWeights(petId) {
         return fetch(`${API}mascotas/${petId}/pesos`, {
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
         }).then(res => res.json());
     },
+
+    getObservation(pet_id){
+        return fetch(`${API}mascotas/${pet_id}/observacion`, {
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
+        }).then(res => res.json());
+    }
 };
 
 export default petServices;

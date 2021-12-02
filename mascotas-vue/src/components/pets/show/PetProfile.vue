@@ -38,7 +38,7 @@
         </li>
       </ul>
     </div>
-    
+
     <div class="pet-profile-footer">
       <router-link :to="{name: 'PetEditForm', params: {'pet_id': this.pet.id}}" class="main-btn">
         Editar perfil
@@ -82,6 +82,7 @@ export default {
                 msg: 'Mascota eliminada con éxito',
                 type: 'success',
               });
+              this.store.setActivePet(null);
             }
 
             this.$emit('deleted');

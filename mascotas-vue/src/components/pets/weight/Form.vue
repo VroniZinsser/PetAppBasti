@@ -122,6 +122,7 @@ export default {
                   msg: '¡El nuevo peso está guardado!',
                   type: 'success',
                 });
+                this.$router.push({name: 'Pets'});
               }
             })
       }

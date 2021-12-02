@@ -1,7 +1,11 @@
 <template>
     <div class="medical-container weight">
         <div class="medical-container-header">
-            <span>Peso actual: </span>
+            <div v-if="weights.length > 0">
+                <span>Peso actual: </span>
+                <span class="current-weight">{{displayWeight(weights[0].weight)}}</span>
+                <span class="weight-date"> ({{formatDate(weights[0].date)}})</span>
+            </div>
             <!-- <a v-if="weights.length > 0" href="#">Ver más</a> -->
         </div>
         <Placeholder 
@@ -15,13 +19,14 @@
         </Placeholder>
         <div v-else class="medical-container-body">
             <ul>
-                <li v-for="weight in weights" :key="weight.id">{{weight.weight}}</li>
+                <li v-for="weight in weights.slice(1, weights.length)" :key="weight.id">{{displayWeight(weight.weight)}}<span class="weight-date"> ({{formatDate(weight.date)}})</span></li>
             </ul>
         </div>
     </div>
 </template>
 <script>
 import Placeholder from "@/components/pets/show/medical/Placeholder";
+import { formatDate } from "@/helpers";
 export default {
     name: "Weight",
     props: {
@@ -42,8 +47,22 @@ export default {
             required: true,
         }
     },
+    data() {
+        return {
+            formatDate,
+        }    
+    },
     components: {
         Placeholder,
+    },
+    methods: {
+        displayWeight(weight) {
+            if (weight < 1000) {
+                return weight + 'g';
+            } else {
+                return (weight / 1000) + 'kg';
+            }
+        }
     },
 }
 </script>

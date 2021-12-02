@@ -5,34 +5,38 @@
       ref="observationForm"
       @submit.prevent="updateObservation"
   >
-    <InputText
-        label="Observacion"
+    <Textarea
+        label="Nota"
         v-model="formData.observation"
         identifier="observation"
         :loading="loading"
         :rules="[rules.obligatory]"
         :errors="errors['data.observation']"
         required
-    ></InputText>
+    ></Textarea>
 
     <button class="main-btn" type="submit" :disabled="loading">Guardar</button>
   </v-form>
 </template>
+
 <script>
-import InputText from "@/components/general/inputs/InputText";
+import Textarea from "@/components/general/inputs/Textarea";
 import petServices from "../../../services/pets";
 import store from "@/store";
 
 export default {
   name: "Form",
   components: {
-    InputText,
+    Textarea,
   },
   props: {
     pet_id: {
       type: [String, Number],
       required: true,
     },
+    observation: {
+      type: String
+    }
   },
   data: function () {
     return {
@@ -85,10 +89,16 @@ export default {
                   msg: '¡La observación está guardada!',
                   type: 'success',
                 });
+                this.$router.push({name: 'Pets'});
               }
             })
       }
     }
   },
+  mounted() {
+    if(this.observation){
+      this.formData.observation = this.observation
+    }
+  }
 }
 </script>

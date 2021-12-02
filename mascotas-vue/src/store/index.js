@@ -12,8 +12,11 @@ const store = {
         last_name: null,
         image: null
     },
+    activePet: {
+        id: null,
+    },
     /**
-     * Actualiza el status del store.
+     * Updates the status for general notifications
      *
      * @param {{}} newStatus
      * @param {string} newStatus.msg
@@ -72,7 +75,21 @@ const store = {
             last_name: null,
             image: null
         }
-    }
+    },
+    /**
+     * Stores the id of the active pet
+     *
+     * @param {int | null} petId
+     */
+     setActivePet(petId) {
+        if (this.debug) {
+            // debugger;
+            console.log('Store :: setActivePet con el id: ', petId);
+        }
+        this.activePet = {
+            id: petId
+        }
+    },
 };
 
 export default store;

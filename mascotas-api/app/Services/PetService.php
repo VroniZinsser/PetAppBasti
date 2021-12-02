@@ -87,4 +87,11 @@ class PetService implements PetRepository
 
         return $owner !== null;
     }
+
+    public function getObservation(int $pet_id)
+    {
+        $pet = Pet::find($pet_id);
+
+        return $pet->observation;
+    }
 }

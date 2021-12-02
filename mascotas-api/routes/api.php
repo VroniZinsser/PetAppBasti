@@ -43,6 +43,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mascotas', [PetController::class, 'getOwnerPets']);
     Route::post('/mascotas', [PetController::class, 'createPet']);
     Route::get('/mascotas/{pet_id}', [PetController::class, 'findPet']);
+    Route::get('/mascotas/{pet_id}/observacion', [PetController::class, 'getObservation']);
     Route::put('/mascotas/{pet_id}', [PetController::class, 'updatePet']);
     Route::delete('/mascotas/{pet_id}', [PetController::class, 'deletePet']);
 });

@@ -174,6 +174,15 @@ class PetController extends Controller
         ]);
     }
 
+    public function getObservation($pet_id){
+        $observation = $this->petRepository->getObservation($pet_id);
+
+        return response()->json([
+            'success' => true,
+            'data' => ['observation' => $observation]
+        ]);
+    }
+
     /**
      * Gets a pet by its id
      *

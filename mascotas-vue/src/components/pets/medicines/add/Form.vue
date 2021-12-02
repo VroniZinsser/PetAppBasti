@@ -46,7 +46,7 @@
         v-model="formData.hours"
         identifier="hour"
         :disabled="loading"
-        :items="hours"
+        :items="retrieveDaytimeHours(hours)"
         :item-text="'time'"
         :item-value="'id'"
         chips
@@ -169,6 +169,7 @@ export default {
                   msg: '¡El nuevo medicamento está guardado!',
                   type: 'success',
                 });
+                this.$router.push({name: 'Pets'});
               }
             })
 
@@ -184,10 +185,25 @@ export default {
     getCurrentDate() {
       return (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
     },
+
+    /**
+     * Retrieves hours from 08:00:00 to 22:00:00 based on hard coded ids and removes the seconds
+     * TODO: This method is for presentational purposes and has to be refined
+     */
+    retrieveDaytimeHours(hours) {
+      const firstHourId = 32;
+      const lastHourId = 89;
+      let daytimeHours = hours.slice(firstHourId, lastHourId + 1);
+      daytimeHours.map((item) => {
+        // show '08:30' instead of '08:30:00'
+        item.time = item.time.slice(0, 5);
+      })
+      return daytimeHours;
+    }
   },
 }
 </script>
 
 <style scoped>
-
 </style>
+
