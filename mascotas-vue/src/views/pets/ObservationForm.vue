@@ -1,13 +1,12 @@
 <template>
   <FormContainer
-    headline="¿Hay algo que te llamó la atención?"
-    form_class="form-observation"
-    :is_short_form="true"
+      headline="¿Hay algo que te llamó la atención?"
+      form_class="form-observation"
+      :is_short_form="true"
   >
     <p>Tu espacio libre para anotar observaciones acerca del comportamiento o la salud de tu mascota.</p>
-    <Form
-        :pet_id="$route.params.pet_id"
-    ></Form>
+
+    <Form :pet_id="$route.params.pet_id"></Form>
   </FormContainer>
 </template>
 

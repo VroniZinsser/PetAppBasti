@@ -8,14 +8,15 @@
       :dismissible="closable"
       v-model="showNotification"
   >
-    <p v-if="title != null"
-    >{{ title }}</p>
+    <p v-if="title != null">{{ title }}</p>
+
     {{ text }}
   </v-alert>
 </template>
 
 <script>
 import store from "@/store";
+
 export default {
   name: 'BaseNotification',
   props: {
@@ -35,7 +36,7 @@ export default {
       default: true
     }
   },
-  data: () => ({ 
+  data: () => ({
     notificationColor: {
       success: '#3fb094',
       info: '#3FA7D6',
@@ -51,7 +52,7 @@ export default {
      */
     showNotification: function (value) {
       if (!value) {
-        this.store.setStatus ({
+        this.store.setStatus({
           msg: null,
           title: null,
           type: 'success',

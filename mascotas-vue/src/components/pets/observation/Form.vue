@@ -6,7 +6,7 @@
       @submit.prevent="updateObservation"
   >
     <InputText
-        label="Observacion"
+        label="Observación"
         v-model="formData.observation"
         identifier="observation"
         :loading="loading"

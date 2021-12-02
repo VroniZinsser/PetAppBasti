@@ -194,7 +194,7 @@ export default {
       const firstHourId = 32;
       const lastHourId = 89;
       let daytimeHours = hours.slice(firstHourId, lastHourId + 1);
-      daytimeHours.map((item) => {     
+      daytimeHours.map((item) => {
         // show '08:30' instead of '08:30:00'
         item.time = item.time.slice(0, 5);
       })

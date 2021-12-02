@@ -38,7 +38,7 @@
         </li>
       </ul>
     </div>
-    
+
     <div class="pet-profile-footer">
       <router-link :to="{name: 'PetEditForm', params: {'pet_id': this.pet.id}}" class="main-btn">
         Editar perfil
