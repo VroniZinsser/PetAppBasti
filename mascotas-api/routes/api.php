@@ -32,7 +32,6 @@ Route::middleware(['guest'])->group(function () {
     Route::post('usuarios/amo', [UserController::class, 'createOwner']);
 });
 
-// TODO: No cualquier usuario debe ser capaz de encontrar / eliminar usuarios
 Route::middleware(['auth'])->group(function () {
     Route::get('/usuarios/{user_id}', [UserController::class, 'findUser']);
     Route::delete('/usuarios/{user_id}', [UserController::class, 'deleteUser']);

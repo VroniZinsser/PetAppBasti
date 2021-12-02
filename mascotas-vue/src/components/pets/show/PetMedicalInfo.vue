@@ -1,13 +1,13 @@
 <template>
   <div class="pet-medical-info">
     <Weight 
-      :weights="pet.weights" 
+      :weights="itemsReverse(pet.weights)" 
       :placeholder="placeholder.weight" 
       :pet_name="pet.name"
       :pet_id="pet.id">
     </Weight>
     <Medicine 
-      :medicines="pet.medicines" 
+      :medicines="itemsReverse(pet.medicines)" 
       :placeholder="placeholder.medicine" 
       :pet_name="pet.name"
       :pet_id="pet.id">
@@ -19,7 +19,7 @@
       :pet_id="pet.id">
     </Observation>
     <Vaccine 
-      :vaccines="pet.vaccines" 
+      :vaccines="itemsReverse(pet.vaccines)" 
       :placeholder="placeholder.vaccine" 
       :pet_name="pet.name"
       :pet_id="pet.id">
@@ -89,6 +89,12 @@ export default {
     Medicine,
     Observation,
     Vaccine
+  },
+  methods: {
+    // TODO: Instead of reverse items, sort them by date (newest first)
+    itemsReverse(items) {
+      return [...items].reverse()
+    }
   },
 }
 </script>
