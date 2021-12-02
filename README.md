@@ -46,20 +46,21 @@ Ya con todo instalado tienes que ejecutar el comando `php artisan serve` en el d
 
 Las principales funciones de Basti son:
 
-- Agenda: Un listado de todas las tareas de las mascotas del usuario. Se puede filtrar por mascota y tipo de tareas.
-- Mascotas del usuario: El usuario puede agregar un perfil para cada una de sus mascotas. A este puede agregar información clínica como medicamentos, vacunas, observaciones y peso, el cual permite llevar un buen control de sus mascotas.
-- Explorar: Un mapa y listado con todos los profesionales del rubro. Se puede filtrar por el tipo de profesional (veterinarios, bañadores de mascotas, paseadores de perros, tiendas de mascotas), ubicación y horarios.
-- Chatear con el profesional: Se puede iniciar una conversación con un profesional a través de la aplicación. Dentro del chat se puede **enviarle el perfil de la mascota al profesional** para que pueda ver rápidamente toda la información clínica de la mascota. Además el veterinario puede **crear y enviar desde el chat una consulta al usuario dueño**, de modo que este pueda aceptarla o rechazarla. En el caso de que se acepte la consulta se agregará a la tarea en la agenda.
+- Agenda: Un listado de todas las tareas relacionadas con las mascotas del usuario en la cual se puede filtrar por tipo de tarea y/o mascota.
+- Mascotas: Un perfil por cada mascota que agrega el usuario, donde se encuentra toda la historia clínica de esta.
+- Explorar: una sección donde se muestra un listado de los profesionales registrados en la aplicación, y su ubicación en el mapa, de este modo el usuario dueño puede encontrar y contactar fácilmente al profesional que mejor se adapte a sus necesidades.
 
-## Funcionalidades desarrolladas (Sin diseño)
-- Formulario para crear una cuenta de usuario profesional: /usuarios/crear-profesional
-    - Campos relacionados a: datos personales, presentación al público, formas de contacto
-    - Comunicación con API Rest de Here Maps para facilitar el ingreso correcto de la dirección
-- Mapa con todos los profesionales: /mapa
-    - Comunicación con API Rest de Here Maps para mostrar el mapa
-    - Mapa centrado en la ubicación actual del usuario, o en el centro de Capital si no está habilitada la geolocalización
-    - Marcadores personalizados que muestran donde cada profesional está ubicado
-- Agregar una mascota: /mascotas/agregar 
-    - Agrega la mascota a la base de datos con el usuario con el id 1 como dueño.
-- Tus mascotas: /mascotas 
-    - Se muestran las mascotas del usuario 1 con el nombre, especie e imagen de cada una.¿
+## Funcionalidades desarrolladas
+- Autenticación
+  - Autenticar a un usuario registrado
+  - Registrar un nuevo usuario dueño o profesional
+- Mascotas
+  - Mensaje en el caso de que el usuario no tenga una mascota agregada
+  - Agregar una nueva mascota, poder editarla y eliminarla
+  - Agregar vacunas, medicamentos, nota y peso a la mascota
+  - Listado de mascotas del usuario
+  - Perfil clínico de la mascota
+- Explorar
+  - Listado de profesionales sin un orden especifico
+  - Ver la ubicación de los profesionales en un mapa
+  - Poder hacer clic sobre los marcadores en el mapa para mostrar información del profesional
