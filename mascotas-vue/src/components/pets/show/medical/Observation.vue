@@ -2,7 +2,7 @@
   <div class="medical-container observation">
     <div class="medical-container-header">
       <h2>Notas</h2>
-       <router-link v-if="observation" :to="{name: 'ObservationForm'}">Ver más</router-link>
+       <router-link v-if="observation" :to="{name: 'ObservationForm', params: {pet_id: pet_id}}">Ver más</router-link>
     </div>
 
     <Placeholder

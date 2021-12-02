@@ -5,7 +5,7 @@
       ref="observationForm"
       @submit.prevent="updateObservation"
   >
-    <InputText
+    <Textarea
         label="Observación"
         v-model="formData.observation"
         identifier="observation"
@@ -13,26 +13,30 @@
         :rules="[rules.obligatory]"
         :errors="errors['data.observation']"
         required
-    ></InputText>
+    ></Textarea>
 
     <button class="main-btn" type="submit" :disabled="loading">Guardar</button>
   </v-form>
 </template>
+
 <script>
-import InputText from "@/components/general/inputs/InputText";
+import Textarea from "@/components/general/inputs/Textarea";
 import petServices from "../../../services/pets";
 import store from "@/store";
 
 export default {
   name: "Form",
   components: {
-    InputText,
+    Textarea,
   },
   props: {
     pet_id: {
       type: [String, Number],
       required: true,
     },
+    observation: {
+      type: String
+    }
   },
   data: function () {
     return {
@@ -91,5 +95,11 @@ export default {
       }
     }
   },
+  mounted() {
+    if(this.observation){
+      console.log("entre 2: " + this.observation)
+      this.formData.observation = this.observation
+    }
+  }
 }
 </script>

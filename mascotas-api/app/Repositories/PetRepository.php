@@ -56,4 +56,6 @@ interface PetRepository
      * @return boolean
      */
     public function isOwner(int $user_id, int $pet_id): Bool;
+
+    public function getObservation(int $pet_id);
 }
