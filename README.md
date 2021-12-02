@@ -14,10 +14,10 @@ Esto te creará una carpeta `mascotas` la cual contiene dos carpetas en su inter
 ### mascotas-api
 Dentro de la carpeta **"mascotas-api"** hay que realizar los siguientes pasos:
 
-- Ejecutar el comando `composer install` para instalar las dependencias
+- Ejecutar el comando `composer update` para instalar las dependencias
 - Crear una base de datos de MySQL
 - Realizar una copia del archivo `.env.example` con el nombre `.env`
-- Ejecutar el comando `php artisan key:generate` para crear una "key" aleatoria que se guardará  dentro del archivo`.env`
+- Ejecutar el comando `php artisan jwt:secret` para crear una "key" aleatoria que se guardará  dentro del archivo`.env`
 - **modificar las siguientes variables** del archivo `.env` de modo que concuerden con los de tu base de datos
 ~~~
 DB_HOST=127.0.0.1
@@ -31,8 +31,8 @@ DB_PASSWORD=
 - Dentro de la carpeta "public/storage" tienes que crear las siguientes carpetas
     - **img/**
     - **img/pets**: Aquí se almacenan las fotos de las mascotas que crea el usuario
-    - **img/users/profile**: Aquí se almacenan  las fotos de perfil de los usuarios
-    - 
+    - **img/users/profile**: Aquí se almacenan las fotos de perfil de los usuarios
+- Ejecutar el comando `php artisan key:generate` para generar una clave se guardará dentro del archivo`.env`.
 ### mascotas-vue
 Dentro de la carpeta **"mascotas-vue"** hay que realizar los siguientes pasos:
 - Ejecutar el comando `npm install` para instalar las dependencias.
