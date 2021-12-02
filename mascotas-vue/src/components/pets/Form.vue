@@ -251,7 +251,7 @@ export default {
                   type: 'success',
                 });
 
-                this.$router.push('/mascotas');
+                this.$router.push({name: 'Pets'});
               }
             })
       } else {
@@ -288,7 +288,7 @@ export default {
                   type: 'success',
                 });
 
-                this.$router.push('/mascotas');
+                this.$router.push({name: 'Pets'});
               }
             })
       }

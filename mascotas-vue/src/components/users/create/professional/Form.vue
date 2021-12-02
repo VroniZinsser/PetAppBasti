@@ -325,7 +325,7 @@ export default {
                   type: 'success',
                 });
 
-                this.$router.push('/usuarios/login');
+                this.$router.push({name: 'Login'});
               } else if (res.errors) {
                 this.errors = {
                   first_name: null,
