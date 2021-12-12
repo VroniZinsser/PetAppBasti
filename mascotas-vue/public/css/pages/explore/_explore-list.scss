@@ -17,6 +17,12 @@
     box-shadow: none;
     border-radius: 0;
     border-bottom: 1px solid rgba($black-gray, 0.4);
+    cursor: pointer;
+    margin-top: 0;
+
+    &:hover {
+      background: $white-gray-min;
+    }
 
     &:first-child {
       border-top: 1px solid rgba($black-gray, 0.4);
