@@ -20,7 +20,13 @@ export default {
         lat: -34.606469,
         lng: -58.4258116
       },
+      markers: [],
     };
+  },
+  props: {
+    selectedObject: {
+      type: Number
+    }
   },
   async mounted() {
     const platform = new window.H.service.Platform({
@@ -75,16 +81,37 @@ export default {
             icon: customMarker
           }
         );
-        marker.setData(`<span>${prof.first_name} ${prof.last_name}<span>`);
+        marker.setData({
+          prof_id: prof.id,
+          content: `<span>${prof.first_name} ${prof.last_name}<span>`
+        });
         marker.addEventListener('tap', event => {
-          this.ui.getBubbles().forEach(bubble => this.ui.removeBubble(bubble));
-          var bubble = new H.ui.InfoBubble(event.target.getGeometry(), {
-            content: event.target.getData()
-          });
-          this.ui.addBubble(bubble);
+          this.showInfoBubble(event.target);
         }, false);
-        
+
+        this.markers.push(marker);
         this.map.addObject(marker);
+      }
+    },
+
+    showInfoBubble(marker) {
+      const H = window.H;
+      this.ui.getBubbles().forEach(bubble => this.ui.removeBubble(bubble));
+      var bubble = new H.ui.InfoBubble(marker.getGeometry(), {
+        content: marker.getData().content
+      });
+      this.ui.addBubble(bubble);
+    }
+  },
+
+  watch: {
+    selectedObject: function (object_id) {      
+      let index = this.markers.findIndex((item) => {
+        return item.getData().prof_id === object_id;
+      });
+
+      if (index !== -1) {
+        this.showInfoBubble(this.markers[index]);
       }
     }
   }
