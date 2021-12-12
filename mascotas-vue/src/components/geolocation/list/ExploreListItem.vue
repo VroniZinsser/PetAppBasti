@@ -1,5 +1,8 @@
 <template>
-  <li class="card explore-list-item">
+  <li 
+    class="card explore-list-item" 
+    @click="$parent.$emit('select-professional', professional.id)"
+  >
     <div>
       <p class="professional-name">{{ professional.first_name }} {{ professional.last_name }} </p>
 
