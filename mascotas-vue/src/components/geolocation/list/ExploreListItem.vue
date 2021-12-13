@@ -1,6 +1,7 @@
 <template>
   <li 
-    class="card explore-list-item" 
+    class="card explore-list-item"
+    :class="isActive ? 'active' : ''" 
     @click="$parent.$emit('select-professional', professional.id)"
   >
     <div>
@@ -20,6 +21,10 @@ export default {
     professional: {
       type: Object,
       required: true
+    },
+    isActive: {
+      type: Boolean,
+      default: false
     }
   },
 }

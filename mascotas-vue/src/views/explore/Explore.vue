@@ -10,10 +10,12 @@
     <div class="explore-container">
       <Map ref="hereMap"
         :selectedObject="selectedProfessional"
+        @select-marker="selectProfessional"
       />
 
       <ExploreList 
         :professionals="professionals"
+        :selectedItem="selectedProfessional"
         @select-professional="selectProfessional">
       </ExploreList>
     </div>

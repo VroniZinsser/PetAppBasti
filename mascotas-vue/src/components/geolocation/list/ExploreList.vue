@@ -8,7 +8,8 @@
             <ExploreListItem 
                 v-for="professional in professionals" 
                 :key="professional.id" 
-                :professional="professional">
+                :professional="professional"
+                :isActive="professional.id === selectedItem">
             </ExploreListItem>
         </ul>
     </div>
@@ -24,6 +25,9 @@ export default {
             type: Array,
             required: true,
         },
+        selectedItem: {
+            type: Number
+        }
     },
     components: {
         ExploreListItem,

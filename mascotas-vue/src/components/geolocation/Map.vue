@@ -87,6 +87,7 @@ export default {
         });
         marker.addEventListener('tap', event => {
           this.showInfoBubble(event.target);
+          this.$emit('select-marker', event.target.getData().prof_id)
         }, false);
 
         this.markers.push(marker);

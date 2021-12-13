@@ -24,6 +24,10 @@
       background: $white-gray-min;
     }
 
+    &.active {
+      background: $white-gray;
+    }
+
     &:first-child {
       border-top: 1px solid rgba($black-gray, 0.4);
     }
