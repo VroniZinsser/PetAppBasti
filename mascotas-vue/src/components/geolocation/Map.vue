@@ -24,7 +24,7 @@ export default {
     };
   },
   props: {
-    selectedObject: {
+    selectedProfessionalId: {
       type: Number
     }
   },
@@ -87,7 +87,7 @@ export default {
         });
         marker.addEventListener('tap', event => {
           this.showInfoBubble(event.target);
-          this.$emit('select-marker', event.target.getData().prof_id)
+          this.$emit('select-professional', event.target.getData().prof_id)
         }, false);
 
         this.markers.push(marker);
@@ -106,9 +106,9 @@ export default {
   },
 
   watch: {
-    selectedObject: function (object_id) {      
+    selectedProfessionalId: function (professional_id) {      
       let index = this.markers.findIndex((item) => {
-        return item.getData().prof_id === object_id;
+        return item.getData().prof_id === professional_id;
       });
 
       if (index !== -1) {

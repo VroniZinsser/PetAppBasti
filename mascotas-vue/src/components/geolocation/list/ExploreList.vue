@@ -9,7 +9,7 @@
                 v-for="professional in professionals" 
                 :key="professional.id" 
                 :professional="professional"
-                :isActive="professional.id === selectedItem">
+                :isActive="professional.id === selectedProfessionalId">
             </ExploreListItem>
         </ul>
     </div>
@@ -25,7 +25,7 @@ export default {
             type: Array,
             required: true,
         },
-        selectedItem: {
+        selectedProfessionalId: {
             type: Number
         }
     },

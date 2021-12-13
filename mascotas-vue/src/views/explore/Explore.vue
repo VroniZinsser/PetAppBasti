@@ -9,13 +9,13 @@
 
     <div class="explore-container">
       <Map ref="hereMap"
-        :selectedObject="selectedProfessional"
-        @select-marker="selectProfessional"
+        :selectedProfessionalId="selectedProfessionalId"
+        @select-professional="selectProfessional"
       />
 
       <ExploreList 
         :professionals="professionals"
-        :selectedItem="selectedProfessional"
+        :selectedProfessionalId="selectedProfessionalId"
         @select-professional="selectProfessional">
       </ExploreList>
     </div>
@@ -39,7 +39,7 @@ export default {
   data: () => ({
     professionals: [],
     store,
-    selectedProfessional: null,
+    selectedProfessionalId: null,
   }),
   mounted() {
     let map = this.$refs.hereMap;
@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     selectProfessional(id) {
-      this.selectedProfessional = id;
+      this.selectedProfessionalId = id;
     }
   }
 }
