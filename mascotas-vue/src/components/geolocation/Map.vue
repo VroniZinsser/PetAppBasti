@@ -73,17 +73,18 @@ export default {
 
     dropMarker(professionals) {
       const H = window.H;
-      let customMarker = new H.map.Icon(this.markerIcons.veterinary, {size: {w: 32, h: 52}});
-
+      
       for (let i = 0; i < professionals.length; i++) {
-        let prof = professionals[i];
+        const prof = professionals[i];
+        const firstUserTypeId = prof.user_types[0].id;
+        const markerIcon = new H.map.Icon(this.getIconByUserType(firstUserTypeId), {size: {w: 32, h: 52}});
         let marker = new H.map.Marker(
           {
             lat: prof.latitude,
             lng: prof.longitude
           }, 
           {
-            icon: customMarker
+            icon: markerIcon
           }
         );
         marker.setData({
@@ -107,6 +108,25 @@ export default {
         content: marker.getData().content
       });
       this.ui.addBubble(bubble);
+    },
+
+    getIconByUserType(userTypeId) {
+      let icon;
+      switch (userTypeId) {
+        case 5:
+        case 6:
+          icon = this.markerIcons.veterinary;
+          break;
+        case 7:
+          icon = this.markerIcons.dog_sitter;
+          break;
+        case 8:
+          icon = this.markerIcons.pet_shop;
+          break;
+        default:
+          icon = this.markerIcons.default;
+      }
+      return icon;
     }
   },
 

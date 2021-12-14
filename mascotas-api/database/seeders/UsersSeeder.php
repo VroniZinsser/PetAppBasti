@@ -247,7 +247,7 @@ class UsersSeeder extends Seeder
             [
                 'id' => 2,
                 'user_id' => 2,
-                'user_type_id' => 4,
+                'user_type_id' => 7,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -261,21 +261,21 @@ class UsersSeeder extends Seeder
             [
                 'id' => 4,
                 'user_id' => 2,
-                'user_type_id' => 6,
+                'user_type_id' => 4,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'id' => 5,
                 'user_id' => 3,
-                'user_type_id' => 5,
+                'user_type_id' => 8,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'id' => 6,
                 'user_id' => 4,
-                'user_type_id' => 5,
+                'user_type_id' => 7,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
