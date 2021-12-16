@@ -1,6 +1,6 @@
 <template>
     <div class="card medicine-item">
-        <div class="medicine-item-info">
+        <div class="medicine-item-info horizontal-bottom-line">
             <span class="card-title">{{medicine.name}}</span>
             <span class="card-subtitle">{{medicine.quantity}}</span>
             <span class="card-date">{{formatDate(medicine.start_date)}} - {{formatDate(medicine.end_date)}}</span>
@@ -10,7 +10,6 @@
                 {{hour.time}}
             </div>
         </div>
-        
     </div>
     
 </template>

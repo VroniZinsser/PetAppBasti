@@ -20,12 +20,12 @@
     cursor: pointer;
     margin-top: 0;
 
-    &:hover {
-      background: $white-gray-min;
-    }
-
     &.active {
-      background: $white-gray;
+      background: $white-gray-min;
+
+      .professional-types div {
+        background: $white-gray;
+      }
     }
 
     &:first-child {
@@ -42,6 +42,20 @@
       opacity: .6;
       margin: 0;
     }
+
+    .professional-types {
+      display: flex;
+      flex-wrap: wrap;
+      font-size: 12px;
+      margin-bottom: -9px;
+      div {
+          background: $white-gray-min;
+          border-radius: 4px;
+          padding: 4px 8px;
+          margin-right: 9px;
+          margin-bottom: 8px;
+      }
+  }
   }
 }
 
