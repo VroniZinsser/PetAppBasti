@@ -11,7 +11,7 @@ import OwnerSingUp from "../views/Auth/sing-up/OwnerSingUp";
 import Pets from "../views/pets/Pets";
 import PetAddForm from "../views/pets/AddForm";
 import PetEditForm from "../views/pets/EditForm";
-import ProfessionalSingUp from "../views/users/ProfessionalSingUp";
+import ProfessionalSignUp from "../views/users/ProfessionalSignUp";
 import Schedule from "../views/schedule/Schedule";
 import VaccineForm from "../views/pets/VaccineForm";
 import WeightForm from "../views/pets/WeightForm";
@@ -67,7 +67,7 @@ const routes = [
     {
         path: '/registrarme/profesional',
         name: 'UserCreate',
-        component: ProfessionalSingUp,
+        component: ProfessionalSignUp,
         meta: {
             requiresGuest: true,
             role: 'professional'
