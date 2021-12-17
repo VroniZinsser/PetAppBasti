@@ -15,6 +15,7 @@
 
       <ExploreList 
         :professionals="professionals"
+        :userTypes="userTypes"
         :selectedProfessionalId="selectedProfessionalId"
         @select-professional="selectProfessional">
       </ExploreList>
@@ -38,6 +39,7 @@ export default {
   },
   data: () => ({
     professionals: [],
+    userTypes: [],
     store,
     selectedProfessionalId: null,
   }),
@@ -48,6 +50,11 @@ export default {
           this.professionals = res.data.users;
           map.dropMarker(this.professionals);
         });
+
+    userService.getProfessionalUserTypes()
+        .then(res => {
+          this.userTypes = res.data.user_types;
+        })
   },
   methods: {
     selectProfessional(id) {
