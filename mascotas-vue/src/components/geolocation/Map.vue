@@ -73,6 +73,7 @@ export default {
 
     dropMarker(professionals) {
       const H = window.H;
+      this.map.removeObjects(this.map.getObjects ())
       
       for (let i = 0; i < professionals.length; i++) {
         const prof = professionals[i];
@@ -104,8 +105,6 @@ export default {
     showInfoBubble(marker) {
       const H = window.H;
       this.ui.getBubbles().forEach(bubble => this.ui.removeBubble(bubble));
-      console.log(marker.getGeometry());
-      console.log(this.map.geoToScreen(marker.getGeometry()));
       var bubble = new H.ui.InfoBubble(marker.getGeometry(), {
         content: marker.getData().content
       });

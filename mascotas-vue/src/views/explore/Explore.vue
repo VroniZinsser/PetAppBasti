@@ -12,14 +12,25 @@
         :selectedProfessionalId="selectedProfessionalId"
         @select-professional="selectProfessional"
       />
-
+    <div>
+      <div>
+        <v-select
+            :items="userTypes"
+            item-text="name"
+            item-value="id"
+            label="Tipo de profesional"
+            outlined
+            v-model="professionalTypeId"
+        ></v-select>
+      </div>
       <ExploreList 
-        :professionals="professionals"
+        :professionals="filteredProfessionals"
         :userTypes="userTypes"
         :selectedProfessionalId="selectedProfessionalId"
         @select-professional="selectProfessional">
       </ExploreList>
     </div>
+  </div>
   </div>
 </template>
 
@@ -39,16 +50,18 @@ export default {
   },
   data: () => ({
     professionals: [],
+    filteredProfessionals: [],
     userTypes: [],
     store,
     selectedProfessionalId: null,
+    professionalTypeId: null,
   }),
   mounted() {
-    let map = this.$refs.hereMap;
     userService.getProfessionals()
         .then(res => {
           this.professionals = res.data.users;
-          map.dropMarker(this.professionals);
+          this.filteredProfessionals = res.data.users;
+          this.dropMarkers();
         });
 
     userService.getProfessionalUserTypes()
@@ -59,8 +72,26 @@ export default {
   methods: {
     selectProfessional(id) {
       this.selectedProfessionalId = id;
+    },
+
+    dropMarkers() {
+      let map = this.$refs.hereMap;
+      map.dropMarker(this.filteredProfessionals);
     }
-  }
+  },
+  watch: {
+    professionalTypeId(id) {
+      this.filteredProfessionals = [];
+      this.professionals.forEach((professional) => {
+        professional.user_types.forEach((type) => {
+          if(type.id === id) {
+            this.filteredProfessionals.push(professional);
+          }
+        })
+      })
+      this.dropMarkers();
+    },
+  },
 }
 </script>
 
