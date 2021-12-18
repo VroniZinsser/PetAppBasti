@@ -61,12 +61,16 @@ export default {
         .then(res => {
           this.professionals = res.data.users;
           this.filteredProfessionals = res.data.users;
-          this.dropMarkers();
+          this.dropMarkers(this.filteredProfessionals);
         });
 
     userService.getProfessionalUserTypes()
         .then(res => {
           this.userTypes = res.data.user_types;
+          this.userTypes.unshift({
+            'id': -1,
+            'name': 'Todos los profesionales'
+          })
         })
   },
   methods: {
@@ -74,22 +78,34 @@ export default {
       this.selectedProfessionalId = id;
     },
 
-    dropMarkers() {
+    dropMarkers(professionals) {
       let map = this.$refs.hereMap;
-      map.dropMarker(this.filteredProfessionals);
-    }
-  },
-  watch: {
-    professionalTypeId(id) {
+      map.dropMarker(professionals);
+    },
+
+    resetFilteredProfessionals() {
+      this.filteredProfessionals = this.professionals;
+    },
+
+    filterProfessionalsByType(typeId) {
       this.filteredProfessionals = [];
       this.professionals.forEach((professional) => {
         professional.user_types.forEach((type) => {
-          if(type.id === id) {
+          if (type.id === typeId) {
             this.filteredProfessionals.push(professional);
           }
         })
       })
-      this.dropMarkers();
+    }
+  },
+  watch: {
+    professionalTypeId(id) {
+      if (id === -1) {
+        this.resetFilteredProfessionals();
+      } else {
+        this.filterProfessionalsByType(id);
+      }
+      this.dropMarkers(this.filteredProfessionals);
     },
   },
 }
