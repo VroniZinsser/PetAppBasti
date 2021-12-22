@@ -77,6 +77,7 @@ export default {
       
       for (let i = 0; i < professionals.length; i++) {
         const prof = professionals[i];
+        const nameToDisplay = prof.public_name ? prof.public_name : prof.first_name + ' ' + prof.last_name;
         const firstUserTypeId = prof.user_types[0].id;
         const markerIcon = new H.map.Icon(this.getIconByUserType(firstUserTypeId), {size: {w: 32, h: 52}});
         let marker = new H.map.Marker(
@@ -90,7 +91,7 @@ export default {
         );
         marker.setData({
           prof_id: prof.id,
-          content: `<span>${prof.first_name} ${prof.last_name}<span>`
+          content: `<span>${nameToDisplay}<span>`
         });
         marker.addEventListener('tap', event => {
           this.showInfoBubble(event.target);

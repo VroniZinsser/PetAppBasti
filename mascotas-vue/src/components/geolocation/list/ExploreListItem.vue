@@ -5,7 +5,8 @@
     @click="$parent.$emit('select-professional', professional.id)"
   >
     <div class="horizontal-bottom-line">
-      <p class="professional-name">{{ professional.first_name }} {{ professional.last_name }} </p>
+      <p v-if="professional.public_name" class="professional-name">{{ professional.public_name }}</p>
+      <p v-else class="professional-name">{{ professional.first_name }} {{ professional.last_name }}</p>
       <p class="card-subtitle">
         {{ professional.city }}, {{ professional.street }} {{ professional.house_number }}
       </p>
