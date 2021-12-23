@@ -1,8 +1,7 @@
 <template>
     <div class="explore-list">
-        
-
-        <ul>
+        <p v-if="professionals.length === 0">No se encontraron resultados para tu búsqueda</p>
+        <ul v-else>
             <ExploreListItem 
                 v-for="professional in professionals" 
                 :key="professional.id" 

@@ -6,7 +6,6 @@
         :text="store.status.msg"
         :title="store.status.title"
     />
-
     <div class="explore-container">
       <Map ref="hereMap"
         :selectedProfessionalId="selectedProfessionalId"
@@ -16,13 +15,16 @@
       <ExploreFilterByType 
         :professionals="professionals"
         :userTypes="userTypes"
+        :loading="loading"
         @update-filtered-professionals="updateFilteredProfessionals"
       />
       <ExploreSearchBar 
         :professionals="professionals"
+        :loading="loading"
         @update-filtered-professionals="updateFilteredProfessionals"
       />
       <ExploreList 
+        v-if="!loading"
         :professionals="filteredProfessionals"
         :userTypes="userTypes"
         :selectedProfessionalId="selectedProfessionalId"
@@ -39,8 +41,8 @@ import ExploreList from "@/components/geolocation/list/ExploreList";
 import ExploreSearchBar from "@/components/geolocation/filter/ExploreSearchBar";
 import ExploreFilterByType from "@/components/geolocation/filter/ExploreFilterByType";
 import userService from "../../services/users";
-import BaseNotification from "@/components/general/notifications/BaseNotification"
-import store from "@/store"
+import BaseNotification from "@/components/general/notifications/BaseNotification";
+import store from "@/store";
 
 export default {
   name: "Explore",
@@ -49,7 +51,7 @@ export default {
     BaseNotification,
     ExploreList,
     ExploreSearchBar,
-    ExploreFilterByType
+    ExploreFilterByType,
   },
   data: () => ({
     professionals: [],
@@ -57,25 +59,27 @@ export default {
     userTypes: [],
     store,
     selectedProfessionalId: null,
-    professionalTypeId: null,
-    searchString: null,
+    loading: true,
   }),
   mounted() {
-    userService.getProfessionals()
+    userService.getProfessionalUserTypes()
+      .then(res => {
+        this.userTypes = res.data.user_types;
+        this.userTypes.unshift({
+          'id': -1,
+          'name': 'Todos los profesionales'
+        })
+
+        userService.getProfessionals()
         .then(res => {
+           this.loading = false;
           this.professionals = res.data.users;
           this.filteredProfessionals = res.data.users;
+         
           this.dropMarkers(this.filteredProfessionals);
         });
-
-    userService.getProfessionalUserTypes()
-        .then(res => {
-          this.userTypes = res.data.user_types;
-          this.userTypes.unshift({
-            'id': -1,
-            'name': 'Todos los profesionales'
-          })
-        })
+      })
+    
   },
   methods: {
     selectProfessional(id) {

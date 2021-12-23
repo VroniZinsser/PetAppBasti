@@ -6,6 +6,7 @@
         label="Tipo de profesional"
         outlined
         v-model="userTypeId"
+        :disabled="loading"
     ></v-select>
 </template>
 
@@ -20,6 +21,10 @@ export default {
         userTypes: {
             type: Array,
             required: true,
+        },
+        loading: {
+            type: Boolean,
+            default: false,
         }
     },
     data() {

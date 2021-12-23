@@ -1,10 +1,10 @@
 <template>
     <InputText
-          label="Buscar"
-          v-model="searchString"
-          identifier="search"
-          :loading="false"
-          prepend-inner-icon="mdi-magnify"
+        label="Buscar"
+        v-model="searchString"
+        identifier="search"
+        :loading="loading"
+        prepend-inner-icon="mdi-magnify"
     ></InputText>
 </template>
 
@@ -17,6 +17,10 @@ export default {
         professionals: {
             type: Array,
             required: true,
+        },
+        loading: {
+            type: Boolean,
+            default: false,
         }
     },
     components: {   
