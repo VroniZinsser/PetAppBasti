@@ -10,6 +10,7 @@
       <Map ref="hereMap"
         :selectedProfessionalId="selectedProfessionalId"
         @select-professional="selectProfessional"
+        @sort-professionals="sortProfessionals"
       />
       <div class="side-bar">
         <div class="explore-filters">
@@ -97,6 +98,10 @@ export default {
       this.filteredProfessionals = updatedProfessionals;
       this.dropMarkers(this.filteredProfessionals);
     },
+
+    sortProfessionals(sortedProfessionals) {
+      this.filteredProfessionals = sortedProfessionals;
+    }
   },
 }
 </script>
