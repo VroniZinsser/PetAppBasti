@@ -14,14 +14,11 @@
       />
     <div>
       <div>
-        <v-select
-            :items="userTypes"
-            item-text="name"
-            item-value="id"
-            label="Tipo de profesional"
-            outlined
-            v-model="professionalTypeId"
-        ></v-select>
+        <ExploreFilterByType 
+          :professionals="professionals"
+          :userTypes="userTypes"
+          @update-filtered-professionals="updateFilteredProfessionals"
+        />
       </div>
       <div>
         <ExploreSearchBar 
@@ -44,6 +41,7 @@
 import Map from "@/components/geolocation/Map";
 import ExploreList from "@/components/geolocation/list/ExploreList";
 import ExploreSearchBar from "@/components/geolocation/filter/ExploreSearchBar";
+import ExploreFilterByType from "@/components/geolocation/filter/ExploreFilterByType";
 import userService from "../../services/users";
 import BaseNotification from "@/components/general/notifications/BaseNotification"
 import store from "@/store"
@@ -55,6 +53,7 @@ export default {
     BaseNotification,
     ExploreList,
     ExploreSearchBar,
+    ExploreFilterByType
   },
   data: () => ({
     professionals: [],
@@ -104,33 +103,6 @@ export default {
       this.filteredProfessionals = this.professionals;
     },
 
-    /**
-     * Apply filter do display only professionals whose user types contain the given user type id
-     */
-    filterProfessionalsByType(typeId) {
-      this.filteredProfessionals = [];
-      this.professionals.forEach((professional) => {
-        professional.user_types.forEach((type) => {
-          if (type.id === typeId) {
-            this.filteredProfessionals.push(professional);
-          }
-        })
-      })
-    },
-  },
-  watch: {
-    professionalTypeId(id) {
-      if (id === -1) {
-        this.resetFilteredProfessionals();
-      } else {
-        this.filterProfessionalsByType(id);
-      }
-      this.dropMarkers(this.filteredProfessionals);
-    },
   },
 }
 </script>
-
-<style scoped>
-
-</style>
