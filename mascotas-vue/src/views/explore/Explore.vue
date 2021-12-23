@@ -11,27 +11,29 @@
         :selectedProfessionalId="selectedProfessionalId"
         @select-professional="selectProfessional"
       />
-    <div>
-      <ExploreFilterByType 
-        :professionals="professionals"
-        :userTypes="userTypes"
-        :loading="loading"
-        @update-filtered-professionals="updateFilteredProfessionals"
-      />
-      <ExploreSearchBar 
-        :professionals="professionals"
-        :loading="loading"
-        @update-filtered-professionals="updateFilteredProfessionals"
-      />
-      <ExploreList 
-        v-if="!loading"
-        :professionals="filteredProfessionals"
-        :userTypes="userTypes"
-        :selectedProfessionalId="selectedProfessionalId"
-        @select-professional="selectProfessional">
-      </ExploreList>
+      <div class="side-bar">
+        <div class="explore-filters">
+          <ExploreFilterByType 
+            :professionals="professionals"
+            :userTypes="userTypes"
+            :loading="loading"
+            @update-filtered-professionals="updateFilteredProfessionals"
+          />
+          <ExploreSearchBar 
+            :professionals="professionals"
+            :loading="loading"
+            @update-filtered-professionals="updateFilteredProfessionals"
+          />
+        </div>
+        <ExploreList 
+          v-if="!loading"
+          :professionals="filteredProfessionals"
+          :userTypes="userTypes"
+          :selectedProfessionalId="selectedProfessionalId"
+          @select-professional="selectProfessional">
+        </ExploreList>
+      </div>
     </div>
-  </div>
   </div>
 </template>
 

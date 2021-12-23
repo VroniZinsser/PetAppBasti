@@ -1,11 +1,8 @@
 .explore-list {
-  overflow-y: auto;
-  height: calc(100vh - 64px);
-
-  h1 {
-    font-size: 1.375rem;
-    font-weight: bold;
+  > .no-results {
     padding: 1rem;
+    color: $gray;
+    border-top: 1px solid rgba($black-gray, 0.4);
   }
 
   > ul {

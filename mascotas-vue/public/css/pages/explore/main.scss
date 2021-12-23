@@ -9,7 +9,14 @@
         flex-direction: row-reverse;
     }
 
-    .explore-list {
+    .side-bar {
         min-width: 280px;
+        overflow-y: auto;
+        height: calc(100vh - 64px);
+
+        .explore-filters {
+            padding: 1rem;
+            padding-top: 2rem;
+        }
     }
 }
