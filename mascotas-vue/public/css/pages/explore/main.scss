@@ -21,6 +21,7 @@
         .explore-filters {
             padding: 1rem;
             padding-top: 2rem;
+            // TODO: en vez de esconder los filtros deben estar en algun lado estratégico
             display: none;
 
             @include tablet-up {
