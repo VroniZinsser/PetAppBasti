@@ -13,19 +13,15 @@
         @select-professional="selectProfessional"
       />
     <div>
-      <div>
-        <ExploreFilterByType 
-          :professionals="professionals"
-          :userTypes="userTypes"
-          @update-filtered-professionals="updateFilteredProfessionals"
-        />
-      </div>
-      <div>
-        <ExploreSearchBar 
-          :professionals="professionals"
-          @update-filtered-professionals="updateFilteredProfessionals"
-        />
-      </div>
+      <ExploreFilterByType 
+        :professionals="professionals"
+        :userTypes="userTypes"
+        @update-filtered-professionals="updateFilteredProfessionals"
+      />
+      <ExploreSearchBar 
+        :professionals="professionals"
+        @update-filtered-professionals="updateFilteredProfessionals"
+      />
       <ExploreList 
         :professionals="filteredProfessionals"
         :userTypes="userTypes"
@@ -95,14 +91,6 @@ export default {
       this.filteredProfessionals = updatedProfessionals;
       this.dropMarkers(this.filteredProfessionals);
     },
-
-    /**
-     * Reset filter to display all professionals
-     */
-    resetFilteredProfessionals() {
-      this.filteredProfessionals = this.professionals;
-    },
-
   },
 }
 </script>
