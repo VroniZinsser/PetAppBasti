@@ -12,11 +12,20 @@
     .side-bar {
         min-width: 280px;
         overflow-y: auto;
-        height: calc(100vh - 64px);
+        height: 40vh;
+
+        @include tablet-up {
+            height: calc(100vh - 64px);
+        }
 
         .explore-filters {
             padding: 1rem;
             padding-top: 2rem;
+            display: none;
+
+            @include tablet-up {
+                display: block;
+            }
         }
     }
 }

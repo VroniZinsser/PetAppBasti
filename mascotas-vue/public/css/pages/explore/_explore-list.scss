@@ -8,14 +8,33 @@
   > ul {
     list-style: none;
     padding-left: 0 !important;
+    display: flex;
+    overflow-x: auto;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+    @include tablet-up {
+      display: block;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
   }
 
   .card {
     box-shadow: none;
-    border-radius: 0;
-    border-bottom: 1px solid rgba($black-gray, 0.4);
+    border: 1px solid rgba($black-gray, 0.4);
     cursor: pointer;
-    margin-top: 0;
+    min-width: 80vw;
+    margin: 0 1rem;
+
+    @include tablet-up {
+      min-width: auto;
+      margin: 0;
+      border-radius: 0;
+      border-top: 0;
+      border-right: 0;
+      border-left: 0;
+    }
 
     &.active {
       background: $white-gray-min;

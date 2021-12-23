@@ -3,7 +3,7 @@
 }
 
 .map-container-inner {
-    height: 80vh;
+    height: 60vh;
 
     @include tablet-up {
         height: calc(100vh - 56px);
