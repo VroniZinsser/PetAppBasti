@@ -24,13 +24,10 @@
         ></v-select>
       </div>
       <div>
-        <InputText
-          label="Buscar"
-          v-model="searchString"
-          identifier="search"
-          :loading="false"
-          prepend-inner-icon="mdi-magnify"
-        ></InputText>
+        <ExploreSearchBar 
+          :professionals="professionals"
+          @update-filtered-professionals="updateFilteredProfessionals"
+        />
       </div>
       <ExploreList 
         :professionals="filteredProfessionals"
@@ -46,9 +43,9 @@
 <script>
 import Map from "@/components/geolocation/Map";
 import ExploreList from "@/components/geolocation/list/ExploreList";
+import ExploreSearchBar from "@/components/geolocation/filter/ExploreSearchBar";
 import userService from "../../services/users";
 import BaseNotification from "@/components/general/notifications/BaseNotification"
-import InputText from "@/components/general/inputs/InputText";
 import store from "@/store"
 
 export default {
@@ -57,7 +54,7 @@ export default {
     Map,
     BaseNotification,
     ExploreList,
-    InputText,
+    ExploreSearchBar,
   },
   data: () => ({
     professionals: [],
@@ -95,6 +92,11 @@ export default {
       map.dropMarker(professionals);
     },
 
+    updateFilteredProfessionals(updatedProfessionals) {
+      this.filteredProfessionals = updatedProfessionals;
+      this.dropMarkers(this.filteredProfessionals);
+    },
+
     /**
      * Reset filter to display all professionals
      */
@@ -115,26 +117,6 @@ export default {
         })
       })
     },
-
-    /**
-     * Apply filter to display only professionals whose content data contains the given query string
-     */
-    filterProfessionalsByQuery(query) {
-      this.filteredProfessionals = [];
-      this.professionals.forEach((prof) => {
-        if (this.containsIgnoreCase(query, prof.state, prof.city, prof.district, prof.street, prof.public_name, prof.first_name, prof.last_name, prof.description)) {
-          this.filteredProfessionals.push(prof);
-        }
-      })
-    },
-
-    /**
-     * Returns true if the query appears at least once in the given strings, ignoring the case
-     */
-    containsIgnoreCase(query, ...strings) {
-      const joinedString = strings.join(' ');
-      return (joinedString && joinedString.toLowerCase().indexOf(query.toLowerCase()) !== -1)
-    }
   },
   watch: {
     professionalTypeId(id) {
@@ -145,11 +127,6 @@ export default {
       }
       this.dropMarkers(this.filteredProfessionals);
     },
-
-    searchString(query) {
-      this.filterProfessionalsByQuery(query);
-      this.dropMarkers(this.filteredProfessionals);
-    }
   },
 }
 </script>
