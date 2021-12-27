@@ -7,6 +7,7 @@
         outlined
         v-model="userTypeId"
         :disabled="loading"
+        prepend-inner-icon="mdi-filter"
     ></v-select>
 </template>
 
