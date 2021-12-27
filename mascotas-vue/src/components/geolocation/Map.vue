@@ -72,7 +72,12 @@ export default {
       this.ui = H.ui.UI.createDefault(this.map, maptypes);
     },
 
-    dropMarker(professionals) {
+    /**
+     * Creates and displays markers on the map 
+     * @param {Array} professionals - The array of users that should be displayed
+     * @param {Number} userTypeId - The id of the filtered user type, null if users are not filtered by any type
+     */
+    dropMarker(professionals, userTypeId) {
       const H = window.H;
       this.map.removeObjects(this.map.getObjects ());
       this.removeInfoBubbles();
@@ -80,8 +85,10 @@ export default {
       for (let i = 0; i < professionals.length; i++) {
         const prof = professionals[i];
         const nameToDisplay = prof.public_name ? prof.public_name : prof.first_name + ' ' + prof.last_name;
-        const firstUserTypeId = prof.user_types[0].id;
-        const markerIcon = new H.map.Icon(this.getIconByUserType(firstUserTypeId), {size: {w: 32, h: 52}});
+        // if the professionals are filtered by a certain type, use that type for the marker icons
+        // if not, use the first user type of every professional
+        const typeIdForIcon = userTypeId || prof.user_types[0].id;
+        const markerIcon = new H.map.Icon(this.getIconByUserType(typeIdForIcon), {size: {w: 32, h: 52}});
         let marker = new H.map.Marker(
           {
             lat: prof.latitude,

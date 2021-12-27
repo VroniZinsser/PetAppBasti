@@ -37,7 +37,7 @@ export default {
     watch: {
         userTypeId(id) {
             this.filterProfessionalsByType(id);
-            this.$emit('update-filtered-professionals', this.filteredProfessionals);
+            this.$emit('update-filtered-professionals', this.filteredProfessionals, id);
         }
     },
     methods: {

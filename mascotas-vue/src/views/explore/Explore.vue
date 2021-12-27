@@ -60,6 +60,7 @@ export default {
     professionals: [],
     filteredProfessionals: [],
     userTypes: [],
+    filteredUserType: null,
     store,
     selectedProfessionalId: null,
     loading: true,
@@ -89,14 +90,15 @@ export default {
       this.selectedProfessionalId = id;
     },
 
-    dropMarkers(professionals) {
+    dropMarkers() {
       let map = this.$refs.hereMap;
-      map.dropMarker(professionals);
+      map.dropMarker(this.filteredProfessionals, this.filteredUserType);
     },
 
-    updateFilteredProfessionals(updatedProfessionals) {
+    updateFilteredProfessionals(updatedProfessionals, userTypeId) {
       this.filteredProfessionals = updatedProfessionals;
-      this.dropMarkers(this.filteredProfessionals);
+      this.filteredUserType = userTypeId || null;
+      this.dropMarkers();
     },
 
     sortProfessionals(sortedProfessionals) {
