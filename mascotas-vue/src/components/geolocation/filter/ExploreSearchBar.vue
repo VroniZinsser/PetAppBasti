@@ -35,7 +35,7 @@ export default {
     watch: {
         searchString(query) {
             this.filterProfessionalsByQuery(query);
-            this.$emit('update-filtered-professionals', this.filteredProfessionals);
+            this.$emit('filter-by-query', this.filteredProfessionals);
         }
     },
     methods: {

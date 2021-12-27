@@ -18,12 +18,12 @@
             :professionals="professionals"
             :userTypes="userTypes"
             :loading="loading"
-            @update-filtered-professionals="updateFilteredProfessionals"
+            @filter-by-type="filterByType"
           />
           <ExploreSearchBar 
             :professionals="professionals"
             :loading="loading"
-            @update-filtered-professionals="updateFilteredProfessionals"
+            @filter-by-query="filterByQuery"
           />
         </div>
         <ExploreList 
@@ -59,6 +59,8 @@ export default {
   data: () => ({
     professionals: [],
     filteredProfessionals: [],
+    professionalsFilteredByQuery: [],
+    professionalsFilteredByType: [],
     userTypes: [],
     filteredUserType: null,
     store,
@@ -78,7 +80,9 @@ export default {
         .then(res => {
            this.loading = false;
           this.professionals = res.data.users;
-          this.filteredProfessionals = res.data.users;
+          this.filteredProfessionals = this.professionals;
+          this.professionalsFilteredByType = this.professionals;
+          this.professionalsFilteredByQuery = this.professionals;
          
           this.dropMarkers(this.filteredProfessionals);
         });
@@ -95,9 +99,30 @@ export default {
       map.dropMarker(this.filteredProfessionals, this.filteredUserType);
     },
 
-    updateFilteredProfessionals(updatedProfessionals, userTypeId) {
-      this.filteredProfessionals = updatedProfessionals;
-      this.filteredUserType = userTypeId || null;
+    filterByQuery(filteredProfessionals) {
+      this.professionalsFilteredByQuery = filteredProfessionals;
+      this.combineFilteredProfessionals();
+    },
+
+    filterByType(filteredProfessionals, typeId) {
+      this.professionalsFilteredByType = filteredProfessionals;
+      this.filteredUserType = typeId || null;
+      this.combineFilteredProfessionals();
+    },
+
+    /**
+     * Combines filter of usertype and search query
+     */
+    combineFilteredProfessionals() {
+      this.filteredProfessionals = [];
+      this.professionalsFilteredByQuery.forEach((prof) => {
+        let pos = this.professionalsFilteredByType.map(function(obj) {
+          return obj.id;
+        }).indexOf(prof.id)
+        if (pos !== -1) {
+          this.filteredProfessionals.push(prof);
+        }
+      });
       this.dropMarkers();
     },
 

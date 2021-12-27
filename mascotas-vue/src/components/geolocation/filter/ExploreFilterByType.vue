@@ -46,7 +46,7 @@ export default {
         filterProfessionalsByType(typeId) {
             if (typeId === -1) {
                 this.filteredProfessionals = this.professionals;
-                this.$emit('update-filtered-professionals', this.filteredProfessionals);
+                this.$emit('filter-by-type', this.filteredProfessionals);
             } else {
                 this.filteredProfessionals = [];
                 this.professionals.forEach((professional) => {
@@ -56,7 +56,7 @@ export default {
                         }
                     })
                 });
-                this.$emit('update-filtered-professionals', this.filteredProfessionals, typeId);
+                this.$emit('filter-by-type', this.filteredProfessionals, typeId);
             }
         },
     }
