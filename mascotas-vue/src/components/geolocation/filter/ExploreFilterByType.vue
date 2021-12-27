@@ -37,7 +37,6 @@ export default {
     watch: {
         userTypeId(id) {
             this.filterProfessionalsByType(id);
-            this.$emit('update-filtered-professionals', this.filteredProfessionals, id);
         }
     },
     methods: {
@@ -47,6 +46,7 @@ export default {
         filterProfessionalsByType(typeId) {
             if (typeId === -1) {
                 this.filteredProfessionals = this.professionals;
+                this.$emit('update-filtered-professionals', this.filteredProfessionals);
             } else {
                 this.filteredProfessionals = [];
                 this.professionals.forEach((professional) => {
@@ -55,7 +55,8 @@ export default {
                             this.filteredProfessionals.push(professional);
                         }
                     })
-                })
+                });
+                this.$emit('update-filtered-professionals', this.filteredProfessionals, typeId);
             }
         },
     }
