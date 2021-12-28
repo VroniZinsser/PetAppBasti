@@ -58,7 +58,7 @@ class UserService implements UserRepository {
     /**
      * @inheritDoc
      */
-    public function find(int $id): User
+    public function find(int $id): User | null
     {
         return User::find($id);
     }

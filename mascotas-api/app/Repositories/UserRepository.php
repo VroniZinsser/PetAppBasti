@@ -31,7 +31,7 @@ interface UserRepository
      * @param int $id
      * @return User
      */
-    public function find(int $id): User;
+    public function find(int $id): User | null;
 
     /**
      * Deletes the user with the given id and returns true if deletion was successful
