@@ -27,6 +27,12 @@
 
       <div v-else>
         <CircleButtonLinkList :button-link-data="[buttonLinkData[0]]"></CircleButtonLinkList>
+        <BaseNotification
+        v-if="store.status.msg != null"
+        :type="store.status.type"
+        :text="store.status.msg"
+        :title="store.status.title"
+    />
 
         <NoPet></NoPet>
       </div>

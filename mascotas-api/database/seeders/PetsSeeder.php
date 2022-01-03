@@ -23,7 +23,7 @@ class PetsSeeder extends Seeder
                 'neutered' => 1,
                 'date_of_birth' => '2018-05-16',
                 'images_id' => 17,
-                'observation' => 'Hace 3 días cojea de la pata trasera derecha.',
+                'observation' => 'No le gusta para nada la comida de Royal Canin.',
                 'sexes_id' => 1,
                 'species_id' => 2,
                 'created_at' => now(),
