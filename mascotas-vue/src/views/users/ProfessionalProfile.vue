@@ -1,6 +1,6 @@
 <template>
     <Loader v-if="loading"></Loader>
-    <div v-else>
+    <div v-else class="professional-profile">
         <TitleBar :title="professional.public_name"></TitleBar>
         <div class="intro">
             <div>
@@ -14,12 +14,18 @@
             </div>
         </div>
         <div class="description">
+            <h3>Descripción</h3>
             <p>{{ professional.description }}</p>
         </div>
         <div class="location">
-            <p>{{ professional.street }} {{ professional.house_number }}</p>
-            <p>{{ professional.postal_code }} {{ professional.district }} {{ professional.city }}</p>
-            <span>{{ professional.state }}</span>
+            <div>
+                <img :src="createStaticImgPath('ui/marker.svg')" alt="Ícono de geolocalización">
+            </div>
+            <div>
+                <span>{{ professional.street }} {{ professional.house_number }}</span>
+                <span>{{ professional.postal_code }} {{ professional.district }} {{ professional.city }}</span>
+                <span>{{ professional.state }}</span>
+            </div>
         </div>
         
         <div class="contact">
@@ -43,6 +49,7 @@
 
 <script>
 import {createImgPath} from "@/helpers";
+import {createStaticImgPath} from "@/helpers";
 import TitleBar from "@/components/general/layouts/TitleBar";
 import userServices from "@/services/users";
 import store from "@/store";
@@ -60,6 +67,7 @@ export default {
             professional: null,
             store,
             createImgPath,
+            createStaticImgPath,
         }
     },
     mounted() {
