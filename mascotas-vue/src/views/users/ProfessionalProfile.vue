@@ -18,13 +18,18 @@
             <p>{{ professional.description }}</p>
         </div>
         <div class="location">
-            <div>
-                <img :src="createStaticImgPath('ui/marker.svg')" alt="Ícono de geolocalización">
+            <div class="location-header">
+                <a :href="googleMapsLink" target="_blank">Google Maps</a>
             </div>
-            <div>
-                <span>{{ professional.street }} {{ professional.house_number }}</span>
-                <span>{{ professional.postal_code }} {{ professional.district }} {{ professional.city }}</span>
-                <span>{{ professional.state }}</span>
+            <div class="location-body">
+                <div>
+                    <img :src="createStaticImgPath('ui/marker.svg')" alt="Ícono de geolocalización">
+                </div>
+                <div>
+                    <span>{{ professional.street }} {{ professional.house_number }}</span>
+                    <span>{{ professional.postal_code }} {{ professional.district }} {{ professional.city }}</span>
+                    <span>{{ professional.state }}</span>
+                </div>
             </div>
         </div>
         
@@ -84,6 +89,23 @@ export default {
                     this.$router.go(-1);                  
                 }
             });
+    },
+    computed: {
+        googleMapsLink() {
+            const directions = this.whiteSpacesToPlus(
+                this.professional.street + '+'
+                + this.professional.house_number + '+'
+                + this.professional.postal_code + '+'
+                + this.professional.city + '+'
+                + this.professional.state
+            )
+            return 'https://www.google.com.ar/maps/dir//' + directions;
+        }
+    },
+    methods: {
+        whiteSpacesToPlus(str) {
+            return str.replace(/\s/g, '+');
+        }
     }
 }
 </script>
