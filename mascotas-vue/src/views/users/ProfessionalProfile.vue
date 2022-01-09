@@ -40,11 +40,21 @@
                         Contactar
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                        <div v-if="professional.whatsapp">{{ professional.whatsapp }}</div>
-                        <div v-if="professional.email && professional.email_visible">{{ professional.email }}</div>
-                        <div v-if="professional.instagram">{{ professional.instagram }}</div>
-                        <div v-if="professional.facebook">{{ professional.facebook }}</div>
-                        <div v-if="professional.web">{{ professional.web }}</div>
+                        <div v-if="professional.whatsapp">
+                            <a :href="'https://api.whatsapp.com/send?phone=' + professional.whatsapp" target="_blank">{{ professional.whatsapp }}</a>
+                        </div>
+                        <div v-if="professional.email && professional.email_visible">
+                            <a :href="'mailto:' + professional.email" target="_blank">{{ professional.email }}</a>
+                        </div>
+                        <div v-if="professional.instagram">
+                            <a :href="'https://www.instagram.com/' + professional.instagram" target="_blank">{{ professional.instagram }}</a>
+                        </div>
+                        <div v-if="professional.facebook">
+                            <a :href="'https://www.facebook.com/' + professional.facebook" target="_blank">{{ professional.facebook }}</a>
+                        </div>
+                        <div v-if="professional.web">
+                            <a :href="professional.web" target="_blank">{{ professional.web }}</a>
+                        </div>
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
