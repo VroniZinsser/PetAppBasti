@@ -85,6 +85,19 @@ const userService = {
     },
 
     /**
+     * Returns all user types that belong to professionals
+     *
+     * @returns {Promise<any>}
+     */
+     getProfessionalUserTypes() {
+        return fetch(`${API}profesionales/tipos`, {
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
+        })
+            .then(res => res.json());
+    },
+
+    /**
      * Returns users with any usertype related to professionals
      *
      * @returns {Promise<any>}

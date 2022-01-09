@@ -1,0 +1,10 @@
+.horizontal-bottom-line {
+    &:after {
+        content: "";
+        display: block;
+        border-bottom: 1px solid $black-gray;
+        opacity: .3;
+        padding-top: 8px;
+        margin: 8px -16px;
+    }
+}

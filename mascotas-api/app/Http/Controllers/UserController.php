@@ -101,7 +101,7 @@ class UserController extends Controller
      *
      * @return JsonResponse
      */
-    public function createFormProfessional(): JsonResponse
+    public function getProfessionalUserTypes(): JsonResponse
     {
         $user_types = $this->userTypeRepository->getProfessionals();
 

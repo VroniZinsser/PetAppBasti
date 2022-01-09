@@ -1,25 +1,42 @@
 .explore-list {
-  overflow-y: auto;
-  height: calc(100vh - 64px);
+  padding-bottom: $navbar-height-mobile;
+  @include tablet-up {
+    padding-bottom: 0;
+  }
 
-  h1 {
-    font-size: 1.375rem;
-    font-weight: bold;
+  > .no-results {
     padding: 1rem;
+    color: $gray;
+    border-top: 1px solid rgba($black-gray, 0.4);
   }
 
   > ul {
     list-style: none;
     padding-left: 0 !important;
+    
   }
 
   .card {
     box-shadow: none;
-    border-radius: 0;
     border-bottom: 1px solid rgba($black-gray, 0.4);
+    cursor: pointer;
+    border-radius: 0;
+    margin: 0;
+
+    &.active {
+      background: $white-gray-min;
+
+      .professional-types div {
+        background: $white-gray;
+      }
+    }
 
     &:first-child {
       border-top: 1px solid rgba($black-gray, 0.4);
+    }
+
+    &:last-child {
+      border-bottom: 0;
     }
 
     .professional-name {
@@ -32,6 +49,20 @@
       opacity: .6;
       margin: 0;
     }
+
+    .professional-types {
+      display: flex;
+      flex-wrap: wrap;
+      font-size: 12px;
+      margin-bottom: -9px;
+      div {
+          background: $white-gray-min;
+          border-radius: 4px;
+          padding: 4px 8px;
+          margin-right: 9px;
+          margin-bottom: 8px;
+      }
+  }
   }
 }
 

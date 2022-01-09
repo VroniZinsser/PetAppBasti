@@ -3,7 +3,7 @@
 }
 
 .map-container-inner {
-    height: 80vh;
+    height: 60vh;
 
     @include tablet-up {
         height: calc(100vh - 56px);
@@ -11,4 +11,8 @@
     @include desktop-up {
         height: calc(100vh - 64px);
     }
+}
+
+.H_ib {
+    top: -60px;
 }
