@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\PetController;
 use Illuminate\Http\Request;
@@ -78,4 +79,16 @@ Route::prefix('/autenticacion')->group(function () {
     Route::get("/", [AuthController::class, 'me'])->middleware(['auth']);
     Route::post("/", [AuthController::class, 'login'])->middleware(['guest']);
     Route::delete("/", [AuthController::class, 'logout'])->middleware(['auth']);
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('/peticiones')->group(function () {
+        Route::get("/creadas", [ContactController::class, 'getOwnerSharedPets']);
+        Route::get("/aceptadas", [ContactController::class, 'getProfessionalSharedPets']);
+        Route::put("/{request_id}", [ContactController::class, 'updateSharedPetRequest']);
+        Route::put("/{request_id}/aceptar", [ContactController::class, 'acceptSharedPetRequest']);
+        Route::post("/", [ContactController::class, 'createSharedPetRequest']);
+        Route::delete("/{request_id}", [ContactController::class, 'deleteSharedPetRequest']);
+        //        Route::get("/formulario-crear", [ContactController::class, 'me']);
+    });
 });
