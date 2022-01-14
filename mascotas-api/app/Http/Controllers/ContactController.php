@@ -22,9 +22,7 @@ class ContactController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => [
-                'sharedPets' => compact('sharedPets'),
-            ],
+            'data' => compact('sharedPets'),
         ]);
     }
 
@@ -34,9 +32,7 @@ class ContactController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => [
-                'sharedPets' => compact('sharedPets'),
-            ],
+            'data' => compact('sharedPets'),
         ]);
     }
 
