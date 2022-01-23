@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SharedPets\CreateRequest;
+use App\Http\Requests\SharedPets\UpdateRequest;
 use App\Repositories\ContactRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -36,7 +38,7 @@ class ContactController extends Controller
         ]);
     }
 
-    public function createSharedPetRequest(Request $request): JsonResponse
+    public function createSharedPetRequest(CreateRequest $request): JsonResponse
     {
         $requestCreated = $this->contactRepository->createSharedPetRequest(
             $request->get('description'),
@@ -52,7 +54,7 @@ class ContactController extends Controller
         ]);
     }
 
-    public function updateSharedPetRequest(Request $request, int $request_id): JsonResponse
+    public function updateSharedPetRequest(UpdateRequest $request, int $request_id): JsonResponse
     {
         $requestUpdated = $this->contactRepository->updateSharedPetRequest(
             $request_id,
