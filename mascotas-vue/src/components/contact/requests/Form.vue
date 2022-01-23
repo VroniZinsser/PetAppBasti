@@ -2,6 +2,7 @@
   <v-form
       :method="this.request ? 'PUT' : 'POST'"
       :action="this.request ? 'peticiones/editar' : 'peticiones/crear'"
+      class="px-4 py-4"
       ref="requestForm"
       @submit.prevent="sendForm"
   >
@@ -41,11 +42,10 @@
 </template>
 
 <script>
-import InputDate from "../../../general/inputs/InputDate";
-import Textarea from "../../../general/inputs/Textarea";
-import contactService from "../../../../services/contact";
-import BaseNotification from "../../../general/notifications/BaseNotification";
-
+import InputDate from "../../general/inputs/InputDate";
+import Textarea from "../../general/inputs/Textarea";
+import contactService from "../../../services/contact";
+import BaseNotification from "../../general/notifications/BaseNotification";
 
 export default {
   name: "Form",
@@ -136,13 +136,12 @@ export default {
                     this.notification.text = 'Algo salió mal. No se pudo crear la petición';
                   }
                 } else {
-                  this.notification.text = '¡La petición se creo con éxito!';
-                  this.notification.type = 'success';
+                  this.$emit('request-created', res.data.requestCreated);
                 }
 
                 this.loading = false;
               });
-        }else{
+        } else {
           // Editar
           contactService.update(this.formData, this.request.id)
               .then(res => {
@@ -157,13 +156,13 @@ export default {
                       professional_id: null,
                       ...res.errors
                     }
+
                     this.notification.text = 'Por favor corregí los datos del formulario';
                   } else {
                     this.notification.text = 'Algo salió mal. No se pudo editar la petición';
                   }
                 } else {
-                  this.notification.text = '¡La petición se edito con éxito!';
-                  this.notification.type = 'success';
+                  this.$emit('request-created', res.data.request);
                 }
 
                 this.loading = false;

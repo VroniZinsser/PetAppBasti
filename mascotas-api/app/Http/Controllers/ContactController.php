@@ -38,7 +38,7 @@ class ContactController extends Controller
 
     public function createSharedPetRequest(Request $request): JsonResponse
     {
-        $sharedPetR = $this->contactRepository->createSharedPetRequest(
+        $requestCreated = $this->contactRepository->createSharedPetRequest(
             $request->get('description'),
             $request->get('expiration_date'),
             $request->get('pet_id'),
@@ -48,15 +48,13 @@ class ContactController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => [
-                'sharedPetRequest' => compact('sharedPetR'),
-            ],
+            'data' => compact('requestCreated'),
         ]);
     }
 
     public function updateSharedPetRequest(Request $request, int $request_id): JsonResponse
     {
-        $sharedPetR = $this->contactRepository->updateSharedPetRequest(
+        $requestUpdated = $this->contactRepository->updateSharedPetRequest(
             $request_id,
             $request->get('description'),
             $request->get('expiration_date'),
@@ -65,21 +63,17 @@ class ContactController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => [
-                'sharedPetRequest' => compact('sharedPetR'),
-            ],
+            'data' => compact('requestUpdated'),
         ]);
     }
 
     public function acceptSharedPetRequest(int $request_id): JsonResponse
     {
-        $sharedPetR = $this->contactRepository->acceptSharedPetRequest($request_id);
+        $request = $this->contactRepository->acceptSharedPetRequest($request_id);
 
         return response()->json([
             'success' => true,
-            'data' => [
-                'sharedPetRequest' => compact('sharedPetR'),
-            ],
+            'data' => compact('request'),
         ]);
     }
 

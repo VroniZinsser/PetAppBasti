@@ -30,20 +30,20 @@ class ContactService implements ContactRepository
      */
     public function createSharedPetRequest(?string $description, string $expiration_date, int $pet_id, int $owner_id, int $professional_id): SharedPet
     {
-        $sharedPetR = new SharedPet();
+        $request = new SharedPet();
 
-        $sharedPetR->accepted = false;
-        $sharedPetR->description = $description;
-        $sharedPetR->expiration_date = $expiration_date;
-        $sharedPetR->pets_id = $pet_id;
-        $sharedPetR->owners_id = $owner_id;
-        $sharedPetR->professionals_id = $professional_id;
-        $sharedPetR->created_at = now();
-        $sharedPetR->updated_at = now();
+        $request->accepted = false;
+        $request->description = $description;
+        $request->expiration_date = $expiration_date;
+        $request->pets_id = $pet_id;
+        $request->owners_id = $owner_id;
+        $request->professionals_id = $professional_id;
+        $request->created_at = now();
+        $request->updated_at = now();
 
-        $sharedPetR->save();
+        $request->save();
 
-        return $sharedPetR;
+        return $request;
     }
 
     /**
@@ -51,16 +51,16 @@ class ContactService implements ContactRepository
      */
     public function updateSharedPetRequest(int $id, ?string $description, string $expiration_date, int $pet_id): SharedPet
     {
-        $sharedPetR = SharedPet::find($id);
+        $request = SharedPet::find($id);
 
-        $sharedPetR->description = $description;
-        $sharedPetR->expiration_date = $expiration_date;
-        $sharedPetR->pets_id = $pet_id;
-        $sharedPetR->updated_at = now();
+        $request->description = $description;
+        $request->expiration_date = $expiration_date;
+        $request->pets_id = $pet_id;
+        $request->updated_at = now();
 
-        $sharedPetR->save();
+        $request->save();
 
-        return $sharedPetR;
+        return $request;
     }
 
     /**
@@ -68,13 +68,13 @@ class ContactService implements ContactRepository
      */
     public function acceptSharedPetRequest(int $id)
     {
-        $sharedPetR = SharedPet::find($id);
+        $request = SharedPet::find($id);
 
-        $sharedPetR->accepted = true;
+        $request->accepted = true;
 
-        $sharedPetR->save();
+        $request->save();
 
-        return $sharedPetR;
+        return $request;
     }
 
     /**
