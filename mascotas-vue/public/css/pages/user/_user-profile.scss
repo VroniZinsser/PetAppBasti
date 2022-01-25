@@ -61,4 +61,27 @@
             }
         }
     }
+
+    .contact {
+        .v-expansion-panel-content__wrap {
+            display: flex;
+            flex-wrap: wrap;
+
+            & > div {
+                width: 33%;
+                max-width: 60px;
+                margin-bottom: 15px;
+
+                a {
+                    img {
+                        width: 50px;
+                    }
+        
+                    span {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
 }

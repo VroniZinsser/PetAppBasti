@@ -41,19 +41,34 @@
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
                         <div v-if="professional.whatsapp">
-                            <a :href="'https://api.whatsapp.com/send?phone=' + professional.whatsapp" target="_blank">{{ professional.whatsapp }}</a>
+                            <a :href="'https://api.whatsapp.com/send?phone=' + professional.whatsapp" target="_blank">
+                                <img :src="createStaticImgPath('contact/whatsapp.png')" alt="link a Whatsapp">
+                                <span>{{ professional.whatsapp }}</span>
+                            </a>
                         </div>
                         <div v-if="professional.email && professional.email_visible">
-                            <a :href="'mailto:' + professional.email" target="_blank">{{ professional.email }}</a>
+                            <a :href="'mailto:' + professional.email" target="_blank">
+                                <img :src="createStaticImgPath('contact/gmail.png')" alt="link a Gmail">
+                                <span>{{ professional.email }}</span>
+                            </a>
                         </div>
                         <div v-if="professional.instagram">
-                            <a :href="'https://www.instagram.com/' + professional.instagram" target="_blank">{{ professional.instagram }}</a>
+                            <a :href="'https://www.instagram.com/' + professional.instagram" target="_blank">
+                                <img :src="createStaticImgPath('contact/instagram.png')" alt="link a Instagram">
+                                <span>{{ professional.instagram }}</span>
+                            </a>
                         </div>
                         <div v-if="professional.facebook">
-                            <a :href="'https://www.facebook.com/' + professional.facebook" target="_blank">{{ professional.facebook }}</a>
+                            <a :href="'https://www.facebook.com/' + professional.facebook" target="_blank">
+                                <img :src="createStaticImgPath('contact/facebook.png')" alt="link a Facebook">
+                                <span>{{ professional.facebook }}</span>
+                            </a>
                         </div>
                         <div v-if="professional.web">
-                            <a :href="professional.web" target="_blank">{{ professional.web }}</a>
+                            <a :href="professional.web" target="_blank">
+                                <img :src="createStaticImgPath('contact/www.png')" alt="link a la página web">
+                                <span>{{ professional.web }}</span>
+                            </a>
                         </div>
                     </v-expansion-panel-content>
                 </v-expansion-panel>
