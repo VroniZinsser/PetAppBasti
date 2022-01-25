@@ -33,6 +33,7 @@ DB_PASSWORD=
     - **img/pets**: Aquí se almacenan las fotos de las mascotas que crea el usuario
     - **img/users/profile**: Aquí se almacenan las fotos de perfil de los usuarios
 - Ejecutar el comando `php artisan key:generate` para generar una clave se guardará dentro del archivo`.env`.
+- Ejecutar el comando `php artisan jwt:secret` para generar una clave para JWT que se guardará dentro del archivo`.env`.
 ### mascotas-vue
 Dentro de la carpeta **"mascotas-vue"** hay que realizar los siguientes pasos:
 - Ejecutar el comando `npm install` para instalar las dependencias.
