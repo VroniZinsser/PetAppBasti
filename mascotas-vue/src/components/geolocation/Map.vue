@@ -84,11 +84,19 @@ export default {
       
       for (let i = 0; i < professionals.length; i++) {
         const prof = professionals[i];
-        const nameToDisplay = prof.public_name ? prof.public_name : prof.first_name + ' ' + prof.last_name;
+        // const nameToDisplay = prof.public_name ? prof.public_name : prof.first_name + ' ' + prof.last_name;
         // if the professionals are filtered by a certain type, use that type for the marker icons
         // if not, use the first user type of every professional
         const typeIdForIcon = userTypeId || prof.user_types[0].id;
         const markerIcon = new H.map.Icon(this.getIconByUserType(typeIdForIcon), {size: {w: 32, h: 52}});
+
+        let userTypesString = '';
+
+        for (const userType of prof.user_types) {
+          if (userType.id !== 4) {
+            userTypesString += `<span class="professional-type-tag">${userType.name}</span> `
+          }
+        }
         let marker = new H.map.Marker(
           {
             lat: prof.latitude,
@@ -100,7 +108,17 @@ export default {
         );
         marker.setData({
           prof_id: prof.id,
-          content: `<span>${nameToDisplay}<span>`
+          content: `<div class="professional-card-header">
+              ${userTypesString}
+          </div>
+
+          <div class="professional-card-content">
+              <p class="professional-name">${prof.first_name} ${prof.last_name}</p>
+
+              <p class="professional-location">${prof.city}, ${prof.street} ${prof.house_number}</p>
+
+              <p class="professional-card-link-content"><a href="#/profesional/${prof.id}/perfil">Ir al perfil</a></p>
+          </div>`
         });
         marker.addEventListener('tap', event => {
           this.showInfoBubble(event.target);
