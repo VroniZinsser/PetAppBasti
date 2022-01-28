@@ -6,6 +6,7 @@ use App\Dtos\PetDTO;
 use App\Models\Pet;
 use App\Models\User;
 use App\Repositories\PetRepository;
+use Exception;
 
 class PetService implements PetRepository
 {
@@ -53,7 +54,7 @@ class PetService implements PetRepository
     {
         try {
             $pet = Pet::find($id);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             return $exception;
         }
         return $pet;
