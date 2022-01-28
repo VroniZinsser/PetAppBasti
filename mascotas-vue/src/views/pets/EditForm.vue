@@ -1,12 +1,12 @@
 <template>
   <Loader v-if="loading"></Loader>
   <FormContainer
-    headline="Editar mascota"
-    form_class="form-pet-edit"
-    :is_short_form="false"
-    v-else
+      headline="Editar mascota"
+      form_class="form-pet-edit"
+      :is_short_form="false"
+      v-else
   >
-    <Form
+    <Form v-if="pet"
           :sexes="sexes"
           :species="species"
           :pet="pet"
@@ -23,7 +23,7 @@ import petServices from "../../services/pets";
 export default {
   name: "EditForm",
   components: {
-    Loader, 
+    Loader,
     Form,
     FormContainer,
   },
@@ -33,7 +33,6 @@ export default {
     species: [],
     pet: null
   }),
-
   mounted() {
     petServices.createForm()
         .then(res => {
@@ -43,7 +42,12 @@ export default {
 
     petServices.find(this.$route.params.pet_id)
         .then(res => {
-          this.pet = res.data.pet;
+          if (res.data) {
+            this.pet = res.data.pet;
+          } else {
+            this.$emit('create-notification', 'error', 'No se encontro la mascota solicitada');
+            // this.$router.push({name: 'Pets'});
+          }
           this.loading = false;
         })
   }

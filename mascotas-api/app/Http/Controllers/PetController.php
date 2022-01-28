@@ -100,7 +100,7 @@ class PetController extends Controller
         if ($photo = $request->get('photo')) {
             $image = $this->imageRepository->uploadImage($photo, 'pets/', 'Mascota ' . $request->get('name'));
             $dto->set_image_id($image->id);
-        }else{
+        } else {
 //            $pet = $this->petRepository->find($pet_id);
 
             $dto->set_image_id($this->petRepository->find($pet_id)->images_id);
@@ -174,7 +174,8 @@ class PetController extends Controller
         ]);
     }
 
-    public function getObservation($pet_id){
+    public function getObservation($pet_id)
+    {
         $observation = $this->petRepository->getObservation($pet_id);
 
         return response()->json([
@@ -192,10 +193,16 @@ class PetController extends Controller
     public function findPet($pet_id): JsonResponse
     {
         $pet = $this->petRepository->find($pet_id);
-
-        return response()->json([
-            'data' => compact('pet')
-        ]);
+        if ($pet) {
+            return response()->json([
+                'success' => true,
+                'data' => compact('pet'),
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+            ]);
+        }
     }
 
     /**

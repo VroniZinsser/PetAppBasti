@@ -49,9 +49,14 @@ class PetService implements PetRepository
     /**
      * @inheritDoc
      */
-    public function find(int $id): Pet
+    public function find(int $id)
     {
-        return Pet::find($id);
+        try {
+            $pet = Pet::find($id);
+        } catch (\Exception $exception) {
+            return $exception;
+        }
+        return $pet;
     }
 
     /**

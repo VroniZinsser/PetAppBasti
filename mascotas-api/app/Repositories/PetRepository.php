@@ -36,9 +36,9 @@ interface PetRepository
      * Returns the pet with the given id
      *
      * @param int $id
-     * @return Pet
+     * @return mixed
      */
-    public function find(int $id): Pet;
+    public function find(int $id);
 
     /**
      * Deletes the pet with the given id and returns true if deletion was successful
