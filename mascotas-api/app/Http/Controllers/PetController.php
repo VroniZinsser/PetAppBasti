@@ -185,15 +185,24 @@ class PetController extends Controller
     }
 
     /**
-     * Gets a pet by its id
+     * Gets a pet by its id if you have the access to show that pet
      *
      * @param $pet_id
      * @return JsonResponse
      */
     public function findPet($pet_id): JsonResponse
     {
-        $pet = $this->petRepository->find($pet_id);
-        if ($pet) {
+        $pet = $this->petRepository->findWithRelationship($pet_id);
+
+        $access = false;
+
+        foreach ($pet->owners as $owner) {
+            if (Auth::user()->id === $owner->id){
+                $access = true;
+            }
+        }
+
+        if ($pet && $access) {
             return response()->json([
                 'success' => true,
                 'data' => compact('pet'),
