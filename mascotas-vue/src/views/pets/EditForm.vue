@@ -45,7 +45,7 @@ export default {
           if (res.data) {
             this.pet = res.data.pet;
           } else {
-            this.$emit('create-notification', 'error', 'No se encontro la mascota solicitada');
+            this.$emit('create-notification', 'error', 'No se encontró la mascota solicitada');
             this.$router.push({name: 'Pets'});
           }
           this.loading = false;
