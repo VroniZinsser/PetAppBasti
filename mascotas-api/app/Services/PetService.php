@@ -6,6 +6,7 @@ use App\Dtos\PetDTO;
 use App\Models\Pet;
 use App\Models\User;
 use App\Repositories\PetRepository;
+use Exception;
 
 class PetService implements PetRepository
 {
@@ -49,9 +50,27 @@ class PetService implements PetRepository
     /**
      * @inheritDoc
      */
-    public function find(int $id): Pet
+    public function find(int $id)
     {
-        return Pet::find($id);
+        try {
+            $pet = Pet::find($id);
+        } catch (Exception $exception) {
+            return $exception;
+        }
+        return $pet;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function findWithRelationship(int $id)
+    {
+        try {
+            $pet = Pet::where('id', $id)->with('sex','species','image','owners','medicines','vaccines','weights')->first();
+        } catch (Exception $exception) {
+            return $exception;
+        }
+        return $pet;
     }
 
     /**
