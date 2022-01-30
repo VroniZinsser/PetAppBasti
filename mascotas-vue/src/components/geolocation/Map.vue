@@ -84,7 +84,7 @@ export default {
       
       for (let i = 0; i < professionals.length; i++) {
         const prof = professionals[i];
-        // const nameToDisplay = prof.public_name ? prof.public_name : prof.first_name + ' ' + prof.last_name;
+        const nameToDisplay = prof.public_name ? prof.public_name : prof.first_name + ' ' + prof.last_name;
         // if the professionals are filtered by a certain type, use that type for the marker icons
         // if not, use the first user type of every professional
         const typeIdForIcon = userTypeId || prof.user_types[0].id;
@@ -113,7 +113,7 @@ export default {
           </div>
 
           <div class="professional-card-content">
-              <p class="professional-name">${prof.first_name} ${prof.last_name}</p>
+              <p class="professional-name">${nameToDisplay}</p>
 
               <p class="professional-location">${prof.city}, ${prof.street} ${prof.house_number}</p>
 
