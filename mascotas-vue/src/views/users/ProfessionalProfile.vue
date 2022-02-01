@@ -12,7 +12,7 @@
                     {{type.name}}
                 </div>
             </div>
-        </div>
+        </div>    
         <div class="description">
             <h3>Descripción</h3>
             <p>{{ professional.description }}</p>
@@ -32,47 +32,41 @@
                 </div>
             </div>
         </div>
-        
-        <div class="contact">
-            <v-expansion-panels>
-                <v-expansion-panel>
-                    <v-expansion-panel-header>
-                        Contactar
-                    </v-expansion-panel-header>
-                    <v-expansion-panel-content>
-                        <div v-if="professional.whatsapp">
-                            <a :href="'https://api.whatsapp.com/send?phone=' + professional.whatsapp" target="_blank">
-                                <img :src="createStaticImgPath('contact/whatsapp.png')" alt="link a Whatsapp">
-                                <span>{{ professional.whatsapp }}</span>
-                            </a>
-                        </div>
-                        <div v-if="professional.email && professional.email_visible">
-                            <a :href="'mailto:' + professional.email" target="_blank">
-                                <img :src="createStaticImgPath('contact/gmail.png')" alt="link a Gmail">
-                                <span>{{ professional.email }}</span>
-                            </a>
-                        </div>
-                        <div v-if="professional.instagram">
-                            <a :href="'https://www.instagram.com/' + professional.instagram" target="_blank">
-                                <img :src="createStaticImgPath('contact/instagram.png')" alt="link a Instagram">
-                                <span>{{ professional.instagram }}</span>
-                            </a>
-                        </div>
-                        <div v-if="professional.facebook">
-                            <a :href="'https://www.facebook.com/' + professional.facebook" target="_blank">
-                                <img :src="createStaticImgPath('contact/facebook.png')" alt="link a Facebook">
-                                <span>{{ professional.facebook }}</span>
-                            </a>
-                        </div>
-                        <div v-if="professional.web">
-                            <a :href="professional.web" target="_blank">
-                                <img :src="createStaticImgPath('contact/www.png')" alt="link a la página web">
-                                <span>{{ professional.web }}</span>
-                            </a>
-                        </div>
-                    </v-expansion-panel-content>
-                </v-expansion-panel>
-            </v-expansion-panels>
+
+         <div class="contact">
+            <h3>Contactar a {{ professional.first_name }}</h3>
+            <div class="contact-data-container">
+                <div v-if="professional.whatsapp">
+                    <a :href="'https://api.whatsapp.com/send?phone=' + professional.whatsapp" target="_blank">
+                        <img :src="createStaticImgPath('contact/whatsapp.png')" alt="link a Whatsapp">
+                        <span>{{ professional.whatsapp }}</span>
+                    </a>
+                </div>
+                <div v-if="professional.email && professional.email_visible">
+                    <a :href="'mailto:' + professional.email" target="_blank">
+                        <img :src="createStaticImgPath('contact/gmail.png')" alt="link a Gmail">
+                        <span>{{ professional.email }}</span>
+                    </a>
+                </div>
+                <div v-if="professional.instagram">
+                    <a :href="'https://www.instagram.com/' + professional.instagram" target="_blank">
+                        <img :src="createStaticImgPath('contact/instagram.png')" alt="link a Instagram">
+                        <span>{{ professional.instagram }}</span>
+                    </a>
+                </div>
+                <div v-if="professional.facebook">
+                    <a :href="'https://www.facebook.com/' + professional.facebook" target="_blank">
+                        <img :src="createStaticImgPath('contact/facebook.png')" alt="link a Facebook">
+                        <span>{{ professional.facebook }}</span>
+                    </a>
+                </div>
+                <div v-if="professional.web">
+                    <a :href="professional.web" target="_blank">
+                        <img :src="createStaticImgPath('contact/www.png')" alt="link a la página web">
+                        <span>{{ professional.web }}</span>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </template>

@@ -33,10 +33,15 @@
     .description {
         background: $white-gray-min;
         padding: 12px 16px;
+
+        h3 {
+            padding-bottom: 5px;
+        }
     }
 
     .location {
         padding: 12px 16px;
+        border-bottom: 1px solid $white-gray;
 
         .location-header {
             display: flex;
@@ -63,18 +68,22 @@
     }
 
     .contact {
-        .v-expansion-panel-content__wrap {
+        padding: 12px 16px;
+        background: $light-gray;
+
+        .contact-data-container {
             display: flex;
             flex-wrap: wrap;
+            margin-top: 12px;
 
             & > div {
                 width: 33%;
-                max-width: 60px;
+                max-width: 80px;
                 margin-bottom: 15px;
 
                 a {
                     img {
-                        width: 50px;
+                        width: 36px;
                     }
         
                     span {

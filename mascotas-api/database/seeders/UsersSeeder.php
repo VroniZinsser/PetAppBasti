@@ -66,7 +66,7 @@ class UsersSeeder extends Seeder
                 'longitude' => -58.445850,
                 'dni' => 13942502,
                 'public_name' => 'Pet Shop Animalitos Maravillosos',
-                'description' => 'Una persona muy buena y amable c:',
+                'description' => 'Hola, qué tal? Soy Ana María. Nací en Córdoba y desde muy chiquita dediqué mi tiempo libre al cuidado de las mascotas y de los animales en general. Ahora vivo en Buenos Aires hace más de 10 años, aplicando mis conocimientos para ayudar y sanar a nuestros seres queridos de 4 patas. Espero poder ayudarte en lo que necesites. ¡No dudes en contactarme!',
                 'whatsapp' => '5491172942759',
                 'instagram' => 'veterinaria_buenosaires',
                 'facebook' => 'veterinariabuenosaires',
