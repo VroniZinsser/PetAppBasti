@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>    
-        <div class="description">
+        <div class="description" v-if="professional.description">
             <h3>Descripción</h3>
             <p>{{ professional.description }}</p>
         </div>
@@ -33,7 +33,7 @@
             </div>
         </div>
 
-         <div class="contact">
+         <div class="contact" v-if="hasContact">
             <h3>Contactar a {{ professional.first_name }}</h3>
             <div class="contact-data-container">
                 <div v-if="professional.whatsapp">
@@ -119,6 +119,15 @@ export default {
                 + this.professional.state
             )
             return 'https://www.google.com.ar/maps/dir//' + directions;
+        },
+
+        /** Returns true if any of the contact methods is set */
+        hasContact() {
+            return this.professional.whatsapp
+                || (this.professional.email && this.professional.email_visible)
+                || this.professional.instagram
+                || this.professional.facebook
+                || this.professional.web;
         }
     },
     methods: {

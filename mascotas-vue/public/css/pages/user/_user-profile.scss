@@ -41,7 +41,6 @@
 
     .location {
         padding: 12px 16px;
-        border-bottom: 1px solid $white-gray;
 
         .location-header {
             display: flex;
@@ -70,6 +69,7 @@
     .contact {
         padding: 12px 16px;
         background: $light-gray;
+        border-top: 1px solid $white-gray;
 
         .contact-data-container {
             display: flex;
