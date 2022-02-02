@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(WeightsSeeder::class);
         $this->call(UserTypesSeeder::class);
         $this->call(UsersSeeder::class);
+        $this->call(SharedPetsSeeder::class);
         $this->call(AttentionSchedulesSeeder::class);
         $this->call(HoursSeeder::class);
         $this->call(MedicinesSeeder::class);
