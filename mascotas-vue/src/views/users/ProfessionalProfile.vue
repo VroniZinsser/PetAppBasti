@@ -2,71 +2,79 @@
     <Loader v-if="loading"></Loader>
     <div v-else class="professional-profile">
         <TitleBar :title="professional.public_name"></TitleBar>
-        <div class="intro">
-            <div>
-                <img :src="createImgPath(professional.profile_image.src)" :alt="professional.profile_image.alt">
-            </div>
-            <h2>{{ professional.first_name}} {{ professional.last_name }}</h2>
-            <div class="professional-types">
-                <div v-for="type in professional.user_types" :key="type.id">
-                    {{type.name}}
+        <div class="profile-container">
+            <main>
+                <div class="intro">
+                    <div>
+                        <img :src="createImgPath(professional.profile_image.src)" :alt="professional.profile_image.alt">
+                    </div>
+                    <h2>{{ professional.first_name}} {{ professional.last_name }}</h2>
+                    <div class="professional-types">
+                        <div v-for="type in professional.user_types" :key="type.id">
+                            {{type.name}}
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>    
-        <div class="description" v-if="professional.description">
-            <h3>Descripción</h3>
-            <p>{{ professional.description }}</p>
-        </div>
-        <div class="location">
-            <div class="location-header">
-                <a :href="googleMapsLink" target="_blank">Google Maps</a>
-            </div>
-            <div class="location-body">
-                <div>
-                    <img :src="createStaticImgPath('ui/marker.svg')" alt="Ícono de geolocalización">
+            
+                <div class="description" v-if="professional.description">
+                    <h3>Descripción</h3>
+                    <p>{{ professional.description }}</p>
                 </div>
-                <div>
-                    <span>{{ professional.street }} {{ professional.house_number }}</span>
-                    <span>{{ professional.postal_code }} {{ professional.district }} {{ professional.city }}</span>
-                    <span>{{ professional.state }}</span>
-                </div>
-            </div>
-        </div>
+            </main>
 
-         <div class="contact" v-if="hasContact">
-            <h3>Contactar a {{ professional.first_name }}</h3>
-            <div class="contact-data-container">
-                <div v-if="professional.whatsapp">
-                    <a :href="'https://api.whatsapp.com/send?phone=' + professional.whatsapp" target="_blank">
-                        <img :src="createStaticImgPath('contact/whatsapp.png')" alt="link a Whatsapp">
-                        <span>{{ professional.whatsapp }}</span>
-                    </a>
+            <aside>  
+                <div class="location">
+                    <div class="location-header">
+                        <a :href="googleMapsLink" target="_blank">Google Maps</a>
+                    </div>
+                    <div class="location-body">
+                        <div>
+                            <img :src="createStaticImgPath('ui/marker.svg')" alt="Ícono de geolocalización">
+                        </div>
+                        <div>
+                            <span>{{ professional.street }} {{ professional.house_number }}</span>
+                            <span>{{ professional.postal_code }} {{ professional.district }} {{ professional.city }}</span>
+                            <span>{{ professional.state }}</span>
+                        </div>
+                    </div>
                 </div>
-                <div v-if="professional.email && professional.email_visible">
-                    <a :href="'mailto:' + professional.email" target="_blank">
-                        <img :src="createStaticImgPath('contact/gmail.png')" alt="link a Gmail">
-                        <span>{{ professional.email }}</span>
-                    </a>
+                    
+                <div class="contact" v-if="hasContact">
+                    <h3>Contactar a {{ professional.first_name }}</h3>
+                    <div class="contact-data-container">
+                        <div v-if="professional.whatsapp">
+                            <a :href="'https://api.whatsapp.com/send?phone=' + professional.whatsapp" target="_blank">
+                                <img :src="createStaticImgPath('contact/whatsapp.png')" alt="link a Whatsapp">
+                                <span>{{ professional.whatsapp }}</span>
+                            </a>
+                        </div>
+                        <div v-if="professional.email && professional.email_visible">
+                            <a :href="'mailto:' + professional.email" target="_blank">
+                                <img :src="createStaticImgPath('contact/gmail.png')" alt="link a Gmail">
+                                <span>{{ professional.email }}</span>
+                            </a>
+                        </div>
+                        <div v-if="professional.instagram">
+                            <a :href="'https://www.instagram.com/' + professional.instagram" target="_blank">
+                                <img :src="createStaticImgPath('contact/instagram.png')" alt="link a Instagram">
+                                <span>{{ professional.instagram }}</span>
+                            </a>
+                        </div>
+                        <div v-if="professional.facebook">
+                            <a :href="'https://www.facebook.com/' + professional.facebook" target="_blank">
+                                <img :src="createStaticImgPath('contact/facebook.png')" alt="link a Facebook">
+                                <span>{{ professional.facebook }}</span>
+                            </a>
+                        </div>
+                        <div v-if="professional.web">
+                            <a :href="professional.web" target="_blank">
+                                <img :src="createStaticImgPath('contact/www.png')" alt="link a la página web">
+                                <span>{{ professional.web }}</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div v-if="professional.instagram">
-                    <a :href="'https://www.instagram.com/' + professional.instagram" target="_blank">
-                        <img :src="createStaticImgPath('contact/instagram.png')" alt="link a Instagram">
-                        <span>{{ professional.instagram }}</span>
-                    </a>
-                </div>
-                <div v-if="professional.facebook">
-                    <a :href="'https://www.facebook.com/' + professional.facebook" target="_blank">
-                        <img :src="createStaticImgPath('contact/facebook.png')" alt="link a Facebook">
-                        <span>{{ professional.facebook }}</span>
-                    </a>
-                </div>
-                <div v-if="professional.web">
-                    <a :href="professional.web" target="_blank">
-                        <img :src="createStaticImgPath('contact/www.png')" alt="link a la página web">
-                        <span>{{ professional.web }}</span>
-                    </a>
-                </div>
-            </div>
+            </aside>  
         </div>
     </div>
 </template>

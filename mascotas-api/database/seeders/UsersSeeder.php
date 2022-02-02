@@ -97,7 +97,7 @@ class UsersSeeder extends Seeder
                 'longitude' => -58.447150,
                 'dni' => 41231512,
                 'public_name' => 'Baño de perros Gustavo',
-                'description' => 'Una persona que no valida y por eso es mala >:c',
+                'description' => '',
                 'whatsapp' => '5491162942759',
                 'instagram' => 'vetbuenosaires',
                 'facebook' => 'Hospital-Veterinario-Ezeiza-1649574375282550',
