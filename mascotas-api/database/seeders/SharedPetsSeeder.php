@@ -27,7 +27,7 @@ class SharedPetsSeeder extends Seeder
             [
                 'id' => 2,
                 'accepted' => 1,
-                'description' => "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+                'description' => "Hola, ¿qué tal? Acá te comparto el perfil de Sisi, como ya te comenté por whatsapp tiene una infección en la oreja desde hace 3 días. Espero que me puedas ayudar. Desde ya muchas gracias :)",
                 'expiration_date' => '2022/01/21',
                 'pets_id' => 2,
                 'owners_id' => 1,
@@ -36,7 +36,7 @@ class SharedPetsSeeder extends Seeder
             [
                 'id' => 3,
                 'accepted' => 0,
-                'description' => "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+                'description' => null,
                 'expiration_date' => '2022/01/22',
                 'pets_id' => 5,
                 'owners_id' => 2,

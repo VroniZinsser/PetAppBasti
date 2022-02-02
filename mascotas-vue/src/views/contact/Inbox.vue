@@ -84,7 +84,7 @@ export default {
     createShareLink(request) {
       this.FormDialog = false;
 
-      this.notification.text = "La petición se creó con éxito";
+      this.notification.text = "Éxito. Ya puedes compartir la mascota con el enlace de abajo";
       this.notification.type = "success";
 
       this.requestLink = this.createLink(request.id);

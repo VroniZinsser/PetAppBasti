@@ -55,7 +55,7 @@ interface ContactRepository
     public function acceptSharedPetRequest(int $id);
 
     /**
-     * Elimina una petición de la base de datos
+     * Removes a request from the database
      *
      * @param int $id
      * @return bool

@@ -89,6 +89,5 @@ Route::middleware(['auth'])->group(function () {
         Route::put("/{request_id}/aceptar", [ContactController::class, 'acceptSharedPetRequest']);
         Route::post("/", [ContactController::class, 'createSharedPetRequest']);
         Route::delete("/{request_id}", [ContactController::class, 'deleteSharedPetRequest']);
-        //        Route::get("/formulario-crear", [ContactController::class, 'me']);
     });
 });

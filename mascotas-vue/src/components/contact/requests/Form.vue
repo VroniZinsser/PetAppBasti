@@ -26,7 +26,8 @@
         :loading="loading"
         :rules="[rules.obligatory, rules.date]"
         :errors="errors.expiration_date"
-        :initialDate="getCurrentDate()"
+        :initialDate="getDefaultDate()"
+        :minDate="getCurrentDate()"
         @update-date="updateDate"
     ></InputDate>
 
@@ -64,7 +65,7 @@ export default {
       loading: false,
       formData: {
         description: null,
-        expiration_date: this.getCurrentDate(),
+        expiration_date: this.getDefaultDate(),
         pet_id: null,
         professional_id: 2,
       },
@@ -105,6 +106,15 @@ export default {
       return (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
     },
 
+    /**
+     * Returns the default input date value
+     *
+     * @returns {string}
+     */
+    getDefaultDate() {
+      return (new Date((Date.now() + 86400000) - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
+    },
+
     sendForm() {
       if (this.$refs.requestForm.validate()) {
         this.loading = true;
@@ -133,7 +143,7 @@ export default {
                     }
                     this.notification.text = 'Por favor corregí los datos del formulario';
                   } else {
-                    this.notification.text = 'Algo salió mal. No se pudo crear la petición';
+                    this.notification.text = 'Algo salió mal. No se pudo compartir la mascota';
                   }
                 } else {
                   this.$emit('request-created', res.data.requestCreated);
