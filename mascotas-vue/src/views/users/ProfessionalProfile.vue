@@ -3,7 +3,7 @@
     <div v-else class="professional-profile">
         <TitleBar :title="professional.public_name"></TitleBar>
         <div class="profile-container">
-            <main>
+            <div class="profile-main-content">
                 <div class="intro">
                     <div>
                         <img :src="createImgPath(professional.profile_image.src)" :alt="professional.profile_image.alt">
@@ -20,7 +20,7 @@
                     <h3>Descripción</h3>
                     <p>{{ professional.description }}</p>
                 </div>
-            </main>
+            </div>
 
             <aside>  
                 <div class="location">
@@ -41,38 +41,38 @@
                     
                 <div class="contact" v-if="hasContact">
                     <h3>Contactar a {{ professional.first_name }}</h3>
-                    <div class="contact-data-container">
-                        <div v-if="professional.whatsapp">
+                    <ul class="contact-data-container">
+                        <li v-if="professional.whatsapp">
                             <a :href="'https://api.whatsapp.com/send?phone=' + professional.whatsapp" target="_blank">
                                 <img :src="createStaticImgPath('contact/whatsapp.png')" alt="link a Whatsapp">
                                 <span>{{ professional.whatsapp }}</span>
                             </a>
-                        </div>
-                        <div v-if="professional.email && professional.email_visible">
+                        </li>
+                        <li v-if="professional.email && professional.email_visible">
                             <a :href="'mailto:' + professional.email" target="_blank">
                                 <img :src="createStaticImgPath('contact/gmail.png')" alt="link a Gmail">
                                 <span>{{ professional.email }}</span>
                             </a>
-                        </div>
-                        <div v-if="professional.instagram">
+                        </li>
+                        <li v-if="professional.instagram">
                             <a :href="'https://www.instagram.com/' + professional.instagram" target="_blank">
                                 <img :src="createStaticImgPath('contact/instagram.png')" alt="link a Instagram">
                                 <span>{{ professional.instagram }}</span>
                             </a>
-                        </div>
-                        <div v-if="professional.facebook">
+                        </li>
+                        <li v-if="professional.facebook">
                             <a :href="'https://www.facebook.com/' + professional.facebook" target="_blank">
                                 <img :src="createStaticImgPath('contact/facebook.png')" alt="link a Facebook">
                                 <span>{{ professional.facebook }}</span>
                             </a>
-                        </div>
-                        <div v-if="professional.web">
+                        </li>
+                        <li v-if="professional.web">
                             <a :href="professional.web" target="_blank">
                                 <img :src="createStaticImgPath('contact/www.png')" alt="link a la página web">
                                 <span>{{ professional.web }}</span>
                             </a>
-                        </div>
-                    </div>
+                        </li>
+                    </ul>
                 </div>
             </aside>  
         </div>
