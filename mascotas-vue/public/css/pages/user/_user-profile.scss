@@ -27,7 +27,11 @@
             @include tablet-up {
                 display: flex;
                 flex-direction: row-reverse;
-                justify-content: space-between;
+                justify-content: center;
+
+                &.withContact {
+                    justify-content: space-between;
+                }
             }
     
             @include desktop-up {

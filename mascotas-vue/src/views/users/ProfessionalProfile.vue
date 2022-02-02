@@ -22,7 +22,7 @@
                 </div>
             </div>
 
-            <aside>  
+            <aside :class="hasContact ? 'withContact' : ''">  
                 <div class="location">
                     <div class="location-header">
                         <a :href="googleMapsLink" target="_blank">Google Maps</a>
@@ -42,36 +42,13 @@
                 <div class="contact" v-if="hasContact">
                     <h3>Contactar a {{ professional.first_name }}</h3>
                     <ul class="contact-data-container">
-                        <li v-if="professional.whatsapp">
-                            <a :href="'https://api.whatsapp.com/send?phone=' + professional.whatsapp" target="_blank">
-                                <img :src="createStaticImgPath('contact/whatsapp.png')" alt="link a Whatsapp">
-                                <span>{{ professional.whatsapp }}</span>
-                            </a>
-                        </li>
-                        <li v-if="professional.email && professional.email_visible">
-                            <a :href="'mailto:' + professional.email" target="_blank">
-                                <img :src="createStaticImgPath('contact/gmail.png')" alt="link a Gmail">
-                                <span>{{ professional.email }}</span>
-                            </a>
-                        </li>
-                        <li v-if="professional.instagram">
-                            <a :href="'https://www.instagram.com/' + professional.instagram" target="_blank">
-                                <img :src="createStaticImgPath('contact/instagram.png')" alt="link a Instagram">
-                                <span>{{ professional.instagram }}</span>
-                            </a>
-                        </li>
-                        <li v-if="professional.facebook">
-                            <a :href="'https://www.facebook.com/' + professional.facebook" target="_blank">
-                                <img :src="createStaticImgPath('contact/facebook.png')" alt="link a Facebook">
-                                <span>{{ professional.facebook }}</span>
-                            </a>
-                        </li>
-                        <li v-if="professional.web">
-                            <a :href="professional.web" target="_blank">
-                                <img :src="createStaticImgPath('contact/www.png')" alt="link a la página web">
-                                <span>{{ professional.web }}</span>
-                            </a>
-                        </li>
+                        <ContactItem v-for="method in contactMethods" 
+                            :key="method.contactData" 
+                            :contactData="method.contactData"
+                            :link="method.link"
+                            :imgPath="method.imgPath"
+                            :alt="method.alt"
+                        />
                     </ul>
                 </div>
             </aside>  
@@ -80,6 +57,7 @@
 </template>
 
 <script>
+import ContactItem from "@/components/users/profile/professional/ContactItem";
 import {createImgPath} from "@/helpers";
 import {createStaticImgPath} from "@/helpers";
 import TitleBar from "@/components/general/layouts/TitleBar";
@@ -91,7 +69,8 @@ export default {
     name: "ProfessionalProfile",
     components: {
         TitleBar,
-        Loader
+        Loader,
+        ContactItem,
     },
     data() {
         return {
@@ -100,6 +79,7 @@ export default {
             store,
             createImgPath,
             createStaticImgPath,
+            contactMethods: [],
         }
     },
     mounted() {
@@ -107,6 +87,38 @@ export default {
             .then(res => {
                 if (res.data.user) {
                     this.professional = res.data.user;
+                    this.contactMethods =  [
+                        {
+                            'contactData': this.professional.whatsapp,
+                            'link': 'https://api.whatsapp.com/send?phone=' + this.professional.whatsapp,
+                            'imgPath': 'contact/whatsapp.png',
+                            'alt': 'link a Whatsapp'
+                        },
+                        {
+                            'contactData': this.professional.email,
+                            'link': 'mailto:' + this.professional.email,
+                            'imgPath': 'contact/gmail.png',
+                            'alt': 'link a Gmail'
+                        },
+                        {
+                            'contactData': this.professional.instagram,
+                            'link': 'https://www.instagram.com/' + this.professional.instagram,
+                            'imgPath': 'contact/instagram.png',
+                            'alt': 'link a Instagram'
+                        },
+                        {
+                            'contactData': this.professional.facebook,
+                            'link': 'https://www.facebook.com/' + this.professional.facebook,
+                            'imgPath': 'contact/facebook.png',
+                            'alt': 'link a Facebook'
+                        },
+                        {
+                            'contactData': this.professional.web,
+                            'link': this.professional.web,
+                            'imgPath': 'contact/www.png',
+                            'alt': 'link a la página web'
+                        }
+                    ],
                     this.loading = false;                    
                 } else {
                     this.store.setStatus({
