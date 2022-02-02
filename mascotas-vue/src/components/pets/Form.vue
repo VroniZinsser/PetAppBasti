@@ -115,7 +115,7 @@
       </v-radio-group>
     </fieldset>
 
-    <img :src="formData.photo" alt="Preview de la imagen" v-if="formData.photo">
+    <img class="img-preview" :src="formData.photo" alt="Preview de la imagen" v-if="formData.photo">
 
     <v-file-input
         outlined

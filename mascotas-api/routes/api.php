@@ -24,10 +24,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('profesionales', [UserController::class, 'getProfessionals'])->middleware(['auth']);
+Route::middleware(['auth'])->group(function () {
+    Route::get('profesionales', [UserController::class, 'getProfessionals']);
+    Route::get('profesionales/tipos', [UserController::class, 'getProfessionalUserTypes']);
+});
 
 Route::middleware(['guest'])->group(function () {
-    Route::get('/profesionales/formulario-agregar', [UserController::class, 'createFormProfessional']);
+    Route::get('/profesionales/formulario-agregar', [UserController::class, 'getProfessionalUserTypes']);
     Route::post('/profesionales', [UserController::class, 'createProfessional']);
     Route::post('usuarios/amo', [UserController::class, 'createOwner']);
 });

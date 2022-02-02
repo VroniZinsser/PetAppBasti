@@ -62,22 +62,13 @@
                             display: block;
                             margin-bottom: 8px;
                         }
-
-                        &::after {
-                            content: "";
-                            display: block;
-                            border-bottom: 1px solid $black-gray;
-                            opacity: .3;
-                            padding-top: 8px;
-                            margin: 8px -16px;
-                        }
                     }
 
                     .medicine-item-hours {
                         display: flex;
                         flex-wrap: wrap;
                         div {
-                            background: #F9F1F1;
+                            background: $white-gray-min;
                             border-radius: 2px;
                             padding: 3px;
                             margin-right: 9px;

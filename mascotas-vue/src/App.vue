@@ -50,7 +50,7 @@
     </v-dialog>
 
     <v-main id="main-content" class="pt-0">
-      <router-view/>
+      <router-view @create-notification="createNotification"/>
     </v-main>
   </v-app>
 </template>
@@ -107,6 +107,13 @@ export default {
             this.$router.push({name: 'Login'});
           });
     },
+
+    createNotification(type, content) {
+      this.store.setStatus({
+        msg: content,
+        type: type,
+      });
+    }
   },
 };
 </script>

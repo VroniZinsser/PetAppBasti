@@ -16,7 +16,7 @@ class UserService implements UserRepository {
     {
         return User::whereHas('userTypes', function($query) use($types) {
             $query->whereIn('user_types.id', $types);
-        })->get();
+        })->with('userTypes')->get();
     }
 
     /**

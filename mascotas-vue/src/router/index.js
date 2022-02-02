@@ -68,7 +68,7 @@ const routes = [
     {
         path: '/registrarme/profesional',
         name: 'UserCreate',
-        component: ProfessionalSingUp,
+        component: ProfessionalSignUp,
         meta: {
             requiresGuest: true,
             role: 'professional'

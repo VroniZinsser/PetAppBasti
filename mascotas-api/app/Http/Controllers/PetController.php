@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Dtos\PetDTO;
-use App\Http\Requests\Pets\AddRequest;
+use App\Http\Requests\Pets\UpdateRequest;
 use App\Repositories\ImageRepository;
 use App\Repositories\PetRepository;
 use App\Repositories\SexRepository;
@@ -53,10 +53,10 @@ class PetController extends Controller
     /**
      * Creates a new pet
      *
-     * @param AddRequest $request
+     * @param UpdateRequest $request
      * @return JsonResponse
      */
-    public function createPet(AddRequest $request): JsonResponse
+    public function createPet(UpdateRequest $request): JsonResponse
     {
         $photo = $request->get('photo');
         $image_id = $request->get('species_id');
@@ -81,11 +81,11 @@ class PetController extends Controller
     /**
      * Updates a pet with the given id
      *
-     * @param AddRequest $request
+     * @param UpdateRequest $request
      * @param int $pet_id
      * @return JsonResponse
      */
-    public function updatePet(AddRequest $request, int $pet_id): JsonResponse
+    public function updatePet(UpdateRequest $request, int $pet_id): JsonResponse
     {
         $user_id = Auth::user()->id;
 
@@ -100,7 +100,7 @@ class PetController extends Controller
         if ($photo = $request->get('photo')) {
             $image = $this->imageRepository->uploadImage($photo, 'pets/', 'Mascota ' . $request->get('name'));
             $dto->set_image_id($image->id);
-        }else{
+        } else {
 //            $pet = $this->petRepository->find($pet_id);
 
             $dto->set_image_id($this->petRepository->find($pet_id)->images_id);
@@ -174,7 +174,8 @@ class PetController extends Controller
         ]);
     }
 
-    public function getObservation($pet_id){
+    public function getObservation($pet_id)
+    {
         $observation = $this->petRepository->getObservation($pet_id);
 
         return response()->json([
@@ -184,18 +185,33 @@ class PetController extends Controller
     }
 
     /**
-     * Gets a pet by its id
+     * Gets a pet by its id if you have the access to show that pet
      *
      * @param $pet_id
      * @return JsonResponse
      */
     public function findPet($pet_id): JsonResponse
     {
-        $pet = $this->petRepository->find($pet_id);
+        $pet = $this->petRepository->findWithRelationship($pet_id);
 
-        return response()->json([
-            'data' => compact('pet')
-        ]);
+        $access = false;
+
+        foreach ($pet->owners as $owner) {
+            if (Auth::user()->id === $owner->id){
+                $access = true;
+            }
+        }
+
+        if ($pet && $access) {
+            return response()->json([
+                'success' => true,
+                'data' => compact('pet'),
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+            ]);
+        }
     }
 
     /**

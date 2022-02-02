@@ -1,14 +1,80 @@
 .map-container {
-    width: 100%;
+  width: 100%;
 }
 
 .map-container-inner {
-    height: 80vh;
+  height: 60vh;
 
-    @include tablet-up {
-        height: calc(100vh - 56px);
+  @include tablet-up {
+    height: calc(100vh - 56px);
+  }
+  @include desktop-up {
+    height: calc(100vh - 64px);
+  }
+}
+
+.H_ib {
+  top: -60px;
+}
+
+.H_ib_close {
+  top: 22px;
+}
+
+.professional-type-tag {
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 4px 8px;
+  color: #000000;
+
+  background: #F9F5F1;
+  border-radius: 4px;
+  margin-right: 8px;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+}
+
+.professional-card-header {
+  min-width: max-content;
+  padding-right: 1rem;
+  margin-bottom: 1rem;
+}
+
+.professional-card-content {
+  width: max-content;
+  max-width: 300px;
+
+  .professional-card-link-content {
+    text-align: right;
+    border-top: 1px solid rgba(#333333, .4);
+    margin: 0 -28px 0 -16px;
+    padding-right: 28px;
+    padding-top: 12px;
+
+    a {
+      margin: 0;
+      font-size: 16px;
+      line-height: 23px;
+      color: #D38462;
     }
-    @include desktop-up {
-        height: calc(100vh - 64px);
-    }
+  }
+}
+
+.professional-name {
+  font-size: 16px;
+  line-height: 23px;
+
+  color: #000000;
+}
+
+.professional-location {
+  font-size: 14px;
+  line-height: 20px;
+
+  color: #000000;
+
+  opacity: 0.6;
 }
