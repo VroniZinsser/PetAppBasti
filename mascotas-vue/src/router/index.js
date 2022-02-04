@@ -11,7 +11,7 @@ import OwnerSingUp from "../views/Auth/sing-up/OwnerSingUp";
 import Pets from "../views/pets/Pets";
 import PetAddForm from "../views/pets/AddForm";
 import PetEditForm from "../views/pets/EditForm";
-import ProfessionalSingUp from "../views/users/ProfessionalSingUp";
+import ProfessionalSignUp from "../views/users/ProfessionalSignUp";
 import ProfessionalProfile from "../views/users/ProfessionalProfile";
 import Schedule from "../views/schedule/Schedule";
 import VaccineForm from "../views/pets/VaccineForm";
