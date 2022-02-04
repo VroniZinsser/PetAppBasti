@@ -21,6 +21,10 @@
   top: 22px;
 }
 
+.H_ib_content {
+  width: 300px;
+}
+
 .professional-type-tag {
   font-weight: 300;
   font-size: 14px;
@@ -38,15 +42,17 @@
 }
 
 .professional-card-header {
-  min-width: max-content;
   padding-right: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: .5rem;
+
+  span {
+    display: inline-block;
+    margin-bottom: .5rem;
+  }
 }
 
 .professional-card-content {
-  width: max-content;
-  max-width: 300px;
-
+  
   .professional-card-link-content {
     text-align: right;
     border-top: 1px solid rgba(#333333, .4);
