@@ -89,7 +89,7 @@ const userService = {
      *
      * @returns {Promise<any>}
      */
-     getProfessionalUserTypes() {
+    getProfessionalUserTypes() {
         return fetch(`${API}profesionales/tipos`, {
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
             credentials: 'include'

@@ -1,36 +1,37 @@
 <template>
-    <li v-if="contactData">
-        <a :href="link" target="_blank">
-            <img :src="createStaticImgPath(imgPath)" :alt="alt">
-            <span>{{ contactData }}</span>
-        </a>
-    </li>  
+  <li v-if="contactData">
+    <a :href="link" target="_blank">
+      <img :src="createStaticImgPath(imgPath)" :alt="alt">
+      <span>{{ contactData }}</span>
+    </a>
+  </li>
 </template>
 <script>
 import {createStaticImgPath} from "@/helpers";
+
 export default {
-    name: "ContactItem",
-    props: {
-        contactData: {
-            type: String,
-            required: true,
-        },
-        link: {
-            type: String,
-            required: true,
-        },
-        imgPath: {
-            type: String,
-            required: true,
-        },
-        alt: {
-            type: String,
-        }
+  name: "ContactItem",
+  props: {
+    contactData: {
+      type: String,
+      required: true,
     },
-    data() {
-        return {
-            createStaticImgPath,
-        }    
+    link: {
+      type: String,
+      required: true,
+    },
+    imgPath: {
+      type: String,
+      required: true,
+    },
+    alt: {
+      type: String,
     }
+  },
+  data() {
+    return {
+      createStaticImgPath,
+    }
+  }
 }
 </script>
