@@ -50,7 +50,7 @@
     }
 
     .intro {
-        padding: 12px 16px;
+        padding: 2rem 1rem calc(2rem - 8px) 1rem;
 
         img {
             width: 100%;
@@ -62,6 +62,7 @@
 
         h2 {
             text-align: center;
+            margin: .5rem 0;
         }
 
         .professional-types {
@@ -80,7 +81,7 @@
     }
 
     .description {
-        padding: 12px 16px;
+        padding: 0 1rem;
 
         h3 {
             padding-bottom: 5px;
