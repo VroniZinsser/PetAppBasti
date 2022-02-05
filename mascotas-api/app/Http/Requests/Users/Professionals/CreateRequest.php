@@ -33,7 +33,7 @@ class CreateRequest extends FormRequest
             'dni' => 'max:15|min:8|required|regex:/^\d+$/',
             'public_name' => 'max:50',
             'description' => 'nullable',
-            'whatsapp' => 'max:20|min:6|nullable|regex:/^\d+$/',
+            'whatsapp' => 'required|max:20|min:6|nullable|regex:/^\d+$/',
             'instagram' => 'max:30',
             'facebook' => 'max:50',
             'web' => [
@@ -93,6 +93,7 @@ class CreateRequest extends FormRequest
             'dni.min' => Validation::msg_min_caracters('el número del DNI', ':min'),
             'dni.regex' => Validation::msg_numeric('el número del DNI'),
             'public_name.max' => Validation::msg_max_caracters( 'el nombre de la institución', ':max'),
+            'whatsapp.required' => Validation::msg_required('tu número de whatsapp'),
             'whatsapp.max' => Validation::msg_max_caracters('el número de teléfono', ':max'),
             'whatsapp.min' => Validation::msg_min_caracters('el número de teléfono', ':min'),
             'whatsapp.regex' => Validation::msg_numeric('el número de teléfono'),
