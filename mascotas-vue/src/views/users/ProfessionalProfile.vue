@@ -28,24 +28,6 @@
       </div>
 
       <aside :class="hasContact ? 'withContact' : ''">
-        <div class="location">
-          <div class="location-header">
-            <a :href="googleMapsLink" target="_blank">Google Maps</a>
-          </div>
-
-          <div class="location-body">
-            <div>
-              <img :src="createStaticImgPath('ui/marker.svg')" alt="Ícono de geolocalización">
-            </div>
-
-            <div>
-              <span>{{ professional.street }} {{ professional.house_number }}</span>
-              <span>{{ professional.postal_code }} {{ professional.district }} {{ professional.city }}</span>
-              <span>{{ professional.state }}</span>
-            </div>
-          </div>
-        </div>
-
         <div class="contact" v-if="hasContact">
           <h3>Contactar a {{ professional.first_name }}</h3>
 
@@ -59,6 +41,18 @@
                 :alt="method.alt"
             />
           </ul>
+        </div>
+        <div class="location">
+          <h3>Dirección</h3>
+          <div>
+            <span>{{ professional.street }} {{ professional.house_number }}</span>
+            <span>{{ professional.postal_code }} {{ professional.district }} {{ professional.city }}</span>
+            <span>{{ professional.state }}</span>
+          </div>
+          <a :href="googleMapsLink" target="_blank">
+            <img :src="createStaticImgPath('contact/google-maps.png')" alt="Link a Google Maps">
+            <span>Google Maps</span>
+          </a>
         </div>
       </aside>
     </div>
