@@ -27,7 +27,7 @@
         </div>
       </div>
 
-      <aside :class="hasContact ? 'withContact' : ''">
+      <aside>
         <div class="contact" v-if="hasContact">
           <h3>Contactar a {{ professional.first_name }}</h3>
 
@@ -86,7 +86,35 @@ export default {
     }
   },
   mounted() {
-    userServices.getUserById(this.$route.params.professional_id)
+    this.loadUserProfile();
+  },
+  computed: {
+    googleMapsLink() {
+      const directions = this.whiteSpacesToPlus(
+          this.professional.street + '+'
+          + this.professional.house_number + '+'
+          + this.professional.postal_code + '+'
+          + this.professional.city + '+'
+          + this.professional.state
+      )
+      return 'https://www.google.com.ar/maps/dir//' + directions;
+    },
+
+    /** Returns true if any of the contact methods is set */
+    hasContact() {
+      return this.professional.whatsapp
+          || (this.professional.email && this.professional.email_visible)
+          || this.professional.instagram
+          || this.professional.facebook
+          || this.professional.web;
+    }
+  },
+  methods: {
+    whiteSpacesToPlus(str) {
+      return str.replace(/\s/g, '+');
+    },
+    loadUserProfile() {
+      userServices.getUserById(this.$route.params.professional_id)
         .then(res => {
           if (res.data.user) {
             this.professional = res.data.user;
@@ -131,32 +159,15 @@ export default {
             this.$router.go(-1);
           }
         });
+    }
   },
-  computed: {
-    googleMapsLink() {
-      const directions = this.whiteSpacesToPlus(
-          this.professional.street + '+'
-          + this.professional.house_number + '+'
-          + this.professional.postal_code + '+'
-          + this.professional.city + '+'
-          + this.professional.state
-      )
-      return 'https://www.google.com.ar/maps/dir//' + directions;
+  watch: {
+    /**
+     * Updates data if the url param changes
+     */
+    '$route.params.professional_id': function () {
+      this.loadUserProfile();
     },
-
-    /** Returns true if any of the contact methods is set */
-    hasContact() {
-      return this.professional.whatsapp
-          || (this.professional.email && this.professional.email_visible)
-          || this.professional.instagram
-          || this.professional.facebook
-          || this.professional.web;
-    }
-  },
-  methods: {
-    whiteSpacesToPlus(str) {
-      return str.replace(/\s/g, '+');
-    }
   }
 }
 </script>
