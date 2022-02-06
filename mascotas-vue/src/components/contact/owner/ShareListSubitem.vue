@@ -3,16 +3,16 @@
     <v-expansion-panel-header>
       <div>
         <img :src="createImgPath(pet.image.src)" :alt="pet.image.alt" />
-        <div>
+        <div class="pet-container">
           <p>{{ pet.name }}</p>
-          <p>{{ expirationText }}</p>
+          <p class="light-text">{{ expirationText }}</p>
         </div>
       </div>
     </v-expansion-panel-header>
     <v-expansion-panel-content>
       <div v-if="request.description">
-        <p>Vos escribiste:</p>
-        <p>"{{ request.description }}"</p>
+        <p class="light-text">Vos escribiste:</p>
+        <p class="light-text quote">"{{ request.description }}"</p>
       </div>
       <button>Dejar de compartir</button>
     </v-expansion-panel-content>

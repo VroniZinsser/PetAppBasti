@@ -1,0 +1,81 @@
+.owner-share-list {
+    @include reset-list;
+
+    .share-list-item {
+        border-bottom: 1px solid rgba($black-gray, 0.4);
+
+        .professional-container {
+            display: flex;
+            padding: 1rem;
+            padding-bottom: 0;
+            justify-content: space-between;
+            font-size: 14px;
+            color: $black-gray;
+
+            a {
+                color: $brick;
+                text-decoration: none;
+            }
+        }
+
+        .v-expansion-panel-header {
+            padding: 1rem;
+            padding-top: 0;
+            font-size: 1rem;
+
+            & > div {
+                display: flex;
+            }
+
+            img {
+                width: 48px;
+                height: 48px;
+                object-fit: cover;
+                border-radius: 3px;
+                margin-right: 1rem;
+            }
+            
+            .pet-container {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+
+                p {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        .v-expansion-panel-header--active {
+            box-shadow: $shadow-x0-y4;
+        }
+
+        .v-expansion-panel-content {
+            
+            & > div {
+                padding-top: 1rem;
+            }
+            
+            .quote {
+                font-style: italic;
+            }
+
+            button {
+                color: $brick;
+                float: right;
+                font-size: 14px;
+            }
+
+            .v-expansion-panel-content__wrap {
+                padding: 1rem;
+                margin-bottom: 1rem;
+                border-bottom: 1px solid $gray;
+            }
+        }
+
+        .light-text {
+            font-size: 14px;
+            color: $gray;
+        }
+    }
+}

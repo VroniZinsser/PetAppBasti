@@ -2,7 +2,7 @@
     <div>
         <TitleBar title="Mascotas compartidas"></TitleBar>
         <Loader v-if="loading"></Loader>
-        <ul v-else>
+        <ul v-else class="owner-share-list">
             <li v-for="professional in professionals" :key="professional.id">
                 <ShareListItem :professional="professional" />
             </li>
