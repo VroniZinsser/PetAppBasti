@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -172,7 +173,27 @@ class User extends Authenticatable implements JWTSubject
     public function profile_image(): BelongsTo
     {
         return $this->belongsTo(Image::class, 'profile_img_id');
-    } 
+    }
+
+    /*
+     * Returns all requests to share a pet that are related to a professional
+     *
+     * @return HasMany
+     */
+    public function requestsProfessional(): HasMany
+    {
+        return $this->hasMany(SharedPet::class, 'professionals_id', 'id');
+    }
+
+    /**
+     * Returns all professionals that are related to a pet owner because they got a request to share a pet
+     *
+     * @return BelongsToMany
+     */
+    public function relatedProfessionals(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'shared_pets', 'owners_id', 'professionals_id')->select('users.id', 'first_name', 'last_name');
+    }
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

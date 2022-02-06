@@ -3,11 +3,25 @@
 namespace App\Services;
 
 use App\Models\SharedPet;
+use App\Models\User;
 use App\Repositories\ContactRepository;
 use Illuminate\Database\Eloquent\Collection;
 
 class ContactService implements ContactRepository
 {
+
+    /**
+     * @inheritDoc
+     */
+    public function getRequestsByProfessional(int $owner_id): Collection
+    {
+        $owner = User::find($owner_id);
+        $requestsByProfessionals = $owner->relatedProfessionals()
+            ->groupBy('id', 'first_name', 'last_name', 'owners_id', 'professionals_id')
+            ->get()
+            ->load(['requestsProfessional', 'requestsProfessional.pet', 'requestsProfessional.pet.image']);
+        return $requestsByProfessionals;
+    }
 
     /**
      * @inheritDoc
