@@ -19,6 +19,6 @@ class SharedPet extends Model
      */
     public function pet(): BelongsTo
     {
-        return $this->belongsTo(Pet::class, 'pets_id')->select('id', 'name', 'images_id');
+        return $this->belongsTo(Pet::class, 'pets_id')->select('id', 'name', 'images_id', 'sexes_id');
     }
 }

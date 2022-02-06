@@ -2,6 +2,11 @@
     <div>
         <TitleBar title="Mascotas compartidas"></TitleBar>
         <Loader v-if="loading"></Loader>
+        <ul v-else>
+            <li v-for="professional in professionals" :key="professional.id">
+                <ShareListItem :professional="professional" />
+            </li>
+        </ul>
     </div>
 
 </template>
@@ -9,6 +14,7 @@
 <script>
 import TitleBar from "@/components/general/layouts/TitleBar";
 import Loader from "@/components/general/notifications/Loader";
+import ShareListItem from "@/components/contact/owner/ShareListItem";
 import contactService from "@/services/contact";
 
 export default {
@@ -16,19 +22,20 @@ export default {
   components: {
     TitleBar,
     Loader,
+    ShareListItem,
   },
   data: () => ({
     loading: true,
-    sharedPets: null,
+    professionals: null,
 
   }),
   mounted() {
       contactService.getOwnerSharedPets()
         .then(res => {
-          this.sharedPets = res.data.sharedPets;
+          this.professionals = res.data.professionals;
           this.loading = false;
         });
-  }
+  },
 }
 </script>
 
