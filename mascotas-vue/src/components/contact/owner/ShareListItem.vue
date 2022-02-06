@@ -1,17 +1,17 @@
 <template>
-    <div>
-        <p>{{ professional.first_name }} {{ professional.last_name }}</p>
-        <a href="#">Ir al perfil</a>
-
-        <v-expansion-panels>
-            <ShareListSubitem 
-                v-for="request in professional.requests_professional" 
-                :key="request.id" 
-                :request="request" 
-            />
-        </v-expansion-panels>
+  <div class="share-list-item">
+    <div class="professional-container">
+      <p>{{ professional.first_name }} {{ professional.last_name }}</p>
+      <a href="#">Ir al perfil</a>
     </div>
-
+    <v-expansion-panels accordion flat>
+      <ShareListSubitem
+        v-for="request in professional.requests_professional"
+        :key="request.id"
+        :request="request"
+      />
+    </v-expansion-panels>
+  </div>
 </template>
 
 <script>
@@ -26,11 +26,10 @@ export default {
     },
   },
   components: {
-      ShareListSubitem,
+    ShareListSubitem,
   },
-}
+};
 </script>
 
 <style scoped>
-
 </style>
