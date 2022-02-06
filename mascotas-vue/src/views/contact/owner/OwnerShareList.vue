@@ -2,11 +2,17 @@
     <div>
         <TitleBar title="Mascotas compartidas"></TitleBar>
         <Loader v-if="loading"></Loader>
-        <ul v-else class="owner-share-list">
-            <li v-for="professional in professionals" :key="professional.id">
-                <ShareListItem :professional="professional" />
-            </li>
-        </ul>
+        <div v-else class="owner-share-list">
+            <div class="intro">
+                <p v-if="professionals.length > 0">Aquí aparecen los profesionales que actualmente pueden ver tus mascotas:</p>
+                <p v-else>Actualmente ningún profesional puede ver tus mascotas.</p>
+            </div>
+            <ul v-if="professionals.length > 0">
+                <li v-for="professional in professionals" :key="professional.id">
+                    <ShareListItem :professional="professional" />
+                </li>
+            </ul>
+        </div>
     </div>
 
 </template>

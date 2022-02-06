@@ -14,14 +14,17 @@
         <p class="light-text">Vos escribiste:</p>
         <p class="light-text quote">"{{ request.description }}"</p>
       </div>
-      <button>Dejar de compartir</button>
+      <button>
+        <v-icon> mdi-link-variant-off </v-icon>
+        Dejar de compartir
+      </button>
     </v-expansion-panel-content>
   </v-expansion-panel>
 </template>
 
 <script>
 import { createImgPath } from "@/helpers";
-import {formatDate} from "@/helpers";
+import { formatDate } from "@/helpers";
 
 export default {
   name: "ShareListSubitem",
@@ -39,15 +42,15 @@ export default {
      * Builds a sentence about expiration with formatted date, based on the pet's sex
      */
     expirationText() {
-        let text = this.pet.sexes_id === 1 ? 'Compartida' : 'Compartido';
-        text += ' hasta el ' + this.formatDate(this.request.expiration_date);
-        return text;
-    }
+      let text = this.pet.sexes_id === 1 ? "Compartida" : "Compartido";
+      text += " hasta el " + this.formatDate(this.request.expiration_date);
+      return text;
+    },
   },
   data() {
     return {
       createImgPath,
-      formatDate
+      formatDate,
     };
   },
 };
