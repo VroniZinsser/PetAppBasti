@@ -168,8 +168,10 @@
             label="Número de Whatsapp"
             v-model="user.whatsapp"
             identifier="whatsapp"
+            required
             :loading="loading"
             :errors="errors.whatsapp"
+            :rules="[rules.obligatory]"
             type="tel"
             autocomplete="on"
             placeholder="112345678"
@@ -233,88 +235,90 @@ export default {
     InputAddress,
     InputText,
   },
-  data: () => ({
-    show_password: false,
-    loading: false,
-    store,
-    photo: null,
-    user: {
-      first_name: "Alejo",
-      last_name: "Gómez",
-      email: "alejo.gomez@test.com",
-      email_visible: false,
-      password: "sdfoew3534+#a",
-      country: null,
-      state: null,
-      city: null,
-      postal_code: null,
-      district: null,
-      street: null,
-      house_number: null,
-      apartment: null,
-      location_id: null,
-      latitude: null,
-      longitude: null,
-      dni: "78473258",
-      public_name: "Veterinario Alejo y Hermanos",
-      description: null,
-      whatsapp: "9112345678",
-      instagram: "AlejoVet",
-      facebook: null,
-      web: null,
-      user_types: [5, 6],
-      photo: null
-    },
-    errors: {
-      first_name: null,
-      last_name: null,
-      email: null,
-      email_visible: null,
-      password: null,
-      address: null,
-      apartment: null,
-      dni: null,
-      public_name: null,
-      description: null,
-      whatsapp: null,
-      instagram: null,
-      facebook: null,
-      web: null,
-      user_types: null,
-      photo: null
-    },
-    rules: {
-      obligatory: value => !!value || 'Este campo es obligatorio.',
-      numeric: value => !isNaN(value) || 'El valor debe ser numérico.',
-      selectionRequired: value => value.length > 0 || 'Por favor elegí una opción',
-      email: value => {
-        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        return pattern.test(value) || 'El correo electrónico no es válido.'
+  data() {
+    return {
+      show_password: false,
+      loading: false,
+      store,
+      photo: null,
+      user: {
+        first_name: "Alejo",
+        last_name: "Gómez",
+        email: "alejo.gomez@test.com",
+        email_visible: false,
+        password: "sdfoew3534+#a",
+        country: null,
+        state: null,
+        city: null,
+        postal_code: null,
+        district: null,
+        street: null,
+        house_number: null,
+        apartment: null,
+        location_id: null,
+        latitude: null,
+        longitude: null,
+        dni: "78473258",
+        public_name: "Veterinario Alejo y Hermanos",
+        description: null,
+        whatsapp: "9112345678",
+        instagram: "AlejoVet",
+        facebook: null,
+        web: null,
+        user_types: [5, 6],
+        photo: null
       },
-      password: value => {
-        const pattern = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
-        return pattern.test(value) || 'La contraseña no coincide con los estándares de seguridad'
+      errors: {
+        first_name: null,
+        last_name: null,
+        email: null,
+        email_visible: null,
+        password: null,
+        address: null,
+        apartment: null,
+        dni: null,
+        public_name: null,
+        description: null,
+        whatsapp: null,
+        instagram: null,
+        facebook: null,
+        web: null,
+        user_types: null,
+        photo: null
       },
-      url: value => {
-        const pattern = /^(ftp|http|https):\/\/[^ "]+$/;
-        return (pattern.test(value) || !value) || 'La url ingresada no es válida.'
+      rules: {
+        obligatory: value => !!value || 'Este campo es obligatorio.',
+        numeric: value => !isNaN(value) || 'El valor debe ser numérico.',
+        selectionRequired: value => value.length > 0 || 'Por favor elegí una opción',
+        email: value => {
+          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          return pattern.test(value) || 'El correo electrónico no es válido.'
+        },
+        password: value => {
+          const pattern = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
+          return pattern.test(value) || 'La contraseña no coincide con los estándares de seguridad'
+        },
+        url: value => {
+          const pattern = /^(ftp|http|https):\/\/[^ "]+$/;
+          return (pattern.test(value) || !value) || 'La url ingresada no es válida.'
+        },
+        /**
+         * FB and Instagram user names can only contain letters, numbers, '.' and '_'
+         * This rule only works in the frontend right now.
+         * @TODO Add rule to the backend
+         */
+        username: value => {
+          const pattern = /^[a-z\d._]{3,}$/i;
+          return (pattern.test(value) || !value) || 'El nombre de usuario ingresado no es válido.'
+        },
       },
-      /**
-       * FB and Instagram user names can only contain letters, numbers, '.' and '_'
-       * This rule only works in the frontend right now.
-       * @TODO Add rule to the backend
-       */
-      username: value => {
-        const pattern = /^[a-z\d._]{3,}$/i;
-        return (pattern.test(value) || !value) || 'El nombre de usuario ingresado no es válido.'
-      },
-    },
-  }),
+    }
+  },
+  
   methods: {
     createUser() {
       if (this.$refs.form.validate()) {
         this.loading = true;
-
         userService.create(this.user)
             .then(res => {
               this.loading = false;
