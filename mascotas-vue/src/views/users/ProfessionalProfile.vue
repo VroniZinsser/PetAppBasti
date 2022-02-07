@@ -2,10 +2,15 @@
   <Loader v-if="loading"></Loader>
 
   <div v-else class="professional-profile">
-    <TitleBar :title="professional.public_name"></TitleBar>
+    <TitleBar :title="nameToDisplay"></TitleBar>
+    
 
     <div class="profile-container">
       <div class="profile-main-content">
+        <button class="float-circle-btn" @click="$emit('active')">
+          <img :src="createStaticImgPath('contact/share-pet.svg')" alt="Compartir mascota">
+          <span class="sr-only">{{ this.text ? this.text : 'Compartir mascota con este profesional' }}</span>
+        </button>
         <div class="intro">
           <div>
             <img :src="createImgPath(professional.profile_image.src)" :alt="professional.profile_image.alt">
@@ -18,6 +23,7 @@
               {{ type.name }}
             </div>
           </div>
+          
         </div>
 
         <div class="description" v-if="professional.description">
@@ -107,6 +113,10 @@ export default {
           || this.professional.instagram
           || this.professional.facebook
           || this.professional.web;
+    },
+
+    nameToDisplay() {
+      return this.professional.public_name || this.professional.first_name + ' ' + this.professional.last_name;
     }
   },
   methods: {
@@ -161,6 +171,7 @@ export default {
         });
     }
   },
+
   watch: {
     /**
      * Updates data if the url param changes

@@ -14,8 +14,19 @@
         }
 
         .profile-main-content {
+            position: relative;
+
             @include desktop-up {
                 flex-basis: 66%;
+            }
+
+            .float-circle-btn {
+                img {
+                    width: 32px;
+                }
+                @include desktop-up {
+                    position: absolute;
+                }
             }
         }
     
