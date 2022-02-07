@@ -34,8 +34,8 @@ const routes = [
         }
     },
     {
-        path: '/casilla',
-        name: 'Inbox',
+        path: '/compartir',
+        name: 'SharedPets',
         component: OwnerShareList,
         meta: {
             requiresAuth: true,
