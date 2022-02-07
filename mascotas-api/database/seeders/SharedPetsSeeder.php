@@ -27,7 +27,7 @@ class SharedPetsSeeder extends Seeder
             [
                 'id' => 2,
                 'accepted' => 1,
-                'description' => "Hola, ¿qué tal? Acá te comparto el perfil de Sisi, como ya te comenté por whatsapp tiene una infección en la oreja desde hace 3 días. Espero que me puedas ayudar. Desde ya muchas gracias :)",
+                'description' => "Hola, ¿qué tal?",
                 'expiration_date' => '2022/02/19',
                 'pets_id' => 2,
                 'owners_id' => 1,
