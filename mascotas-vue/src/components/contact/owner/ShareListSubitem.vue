@@ -10,7 +10,7 @@
       </div>
     </v-expansion-panel-header>
     <v-expansion-panel-content>
-      <div v-if="request.description">
+      <div v-if="request.description" class="quote-container">
         <p class="light-text">Vos escribiste:</p>
         <p class="light-text quote">"{{ request.description }}"</p>
       </div>
