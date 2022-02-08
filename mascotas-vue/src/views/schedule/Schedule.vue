@@ -10,7 +10,7 @@
 <script>
 import Construction from "@/components/general/layouts/Construction" 
 export default {
-  name: "Inbox",
+  name: "Schedule",
   components: {
     Construction
   }

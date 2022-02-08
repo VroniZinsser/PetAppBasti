@@ -64,7 +64,7 @@ import petServices from "@/services/pets";
 import BaseNotification from "@/components/general/notifications/BaseNotification";
 
 export default {
-  name: "Inbox",
+  name: "PetShareDialog",
   components: {
     BaseNotification,
     Form
@@ -84,7 +84,6 @@ export default {
       }
   },
   data: () => ({
-    FormDialog: false,
     shareDialog: false,
     pets: null,
     notification: {
