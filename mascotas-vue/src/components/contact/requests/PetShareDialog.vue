@@ -62,6 +62,7 @@
 import Form from "@/components/contact/requests/Form";
 import petServices from "@/services/pets";
 import BaseNotification from "@/components/general/notifications/BaseNotification";
+import {createRequestAcceptUrl} from "@/helpers";
 
 export default {
   name: "PetShareDialog",
@@ -99,13 +100,9 @@ export default {
       this.notification.text = "Éxito. Ya puedes compartir la mascota con el enlace de abajo";
       this.notification.type = "success";
 
-      this.requestLink = this.createLink(request.id);
+      this.requestLink = createRequestAcceptUrl(request.id);
 
       this.shareDialog = true;
-    },
-
-    createLink(id) {
-      return `http://127.0.0.1:8080/#/peticiones/${id}/aceptar`
     },
 
     copyLink() {
