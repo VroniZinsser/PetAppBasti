@@ -1,9 +1,9 @@
 <template>
-  <v-container class="text-center pt-16">
+  <div>
     <v-dialog v-model="showDialog" max-width="500" @click:outside="$emit('closeDialog')">
-      <v-card>
-        <v-card-title class="text-h5 grey lighten-2 light-blue lighten-2">
-          Crear una nueva petición
+      <v-card class="form-dialog-container">
+        <v-card-title>
+          Compartir tu mascota
         </v-card-title>
 
         <Form
@@ -55,7 +55,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -95,7 +95,7 @@ export default {
   }),
   methods: {
     createShareLink(request) {
-      this.FormDialog = false;
+      this.$emit('closeDialog')
 
       this.notification.text = "Éxito. Ya puedes compartir la mascota con el enlace de abajo";
       this.notification.type = "success";
