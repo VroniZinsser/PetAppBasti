@@ -6,10 +6,17 @@
     
 
     <div class="profile-container">
+      <PetShareDialog 
+        :showDialog="showPetShareDialog"
+        :professionalName="professional.first_name"
+        :professionalId="professional.id"
+        @closeDialog="showPetShareDialog = false"
+      />
+      
       <div class="profile-main-content">
-        <button class="float-circle-btn" @click="$emit('active')">
+        <button class="float-circle-btn" @click="showPetShareDialog = true">
           <img :src="createStaticImgPath('contact/share-pet.svg')" alt="Compartir mascota">
-          <span class="sr-only">{{ this.text ? this.text : 'Compartir mascota con este profesional' }}</span>
+          <span class="sr-only">Compartir mascota con este profesional</span>
         </button>
         <div class="intro">
           <div>
@@ -40,7 +47,7 @@
           <ul class="contact-data-container">
             <ContactItem
                 v-for="method in contactMethods"
-                :key="method.contactData"
+                :key="method.name"
                 :contactData="method.contactData"
                 :link="method.link"
                 :imgPath="method.imgPath"
@@ -67,6 +74,7 @@
 
 <script>
 import ContactItem from "@/components/users/profile/professional/ContactItem";
+import PetShareDialog from "@/components/contact/requests/PetShareDialog";
 import {createImgPath} from "@/helpers";
 import {createStaticImgPath} from "@/helpers";
 import TitleBar from "@/components/general/layouts/TitleBar";
@@ -80,6 +88,7 @@ export default {
     TitleBar,
     Loader,
     ContactItem,
+    PetShareDialog,
   },
   data() {
     return {
@@ -89,6 +98,7 @@ export default {
       createImgPath,
       createStaticImgPath,
       contactMethods: [],
+      showPetShareDialog: false,
     }
   },
   mounted() {
@@ -130,30 +140,35 @@ export default {
             this.professional = res.data.user;
             this.contactMethods = [
               {
+                'name': 'whatsapp',
                 'contactData': this.professional.whatsapp,
                 'link': 'https://api.whatsapp.com/send?phone=' + this.professional.whatsapp,
                 'imgPath': 'contact/whatsapp.png',
                 'alt': 'link a Whatsapp'
               },
               {
+                'name': 'email',
                 'contactData': this.professional.email,
                 'link': 'mailto:' + this.professional.email,
                 'imgPath': 'contact/gmail.png',
                 'alt': 'link a Gmail'
               },
               {
+                'name': 'instagram',
                 'contactData': this.professional.instagram,
                 'link': 'https://www.instagram.com/' + this.professional.instagram,
                 'imgPath': 'contact/instagram.png',
                 'alt': 'link a Instagram'
               },
               {
+                'name': 'facebook',
                 'contactData': this.professional.facebook,
                 'link': 'https://www.facebook.com/' + this.professional.facebook,
                 'imgPath': 'contact/facebook.png',
                 'alt': 'link a Facebook'
               },
               {
+                'name': 'web',
                 'contactData': this.professional.web,
                 'link': this.professional.web,
                 'imgPath': 'contact/www.png',
