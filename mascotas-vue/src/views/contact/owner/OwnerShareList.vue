@@ -9,7 +9,10 @@
             </div>
             <ul v-if="professionals.length > 0">
                 <li v-for="professional in professionals" :key="professional.id">
-                    <ShareListItem :professional="professional" />
+                    <ShareListItem 
+                      :professional="professional"
+                      @delete-request="deleteRequest"
+                    />
                 </li>
             </ul>
         </div>
@@ -36,12 +39,22 @@ export default {
 
   }),
   mounted() {
+      this.getSharedPets();
+  },
+  methods: {
+    deleteRequest(id) {
+      contactService.delete(id);
+      this.getSharedPets();
+    },
+    getSharedPets() {
+      this.loading = true;
       contactService.getOwnerSharedPets()
         .then(res => {
           this.professionals = res.data.professionals;
           this.loading = false;
         });
-  },
+    }
+  }
 }
 </script>
 

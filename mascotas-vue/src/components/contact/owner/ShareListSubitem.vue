@@ -1,5 +1,14 @@
 <template>
   <v-expansion-panel>
+    <WarnDialog
+      :showDialog="showWarnDialog" 
+      :dialogTitle="`¿Dejar de compartir ${pet.name}?`"
+      :dialogText="`${professionalName} no podrá ver más el perfil de ${pet.name}. Podés volver a compartir la mascota cuando quieras.`"
+      acceptButtonText="Dejar de compartir"
+
+      @cancle="showWarnDialog = false"
+      @accept="$parent.$parent.$emit('delete-request', request.id)"
+    />
     <v-expansion-panel-header>
       <div>
         <img :src="createImgPath(pet.image.src)" :alt="pet.image.alt" />
@@ -14,7 +23,7 @@
         <p class="quote-intro">Tu mensaje a {{professionalName}}:</p>
         <p class="quote">"{{ request.description }}"</p>
       </div>
-      <button>
+      <button @click="showWarnDialog = true">
         <v-icon> mdi-link-variant-off </v-icon>
         Dejar de compartir
       </button>
@@ -25,6 +34,8 @@
 <script>
 import { createImgPath } from "@/helpers";
 import { formatDate } from "@/helpers";
+import WarnDialog from "@/components/general/notifications/WarnDialog";
+
 
 export default {
   name: "ShareListSubitem",
@@ -37,6 +48,9 @@ export default {
       type: String,
       required: true
     }
+  },
+  components: {
+    WarnDialog,
   },
   computed: {
     pet() {
@@ -55,6 +69,7 @@ export default {
     return {
       createImgPath,
       formatDate,
+      showWarnDialog: false,
     };
   },
 };

@@ -7,7 +7,8 @@
       accordion flat 
       :multiple="desktopUp"
       :disabled="desktopUp"
-      :value="expandedItems(professional.requests_professional)">
+      :value="expandedItems(professional.requests_professional)"
+    >
 
       <ShareListSubitem
         v-for="request in professional.requests_professional"
