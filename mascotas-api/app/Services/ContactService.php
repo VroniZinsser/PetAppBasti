@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\SharedPet;
 use App\Repositories\ContactRepository;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class ContactService implements ContactRepository
 {
@@ -73,6 +74,36 @@ class ContactService implements ContactRepository
         $request->accepted = true;
 
         $request->save();
+
+        return $request;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function checkAcceptRequest(int $id): bool
+    {
+        $request = $this->findSharedPetRequest($id);
+
+        $user = \Auth::user();
+
+        if (!$request || $user->id !== $request->professionals_id) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function findSharedPetRequest(int $id)
+    {
+        try {
+            $request = SharedPet::findOrFail($id);
+        } catch (\Exception $exception) {
+            return null;
+        }
 
         return $request;
     }
