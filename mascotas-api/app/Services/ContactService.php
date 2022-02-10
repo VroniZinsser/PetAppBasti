@@ -15,11 +15,15 @@ class ContactService implements ContactRepository
      */
     public function getRequestsByProfessional(int $owner_id): Collection
     {
+        $filterCurrentAccepted = function ($query) {
+            $query->whereDate('expiration_date', '>=', date('Y-m-d'))->where('accepted', 1);
+        };
         $owner = User::find($owner_id);
         $requestsByProfessionals = $owner->relatedProfessionals()
             ->groupBy('id', 'first_name', 'last_name', 'owners_id', 'professionals_id')
-            ->get()
-            ->load(['requestsProfessional', 'requestsProfessional.pet', 'requestsProfessional.pet.image']);
+            ->whereHas('requestsProfessional', $filterCurrentAccepted)
+            ->with(['requestsProfessional' => $filterCurrentAccepted,'requestsProfessional.pet', 'requestsProfessional.pet.image'])
+            ->get();
         return $requestsByProfessionals;
     }
 
