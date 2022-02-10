@@ -1,6 +1,6 @@
 <template>
     <v-dialog v-model="showDialog" max-width="500">
-      <v-card>
+      <v-card class="warn-dialog">
         <v-card-title>
             {{ dialogTitle }}
         </v-card-title>
@@ -9,22 +9,21 @@
             <p>{{ dialogText }}</p>
         </v-card-text>
 
-        <v-divider />
-
         <v-card-actions>
-          <v-spacer></v-spacer>
-
-          <v-btn
+            <button
+              class="accept"
+              @click="$emit('accept')"
+            >
+            {{ acceptButtonText }}
+          </button>
+          <button
+              class="cancle"
               @click="$emit('cancle')"
           >
             {{ cancleButtonText }}
-          </v-btn>
+          </button>
 
-          <v-btn
-              @click="$emit('accept')"
-          >
-            {{ acceptButtonText }}
-          </v-btn>
+          
 
           <v-spacer></v-spacer>
         </v-card-actions>
