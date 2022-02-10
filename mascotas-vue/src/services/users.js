@@ -89,7 +89,7 @@ const userService = {
      *
      * @returns {Promise<any>}
      */
-     getProfessionalUserTypes() {
+    getProfessionalUserTypes() {
         return fetch(`${API}profesionales/tipos`, {
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
             credentials: 'include'
@@ -109,5 +109,19 @@ const userService = {
         })
             .then(res => res.json());
     },
+
+    /**
+     * Gets a user by its id
+     *
+     * @param {string | int} id
+     * @returns {Promise<any>}
+     */
+    getUserById(id) {
+        return fetch(`${API}usuarios/${id}`, {
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
+        })
+            .then(res => res.json());
+    }
 }
 export default userService;

@@ -12,6 +12,7 @@ import Pets from "../views/pets/Pets";
 import PetAddForm from "../views/pets/AddForm";
 import PetEditForm from "../views/pets/EditForm";
 import ProfessionalSignUp from "../views/users/ProfessionalSignUp";
+import ProfessionalProfile from "../views/users/ProfessionalProfile";
 import Schedule from "../views/schedule/Schedule";
 import OwnerShareList from "../views/contact/owner/OwnerShareList";
 import VaccineForm from "../views/pets/VaccineForm";
@@ -126,6 +127,14 @@ const routes = [
         path: '/mascotas/:pet_id/vacunas/agregar',
         name: 'VaccineForm',
         component: VaccineForm,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/profesionales/:professional_id',
+        name: 'ProfessionalProfile',
+        component: ProfessionalProfile,
         meta: {
             requiresAuth: true,
         },
