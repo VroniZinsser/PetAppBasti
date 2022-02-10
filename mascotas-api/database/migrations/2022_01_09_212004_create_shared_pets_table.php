@@ -20,7 +20,7 @@ class CreateSharedPetsTable extends Migration
             $table->date('expiration_date');
             $table->unsignedBigInteger('pets_id');
             $table->unsignedBigInteger('owners_id')->nullable();
-            $table->unsignedBigInteger('professionals_id')->nullable();
+            $table->unsignedBigInteger('professionals_id');
             $table->timestamps();
 
             $table->foreign('pets_id')->references('id')->on('pets')->onDelete('cascade')->onUpdate('cascade');

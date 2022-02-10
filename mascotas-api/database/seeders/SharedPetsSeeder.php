@@ -22,11 +22,11 @@ class SharedPetsSeeder extends Seeder
                 'expiration_date' => '2022/01/20',
                 'pets_id' => 1,
                 'owners_id' => 1,
-                'professionals_id' => null,
+                'professionals_id' => 2,
             ],
             [
                 'id' => 2,
-                'accepted' => 1,
+                'accepted' => 0,
                 'description' => "Hola, ¿qué tal? Acá te comparto el perfil de Sisi, como ya te comenté por whatsapp tiene una infección en la oreja desde hace 3 días. Espero que me puedas ayudar. Desde ya muchas gracias :)",
                 'expiration_date' => '2022/01/21',
                 'pets_id' => 2,
@@ -40,7 +40,7 @@ class SharedPetsSeeder extends Seeder
                 'expiration_date' => '2022/01/22',
                 'pets_id' => 5,
                 'owners_id' => 2,
-                'professionals_id' => null,
+                'professionals_id' => 2,
             ],
         ]);
     }
