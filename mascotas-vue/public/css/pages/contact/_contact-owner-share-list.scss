@@ -36,14 +36,18 @@
             justify-content: space-between;
             font-size: 14px;
             color: $black-gray;
+            
 
             @include desktop-up {
-                background: $white-gray;
+                background: $white-gray-min;
+                padding-bottom: 1rem;
+                box-shadow: $shadow-x0-y4;
             }
 
             a {
                 color: $brick;
                 text-decoration: none;
+                font-size: 18px;
             }
         }
 
@@ -74,21 +78,36 @@
 
                 p {
                     margin-bottom: 0;
+
+                    &.pet-name {
+                        font-weight: 500;
+                    }
+
+                    &.expiration {
+                        font-size: 14px;
+                    }
                 }
             }
         }
 
         .v-expansion-panel-content {
-            
+            @include desktop-up {
+                align-items: flex-end;
+            }
+
             .quote-container {
                 padding-top: 1rem;
+                color: $gray;
+
                 @include desktop-up {
-                    max-width: 600px;
+                    max-width: 800px;
                     padding-top: 0;
                 }
 
-                .quote {
-                    font-style: italic;
+                .quote-intro {
+                    margin-bottom: .5rem;
+                    font-size: 14px;
+
                 }
             }
 
@@ -121,16 +140,21 @@
         .v-expansion-panel {
             &:nth-child(2n) {
                 background: #F5F5F5;
+
+                @include desktop-up {
+                    background: none;
+                }
             }
 
             @include desktop-up {
                 display: flex;
-            }
-        }
+                border-bottom: 1px solid rgba($black-gray, 0.4);
+                background: none!important;
 
-        .light-text {
-            font-size: 14px;
-            color: $gray;
+                &:last-child {
+                    border-bottom: 0;
+                }
+            }
         }
     }
 

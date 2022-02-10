@@ -1,8 +1,7 @@
 <template>
   <div class="share-list-item">
     <div class="professional-container">
-      <p>{{ professional.first_name }} {{ professional.last_name }}</p>
-      <a href="#">Ir al perfil</a>
+      <a href="#">{{ professional.first_name }} {{ professional.last_name }}</a>
     </div>
     <v-expansion-panels 
       accordion flat 
@@ -14,6 +13,7 @@
         v-for="request in professional.requests_professional"
         :key="request.id"
         :request="request"
+        :professionalName="professional.first_name"
       />
     </v-expansion-panels>
   </div>
