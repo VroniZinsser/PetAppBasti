@@ -4,15 +4,15 @@
       <div>
         <img :src="createImgPath(pet.image.src)" :alt="pet.image.alt" />
         <div class="pet-container">
-          <p>{{ pet.name }}</p>
-          <p class="light-text">{{ expirationText }}</p>
+          <p class="pet-name">{{ pet.name }}</p>
+          <p class="expiration">{{ expirationText }}</p>
         </div>
       </div>
     </v-expansion-panel-header>
     <v-expansion-panel-content>
       <div v-if="request.description" class="quote-container">
-        <p class="light-text">Vos escribiste:</p>
-        <p class="light-text quote">"{{ request.description }}"</p>
+        <p class="quote-intro">Tu mensaje a {{professionalName}}:</p>
+        <p class="quote">"{{ request.description }}"</p>
       </div>
       <button>
         <v-icon> mdi-link-variant-off </v-icon>
@@ -33,6 +33,10 @@ export default {
       type: Object,
       required: true,
     },
+    professionalName: {
+      type: String,
+      required: true
+    }
   },
   computed: {
     pet() {
