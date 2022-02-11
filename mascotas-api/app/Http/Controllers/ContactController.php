@@ -81,6 +81,16 @@ class ContactController extends Controller
         ]);
     }
 
+    public function generateAcceptSharedPetRequest(AcceptRequest $request, int $request_id): JsonResponse
+    {
+        $request = $this->contactRepository->findSharedPetRequest($request_id);
+
+        return response()->json([
+            'success' => true,
+            'data' => compact('request'),
+        ]);
+    }
+
     public function deleteSharedPetRequest(int $request_id): JsonResponse
     {
         $this->contactRepository->deleteSharedPetRequest($request_id);

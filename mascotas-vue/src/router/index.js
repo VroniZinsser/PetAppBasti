@@ -16,6 +16,7 @@ import ProfessionalProfile from "../views/users/ProfessionalProfile";
 import Schedule from "../views/schedule/Schedule";
 import VaccineForm from "../views/pets/VaccineForm";
 import WeightForm from "../views/pets/WeightForm";
+import AcceptSharedPetRequest from "@/views/contact/Accept";
 
 Vue.use(VueRouter)
 
@@ -134,6 +135,14 @@ const routes = [
         path: '/profesionales/:professional_id',
         name: 'ProfessionalProfile',
         component: ProfessionalProfile,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/peticiones/:request_id/aceptar',
+        name: 'AcceptRequest',
+        component: AcceptSharedPetRequest,
         meta: {
             requiresAuth: true,
         },

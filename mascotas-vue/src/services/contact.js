@@ -27,6 +27,14 @@ const contactService = {
             .then(res => res.json());
     },
 
+    acceptGenerate(id){
+        return fetch(`${API}peticiones/${id}/aceptar`, {
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
+        })
+            .then(res => res.json());
+    },
+
     /**
      * Create a request to share a pet
      *

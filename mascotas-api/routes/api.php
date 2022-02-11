@@ -88,6 +88,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('/peticiones')->group(function () {
         Route::get("/creadas", [ContactController::class, 'getOwnerSharedPets']);
         Route::get("/aceptadas", [ContactController::class, 'getProfessionalSharedPets']);
+        Route::get("/{request_id}/aceptar", [ContactController::class, 'generateAcceptSharedPetRequest']);
         Route::put("/{request_id}", [ContactController::class, 'updateSharedPetRequest']);
         Route::put("/{request_id}/aceptar", [ContactController::class, 'acceptSharedPetRequest']);
         Route::post("/", [ContactController::class, 'createSharedPetRequest']);
