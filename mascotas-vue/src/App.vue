@@ -14,7 +14,7 @@
       <v-spacer></v-spacer>
 
       <ul id="nav-links">
-        <li v-for="link in routerLinks" :key="link.text">
+        <li v-for="link in routerLinksProfessional" :key="link.text">
           <router-link :to="{name: link.name}" exact>
             <span class="material-icons">{{ link.icon }}</span>
             <span>{{ link.text }}</span>
@@ -88,6 +88,23 @@ export default {
         name: 'SharedPets',
         text: 'Compartir',
         icon: 'share',
+      },
+    ],
+    routerLinksProfessional: [
+      {
+        name: 'HomeProfessional',
+        text: 'Home',
+        icon: 'home',
+      },
+      {
+        name: 'ScheduleProfessional',
+        text: 'Agenda',
+        icon: 'event',
+      },
+      {
+        name: 'ExploreProfessional',
+        text: 'Explorar',
+        icon: 'search',
       },
     ]
   }),

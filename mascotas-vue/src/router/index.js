@@ -59,6 +59,30 @@ const routes = [
         }
     },
     {
+        path: '/profesional/agenda',
+        name: 'ScheduleProfessional',
+        component: Schedule,
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/profesional/explorar',
+        name: 'ExploreProfessional',
+        component: Explore,
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/profesional/home',
+        name: 'HomeProfessional',
+        component: Schedule,
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
         path: '/registrarme/amo',
         name: 'OwnerSingUp',
         component: OwnerSingUp,
