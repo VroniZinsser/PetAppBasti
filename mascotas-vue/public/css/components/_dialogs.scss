@@ -79,4 +79,8 @@
             text-decoration: none;
         }
     }
+
+    .theme--light.v-list-item--active::before {
+        opacity: 0;
+    }
 }
