@@ -91,7 +91,7 @@ class ContactController extends Controller
         ]);
     }
 
-    public function deleteSharedPetRequest(int $request_id): JsonResponse
+    public function deleteSharedPetRequest(AcceptRequest $request, int $request_id): JsonResponse
     {
         $this->contactRepository->deleteSharedPetRequest($request_id);
 
