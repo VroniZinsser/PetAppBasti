@@ -105,6 +105,8 @@ class ContactService implements ContactRepository
             return null;
         }
 
+        $request->load(['owner', 'pet']);
+
         return $request;
     }
 
