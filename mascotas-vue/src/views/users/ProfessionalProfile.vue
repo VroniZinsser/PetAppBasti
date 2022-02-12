@@ -18,6 +18,15 @@
           <img :src="createStaticImgPath('contact/share-pet.svg')" alt="Compartir mascota">
           <span class="sr-only">Compartir mascota con este profesional</span>
         </button>
+        <button 
+          v-if="canEditProfile"
+          class="float-circle-btn" 
+          @click="function() { 
+            $router.push({ name: 'HomeProfessional' })
+          }">
+          <v-icon>mdi-pencil</v-icon>
+          <span class="sr-only">Editar perfil</span>
+        </button>
         <div class="intro">
           <div>
             <img :src="createImgPath(professional.profile_image.src)" :alt="professional.profile_image.alt">
@@ -127,6 +136,10 @@ export default {
           || this.professional.web;
     },
 
+    /** Returns true if the logged in user has the same id as the profile's user */
+    canEditProfile() {
+      return this.professional.id === this.store.user.id;
+    }
   },
   methods: {
     whiteSpacesToPlus(str) {
