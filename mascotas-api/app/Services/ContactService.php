@@ -87,7 +87,7 @@ class ContactService implements ContactRepository
 
         $user = \Auth::user();
 
-        if (!$request || $user->id !== $request->professionals_id) {
+        if (!$request || $user->id !== $request->professionals_id || $request->accepted) {
             return false;
         }
 
