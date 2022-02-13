@@ -1,7 +1,14 @@
 <template>
   <div class="share-list-item">
     <div class="professional-container">
-      <a href="#">{{ professional.first_name }} {{ professional.last_name }}</a>
+      <router-link 
+        :to="{ 
+          name: 'ProfessionalProfile', 
+          params: { professional_id: professional.id 
+        }}"
+      >
+        {{ professional.first_name }} {{ professional.last_name }}
+      </router-link>
     </div>
     <v-expansion-panels 
       accordion flat 
