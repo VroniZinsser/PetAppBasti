@@ -185,7 +185,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(User::class, 'shared_pets', 'owners_id', 'professionals_id')->select('users.id', 'first_name', 'last_name');
     }
   
-     * Returns the user's profile image
+    /** Returns the user's profile image
      *
      * @return BelongsTo
      */

@@ -1,3 +1,5 @@
+@use "sass:map";
+
 .warn-dialog {
     .v-card__actions {
         display: flex;
@@ -19,7 +21,7 @@
                 color: white;
                 margin-bottom: 1rem;
                 border-radius: 3px;
-                background: #CC613E;
+                background: map.get($theme-colors, "danger");
 
                 @include tablet-up {
                     margin-bottom: .5rem;
