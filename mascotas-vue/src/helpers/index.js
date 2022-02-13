@@ -22,9 +22,14 @@ const createRequestAcceptUrl = function (requestId) {
     return URL_REQUESTS + requestId + "/aceptar";
 }
 
+const nameToDisplay = function(user) {
+    return user.public_name ? user.public_name : user.first_name + ' ' + user.last_name;
+}
+
 export {
     formatDate,
     createImgPath,
     createStaticImgPath,
     createRequestAcceptUrl,
+    nameToDisplay,
 }

@@ -2,7 +2,7 @@
   <Loader v-if="loading"></Loader>
 
   <div v-else class="professional-profile">
-    <TitleBar :title="nameToDisplay"></TitleBar>
+    <TitleBar :title="nameToDisplay(professional)"></TitleBar>
     
 
     <div class="profile-container">
@@ -81,6 +81,7 @@ import TitleBar from "@/components/general/layouts/TitleBar";
 import userServices from "@/services/users";
 import store from "@/store";
 import Loader from "@/components/general/notifications/Loader";
+import {nameToDisplay} from "@/helpers";
 
 export default {
   name: "ProfessionalProfile",
@@ -99,6 +100,7 @@ export default {
       createStaticImgPath,
       contactMethods: [],
       showPetShareDialog: false,
+      nameToDisplay,
     }
   },
   mounted() {
@@ -125,9 +127,6 @@ export default {
           || this.professional.web;
     },
 
-    nameToDisplay() {
-      return this.professional.public_name || this.professional.first_name + ' ' + this.professional.last_name;
-    }
   },
   methods: {
     whiteSpacesToPlus(str) {
