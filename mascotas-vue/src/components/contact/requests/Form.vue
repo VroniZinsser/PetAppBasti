@@ -71,12 +71,7 @@ export default {
   data() {
     return {
       loading: false,
-      formData: {
-        description: null,
-        expiration_date: this.getDefaultDate(),
-        pet_id: this.pets.length === 1 ? this.pets[0].id : null,
-        professional_id: this.professionalId,
-      },
+      formData: {},
       errors: {
         description: null,
         expiration_date: null,
@@ -123,6 +118,15 @@ export default {
       return (new Date((Date.now() + 604800000) - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
     },
 
+    resetFormData() {
+      this.formData = {
+        description: null,
+        expiration_date: this.getDefaultDate(),
+        pet_id: this.pets.length === 1 ? this.pets[0].id : null,
+        professional_id: this.professionalId,
+      };
+    },
+
     sendForm() {
       if (this.$refs.requestForm.validate()) {
         this.loading = true;
@@ -154,6 +158,7 @@ export default {
                     this.notification.text = 'Algo salió mal. No se pudo compartir la mascota';
                   }
                 } else {
+                  this.resetFormData();
                   this.$emit('request-created', res.data.requestCreated);
                 }
 
@@ -180,6 +185,7 @@ export default {
                     this.notification.text = 'Algo salió mal. No se pudo editar la petición';
                   }
                 } else {
+                  this.resetFormData();
                   this.$emit('request-created', res.data.request);
                 }
 
@@ -190,12 +196,9 @@ export default {
     }
   },
   mounted() {
+    this.resetFormData();
     if (this.request) {
       this.formData = {
-        description: null,
-        expiration_date: null,
-        pet_id: null,
-        professional_id: null,
         ...this.request
       }
     }
