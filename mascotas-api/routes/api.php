@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware(['auth'])->group(function () {
     Route::get('profesionales', [UserController::class, 'getProfessionals']);
     Route::get('profesionales/tipos', [UserController::class, 'getProfessionalUserTypes']);
+    Route::put('/profesionales/{user_id}', [UserController::class, 'updateProfessional']);
 });
 
 Route::middleware(['guest'])->group(function () {
