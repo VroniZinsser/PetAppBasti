@@ -85,7 +85,7 @@ export default {
         icon: 'format_list_bulleted',
       },
       {
-        name: 'Inbox',
+        name: 'Schedule',
         text: 'Conversaciones',
         icon: 'chat_bubble',
       },

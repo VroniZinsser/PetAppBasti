@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import authService from "../services/auth";
 import Explore from "../views/explore/Explore"
 // import Home from '../views/Home.vue'
-import Inbox from "../views/contact/Inbox";
 import Login from "../views/Auth/Login";
 import MedicinesAddForm from "../views/pets/medicines/MedicinesAddForm";
 import ObservationForm from "../views/pets/ObservationForm"
@@ -29,14 +28,6 @@ const routes = [
         path: '/agenda',
         name: 'Schedule',
         component: Schedule,
-        meta: {
-            requiresAuth: true,
-        }
-    },
-    {
-        path: '/casilla',
-        name: 'Inbox',
-        component: Inbox,
         meta: {
             requiresAuth: true,
         }

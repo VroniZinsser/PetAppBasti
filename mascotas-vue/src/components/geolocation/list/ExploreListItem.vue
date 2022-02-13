@@ -5,8 +5,7 @@
     @click="$parent.$emit('select-professional', professional.id)"
   >
     <div class="horizontal-bottom-line">
-      <p v-if="professional.public_name" class="professional-name">{{ professional.public_name }}</p>
-      <p v-else class="professional-name">{{ professional.first_name }} {{ professional.last_name }}</p>
+      <p class="professional-name">{{ nameToDisplay(professional) }}</p>
       <p class="card-subtitle">
         {{ professional.city }}, {{ professional.street }} {{ professional.house_number }}
       </p>
@@ -20,6 +19,8 @@
 </template>
 
 <script>
+import {nameToDisplay} from "@/helpers";
+
 export default {
   name: "ExploreListItem",
   props: {
@@ -32,5 +33,10 @@ export default {
       default: false
     }
   },
+  data() {
+    return {
+      nameToDisplay,
+    }
+  }
 }
 </script>

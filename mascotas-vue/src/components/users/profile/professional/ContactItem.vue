@@ -14,15 +14,12 @@ export default {
   props: {
     contactData: {
       type: String,
-      required: true,
     },
     link: {
       type: String,
-      required: true,
     },
     imgPath: {
       type: String,
-      required: true,
     },
     alt: {
       type: String,
