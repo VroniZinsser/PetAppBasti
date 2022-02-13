@@ -72,3 +72,11 @@ $titlebar-height: 57px;
     min-height: calc(100vh - 64px);
   }
 }
+
+@mixin fill-viewport-height-min-with-titlebar {
+  min-height: calc(100vh - 113px);
+  
+  @include desktop-up() {
+    min-height: calc(100vh - 121px);
+  }
+}
