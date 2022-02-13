@@ -87,7 +87,7 @@ class ContactService implements ContactRepository
 
         $user = \Auth::user();
 
-        if (!$request || $user->id !== $request->professionals_id || $request->accepted) {
+        if (!$request || $user->id !== $request->professionals_id || $request->accepted || $request->expiration_date < now()->format("Y-m-d")) {
             return false;
         }
 

@@ -21,8 +21,8 @@
 
   <TitleWithLink
       v-else
-      title="Error 404"
-      link-text="Volver al listado de mascotas"
+      title="Este enlace no es válido, le podes pedir al dueño de la mascota que te la comparta nuevamente."
+      link-text="Ir al inicio"
       route-name="Pets"
   />
 </template>
@@ -74,9 +74,7 @@ export default {
   mounted() {
     contactService.acceptGenerate(this.$route.params.request_id)
         .then(res => {
-          if ("access" in res) {
-            this.$router.push({name: 'Pets'})
-          } else {
+          if (!("access" in res)) {
             this.request = res.data.request;
           }
 

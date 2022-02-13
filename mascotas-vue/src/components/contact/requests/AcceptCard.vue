@@ -6,7 +6,7 @@
     <v-container>
       <div>
         <p>Mascota: {{ request.pet.name }}</p>
-        <p>Fecha de expiración: {{ request.expiration_date }}</p>
+        <p>Fecha de expiración: {{ expirationDate }}</p>
       </div>
 
       <div v-if="request.description">
@@ -37,6 +37,7 @@
 
 <script>
 import contactService from "@/services/contact";
+import {formatDate} from "@/helpers";
 
 export default {
   name: "AcceptCard",
@@ -44,6 +45,11 @@ export default {
     request: {
       required: true,
       type: Object,
+    }
+  },
+  data() {
+    return {
+      expirationDate: formatDate(this.request.expiration_date),
     }
   },
   methods: {
@@ -59,7 +65,7 @@ export default {
           .then(() => {
             this.$emit('rejected')
           })
-    }
+    },
   }
 }
 </script>
