@@ -63,10 +63,11 @@ export default {
       },
 
       editProfile() {
-        this.$router.push({
-            name: 'ProfessionalProfile',
-            params: { 'professional_id': this.user.id } 
-        });
+        if (this.$route.name !== 'ProfessionalEdit') {
+            this.$router.push({
+                name: 'ProfessionalEdit',
+            });
+        }
         this.$emit('cancle')
       }
   }
