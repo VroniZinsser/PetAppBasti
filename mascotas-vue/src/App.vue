@@ -85,9 +85,9 @@ export default {
         icon: 'format_list_bulleted',
       },
       {
-        name: 'Inbox',
-        text: 'Conversaciones',
-        icon: 'chat_bubble',
+        name: 'SharedPets',
+        text: 'Compartir',
+        icon: 'share',
       },
     ]
   }),

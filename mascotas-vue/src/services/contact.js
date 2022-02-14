@@ -7,7 +7,7 @@ const contactService = {
      * @constructor
      */
     getOwnerSharedPets() {
-        return fetch(`${API}peticiones/creadas`, {
+        return fetch(`${API}peticiones/aceptadas`, {
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
             credentials: 'include'
         })

@@ -20,6 +20,16 @@ class ContactController extends Controller
         $this->contactRepository = $contactRepository;
     }
 
+    public function getRequestsByProfessional(): JsonResponse
+    {
+        $professionals = $this->contactRepository->getRequestsByProfessional(Auth::user()->id);
+
+        return response()->json([
+            'success' => true,
+            'data' => compact('professionals'),
+        ]);
+    }
+
     public function getOwnerSharedPets(): JsonResponse
     {
         $sharedPets = $this->contactRepository->getOwnerSharedPets(Auth::user()->id);

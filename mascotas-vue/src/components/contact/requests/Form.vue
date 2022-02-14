@@ -32,13 +32,13 @@
     ></InputDate>
 
     <Textarea
-        label="Descripción"
+        :label="'Tu mensaje a ' + professionalName"
         v-model="formData.description"
         :loading="loading"
         :errors="errors.description"
     ></Textarea>
 
-    <button class="main-btn" type="submit" :disabled="loading">Crear</button>
+    <button class="main-btn" type="submit" :disabled="loading">Generar enlace</button>
   </v-form>
 </template>
 
@@ -58,17 +58,20 @@ export default {
     },
     request: {
       type: Object,
+    },
+    professionalName: {
+      type: String,
+      required: true,
+    },
+    professionalId: {
+      type: Number,
+      required: true,
     }
   },
   data() {
     return {
       loading: false,
-      formData: {
-        description: null,
-        expiration_date: this.getDefaultDate(),
-        pet_id: null,
-        professional_id: 2,
-      },
+      formData: {},
       errors: {
         description: null,
         expiration_date: null,
@@ -107,12 +110,21 @@ export default {
     },
 
     /**
-     * Returns the default input date value
+     * Returns the default input date value - 1 week after today
      *
      * @returns {string}
      */
     getDefaultDate() {
-      return (new Date((Date.now() + 86400000) - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
+      return (new Date((Date.now() + 604800000) - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
+    },
+
+    resetFormData() {
+      this.formData = {
+        description: null,
+        expiration_date: this.getDefaultDate(),
+        pet_id: this.pets.length === 1 ? this.pets[0].id : null,
+        professional_id: this.professionalId,
+      };
     },
 
     sendForm() {
@@ -146,6 +158,7 @@ export default {
                     this.notification.text = 'Algo salió mal. No se pudo compartir la mascota';
                   }
                 } else {
+                  this.resetFormData();
                   this.$emit('request-created', res.data.requestCreated);
                 }
 
@@ -172,6 +185,7 @@ export default {
                     this.notification.text = 'Algo salió mal. No se pudo editar la petición';
                   }
                 } else {
+                  this.resetFormData();
                   this.$emit('request-created', res.data.request);
                 }
 
@@ -182,12 +196,9 @@ export default {
     }
   },
   mounted() {
+    this.resetFormData();
     if (this.request) {
       this.formData = {
-        description: null,
-        expiration_date: null,
-        pet_id: null,
-        professional_id: null,
         ...this.request
       }
     }

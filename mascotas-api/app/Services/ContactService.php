@@ -3,12 +3,30 @@
 namespace App\Services;
 
 use App\Models\SharedPet;
+use App\Models\User;
 use App\Repositories\ContactRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class ContactService implements ContactRepository
 {
+
+    /**
+     * @inheritDoc
+     */
+    public function getRequestsByProfessional(int $owner_id): Collection
+    {
+        $filterCurrentAccepted = function ($query) {
+            $query->whereDate('expiration_date', '>=', date('Y-m-d'))->where('accepted', 1);
+        };
+        $owner = User::find($owner_id);
+        $requestsByProfessionals = $owner->relatedProfessionals()
+            ->groupBy('id', 'first_name', 'last_name', 'owners_id', 'professionals_id')
+            ->whereHas('requestsProfessional', $filterCurrentAccepted)
+            ->with(['requestsProfessional' => $filterCurrentAccepted,'requestsProfessional.pet', 'requestsProfessional.pet.image'])
+            ->get();
+        return $requestsByProfessionals;
+    }
 
     /**
      * @inheritDoc

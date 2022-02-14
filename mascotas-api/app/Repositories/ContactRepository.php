@@ -8,6 +8,14 @@ use Illuminate\Database\Eloquent\Collection;
 interface ContactRepository
 {
     /**
+     * Gets all requests created by the user, grouped by the professionals who recieved the requests
+     *
+     * @param int $owner_id
+     * @return Collection
+     */
+    public function getRequestsByProfessional(int $owner_id): Collection;
+
+    /**
      * Gets all requests created by the user
      *
      * @param int $owner_id

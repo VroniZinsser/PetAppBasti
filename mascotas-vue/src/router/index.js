@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import authService from "../services/auth";
-import Explore from "../views/explore/Explore"
+import Explore from "../views/explore/Explore";
 // import Home from '../views/Home.vue'
-import Inbox from "../views/contact/Inbox";
+// import Inbox from "../views/contact/Inbox";
 import Login from "../views/Auth/Login";
 import MedicinesAddForm from "../views/pets/medicines/MedicinesAddForm";
-import ObservationForm from "../views/pets/ObservationForm"
+import ObservationForm from "../views/pets/ObservationForm";
 import OwnerSingUp from "../views/Auth/sing-up/OwnerSingUp";
 import Pets from "../views/pets/Pets";
 import PetAddForm from "../views/pets/AddForm";
@@ -14,6 +14,7 @@ import PetEditForm from "../views/pets/EditForm";
 import ProfessionalSignUp from "../views/users/ProfessionalSignUp";
 import ProfessionalProfile from "../views/users/ProfessionalProfile";
 import Schedule from "../views/schedule/Schedule";
+import OwnerShareList from "../views/contact/owner/OwnerShareList";
 import VaccineForm from "../views/pets/VaccineForm";
 import WeightForm from "../views/pets/WeightForm";
 import AcceptSharedPetRequest from "@/views/contact/Accept";
@@ -35,9 +36,9 @@ const routes = [
         }
     },
     {
-        path: '/casilla',
-        name: 'Inbox',
-        component: Inbox,
+        path: '/compartir',
+        name: 'SharedPets',
+        component: OwnerShareList,
         meta: {
             requiresAuth: true,
         }

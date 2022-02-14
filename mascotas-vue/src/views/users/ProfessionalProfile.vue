@@ -2,10 +2,22 @@
   <Loader v-if="loading"></Loader>
 
   <div v-else class="professional-profile">
-    <TitleBar :title="professional.public_name"></TitleBar>
+    <TitleBar :title="nameToDisplay(professional)"></TitleBar>
+    
 
     <div class="profile-container">
+      <PetShareDialog 
+        :showDialog="showPetShareDialog"
+        :professionalName="professional.first_name"
+        :professionalId="professional.id"
+        @closeDialog="showPetShareDialog = false"
+      />
+      
       <div class="profile-main-content">
+        <button class="float-circle-btn" @click="showPetShareDialog = true">
+          <img :src="createStaticImgPath('contact/share-pet.svg')" alt="Compartir mascota">
+          <span class="sr-only">Compartir mascota con este profesional</span>
+        </button>
         <div class="intro">
           <div>
             <img :src="createImgPath(professional.profile_image.src)" :alt="professional.profile_image.alt">
@@ -18,6 +30,7 @@
               {{ type.name }}
             </div>
           </div>
+          
         </div>
 
         <div class="description" v-if="professional.description">
@@ -34,7 +47,7 @@
           <ul class="contact-data-container">
             <ContactItem
                 v-for="method in contactMethods"
-                :key="method.contactData"
+                :key="method.name"
                 :contactData="method.contactData"
                 :link="method.link"
                 :imgPath="method.imgPath"
@@ -61,12 +74,14 @@
 
 <script>
 import ContactItem from "@/components/users/profile/professional/ContactItem";
+import PetShareDialog from "@/components/contact/requests/PetShareDialog";
 import {createImgPath} from "@/helpers";
 import {createStaticImgPath} from "@/helpers";
 import TitleBar from "@/components/general/layouts/TitleBar";
 import userServices from "@/services/users";
 import store from "@/store";
 import Loader from "@/components/general/notifications/Loader";
+import {nameToDisplay} from "@/helpers";
 
 export default {
   name: "ProfessionalProfile",
@@ -74,6 +89,7 @@ export default {
     TitleBar,
     Loader,
     ContactItem,
+    PetShareDialog,
   },
   data() {
     return {
@@ -83,6 +99,8 @@ export default {
       createImgPath,
       createStaticImgPath,
       contactMethods: [],
+      showPetShareDialog: false,
+      nameToDisplay,
     }
   },
   mounted() {
@@ -107,7 +125,8 @@ export default {
           || this.professional.instagram
           || this.professional.facebook
           || this.professional.web;
-    }
+    },
+
   },
   methods: {
     whiteSpacesToPlus(str) {
@@ -120,30 +139,35 @@ export default {
             this.professional = res.data.user;
             this.contactMethods = [
               {
+                'name': 'whatsapp',
                 'contactData': this.professional.whatsapp,
                 'link': 'https://api.whatsapp.com/send?phone=' + this.professional.whatsapp,
                 'imgPath': 'contact/whatsapp.png',
                 'alt': 'link a Whatsapp'
               },
               {
+                'name': 'email',
                 'contactData': this.professional.email,
                 'link': 'mailto:' + this.professional.email,
                 'imgPath': 'contact/gmail.png',
                 'alt': 'link a Gmail'
               },
               {
+                'name': 'instagram',
                 'contactData': this.professional.instagram,
                 'link': 'https://www.instagram.com/' + this.professional.instagram,
                 'imgPath': 'contact/instagram.png',
                 'alt': 'link a Instagram'
               },
               {
+                'name': 'facebook',
                 'contactData': this.professional.facebook,
                 'link': 'https://www.facebook.com/' + this.professional.facebook,
                 'imgPath': 'contact/facebook.png',
                 'alt': 'link a Facebook'
               },
               {
+                'name': 'web',
                 'contactData': this.professional.web,
                 'link': this.professional.web,
                 'imgPath': 'contact/www.png',
@@ -161,6 +185,7 @@ export default {
         });
     }
   },
+
   watch: {
     /**
      * Updates data if the url param changes

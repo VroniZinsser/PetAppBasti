@@ -1,17 +1,16 @@
 <template>
-  <v-container class="text-center pt-16">
-
-    <v-btn @click="FormDialog = true">Crear petición</v-btn>
-
-    <v-dialog v-model="FormDialog" max-width="500">
-      <v-card>
-        <v-card-title class="text-h5 grey lighten-2 light-blue lighten-2">
-          Crear una nueva petición
+  <div>
+    <v-dialog v-model="showDialog" max-width="500" @click:outside="$emit('closeDialog')">
+      <v-card class="form-dialog-container">
+        <v-card-title>
+          Compartir tu mascota
         </v-card-title>
 
         <Form
             v-if="pets"
             :pets="pets"
+            :professionalName="professionalName"
+            :professionalId="professionalId"
             v-on:request-created="createShareLink"
         />
 
@@ -25,7 +24,7 @@
           <v-btn
               color="red"
               text
-              @click="FormDialog = false"
+              @click="$emit('closeDialog')"
           >
             {{ pets ? 'Cancelar' : 'Cerrar' }}
           </v-btn>
@@ -56,22 +55,36 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-container>
+  </div>
 </template>
 
 <script>
 import Form from "@/components/contact/requests/Form";
 import petServices from "@/services/pets";
 import BaseNotification from "@/components/general/notifications/BaseNotification";
+import {createRequestAcceptUrl} from "@/helpers";
 
 export default {
-  name: "Inbox",
+  name: "PetShareDialog",
   components: {
     BaseNotification,
     Form
   },
+  props: {
+      showDialog: {
+          type: Boolean,
+          default: false,
+      },
+      professionalName: {
+          type: String,
+          required: true,
+      },
+      professionalId: {
+          type: Number,
+          required: true,
+      }
+  },
   data: () => ({
-    FormDialog: false,
     shareDialog: false,
     pets: null,
     notification: {
@@ -82,18 +95,14 @@ export default {
   }),
   methods: {
     createShareLink(request) {
-      this.FormDialog = false;
+      this.$emit('closeDialog')
 
       this.notification.text = "Éxito. Ya puedes compartir la mascota con el enlace de abajo";
       this.notification.type = "success";
 
-      this.requestLink = this.createLink(request.id);
+      this.requestLink = createRequestAcceptUrl(request.id);
 
       this.shareDialog = true;
-    },
-
-    createLink(id) {
-      return `http://127.0.0.1:8080/#/peticiones/${id}/aceptar`
     },
 
     copyLink() {

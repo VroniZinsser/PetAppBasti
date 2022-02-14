@@ -1,0 +1,168 @@
+@use "sass:map";
+
+.owner-share-list {
+    padding-bottom: $navbar-height-mobile;
+
+    .intro {
+        padding: 1rem;
+        background: $white-gray-min;
+        box-shadow: inset 0 8px 8px -6px rgb(#333333, 0.15);
+
+        @include desktop-up {
+            background: none;
+        }
+
+        p {
+            margin: 0;
+        }
+    }
+
+    ul {
+        @include reset-list;
+    }
+
+    .share-list-item {
+        border-bottom: 1px solid rgba($black-gray, 0.4);
+        @include desktop-up {
+            border-bottom: 0;
+        }
+
+        .theme--light.v-expansion-panels .v-expansion-panel--disabled {
+            color: black;
+        }
+
+        .professional-container {
+            display: flex;
+            padding: 1rem;
+            padding-bottom: 0;
+            justify-content: space-between;
+            font-size: 14px;
+            color: $black-gray;
+            
+
+            @include desktop-up {
+                background: $white-gray-min;
+                padding-bottom: 1rem;
+                box-shadow: $shadow-x0-y4;
+            }
+
+            a {
+                color: $brick;
+                text-decoration: none;
+                font-size: 18px;
+            }
+        }
+
+        .v-expansion-panel-header {
+            padding: .75rem 1rem;
+            font-size: 1rem;
+            @include desktop-up {
+                width: auto;
+                min-width: 300px;
+            }
+
+            & > div {
+                display: flex;
+            }
+
+            img {
+                width: 48px;
+                height: 48px;
+                object-fit: cover;
+                border-radius: 3px;
+                margin-right: 1rem;
+            }
+            
+            .pet-container {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+
+                p {
+                    margin-bottom: 0;
+
+                    &.pet-name {
+                        font-weight: 500;
+                    }
+
+                    &.expiration {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+
+        .v-expansion-panel-content {
+            @include desktop-up {
+                align-items: flex-end;
+            }
+
+            .quote-container {
+                padding-top: 1rem;
+                color: $gray;
+
+                @include desktop-up {
+                    max-width: 800px;
+                    padding-top: 0;
+                }
+
+                .quote-intro {
+                    margin-bottom: .5rem;
+                    font-size: 14px;
+
+                }
+            }
+
+            button {
+                color: map.get($theme-colors, "danger");
+                float: right;
+                font-size: 14px;
+                @include desktop-up {
+                    float: none;
+                }
+
+                i {
+                    color: map.get($theme-colors, "danger");
+                    margin-top: -3px;
+                }
+            }
+
+            .v-expansion-panel-content__wrap {
+                padding: 1rem;
+                box-shadow: 
+                    inset 0 8px 8px -6px rgb(#333333, 0.15), 
+                    inset 0 -8px 8px -6px rgb(#333333, 0.15);
+                
+                @include desktop-up {
+                    box-shadow: none;
+                }
+            }
+        }
+
+        .v-expansion-panel {
+            &:nth-child(2n) {
+                background: #F5F5F5;
+
+                @include desktop-up {
+                    background: none;
+                }
+            }
+
+            @include desktop-up {
+                display: flex;
+                border-bottom: 1px solid rgba($black-gray, 0.4);
+                background: none!important;
+
+                &:last-child {
+                    border-bottom: 0;
+                }
+            }
+        }
+    }
+
+    li:last-child {
+        .share-list-item {
+            border-bottom: 0;
+        }
+    }
+}

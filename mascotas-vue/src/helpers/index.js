@@ -1,5 +1,6 @@
 import {PATH_IMG} from "@/constants";
 import {PATH_STATIC_IMG} from "@/constants";
+import {URL_REQUESTS} from "@/constants";
 
 const formatDate = function(date) {
         if (!date) return null
@@ -17,8 +18,18 @@ const createStaticImgPath = function(path) {
     return PATH_STATIC_IMG + path;
 }
 
+const createRequestAcceptUrl = function (requestId) {
+    return URL_REQUESTS + requestId + "/aceptar";
+}
+
+const nameToDisplay = function(user) {
+    return user.public_name ? user.public_name : user.first_name + ' ' + user.last_name;
+}
+
 export {
     formatDate,
     createImgPath,
     createStaticImgPath,
+    createRequestAcceptUrl,
+    nameToDisplay,
 }
