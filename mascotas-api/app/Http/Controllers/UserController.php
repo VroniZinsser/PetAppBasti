@@ -80,6 +80,8 @@ class UserController extends Controller
      */
     public function updateProfessional(CreateRequest $request): JsonResponse 
     {
+        // TODO: check if user_id of request is authenticated user - when accept pet share request ist merged in main
+        // Auth::user()->id !== $request->get('id')
         $dto = new UserDTO;
         $dto->loadFromArray($request->except('password'));
 

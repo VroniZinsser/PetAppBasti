@@ -22,7 +22,7 @@
           v-if="canEditProfile"
           class="float-circle-btn" 
           @click="function() { 
-            $router.push({ name: 'HomeProfessional' })
+            $router.push({ name: 'ProfessionalEdit' })
           }">
           <v-icon>mdi-pencil</v-icon>
           <span class="sr-only">Editar perfil</span>
