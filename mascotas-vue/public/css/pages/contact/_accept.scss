@@ -1,0 +1,11 @@
+@use "sass:map";
+
+.accept-card-actions {
+  > button:first-child {
+    color: map.get($theme-colors, "danger");
+  }
+  > button.v-btn:last-child {
+    background-color: map.get($theme-colors, "success");
+    color: #FFFFFF;
+  }
+}

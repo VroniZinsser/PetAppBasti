@@ -16,9 +16,8 @@
 
     <v-divider></v-divider>
 
-    <v-card-actions class="justify-center pt-4 pb-4">
+    <v-card-actions class="justify-center pt-4 pb-4 accept-card-actions">
       <v-btn
-          color="error"
           outlined
           @click="decline"
       >
@@ -26,7 +25,6 @@
       </v-btn>
 
       <v-btn
-          color="success"
           @click="accept"
       >
         Aceptar
