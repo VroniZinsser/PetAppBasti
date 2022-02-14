@@ -1,0 +1,69 @@
+.professional-form-container {
+    padding-bottom: $navbar-height-mobile;
+    @include desktop-up {
+        padding-bottom: 0;
+    }
+
+    form {
+        background: $white-gray;
+    }
+}
+.professional-form {
+    .fieldset-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @include desktop-up {
+            flex-direction: row;
+            align-items: stretch;
+            margin-bottom: 3rem;
+        }
+
+        &>fieldset {
+            margin-top: -2rem;
+            margin-bottom: 2rem;
+            width: 100%;
+            max-width: 450px;
+
+            padding: 1rem;
+            background: white;
+            border-radius: 15px;
+
+            @include tablet-up {
+                width: 450px;
+            }
+
+            @include desktop-up {
+                flex-basis: 33%;
+                margin: -2rem .5rem;
+                &:first-child {
+                    margin-left: 0;
+                }
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+
+    legend {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: .5rem;
+        padding-top: 3.5rem;
+    }
+
+    .v-input--switch {
+        margin-top: -1rem;
+    }
+
+    .preview-container {
+        height: 260px;
+        .preview {
+            width: 150px;
+            height: 150px;
+        }
+    }
+}

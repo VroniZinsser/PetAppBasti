@@ -1,34 +1,34 @@
 <template>
-  <FormContainer
-    headline="Editar perfil"
-    form_class="form-signup-professional"
-    :is_short_form="false"
-  >
-    <p v-if="loading">Cargando...</p>
-
-    <Form
-        v-else
+  <div>
+    <TitleBar title="Editar tu perfil"></TitleBar>
+    <Loader v-if="loading"></Loader>
+    <div v-else class="professional-form-container">
+      <Form
         :user_types="user_types"
         :professional="professional"
-    >
-    </Form>
-  </FormContainer>
+    />
+    </div>
+    
+    </div>
+  <!-- </FormContainer> -->
 
 </template>
 
 <script>
 
 import Form from "@/components/users/professionals/Form";
-import FormContainer from "@/components/general/forms/FormContainer";
 import userService from "@/services/users"
 import store from "@/store";
+import TitleBar from "@/components/general/layouts/TitleBar";
+import Loader from "@/components/general/notifications/Loader";
 
 
 export default {
   name: "ProfessionalEdit",
   components: {
     Form,
-    FormContainer,
+    Loader,
+    TitleBar,
  },
   data: () => ({
     loading: true,

@@ -1,5 +1,5 @@
 .professional-profile {
-    padding-bottom: 56px;
+    padding-bottom: $navbar-height-mobile;
     @include desktop-up {
         padding-bottom: 0;
     }
