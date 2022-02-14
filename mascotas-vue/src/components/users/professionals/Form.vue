@@ -5,235 +5,249 @@
       ref="form"
       @submit.prevent="sendForm"
   >
-    <v-container>
+    <v-container class="professional-form">
       <p>Los campos marcados con * son obligatorios.</p>
+      <div class="fieldset-container">
+        <fieldset>
+          <legend>Datos personales</legend>
 
-      <fieldset>
-        <legend>Datos personales</legend>
+          <InputText
+              label="Nombre"
+              v-model="formData.first_name"
+              identifier="first_name"
+              :loading="loading"
+              :rules="[rules.obligatory]"
+              :errors="errors.first_name"
+              autocomplete="on"
+              required
+          ></InputText>
 
-        <InputText
-            label="Nombre"
-            v-model="formData.first_name"
-            identifier="first_name"
-            :loading="loading"
-            :rules="[rules.obligatory]"
-            :errors="errors.first_name"
-            autocomplete="on"
-            required
-        ></InputText>
+          <InputText
+              label="Apellido"
+              v-model="formData.last_name"
+              identifier="last_name"
+              :loading="loading"
+              :rules="[rules.obligatory]"
+              :errors="errors.last_name"
+              autocomplete="on"
+              required
+          ></InputText>
 
-        <InputText
-            label="Apellido"
-            v-model="formData.last_name"
-            identifier="last_name"
-            :loading="loading"
-            :rules="[rules.obligatory]"
-            :errors="errors.last_name"
-            autocomplete="on"
-            required
-        ></InputText>
+          <InputText
+              label="DNI"
+              v-model="formData.dni"
+              identifier="dni"
+              :loading="loading"
+              :rules="[rules.obligatory, rules.numeric]"
+              :errors="errors.dni"
+              autocomplete="on"
+              required
+          ></InputText>
 
-        <InputText
-            label="Correo Electrónico"
-            v-model="formData.email"
-            identifier="email"
-            :loading="loading"
-            :rules="[rules.obligatory, rules.email]"
-            :errors="errors.email"
-            autocomplete="on"
-            required
-            type="email"
-        ></InputText>
+          <InputText
+              label="Correo Electrónico"
+              v-model="formData.email"
+              identifier="email"
+              :loading="loading"
+              :rules="[rules.obligatory, rules.email]"
+              :errors="errors.email"
+              autocomplete="on"
+              required
+              type="email"
+          ></InputText>
 
-        <v-switch
-            v-model="formData.email_visible"
-            :label="`Mostrar correo electrónico en mi perfil: ${formData.email_visible ? 'Sí' : 'No'}`"
-            hint="Si activás esta función, los clientes te podrán contactar por correo electrónico."
-            persistent-hint
-            color="#3fb094"
-        ></v-switch>
+          <v-switch
+              v-model="formData.email_visible"
+              :label="`Mostrar correo electrónico en mi perfil: ${formData.email_visible ? 'Sí' : 'No'}`"
+              hint="Si activás esta función, los clientes te podrán contactar por correo electrónico."
+              persistent-hint
+              color="#3fb094"
+          ></v-switch>
 
-        <InputText
-            v-if="createNewUser"
-            label="Contraseña"
-            v-model="formData.password"
-            identifier="password"
-            :loading="loading"
-            :rules="[rules.obligatory, rules.password]"
-            :errors="errors.password"
-            required
-            :type="show_password ? 'text' : 'password'"
-            hint="La contraseña debe tener mínimo 6 caracteres y contener un número"
-            persistent-hint
-            counter
-            :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
-            @click:append="show_password = !show_password"
-        ></InputText>
+          <InputText
+              v-if="createNewUser"
+              label="Contraseña"
+              v-model="formData.password"
+              identifier="password"
+              :loading="loading"
+              :rules="[rules.obligatory, rules.password]"
+              :errors="errors.password"
+              required
+              :type="show_password ? 'text' : 'password'"
+              hint="La contraseña debe tener mínimo 6 caracteres y contener un número"
+              persistent-hint
+              counter
+              :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="show_password = !show_password"
+          ></InputText>
+        </fieldset>
 
-        <InputText
-            label="DNI"
-            v-model="formData.dni"
-            identifier="dni"
-            :loading="loading"
-            :rules="[rules.obligatory, rules.numeric]"
-            :errors="errors.dni"
-            autocomplete="on"
-            required
-        ></InputText>
-      </fieldset>
+        <fieldset>
+          <legend>Perfil público</legend>
 
-      <fieldset>
-        <legend>Perfil público</legend>
+          <InputText
+              label="Nombre Institucional"
+              v-model="formData.public_name"
+              identifier="public_name"
+              :loading="loading"
+              :errors="errors.public_name"
+              hint="Nombre de la tienda o clínica veterinaria"
+              persistent-hint
+          ></InputText>
 
-        <v-select
-            outlined
-            v-model="formData.user_types"
-            :items="user_types"
-            :item-text="'name'"
-            :item-value="'id'"
-            chips
-            label="Tipo de servicios *"
-            multiple
-            :messages="errors.user_types ? errors.user_types[0] : ''"
-            :error="errors.user_types"
-            :disabled="loading"
-            :rules="[rules.selectionRequired]"
-            color="#3fb094"
-        ></v-select>
+          <v-select
+              outlined
+              v-model="formData.user_types"
+              :items="user_types"
+              :item-text="'name'"
+              :item-value="'id'"
+              chips
+              label="Tipo de servicios *"
+              multiple
+              :messages="errors.user_types ? errors.user_types[0] : ''"
+              :error="errors.user_types"
+              :disabled="loading"
+              :rules="[rules.selectionRequired]"
+              color="#3fb094"
+          ></v-select>
 
-        <InputText
-            label="Nombre Institucional"
-            v-model="formData.public_name"
-            identifier="public_name"
-            :loading="loading"
-            :errors="errors.public_name"
-            hint="Nombre de la tienda o clínica veterinaria"
-            persistent-hint
-        ></InputText>
-        <Address 
-          v-if="!createNewUser"
-          :professional="professional" 
-        />
-        <v-btn 
-          v-if="!createNewUser"
-          @click="showAddressInput = !showAddressInput"
-        >
-          {{ showAddressInput ? 'Cancelar' : 'Cambiar dirección'}}
-        </v-btn>
-        <InputAddress
-            v-if="createNewUser || showAddressInput"
-            label="Dirección"
-            identifier="address"
-            :loading="loading"
-            :errors="errors.address"
-            @update-address="updateAddress"
-            hint="Ingresá ciudad, calle y número, para que tus clientes te puedan encontrar."
-            persistent-hint
-        ></InputAddress>
+          <v-textarea
+              outlined
+              name="description"
+              id="description"
+              class="form-control"
+              v-model="formData.description"
+              label="Texto de presentación"
+              :messages="errors.description ? errors.description[0] : ''"
+              :error="errors.description"
+              :disabled="loading"
+              placeholder="Hola, soy Martina y soy veterinaria con alma y corazón..."
+              color="#3fb094"
+          ></v-textarea>
 
-        <InputText
-            v-if="createNewUser || showAddressInput"
-            label="Número de piso y departamento"
-            v-model="formData.apartment"
-            identifier="apartment"
-            :loading="loading"
-            :errors="errors.apartment"
-        ></InputText>
+          <div v-if="!createNewUser" class="preview-container">
+            <v-switch
+                v-model="showFileInput"
+                :label="`Nueva imagen: ${showFileInput ? 'Sí' : 'No'}`"
+                color="#3fb094"
+            ></v-switch>
+          
+          
+            <v-img
+              class="preview"
+              v-if="!createNewUser && !showFileInput"
+              :src="createImgPath(professional.profile_image.src)" 
+            />
         
-        <v-img 
-          :class="showFileInput ? 'preview disabled' : 'preview'"
-          v-if="!createNewUser"
-          :src="createImgPath(professional.profile_image.src)" 
-        />
-        <v-btn 
-          v-if="!createNewUser"
-          @click="showFileInput = !showFileInput"
-        >
-          {{ showFileInput ? 'Cancelar' : 'Cambiar imagen'}}
-        </v-btn>
-        <v-file-input
-            v-if="createNewUser || showFileInput"
-            outlined
-            v-model="photo"
-            required
-            ref="photo"
-            show-size
-            accept="image/*"
-            prepend-icon="mdi-camera"
-            truncate-length="15"
-            @change="handleFileUpload"
-            label="Imagen de Perfil *"
-            :rules="[rules.obligatory]"
-            :messages="errors.photo ? errors.photo[0] : ''"
-            :error="errors.photo !== null"
-            :disabled="loading"
-            color="#3fb094"
-        ></v-file-input>
+          
+          <v-file-input
+              v-if="createNewUser || showFileInput"
+              outlined
+              v-model="photo"
+              required
+              ref="photo"
+              show-size
+              accept="image/*"
+              prepend-icon=""
+              prepend-inner-icon="mdi-camera"
+              truncate-length="15"
+              @change="handleFileUpload"
+              label="Imagen de Perfil *"
+              :rules="[rules.obligatory]"
+              :messages="errors.photo ? errors.photo[0] : ''"
+              :error="errors.photo !== null"
+              :disabled="loading"
+              color="#3fb094"
+          ></v-file-input>
+          </div>
 
-        <v-textarea
-            outlined
-            name="description"
-            id="description"
-            class="form-control"
-            v-model="formData.description"
-            label="Texto de presentación"
-            :messages="errors.description ? errors.description[0] : ''"
-            :error="errors.description"
-            :disabled="loading"
-            placeholder="Hola, soy Martina y soy veterinaria con alma y corazón..."
-            color="#3fb094"
-        ></v-textarea>
-      </fieldset>
+          
+        </fieldset>
 
-      <fieldset>
-        <legend>Datos de contacto</legend>
+        <fieldset>
+          <legend>Datos de contacto</legend>
 
-        <InputText
-            label="Número de Whatsapp"
-            v-model="formData.whatsapp"
-            identifier="whatsapp"
-            required
-            :loading="loading"
-            :errors="errors.whatsapp"
-            :rules="[rules.obligatory]"
-            type="tel"
-            autocomplete="on"
-            placeholder="112345678"
-        ></InputText>
+          <InputText
+              label="Número de Whatsapp"
+              v-model="formData.whatsapp"
+              identifier="whatsapp"
+              required
+              :loading="loading"
+              :errors="errors.whatsapp"
+              :rules="[rules.obligatory]"
+              type="tel"
+              autocomplete="on"
+              placeholder="112345678"
+          ></InputText>
 
-        <InputText
-            label="Instagram"
-            v-model="formData.instagram"
-            identifier="instagram"
-            :loading="loading"
-            :errors="errors.instagram"
-            :rules="[rules.username]"
-            placeholder="VeterinariaMartina"
-            hint="Tu nombre de usuario sin '@'"
-        ></InputText>
+          <InputText
+              label="Instagram"
+              v-model="formData.instagram"
+              identifier="instagram"
+              :loading="loading"
+              :errors="errors.instagram"
+              :rules="[rules.username]"
+              placeholder="VeterinariaMartina"
+              hint="Tu nombre de usuario sin '@'"
+          ></InputText>
 
-        <InputText
-            label="Facebook"
-            v-model="formData.facebook"
-            identifier="facebook"
-            :loading="loading"
-            :errors="errors.facebook"
-            :rules="[rules.username]"
-            placeholder="veterinaria_martina"
-            hint="Tu nombre de usuario como aparece en la barra de url"
-        ></InputText>
+          <InputText
+              label="Facebook"
+              v-model="formData.facebook"
+              identifier="facebook"
+              :loading="loading"
+              :errors="errors.facebook"
+              :rules="[rules.username]"
+              placeholder="veterinaria_martina"
+              hint="Tu nombre de usuario como aparece en la barra de url"
+          ></InputText>
 
-        <InputText
-            label="Página Web"
-            v-model="formData.web"
-            identifier="web"
-            :loading="loading"
-            :errors="errors.web"
-            type="url"
-            :rules="[rules.url]"
-            placeholder="https://www.veterinaria-martina.com.ar"
-        ></InputText>
-      </fieldset>
+          <InputText
+              label="Página Web"
+              v-model="formData.web"
+              identifier="web"
+              :loading="loading"
+              :errors="errors.web"
+              type="url"
+              :rules="[rules.url]"
+              placeholder="https://www.veterinaria-martina.com.ar"
+          ></InputText>
+
+          <div v-if="!createNewUser" class="preview-container">
+            <v-switch
+                v-model="showAddressInput"
+                :label="`Nueva dirección: ${showAddressInput ? 'Sí' : 'No'}`"
+                color="#3fb094"
+            ></v-switch>
+
+            <Address 
+              v-if="!createNewUser && !showAddressInput"
+              :professional="professional" 
+            />
+          
+        
+          <InputAddress
+              v-if="createNewUser || showAddressInput"
+              label="Dirección"
+              identifier="address"
+              :loading="loading"
+              :errors="errors.address"
+              @update-address="updateAddress"
+              hint="Ingresá ciudad, calle y número, para que tus clientes te puedan encontrar."
+              persistent-hint
+          ></InputAddress>
+
+          <InputText
+              v-if="createNewUser || showAddressInput"
+              label="Número de piso y departamento"
+              v-model="formData.apartment"
+              identifier="apartment"
+              :loading="loading"
+              :errors="errors.apartment"
+          ></InputText>
+          </div>
+        </fieldset>
+      </div>
 
       <button class="main-btn" type="submit">{{ professional ? 'Guardar cambios' : 'Crear cuenta'}}</button>
     </v-container>
