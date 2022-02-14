@@ -9,6 +9,8 @@ use App\Repositories\UserTypeRepository;
 use App\Repositories\ImageRepository;
 use App\Http\Requests\Users\Professionals\CreateRequest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class UserController extends Controller
 {
@@ -76,10 +78,10 @@ class UserController extends Controller
      * @param CreateRequest $request
      * @return JsonResponse
      */
-    public function updateProfessional(CreateRequest $request): JsonResponse
+    public function updateProfessional(CreateRequest $request): JsonResponse 
     {
         $dto = new UserDTO;
-        $dto->loadFromArray($request->input());
+        $dto->loadFromArray($request->except('password'));
 
         if ($photo = $request->get('photo')) {
             $image = $this->imageRepository->uploadImage($photo, 'users/profile/', 'Perfil ' . $request->get('first_name') . ' ' . $request->get('last_name'));

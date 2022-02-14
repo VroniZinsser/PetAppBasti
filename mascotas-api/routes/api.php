@@ -28,7 +28,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware(['auth'])->group(function () {
     Route::get('profesionales', [UserController::class, 'getProfessionals']);
     Route::get('profesionales/tipos', [UserController::class, 'getProfessionalUserTypes']);
-    Route::put('/profesionales/{user_id}', [UserController::class, 'updateProfessional']);
+    // This param must be 'user' because it has a route binding to exactly this string
+    Route::put('/profesionales/{user}', [UserController::class, 'updateProfessional']);
 });
 
 Route::middleware(['guest'])->group(function () {
