@@ -4,6 +4,7 @@ namespace App\Http\Requests\Users\Professionals;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Messages\Validation;
+use Illuminate\Validation\Rule;
 
 class CreateRequest extends FormRequest
 {
@@ -14,12 +15,17 @@ class CreateRequest extends FormRequest
      */
     public function rules()
     {
+
+        $userId = $this->user ? $this->user->id : null;
+        $rulesPassword = $this->user ? '' : 'required|min:6|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])/';
+        $rulesPhoto = $this->user ? 'base64image|base64max:10000' : 'required|base64image|base64max:10000';
+        
         return [
             'first_name' => 'required|max:30|min:2|string',
             'last_name' => 'required|max:30|min:2|string',
-            'email' => 'required|email|max:60|unique:users,email',
+            'email' => ['required', 'email', 'max:60', Rule::unique('users','email')->ignore($userId)],
             'email_visible' => 'required|boolean',
-            'password' => 'required|min:6|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])/',
+            'password' => $rulesPassword,
             'country' => 'required|max:60',
             'state' => 'required|max:60',
             'city' => 'required|max:60',
@@ -44,7 +50,7 @@ class CreateRequest extends FormRequest
             'verified' => 'boolean|nullable',
             'user_types' => 'min:1|array',
             'user_types.*' => 'integer|exists:user_types,id',
-            'photo' => 'required|base64image|base64max:10000',
+            'photo' => $rulesPhoto,
         ];
     }
 

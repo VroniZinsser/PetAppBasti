@@ -95,7 +95,7 @@
             label="Tipo de servicios *"
             multiple
             :messages="errors.user_types ? errors.user_types[0] : ''"
-            :error="errors.user_types !== null"
+            :error="errors.user_types"
             :disabled="loading"
             :rules="[rules.selectionRequired]"
             color="#3fb094"
@@ -162,7 +162,7 @@
             v-model="formData.description"
             label="Texto de presentación"
             :messages="errors.description ? errors.description[0] : ''"
-            :error="errors.description !== null"
+            :error="errors.description"
             :disabled="loading"
             placeholder="Hola, soy Martina y soy veterinaria con alma y corazón..."
             color="#3fb094"
@@ -376,7 +376,7 @@ export default {
 
               this.$router.push({
                 name: 'ProfessionalProfile', 
-                params: {professional_id: this.professional_id}
+                params: {professional_id: this.professional.id}
               });
             } else if (res.errors) {
               this.errors = {
@@ -402,6 +402,19 @@ export default {
         ...this.formData,
         ...address
       }
+    },
+
+    /**
+     * Ensures that the array of user types contains only ids and not objects of user types
+     */
+    cleanUserTypes() {
+      this.formData.user_types = this.formData.user_types.map((type) => {
+        return isNaN(type) ? type.id : type;
+      })
+    },
+
+    cleanProfileImage() {
+      delete this.formData.profile_image;
     },
 
     /**
@@ -451,6 +464,8 @@ export default {
       this.formData = {
         ...this.professional
       }
+      this.cleanUserTypes();
+      this.cleanProfileImage();
     } else {
       this.formData = {
         first_name: "Alejo",
