@@ -6,12 +6,10 @@
       <Form
         :user_types="user_types"
         :professional="professional"
-    />
+      ></Form>
     </div>
     
     </div>
-  <!-- </FormContainer> -->
-
 </template>
 
 <script>
