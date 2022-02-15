@@ -1,7 +1,7 @@
 <template>
   <v-form
-      :method="this.professional ? 'PUT' : 'POST'"
-      :action="this.professional ? 'usuarios/editar' : 'usuarios/crear'"
+      :method="createNewUser ? 'POST' : 'PUT'"
+      :action="createNewUser ? 'usuarios/crear' : 'usuarios/editar'"
       ref="form"
       @submit.prevent="sendForm"
   >
@@ -54,7 +54,7 @@
         ></v-switch>
 
         <InputText
-            v-if="!professional"
+            v-if="createNewUser"
             label="Contraseña"
             v-model="formData.password"
             identifier="password"
@@ -110,9 +110,18 @@
             hint="Nombre de la tienda o clínica veterinaria"
             persistent-hint
         ></InputText>
-
+        <Address 
+          v-if="!createNewUser"
+          :professional="professional" 
+        />
+        <v-btn 
+          v-if="!createNewUser"
+          @click="showAddressInput = !showAddressInput"
+        >
+          {{ showAddressInput ? 'Cancelar' : 'Cambiar dirección'}}
+        </v-btn>
         <InputAddress
-            v-if="!professional"
+            v-if="createNewUser || showAddressInput"
             label="Dirección"
             identifier="address"
             :loading="loading"
@@ -123,20 +132,27 @@
         ></InputAddress>
 
         <InputText
+            v-if="createNewUser || showAddressInput"
             label="Número de piso y departamento"
             v-model="formData.apartment"
             identifier="apartment"
             :loading="loading"
             :errors="errors.apartment"
         ></InputText>
+        
         <v-img 
-          class="preview"
-          v-if="professional"
+          :class="showFileInput ? 'preview disabled' : 'preview'"
+          v-if="!createNewUser"
           :src="createImgPath(professional.profile_image.src)" 
         />
-        <v-btn @click="showFileInput = !showFileInput">{{ showFileInput ? 'Cancelar' : 'Cambiar imagen'}}</v-btn>
+        <v-btn 
+          v-if="!createNewUser"
+          @click="showFileInput = !showFileInput"
+        >
+          {{ showFileInput ? 'Cancelar' : 'Cambiar imagen'}}
+        </v-btn>
         <v-file-input
-            v-if="!professional || showFileInput"
+            v-if="createNewUser || showFileInput"
             outlined
             v-model="photo"
             required
@@ -230,6 +246,7 @@ import store from "@/store";
 import InputAddress from "@/components/general/inputs/InputAddress";
 import InputText from "@/components/general/inputs/InputText";
 import {createImgPath} from "@/helpers";
+import Address from "@/components/users/professionals/Address"
 
 export default {
   name: "Form",
@@ -241,12 +258,22 @@ export default {
     },
     professional: {
       type: Object,
+      default: null,
     }
   },
+
+  computed: {
+    createNewUser() {
+      return this.professional === null;
+    }
+  },
+
   components: {
     InputAddress,
     InputText,
+    Address,
   },
+
   data() {
     return {
       show_password: false,
@@ -254,25 +281,8 @@ export default {
       store,
       photo: null,
       formData: {},
+      errors: {},
       createImgPath,
-      errors: {
-        first_name: null,
-        last_name: null,
-        email: null,
-        email_visible: null,
-        password: null,
-        address: null,
-        apartment: null,
-        dni: null,
-        public_name: null,
-        description: null,
-        whatsapp: null,
-        instagram: null,
-        facebook: null,
-        web: null,
-        user_types: null,
-        photo: null
-      },
       rules: {
         obligatory: value => !!value || 'Este campo es obligatorio.',
         numeric: value => !isNaN(value) || 'El valor debe ser numérico.',
@@ -299,7 +309,20 @@ export default {
           return (pattern.test(value) || !value) || 'El nombre de usuario ingresado no es válido.'
         },
       },
+      showAddressInput: false,
       showFileInput: false,
+    }
+  },
+
+  mounted() {
+    if (this.createNewUser) {
+      this.resetFormData();
+    } else {
+      this.formData = {
+        ...this.professional
+      }
+      this.cleanUserTypes();
+      this.cleanProfileImage();
     }
   },
   
@@ -325,76 +348,76 @@ export default {
           user_types: null,
           photo: null,
         }
-        if (this.professional) {
-          this.updateUser();
-        } else {
+        if (this.createNewUser) {
           this.createUser();
+        } else {
+          this.updateUser();
         }
       }
     },
     createUser() {
       userService.create(this.formData)
-          .then(res => {
-            this.loading = false;
+        .then(res => {
+          this.loading = false;
 
-            if (res.success) {
-              this.store.setStatus({
-                msg: "¡Gracias por registrarte en Basti!",
-                type: 'success',
-              });
+          if (res.success) {
+            this.store.setStatus({
+              msg: "¡Gracias por registrarte en Basti!",
+              type: 'success',
+            });
 
-              this.$router.push({name: 'Login'});
-            } else if (res.errors) {
-              this.errors = {
-                ...res.errors
-              }
-              this.errors.address = this.concatAddressErrors(res.errors);
-              this.store.setStatus({
-                msg: "Por favor corregí los datos del formulario.",
-                type: 'warning'
-              });
-
-            } else {
-              this.store.setStatus({
-                msg: "¡Algo salió mal! Por favor, intentalo nuevamente más tarde",
-                type: 'error'
-              });
+            this.$router.push({name: 'Login'});
+          } else if (res.errors) {
+            this.errors = {
+              ...res.errors
             }
-          })
+            this.errors.address = this.concatAddressErrors(res.errors);
+            this.store.setStatus({
+              msg: "Por favor corregí los datos del formulario.",
+              type: 'warning'
+            });
+
+          } else {
+            this.store.setStatus({
+              msg: "¡Algo salió mal! Por favor, intentalo nuevamente más tarde",
+              type: 'error'
+            });
+          }
+        })
     },
 
     updateUser() {
       userService.update(this.formData, this.professional.id)
-          .then(res => {
-            this.loading = false;
-            
-            if (res.success) {
-              this.store.setStatus({
-                msg: "Los cambios se guardaron con éxito.",
-                type: 'success',
-              });
+        .then(res => {
+          this.loading = false;
+          
+          if (res.success) {
+            this.store.setStatus({
+              msg: "Los cambios se guardaron con éxito.",
+              type: 'success',
+            });
 
-              this.$router.push({
-                name: 'ProfessionalProfile', 
-                params: {professional_id: this.professional.id}
-              });
-            } else if (res.errors) {
-              this.errors = {
-                ...res.errors
-              }
-              this.errors.address = this.concatAddressErrors(res.errors);
-              this.store.setStatus({
-                msg: "Por favor corregí los datos del formulario.",
-                type: 'warning'
-              });
-
-            } else {
-              this.store.setStatus({
-                msg: "¡Algo salió mal! Por favor, intentalo nuevamente más tarde",
-                type: 'error'
-              });
+            this.$router.push({
+              name: 'ProfessionalProfile', 
+              params: {professional_id: this.professional.id}
+            });
+          } else if (res.errors) {
+            this.errors = {
+              ...res.errors
             }
-          })
+            this.errors.address = this.concatAddressErrors(res.errors);
+            this.store.setStatus({
+              msg: "Por favor corregí los datos del formulario.",
+              type: 'warning'
+            });
+
+          } else {
+            this.store.setStatus({
+              msg: "¡Algo salió mal! Por favor, intentalo nuevamente más tarde",
+              type: 'error'
+            });
+          }
+        })
     },
 
     updateAddress(address) {
@@ -413,8 +436,67 @@ export default {
       })
     },
 
+    /**
+     * Removes the profile image from formData
+     * In formData we only need the attribute 'photo'
+     */
     cleanProfileImage() {
       delete this.formData.profile_image;
+    },
+
+    resetErrors() {
+      this.errors = {
+        first_name: null,
+        last_name: null,
+        email: null,
+        email_visible: null,
+        password: null,
+        address: null,
+        apartment: null,
+        dni: null,
+        public_name: null,
+        description: null,
+        whatsapp: null,
+        instagram: null,
+        facebook: null,
+        web: null,
+        user_types: null,
+        photo: null
+      }
+    },
+
+    /**
+      Sets default values to formData
+      TODO: Remove default values for final version
+     */
+    resetFormData() {
+      this.formData = {
+        first_name: "Alejo",
+        last_name: "Gómez",
+        email: "alejo.gomez@test.com",
+        email_visible: false,
+        password: "sdfoew3534+#a",
+        country: null,
+        state: null,
+        city: null,
+        postal_code: null,
+        district: null,
+        street: null,
+        house_number: null,
+        apartment: null,
+        location_id: null,
+        latitude: null,
+        longitude: null,
+        dni: "78473258",
+        public_name: "Veterinario Alejo y Hermanos",
+        description: null,
+        whatsapp: "9112345678",
+        instagram: "AlejoVet",
+        facebook: null,
+        web: null,
+        user_types: [5, 6],
+        photo: null
+      }
     },
 
     /**
@@ -458,44 +540,6 @@ export default {
       reader.readAsDataURL(this.photo);
     },
   },
-
-  mounted() {
-    if (this.professional) {
-      this.formData = {
-        ...this.professional
-      }
-      this.cleanUserTypes();
-      this.cleanProfileImage();
-    } else {
-      this.formData = {
-        first_name: "Alejo",
-        last_name: "Gómez",
-        email: "alejo.gomez@test.com",
-        email_visible: false,
-        password: "sdfoew3534+#a",
-        country: null,
-        state: null,
-        city: null,
-        postal_code: null,
-        district: null,
-        street: null,
-        house_number: null,
-        apartment: null,
-        location_id: null,
-        latitude: null,
-        longitude: null,
-        dni: "78473258",
-        public_name: "Veterinario Alejo y Hermanos",
-        description: null,
-        whatsapp: "9112345678",
-        instagram: "AlejoVet",
-        facebook: null,
-        web: null,
-        user_types: [5, 6],
-        photo: null
-      }
-    }
-  }
 }
 
 </script>

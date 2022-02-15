@@ -16,7 +16,7 @@
 
 <script>
 
-import Form from "@/components/users/create/professional/Form";
+import Form from "@/components/users/professionals/Form";
 import FormContainer from "../../components/general/forms/FormContainer";
 import userService from "@/services/users"
 

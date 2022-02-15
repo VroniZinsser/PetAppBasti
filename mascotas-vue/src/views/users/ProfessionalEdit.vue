@@ -18,7 +18,7 @@
 
 <script>
 
-import Form from "@/components/users/create/professional/Form";
+import Form from "@/components/users/professionals/Form";
 import FormContainer from "@/components/general/forms/FormContainer";
 import userService from "@/services/users"
 import store from "@/store";
@@ -29,7 +29,7 @@ export default {
   components: {
     Form,
     FormContainer,
-  },
+ },
   data: () => ({
     loading: true,
     user_types: [],

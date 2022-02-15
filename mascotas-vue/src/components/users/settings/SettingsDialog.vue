@@ -53,7 +53,7 @@ export default {
   },
   methods: {
       viewProfile() {
-        if (this.$route.name !== 'ProfessionalProfile') {
+        if (!(this.$route.name == 'ProfessionalProfile' && this.$route.params.professional_id == this.user.id)) {
             this.$router.push({
                 name: 'ProfessionalProfile',
                 params: { 'professional_id': this.user.id } 
