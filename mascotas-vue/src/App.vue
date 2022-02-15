@@ -41,6 +41,7 @@
       :user="store.user"
       @cancle="showSettingsDialog = false"
       @logout="logout"
+      @delete-account="showDeleteAccountDialog"
     />
 
     <!--Config modal-->
@@ -79,6 +80,7 @@ export default {
   data: () => ({
     dialog: false,
     showSettingsDialog: false,
+    showWarnDialog: false,
     createStaticImgPath,
     store,
     routerLinks: [
@@ -144,6 +146,11 @@ export default {
         msg: content,
         type: type,
       });
+    },
+
+    showDeleteAccountDialog() {
+      this.showSettingsDialog = false;
+      this.showWarnDialog = true;
     }
   },
 };
