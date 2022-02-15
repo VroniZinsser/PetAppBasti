@@ -24,13 +24,6 @@
                     text="Cerrar Sesión"
                     @onclick="$emit('logout')"
                 />
-                <v-divider />
-                <SettingsDialogItem 
-                    icon="mdi-delete"
-                    text="Eliminar mi cuenta"
-                    class="danger"
-                    @onclick="$emit('delete-account')"
-                />
             </v-list-item-group>
         </v-list>
       </v-card>
