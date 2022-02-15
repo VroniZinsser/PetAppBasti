@@ -137,6 +137,7 @@ class UserController extends Controller
      */
     public function deleteUser($user_id): JsonResponse
     {
+        //TODO: check that $user_id is the authenticated user
         $this->userRepository->delete($user_id);
 
         return response()->json([

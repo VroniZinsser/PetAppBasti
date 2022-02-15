@@ -44,6 +44,16 @@
       @delete-account="showDeleteAccountDialog"
     />
 
+    <WarnDialog
+      :showDialog="showWarnDialog" 
+      dialogTitle="¿Eliminar tu cuenta de usuario?"
+      dialogText="¿Estás seguro que ya no querés ser parte de Basti? Si eliminás tu cuenta, tu perfil ya no estará disponible y no aparecerá en el mapa. No tendrás más acceso a las mascotas compartidas con vos."
+      acceptButtonText="Sí, eliminar mi cuenta"
+
+      @cancle="showWarnDialog = false"
+      @accept="deleteAccount"
+    />
+
     <!--Config modal-->
     <v-dialog v-model="dialog" max-width="500" class="container--fluid">
       <v-card id="config-list">
@@ -68,13 +78,17 @@
 import {createStaticImgPath} from "@/helpers";
 import authService from "./services/auth";
 import SettingsDialog from "@/components/users/settings/SettingsDialog";
+import WarnDialog from "@/components/general/notifications/WarnDialog";
 import store from "./store";
+import userService from "@/services/users";
+
 
 export default {
   name: 'App',
 
   components: {
-    SettingsDialog
+    SettingsDialog,
+    WarnDialog,
   },
 
   data: () => ({
@@ -151,6 +165,22 @@ export default {
     showDeleteAccountDialog() {
       this.showSettingsDialog = false;
       this.showWarnDialog = true;
+    },
+
+    deleteAccount() {
+      this.showWarnDialog = false;
+      this.$router.push({name: 'Login'});
+      userService.delete(this.store.user.id)
+        .then(res => {
+          if (res.success) {
+            this.$router.push({name: 'Login'});
+          } else {
+            this.store.setStatus({
+              msg: 'Algo salió mal. Intentalo nuevamente más tarde.',
+              type: 'error',
+            });
+          }
+        })
     }
   },
 };

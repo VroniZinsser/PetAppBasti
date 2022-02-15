@@ -27,7 +27,7 @@
                 <v-divider />
                 <SettingsDialogItem 
                     icon="mdi-delete"
-                    text="Borrar esta cuenta"
+                    text="Eliminar mi cuenta"
                     class="danger"
                     @onclick="$emit('delete-account')"
                 />
