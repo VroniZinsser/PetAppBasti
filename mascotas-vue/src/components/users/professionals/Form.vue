@@ -256,10 +256,10 @@
                 :loading="loading"
                 :errors="errors.apartment"
             ></InputText>
+            <DeleteAccountButton />
           </div>
         </fieldset>
       </div>
-
       <button class="main-btn" type="submit">{{ professional ? 'Guardar cambios' : 'Crear cuenta'}}</button>
     </v-container>
   </v-form>
@@ -269,6 +269,7 @@
 import userService from "@/services/users";
 import store from "@/store";
 import InputAddress from "@/components/general/inputs/InputAddress";
+import DeleteAccountButton from "@/components/general/buttons/DeleteAccountButton";
 import InputText from "@/components/general/inputs/InputText";
 import {createImgPath} from "@/helpers";
 import Address from "@/components/users/professionals/Address"
@@ -299,6 +300,7 @@ export default {
     InputText,
     Address,
     BaseNotification,
+    DeleteAccountButton
   },
 
   data() {
