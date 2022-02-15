@@ -74,7 +74,7 @@ export default {
   mounted() {
     contactService.acceptGenerate(this.$route.params.request_id)
         .then(res => {
-          if (!("access" in res)) {
+          if (res.access !== false ) {
             this.request = res.data.request;
           }
 
