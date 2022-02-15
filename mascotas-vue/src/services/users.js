@@ -172,5 +172,23 @@ const userService = {
                 return { ...respuesta };
             });
     },
+
+    /**
+    * Deletes the user from the database
+    *
+    * @param {int} id the user id
+    * @returns {Promise<any>}
+    */
+    delete(id) {
+        return fetch(`${API}usuarios/${id}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            credentials: 'include'
+        })
+            .then(rta => rta.json())
+            .then(respuesta => {
+                return { ...respuesta };
+            });
+    },
 }
 export default userService;
