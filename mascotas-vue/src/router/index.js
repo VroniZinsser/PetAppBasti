@@ -12,6 +12,7 @@ import Pets from "../views/pets/Pets";
 import PetAddForm from "../views/pets/AddForm";
 import PetEditForm from "../views/pets/EditForm";
 import ProfessionalEdit from "../views/users/ProfessionalEdit";
+import ProfessionalHome from "../views/users/ProfessionalHome";
 import ProfessionalSignUp from "../views/users/ProfessionalSignUp";
 import ProfessionalProfile from "../views/users/ProfessionalProfile";
 import Schedule from "../views/schedule/Schedule";
@@ -78,7 +79,7 @@ const routes = [
     {
         path: '/profesional/home',
         name: 'HomeProfessional',
-        component: Schedule,
+        component: ProfessionalHome,
         meta: {
             requiresAuth: true,
         }

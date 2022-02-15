@@ -1,0 +1,17 @@
+.professional-home {
+    .home-container {
+        padding: 1rem;
+    }
+    
+    .profile-card {
+        display: flex;
+        align-items: center;
+        padding: 0 1rem;
+
+        .v-avatar {
+            margin: 1rem 0;
+        }
+
+        margin-bottom: 2rem;
+    }
+}

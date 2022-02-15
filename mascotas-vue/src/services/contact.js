@@ -20,7 +20,7 @@ const contactService = {
      * @constructor
      */
     getProfessionalSharedPets() {
-        return fetch(`${API}peticiones/aceptadas`, {
+        return fetch(`${API}peticiones/profesional`, {
             headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
             credentials: 'include'
         })

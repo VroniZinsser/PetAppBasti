@@ -55,9 +55,11 @@ class AuthController extends Controller
      */
     public function me(): JsonResponse
     {
+        $user = User::find(auth()->user()->id)->load(['profile_image']);
+        
         return response()->json([
             'data' => [
-                'user' => auth()->user(),
+                'user' => $user,
             ],
         ]);
     }
