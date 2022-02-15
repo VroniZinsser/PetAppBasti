@@ -37,7 +37,7 @@ class AuthController extends Controller
             ], 401);
         }
 
-        $cookie = cookie("token", $token, 1000);
+        $cookie = cookie("token", $token);
 
         return response()->json([
             'success' => true,
