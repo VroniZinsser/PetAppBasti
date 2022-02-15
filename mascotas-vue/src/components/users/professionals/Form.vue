@@ -6,11 +6,18 @@
       @submit.prevent="sendForm"
   >
     <v-container class="professional-form">
-      <p>Los campos marcados con * son obligatorios.</p>
+      <slot />
+      
       <div class="fieldset-container">
         <fieldset>
           <legend>Datos personales</legend>
-
+          <BaseNotification
+            v-if="store.status.msg != null"
+            :type="store.status.type"
+            :text="store.status.msg"
+            :title="store.status.title"
+          />
+          <p>Los campos marcados con * son obligatorios.</p>
           <InputText
               label="Nombre"
               v-model="formData.first_name"
@@ -125,8 +132,9 @@
               color="#3fb094"
           ></v-textarea>
 
-          <div v-if="!createNewUser" class="preview-container">
+          <div :class="!createNewUser ? 'preview-container' : ''">
             <v-switch
+                v-if="!createNewUser"
                 v-model="showFileInput"
                 :label="`Nueva imagen: ${showFileInput ? 'Sí' : 'No'}`"
                 color="#3fb094"
@@ -140,25 +148,25 @@
             />
         
           
-          <v-file-input
-              v-if="createNewUser || showFileInput"
-              outlined
-              v-model="photo"
-              required
-              ref="photo"
-              show-size
-              accept="image/*"
-              prepend-icon=""
-              prepend-inner-icon="mdi-camera"
-              truncate-length="15"
-              @change="handleFileUpload"
-              label="Imagen de Perfil *"
-              :rules="[rules.obligatory]"
-              :messages="errors.photo ? errors.photo[0] : ''"
-              :error="errors.photo !== null"
-              :disabled="loading"
-              color="#3fb094"
-          ></v-file-input>
+            <v-file-input
+                v-if="createNewUser || showFileInput"
+                outlined
+                v-model="photo"
+                required
+                ref="photo"
+                show-size
+                accept="image/*"
+                prepend-icon=""
+                prepend-inner-icon="mdi-camera"
+                truncate-length="15"
+                @change="handleFileUpload"
+                label="Imagen de Perfil *"
+                :rules="[rules.obligatory]"
+                :messages="errors.photo ? errors.photo[0] : ''"
+                :error="errors.photo"
+                :disabled="loading"
+                color="#3fb094"
+            ></v-file-input>
           </div>
 
           
@@ -213,8 +221,9 @@
               placeholder="https://www.veterinaria-martina.com.ar"
           ></InputText>
 
-          <div v-if="!createNewUser" class="preview-container">
+          <div :class="!createNewUser ? 'preview-container' : ''">
             <v-switch
+                v-if="!createNewUser"
                 v-model="showAddressInput"
                 :label="`Nueva dirección: ${showAddressInput ? 'Sí' : 'No'}`"
                 color="#3fb094"
@@ -226,25 +235,27 @@
             />
           
         
-          <InputAddress
-              v-if="createNewUser || showAddressInput"
-              label="Dirección"
-              identifier="address"
-              :loading="loading"
-              :errors="errors.address"
-              @update-address="updateAddress"
-              hint="Ingresá ciudad, calle y número, para que tus clientes te puedan encontrar."
-              persistent-hint
-          ></InputAddress>
+            <InputAddress
+                v-if="createNewUser || showAddressInput"
+                label="Dirección"
+                identifier="address"
+                :loading="loading"
+                :errors="errors.address"
+                :rules="[rules.obligatory]"
+                @update-address="updateAddress"
+                hint="Ingresá ciudad, calle y número, para que tus clientes te puedan encontrar."
+                persistent-hint
+                required
+            ></InputAddress>
 
-          <InputText
-              v-if="createNewUser || showAddressInput"
-              label="Número de piso y departamento"
-              v-model="formData.apartment"
-              identifier="apartment"
-              :loading="loading"
-              :errors="errors.apartment"
-          ></InputText>
+            <InputText
+                v-if="createNewUser || showAddressInput"
+                label="Número de piso y departamento"
+                v-model="formData.apartment"
+                identifier="apartment"
+                :loading="loading"
+                :errors="errors.apartment"
+            ></InputText>
           </div>
         </fieldset>
       </div>
@@ -261,6 +272,7 @@ import InputAddress from "@/components/general/inputs/InputAddress";
 import InputText from "@/components/general/inputs/InputText";
 import {createImgPath} from "@/helpers";
 import Address from "@/components/users/professionals/Address"
+import BaseNotification from "@/components/general/notifications/BaseNotification";
 
 export default {
   name: "Form",
@@ -286,6 +298,7 @@ export default {
     InputAddress,
     InputText,
     Address,
+    BaseNotification,
   },
 
   data() {
@@ -344,24 +357,7 @@ export default {
     sendForm() {
       if (this.$refs.form.validate()) {
         this.loading = true;
-        this.errors = {
-          first_name: null,
-          last_name: null,
-          email: null,
-          email_visible: null,
-          password: null,
-          apartment: null,
-          dni: null,
-          address: null,
-          public_name: null,
-          description: null,
-          whatsapp: null,
-          instagram: null,
-          facebook: null,
-          web: null,
-          user_types: null,
-          photo: null,
-        }
+        this.errors = this.resetErrors();
         if (this.createNewUser) {
           this.createUser();
         } else {
@@ -373,6 +369,7 @@ export default {
       userService.create(this.formData)
         .then(res => {
           this.loading = false;
+          window.scrollTo(0,0);
 
           if (res.success) {
             this.store.setStatus({
@@ -404,6 +401,7 @@ export default {
       userService.update(this.formData, this.professional.id)
         .then(res => {
           this.loading = false;
+          window.scrollTo(0,0);
           
           if (res.success) {
             this.store.setStatus({

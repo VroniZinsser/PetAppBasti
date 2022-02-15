@@ -98,7 +98,6 @@ const routes = [
         component: ProfessionalSignUp,
         meta: {
             requiresGuest: true,
-            role: 'professional'
         }
     },
     {

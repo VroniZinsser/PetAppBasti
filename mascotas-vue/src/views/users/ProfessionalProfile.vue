@@ -3,7 +3,12 @@
 
   <div v-else class="professional-profile">
     <TitleBar :title="nameToDisplay(professional)"></TitleBar>
-    
+    <BaseNotification
+        v-if="store.status.msg != null"
+        :type="store.status.type"
+        :text="store.status.msg"
+        :title="store.status.title"
+    />
 
     <div class="profile-container">
       <PetShareDialog 
@@ -88,6 +93,7 @@ import store from "@/store";
 import Loader from "@/components/general/notifications/Loader";
 import {nameToDisplay} from "@/helpers";
 import Address from "@/components/users/professionals/Address";
+import BaseNotification from "@/components/general/notifications/BaseNotification";
 
 export default {
   name: "ProfessionalProfile",
@@ -97,6 +103,7 @@ export default {
     ContactItem,
     PetShareDialog,
     Address,
+    BaseNotification,
   },
   data() {
     return {
