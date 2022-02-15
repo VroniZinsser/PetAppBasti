@@ -66,11 +66,7 @@
         </div>
         <div class="location">
           <h3>Dirección</h3>
-          <div>
-            <span>{{ professional.street }} {{ professional.house_number }}</span>
-            <span>{{ professional.postal_code }} {{ professional.district }} {{ professional.city }}</span>
-            <span>{{ professional.state }}</span>
-          </div>
+          <Address :professional="professional" />
           <a :href="googleMapsLink" target="_blank">
             <img :src="createStaticImgPath('contact/google-maps.png')" alt="Link a Google Maps">
             <span>Google Maps</span>
@@ -82,8 +78,8 @@
 </template>
 
 <script>
-import ContactItem from "@/components/users/profile/professional/ContactItem";
 import PetShareDialog from "@/components/contact/requests/PetShareDialog";
+import ContactItem from "@/components/users/professionals/ContactItem";
 import {createImgPath} from "@/helpers";
 import {createStaticImgPath} from "@/helpers";
 import TitleBar from "@/components/general/layouts/TitleBar";
@@ -91,6 +87,7 @@ import userServices from "@/services/users";
 import store from "@/store";
 import Loader from "@/components/general/notifications/Loader";
 import {nameToDisplay} from "@/helpers";
+import Address from "@/components/users/professionals/Address";
 
 export default {
   name: "ProfessionalProfile",
@@ -99,6 +96,7 @@ export default {
     Loader,
     ContactItem,
     PetShareDialog,
+    Address,
   },
   data() {
     return {
