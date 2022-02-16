@@ -33,8 +33,9 @@ export default {
   mounted() {
     if (this.$route.params.weight_id) {
       this.editing = true;
-      this.loading = false;
     }
+
+    this.loading = false;
   }
 }
 </script>

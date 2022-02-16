@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <ListItem v-for="weight in ReverseArray" :weight="weight" :key="weight.id"></ListItem>
+    <ListItem v-for="weight in ReverseArray" :weight="weight" :key="weight.id" @deleted="deleted"></ListItem>
   </ul>
 </template>
 
@@ -25,7 +25,11 @@ export default {
       return weights.reverse()
     }
   },
-  methods: {},
+  methods: {
+    deleted(weight_id) {
+      this.$emit('deleted', weight_id);
+    }
+  },
   mounted() {
   }
 }

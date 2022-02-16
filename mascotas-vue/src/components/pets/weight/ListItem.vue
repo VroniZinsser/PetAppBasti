@@ -44,8 +44,8 @@ export default {
   methods: {
     deleteWeight() {
       weightService.delete(this.weight.id)
-          .then(res => {
-            console.log(res);
+          .then(() => {
+            this.$emit('deleted', this.weight.id);
           })
     }
   },

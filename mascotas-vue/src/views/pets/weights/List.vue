@@ -11,11 +11,18 @@
       <h1>Pesos de la mascota</h1>
     </div>
 
+    <BaseNotification
+        v-if="store.status.msg != null"
+        :type="store.status.type"
+        :text="store.status.msg"
+        :title="store.status.title"
+    />
+
     <CircleButtonLinkList :button-link-data="buttonLinkData"></CircleButtonLinkList>
 
-    <WeightList :weights="weights" v-if="weights"></WeightList>
+    <WeightList :weights="weights" v-if="weights.length > 0" @deleted="updateWeightList"></WeightList>
 
-    <p>Esta mascota no tiene ningún peso agregado todavía.</p>
+    <p v-else>Esta mascota no tiene ningún peso agregado todavía.</p>
   </div>
 </template>
 
@@ -24,14 +31,17 @@ import petServices from "@/services/pets";
 import WeightList from "@/components/pets/weight/List";
 import Loader from "@/components/general/notifications/Loader";
 import CircleButtonLinkList from "@/components/general/buttons/floating/CircleButtonLinkList";
+import BaseNotification from "@/components/general/notifications/BaseNotification";
+import store from "@/store";
 
 export default {
   name: "List",
-  components: {CircleButtonLinkList, Loader, WeightList},
+  components: {BaseNotification, CircleButtonLinkList, Loader, WeightList},
   data() {
     return {
       weights: null,
       loading: true,
+      store,
       buttonLinkData: [
         {
           icon: 'fitness_center',
@@ -41,6 +51,19 @@ export default {
           default: true,
         },
       ],
+    }
+  },
+  methods: {
+    updateWeightList(weight_id) {
+      this.loading = true;
+      // console.warn("Se elimino un elemento", weight_id)
+      //
+      // console.log(this.weights.find(e => e.id === weight_id));
+      this.weights = this.weights.filter(weight => weight.id !== weight_id);
+
+      this.$emit('create-notification', 'success', 'El peso se eliminó con éxito');
+
+      this.loading = false
     }
   },
   mounted() {
