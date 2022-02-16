@@ -1,12 +1,15 @@
 <template>
   <FormContainer
-    headline="¿Cuánto pesa tu mascota?"
-    form_class="form-weight"
-    :is_short_form="true"
+      :headline="editing ? 'Editar peso' : '¿Cuánto pesa tu mascota?'"
+      form_class="form-weight"
+      :is_short_form="true"
   >
     <p>Si pesás a tu mascota regularmente será mucho más fácil llevar un control sobre su dieta.</p>
     <Form
+        v-if="!loading"
         :pet_id="$route.params.pet_id"
+        :editing="editing"
+        :weight_id="this.$route.params.weight_id"
     ></Form>
   </FormContainer>
 </template>
@@ -21,5 +24,17 @@ export default {
     Form,
     FormContainer
   },
+  data() {
+    return {
+      loading: true,
+      editing: false,
+    }
+  },
+  mounted() {
+    if (this.$route.params.weight_id) {
+      this.editing = true;
+      this.loading = false;
+    }
+  }
 }
 </script>

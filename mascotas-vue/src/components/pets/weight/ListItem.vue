@@ -6,7 +6,7 @@
     </div>
 
     <div>
-      <router-link :to="{name: 'Pets'}">
+      <router-link :to="{name: 'WeightFormEdit', params: {pet_id: this.$route.params.pet_id, weight_id : weight.id}}">
         <span class="sr-only">Editar peso de {{ displayWeight(weight.weight) }} (icono </span>
         <span class="material-icons">edit</span>
         <span class="sr-only">)</span>

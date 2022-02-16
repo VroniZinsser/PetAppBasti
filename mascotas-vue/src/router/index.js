@@ -125,6 +125,14 @@ const routes = [
         },
     },
     {
+        path: '/mascotas/:pet_id/pesos/:weight_id/editar',
+        name: 'WeightFormEdit',
+        component: WeightForm,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
         path: '/mascotas/:pet_id/pesos',
         name: 'WeightList',
         component: WeightList,

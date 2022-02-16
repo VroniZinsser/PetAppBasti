@@ -1,4 +1,4 @@
-import {API} from "../constants";
+import {API} from "@/constants";
 
 const weightService = {
     /**
@@ -50,6 +50,14 @@ const weightService = {
             credentials: 'include'
         }).then(res => res.json());
     },
+
+    find(id) {
+        return fetch(`${API}pesos/${id}`, {
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
+        })
+            .then(res => res.json());
+    }
 };
 
 export default weightService;
