@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\JsonResponse;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -38,11 +39,11 @@ class AuthController extends Controller
         }
 
         $cookie = cookie("token", $token);
-
+        $user = User::find(auth()->user()->id)->load('profile_image');
         return response()->json([
             'success' => true,
             'data' => [
-                'user' => auth()->user(),
+                'user' => $user,
             ],
         ])->cookie($cookie);
     }

@@ -37,3 +37,46 @@
         }
     }
 }
+
+.basti-dialog {
+    .v-card__title {
+        background: $white-gray;
+    }
+}
+
+.v-dialog .settings-dialog {
+    .settings-dialog-header {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & > div {
+            display: flex;
+            align-items: center;
+        }
+
+        .v-avatar {
+            margin-right: 1rem;
+        }
+        span {
+            display: block;
+        }
+        .mail {
+            font-size: 14px;
+            color: $black-gray;
+            line-height: 1rem;
+            font-weight: normal;
+        }
+        button {
+            float: right;
+        }
+    }
+
+    .v-list-item__title {
+        a {
+            color: $black-gray;
+            text-decoration: none;
+        }
+    }
+}
