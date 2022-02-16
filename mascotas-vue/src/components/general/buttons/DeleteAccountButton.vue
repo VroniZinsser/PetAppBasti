@@ -4,6 +4,7 @@
             :loading="loading"
             :disabled="loading"
             class="button-delete-account"
+            text
             @click="showWarnDialog = true"
         >
             <v-icon

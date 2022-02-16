@@ -256,11 +256,17 @@
                 :loading="loading"
                 :errors="errors.apartment"
             ></InputText>
-            <DeleteAccountButton />
+            
           </div>
+          
         </fieldset>
       </div>
-      <button class="main-btn" type="submit">{{ professional ? 'Guardar cambios' : 'Crear cuenta'}}</button>
+      <div class="button-container">
+        <button class="main-btn" type="submit">{{ professional ? 'Guardar cambios' : 'Crear cuenta'}}</button>
+        <DeleteAccountButton 
+            v-if="!createNewUser"
+          />
+      </div>
     </v-container>
   </v-form>
 </template>
