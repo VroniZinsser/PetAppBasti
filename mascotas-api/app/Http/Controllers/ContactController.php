@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SharedPets\AcceptRequest;
 use App\Http\Requests\SharedPets\CreateRequest;
 use App\Http\Requests\SharedPets\UpdateRequest;
 use App\Repositories\ContactRepository;
+use App\Services\ContactService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -79,7 +81,7 @@ class ContactController extends Controller
         ]);
     }
 
-    public function acceptSharedPetRequest(int $request_id): JsonResponse
+    public function acceptSharedPetRequest(AcceptRequest $request, int $request_id): JsonResponse
     {
         $request = $this->contactRepository->acceptSharedPetRequest($request_id);
 
@@ -89,7 +91,17 @@ class ContactController extends Controller
         ]);
     }
 
-    public function deleteSharedPetRequest(int $request_id): JsonResponse
+    public function generateAcceptSharedPetRequest(AcceptRequest $request, int $request_id): JsonResponse
+    {
+        $request = $this->contactRepository->findSharedPetRequest($request_id);
+
+        return response()->json([
+            'success' => true,
+            'data' => compact('request'),
+        ]);
+    }
+
+    public function deleteSharedPetRequest(AcceptRequest $request, int $request_id): JsonResponse
     {
         $this->contactRepository->deleteSharedPetRequest($request_id);
 

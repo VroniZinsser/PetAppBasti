@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Models\SharedPet
@@ -36,15 +37,25 @@ class SharedPet extends Model
 {
     protected $table = "shared_pets";
 
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
-     * Returns the related pet
+     * Returns the related owner
      *
      * @return BelongsTo
      */
     public function pet(): BelongsTo
     {
         return $this->belongsTo(Pet::class, 'pets_id')->select('id', 'name', 'images_id', 'sexes_id');
+    }
+
+    /**
+     * Returns the related pet
+     *
+     * @return BelongsTo
+     */
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'owners_id')->select('id', 'first_name', 'last_name');
     }
 }

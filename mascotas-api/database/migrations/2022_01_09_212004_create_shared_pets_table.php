@@ -20,7 +20,8 @@ class CreateSharedPetsTable extends Migration
             $table->date('expiration_date');
             $table->unsignedBigInteger('pets_id');
             $table->unsignedBigInteger('owners_id')->nullable();
-            $table->unsignedBigInteger('professionals_id')->nullable();
+            $table->unsignedBigInteger('professionals_id');
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('pets_id')->references('id')->on('pets')->onDelete('cascade')->onUpdate('cascade');
@@ -40,6 +41,7 @@ class CreateSharedPetsTable extends Migration
             $table->dropForeign(['pets_id']);
             $table->dropForeign(['owners_id']);
             $table->dropForeign(['professionals_id']);
+            $table->dropSoftDeletes();
         });
 
         Schema::dropIfExists('shared_pets');
