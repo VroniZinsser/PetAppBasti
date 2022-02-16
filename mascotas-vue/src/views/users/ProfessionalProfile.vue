@@ -19,7 +19,11 @@
       />
       
       <div class="profile-main-content">
-        <button class="float-circle-btn" @click="showPetShareDialog = true">
+        <button 
+          v-if="!isProfessional"
+          class="float-circle-btn" 
+          @click="showPetShareDialog = true"
+        >
           <img :src="createStaticImgPath('contact/share-pet.svg')" alt="Compartir mascota">
           <span class="sr-only">Compartir mascota con este profesional</span>
         </button>
@@ -144,6 +148,10 @@ export default {
     /** Returns true if the logged in user has the same id as the profile's user */
     canEditProfile() {
       return this.professional.id === this.store.user.id;
+    },
+
+    isProfessional() {
+      return store.user.is_professional;
     }
   },
   methods: {
