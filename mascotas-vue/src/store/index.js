@@ -10,7 +10,8 @@ const store = {
         email: null,
         first_name: null,
         last_name: null,
-        profile_image: null
+        profile_image: null,
+        is_professional: false,
     },
     activePet: {
         id: null,
@@ -56,6 +57,7 @@ const store = {
             first_name: authUser.first_name,
             last_name: authUser.last_name,
             profile_image: authUser.profile_image,
+            is_professional: authUser.is_professional,
         }
     },
 

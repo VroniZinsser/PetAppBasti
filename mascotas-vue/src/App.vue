@@ -14,7 +14,7 @@
       <v-spacer></v-spacer>
 
       <ul id="nav-links">
-        <li v-for="link in routerLinksProfessional" :key="link.text">
+        <li v-for="link in routerLinks" :key="link.text">
           <router-link :to="{name: link.name}" exact>
             <span class="material-icons">{{ link.icon }}</span>
             <span>{{ link.text }}</span>
@@ -83,7 +83,7 @@ export default {
     showWarnDialog: false,
     createStaticImgPath,
     store,
-    routerLinks: [
+    routerLinksOwner: [
       {
         name: 'Schedule',
         text: 'Agenda',
@@ -153,5 +153,15 @@ export default {
       this.showWarnDialog = true;
     },
   },
+
+  computed: {
+    routerLinks() {
+      if (store.user.is_professional) {
+        return this.routerLinksProfessional;
+      } else {
+        return this.routerLinksOwner;
+      }
+    }
+  }
 };
 </script>
