@@ -13,7 +13,9 @@
 
     <CircleButtonLinkList :button-link-data="buttonLinkData"></CircleButtonLinkList>
 
-    <WeightList :weights="weights"></WeightList>
+    <WeightList :weights="weights" v-if="weights"></WeightList>
+
+    <p>Esta mascota no tiene ningún peso agregado todavía.</p>
   </div>
 </template>
 
