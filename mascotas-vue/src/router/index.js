@@ -11,6 +11,7 @@ import OwnerSingUp from "../views/Auth/sing-up/OwnerSingUp";
 import Pets from "../views/pets/Pets";
 import PetAddForm from "../views/pets/AddForm";
 import PetEditForm from "../views/pets/EditForm";
+import ProfessionalEdit from "../views/users/ProfessionalEdit";
 import ProfessionalSignUp from "../views/users/ProfessionalSignUp";
 import ProfessionalProfile from "../views/users/ProfessionalProfile";
 import Schedule from "../views/schedule/Schedule";
@@ -168,6 +169,14 @@ const routes = [
         path: '/peticiones/:request_id/aceptar',
         name: 'AcceptRequest',
         component: AcceptSharedPetRequest,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/perfil/editar/profesional',
+        name: 'ProfessionalEdit',
+        component: ProfessionalEdit,
         meta: {
             requiresAuth: true,
         },
