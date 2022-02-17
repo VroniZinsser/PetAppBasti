@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <ListItem v-for="weight in ReverseArray" :weight="weight" :key="weight.id" @deleted="deleted"></ListItem>
+    <ListItem v-for="weight in sortedArray" :weight="weight" :key="weight.id" @deleted="deleted"></ListItem>
   </ul>
 </template>
 
@@ -20,9 +20,10 @@ export default {
     return {}
   },
   computed: {
-    ReverseArray() {
-      let weights = this.weights
-      return weights.reverse()
+    sortedArray() {
+      let weights = this.weights;
+
+      return weights.sort((a, b) => (a.date < b.date) ? 1 : -1);
     }
   },
   methods: {
