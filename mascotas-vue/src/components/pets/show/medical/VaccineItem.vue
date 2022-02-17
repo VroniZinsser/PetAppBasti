@@ -2,6 +2,7 @@
     <div class="card vaccine-item">
         <span class="card-title">{{vaccine.name}}</span>
         <span class="card-date">{{formatDate(vaccine.date)}}</span>
+        <router-link :to="{name: 'VaccineEditForm', params: {pet_id: vaccine.pets_id, vaccine_id: vaccine.id}}">Editar</router-link>
     </div>
     
 </template>

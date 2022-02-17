@@ -133,6 +133,15 @@ const routes = [
         },
     },
     {
+        path: '/mascotas/:pet_id/vacunas/:vaccine_id/editar',
+        name: 'VaccineEditForm',
+        component: VaccineForm,
+        meta: {
+            requiresAuth: true,
+            editing: true,
+        },
+    },
+    {
         path: '/profesionales/:professional_id',
         name: 'ProfessionalProfile',
         component: ProfessionalProfile,

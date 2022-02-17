@@ -1,9 +1,9 @@
 <template>
   <v-form
-      action="vaccines/crear"
-      method="post"
+      :action="vaccine ? 'vaccines/editar' : 'vaccines/crear'"
+      :method="vaccine ? 'put' : 'post'"
       ref="vaccineForm"
-      @submit.prevent="createVaccine"
+      @submit.prevent="vaccine ? updateVaccine : createVaccine"
   >
     <InputText
         label="Nombre de la vacuna"
@@ -46,6 +46,10 @@ export default {
       type: [String, Number],
       required: true,
     },
+    vaccine: {
+      type: Object,
+      default: null,
+    },
   },
   data: function () {
     return {
@@ -69,6 +73,19 @@ export default {
       }
     }
   },
+  mounted() {
+    if(this.vaccine) {
+      this.formData.name = this.vaccine.name;
+      this.formData.date = this.vaccine.date;
+    }
+  //     vaccineService.find(this.vaccine_id)
+  //       .then(res => {
+  //         this.formData.name = res.vaccine.name;
+  //         this.formData.date = res.vaccine.date;
+  //       })
+  //   }
+  },
+
   methods: {
     getCurrentDate() {
       return (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
