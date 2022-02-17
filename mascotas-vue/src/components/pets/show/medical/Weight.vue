@@ -6,7 +6,7 @@
         <span class="current-weight">{{ displayWeight(weights[0].weight) }}</span>
         <span class="weight-date"> ({{ formatDate(weights[0].date) }})</span>
       </div>
-      <!-- <a v-if="weights.length > 0" href="#">Ver más</a> -->
+       <router-link v-if="weights.length > 0" :to="{name: 'WeightList', params: {pet_id: pet_id}}">Ver más</router-link>
     </div>
     <Placeholder
         v-if="weights.length === 0"
