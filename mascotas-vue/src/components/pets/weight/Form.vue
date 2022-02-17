@@ -95,7 +95,7 @@ export default {
           weight: null,
         }
 
-        if (!this.editing) {
+        if (!this.weight) {
           weightService.create(this.formData)
               .then(res => {
                 this.loading = false;
@@ -131,7 +131,7 @@ export default {
                 }
               })
         } else {
-          weightService.update(this.formData, this.weight_id)
+          weightService.update(this.formData, this.weight.id)
               .then(res => {
                 this.loading = false;
 
