@@ -111,7 +111,8 @@ export default {
     },
 
     deleteObservation() {
-      petServices.deleteObservation()
+      this.showWarnDialog = false;
+      petServices.deleteObservation(this.pet_id)
         .then(res => {
           if (!res.success) {
             this.store.setStatus({
