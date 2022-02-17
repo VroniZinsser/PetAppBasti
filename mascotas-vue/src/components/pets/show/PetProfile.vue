@@ -3,7 +3,7 @@
     <div class="pet-profile-header">
       <h2>Perfil</h2>
 
-      <Dropdown @deletePet="deletePet()"></Dropdown>
+      <Dropdown @deletePet="showWarnDialog = true" />
     </div>
 
     <div class="pet-profile-body">
@@ -44,6 +44,15 @@
         Editar perfil
       </router-link>
     </div>
+    <WarnDialog
+      :showDialog="showWarnDialog" 
+      :dialogTitle="`¿Querés borrar el perfil de ${pet.name}?`"
+      dialogText="Se eliminarán todos los datos relacionados a tu mascota."
+      acceptButtonText="Borrar perfil"
+
+      @cancle="showWarnDialog = false"
+      @accept="deletePet()"
+    />
   </div>
 </template>
 
@@ -52,10 +61,14 @@ import {formatDate} from "../../../helpers";
 import Dropdown from "../../general/buttons/Dropdown";
 import petServices from "../../../services/pets";
 import store from "../../../store";
+import WarnDialog from "@/components/general/notifications/WarnDialog";
 
 export default {
   name: "PetProfile",
-  components: {Dropdown},
+  components: {
+    Dropdown,
+    WarnDialog,  
+  },
   props: {
     pet: {
       type: Object,
@@ -66,6 +79,7 @@ export default {
     return {
       store,
       formatted_date_of_birth: formatDate(this.pet.date_of_birth),
+      showWarnDialog: false,
     }
   },
   methods: {
