@@ -1,6 +1,6 @@
 <template>
   <v-form
-      action="pesos/crear"
+      :action="weight ? 'pesos/editar' : 'pesos/crear'"
       method="post"
       ref="weightForm"
       @submit.prevent="sendForm"
@@ -47,11 +47,10 @@ export default {
       type: [String, Number],
       required: true,
     },
-    editing: {
-      type: Boolean,
-      required: true,
+    weight: {
+      type: Object,
+      default: null,
     },
-    weight_id: {},
   },
   data: function () {
     return {
@@ -171,16 +170,10 @@ export default {
     }
   },
   mounted() {
-    if (this.editing) {
-      weightService.find(this.weight_id)
-          .then(res => {
-            console.warn(res.data.weight)
-
-            // this.editingDate = ;
-            this.formData.weight = res.data.weight.weight;
-            this.formData.date = res.data.weight.date;
-          })
-
+    console.log(this.weight);
+    if (this.weight) {
+      this.formData.weight = this.weight.weight;
+      this.formData.date = this.weight.date;
     }
   }
 }
