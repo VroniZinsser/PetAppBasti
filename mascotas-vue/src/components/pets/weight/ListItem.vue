@@ -1,11 +1,11 @@
 <template>
   <li>
     <div class="content">
-      <p class="current-weight">{{ displayWeight(weight.weight) }}</p>
-      <p class="weight-date">{{ formatDate(weight.date) }}</p>
+      <p><span class="sr-only">Peso: </span>{{ displayWeight(weight.weight) }}</p>
+      <p><span class="sr-only">Fecha: </span>{{ formatDate(weight.date) }}</p>
     </div>
 
-    <div>
+    <div class="actions">
       <router-link :to="{name: 'WeightFormEdit', params: {pet_id: this.$route.params.pet_id, weight_id : weight.id}}">
         <span class="sr-only">Editar peso de {{ displayWeight(weight.weight) }} (icono </span>
         <span class="material-icons">edit</span>

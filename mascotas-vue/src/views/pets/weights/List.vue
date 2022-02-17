@@ -1,15 +1,15 @@
 <template>
   <Loader v-if="loading"></Loader>
 
-  <div v-else>
-    <div>
+  <v-container v-else class="weight-list-container">
+    <header>
       <router-link :to="{name: 'Pets'}">
         <span class="sr-only">Volver al listado de mascotas</span>
         <span class="material-icons">arrow_back</span>
       </router-link>
 
       <h1>Pesos de la mascota</h1>
-    </div>
+    </header>
 
     <BaseNotification
         v-if="store.status.msg != null"
@@ -20,10 +20,18 @@
 
     <CircleButtonLinkList :button-link-data="buttonLinkData"></CircleButtonLinkList>
 
-    <WeightList :weights="weights" v-if="weights.length > 0" @deleted="updateWeightList"></WeightList>
+    <template v-if="weights.length > 0">
+      <div class="actual-weight">
+        <span>Peso actual: </span>
+        <span class="current-weight">{{ displayWeight(weights[0].weight) }}</span>
+        <span class="weight-date"> ({{ formatDate(weights[0].date) }})</span>
+      </div>
+
+      <WeightList :weights="weights" @deleted="updateWeightList"></WeightList>
+    </template>
 
     <p v-else>Esta mascota no tiene ningún peso agregado todavía.</p>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -33,6 +41,7 @@ import Loader from "@/components/general/notifications/Loader";
 import CircleButtonLinkList from "@/components/general/buttons/floating/CircleButtonLinkList";
 import BaseNotification from "@/components/general/notifications/BaseNotification";
 import store from "@/store";
+import {displayWeight, formatDate} from "@/helpers";
 
 export default {
   name: "List",
@@ -42,6 +51,8 @@ export default {
       weights: null,
       loading: true,
       store,
+      displayWeight,
+      formatDate,
       buttonLinkData: [
         {
           icon: 'fitness_center',
