@@ -22,7 +22,7 @@
         :loading="loading"
         :rules="[rules.obligatory, rules.date]"
         :errors="errors.date"
-        :initialDate="this.getCurrentDate()"
+        :initialDate="initialDate"
         :maxDate="getCurrentDate()"
         @update-date="updateDate"
     ></InputDate>
@@ -167,6 +167,11 @@ export default {
               })
         }
       }
+    }
+  },
+  computed: {
+    initialDate(){
+      return this.weight ? this.weight.date : this.getCurrentDate();
     }
   },
   mounted() {
