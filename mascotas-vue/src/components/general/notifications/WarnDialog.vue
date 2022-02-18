@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="showDialog" max-width="500" @click:outside="$emit('cancle')">
+    <v-dialog v-model="showDialog" max-width="500" @click:outside="$emit('cancel')">
       <v-card class="warn-dialog">
         <v-card-title>
             {{ dialogTitle }}
@@ -17,10 +17,10 @@
             {{ acceptButtonText }}
           </button>
           <button
-              class="cancle"
-              @click="$emit('cancle')"
+              class="cancel"
+              @click="$emit('cancel')"
           >
-            {{ cancleButtonText }}
+            {{ cancelButtonText }}
           </button>
 
           
@@ -51,7 +51,7 @@ export default {
         type: String,
         default: 'Aceptar'
     },
-    cancleButtonText: {
+    cancelButtonText: {
         type: String,
         default: 'Cancelar'
     }

@@ -50,7 +50,7 @@
       dialogText="Se eliminarán todos los datos relacionados a tu mascota."
       acceptButtonText="Borrar perfil"
 
-      @cancle="showWarnDialog = false"
+      @cancel="showWarnDialog = false"
       @accept="deletePet()"
     />
   </div>
