@@ -127,7 +127,7 @@ export default {
                     msg: '¡El nuevo peso está guardado!',
                     type: 'success',
                   });
-                  this.$router.push({name: 'Pets'});
+                  this.$router.back();
                 }
               })
         } else {
@@ -162,7 +162,7 @@ export default {
                     msg: '¡Se editó el peso con éxito!',
                     type: 'success',
                   });
-                  this.$router.push({name: 'WeightList'});
+                  this.$router.back();
                 }
               })
         }
