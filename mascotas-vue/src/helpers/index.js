@@ -26,10 +26,15 @@ const nameToDisplay = function(user) {
     return user.public_name ? user.public_name : user.first_name + ' ' + user.last_name;
 }
 
+const getCurrentDate = function() {
+    return (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
+}
+
 export {
     formatDate,
     createImgPath,
     createStaticImgPath,
     createRequestAcceptUrl,
     nameToDisplay,
+    getCurrentDate,
 }

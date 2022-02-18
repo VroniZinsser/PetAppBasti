@@ -63,20 +63,16 @@
         color="#3fb094"
     ></v-checkbox>
 
-    <v-text-field
-        outlined
-        type="date"
-        required
-        name="date_of_birth"
-        id="date_of_birth"
-        class="form-control"
-        v-model="formData.date_of_birth"
+    <InputDate
         label="Fecha de nacimiento"
-        :messages="errors.date_of_birth ? errors.date_of_birth[0] : ''"
-        :error="errors.date_of_birth !== null"
-        :disabled="loading"
-        color="#3fb094"
-    ></v-text-field>
+        identifier="date_of_birth"
+        :loading="loading"
+        :rules="[rules.obligatory, rules.date]"
+        :errors="errors.date"
+        :initialDate="initialDate"
+        :maxDate="getCurrentDate()"
+        @update-date="updateDate"
+    ></InputDate>
 
     <v-select
         outlined
@@ -139,8 +135,10 @@
 </template>
 
 <script>
+import InputDate from "@/components/general/inputs/InputDate";
 import petServices from "../../services/pets";
 import store from "@/store";
+import {getCurrentDate} from "@/helpers";
 
 export default {
   name: "Form",
@@ -157,10 +155,14 @@ export default {
       type: Object
     }
   },
+  components: {
+    InputDate,
+  },
   data: () => ({
     loading: false,
     photo: null,
     store,
+    getCurrentDate,
     formData: {
       breed: null,
       date_of_birth: null,
@@ -183,6 +185,10 @@ export default {
     },
     rules: {
       obligatory: v => !!v || 'Este campo es obligatorio.',
+      date: value => {
+          const pattern = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
+          return pattern.test(value) || 'Por favor, ingresá una fecha válida (31/01/2021)'
+        },
     }
   }),
   methods: {
@@ -295,8 +301,17 @@ export default {
               })
         }
       }
+    },
+    updateDate(date) {
+      this.formData.date_of_birth = date;
     }
   },
+  computed: {
+    initialDate(){
+      return this.pet ? this.pet.date_of_birth : null;
+    }
+  },
+
   mounted() {
     if (this.pet) {
       this.formData = {
