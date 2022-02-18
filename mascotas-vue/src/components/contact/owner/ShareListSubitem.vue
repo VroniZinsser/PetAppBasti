@@ -6,7 +6,7 @@
       :dialogText="`${professionalName} no podrá ver más el perfil de ${pet.name}. Podés volver a compartir la mascota cuando quieras.`"
       acceptButtonText="Dejar de compartir"
 
-      @cancle="showWarnDialog = false"
+      @cancel="showWarnDialog = false"
       @accept="$parent.$parent.$emit('delete-request', request.id)"
     />
     <v-expansion-panel-header>
