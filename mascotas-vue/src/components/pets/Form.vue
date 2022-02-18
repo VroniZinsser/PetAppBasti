@@ -5,51 +5,32 @@
       ref="petForm"
       @submit.prevent="sendForm"
   >
-    <v-text-field
-        outlined
-        type="text"
-        required
-        name="name"
-        id="name"
-        class="form-control"
+    <InputText
+        label="Nombre"
         v-model="formData.name"
-        label="Nombre *"
+        identifier="name"
+        :loading="loading"
         :rules="[rules.obligatory]"
-        :messages="errors.name ? errors.name[0] : ''"
-        :error="errors.name !== null"
-        :disabled="loading"
-        color="#3fb094"
-    ></v-text-field>
-
-    <v-text-field
-        outlined
-        type="text"
+        :errors="errors.name"
         required
-        name="breed"
-        id="breed"
-        class="form-control"
-        v-model="formData.breed"
+    ></InputText>
+    
+    <InputText
         label="Raza"
-        :messages="errors.breed ? errors.breed[0] : ''"
-        :error="errors.breed !== null"
-        :disabled="loading"
-        color="#3fb094"
-    ></v-text-field>
-
-    <v-text-field
-        outlined
-        type="text"
-        required
-        name="temperament"
-        id="temperament"
-        class="form-control"
-        v-model="formData.temperament"
+        v-model="formData.breed"
+        identifier="breed"
+        :loading="loading"
+        :errors="errors.breed"
+    ></InputText>
+    
+    <InputText
         label="Temperamento"
-        :messages="errors.temperament ? errors.temperament[0] : ''"
-        :error="errors.temperament !== null"
-        :disabled="loading"
-        color="#3fb094"
-    ></v-text-field>
+        v-model="formData.temperament"
+        identifier="temperament"
+        :loading="loading"
+        :errors="errors.temperament"
+        hint="Actitudes de la mascota como tranquilo, mimoso, agresivo"
+    ></InputText>
 
     <v-checkbox
         name="neutered"
@@ -136,6 +117,7 @@
 
 <script>
 import InputDate from "@/components/general/inputs/InputDate";
+import InputText from "@/components/general/inputs/InputText";
 import petServices from "../../services/pets";
 import store from "@/store";
 import {getCurrentDate} from "@/helpers";
@@ -157,6 +139,7 @@ export default {
   },
   components: {
     InputDate,
+    InputText,
   },
   data: () => ({
     loading: false,
