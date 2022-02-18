@@ -27,7 +27,7 @@
         @update-date="updateDate"
     ></InputDate>
 
-    <button class="main-btn" type="submit" :disabled="loading">Agregar</button>
+    <button class="main-btn" type="submit" :disabled="loading">{{ weight ? "Guardar cambios" : "Agregar" }}</button>
   </v-form>
 </template>
 <script>
@@ -175,7 +175,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.weight);
     if (this.weight) {
       this.formData.weight = this.weight.weight;
       this.formData.date = this.weight.date;
