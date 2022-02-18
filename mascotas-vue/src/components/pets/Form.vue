@@ -2,6 +2,7 @@
   <v-form
       :method="this.pet ? 'PUT' : 'POST'"
       :action="this.pet ? 'mascotas/editar' : 'mascotas/agregar'"
+      ref="petForm"
       @submit.prevent="sendForm"
   >
     <v-text-field
@@ -203,94 +204,96 @@ export default {
      * Submit the form and check if it is to edit the mascot or to create a new one.
      */
     sendForm() {
-      this.loading = true;
+      if (this.$refs.petForm.validate()) {
+        this.loading = true;
 
-      this.errors = {
-        breed: null,
-        date_of_birth: null,
-        name: null,
-        neutered: false,
-        photo: null,
-        temperament: null,
-        sex_id: null,
-        species_id: null,
-      }
+        this.errors = {
+          breed: null,
+          date_of_birth: null,
+          name: null,
+          neutered: false,
+          photo: null,
+          temperament: null,
+          sex_id: null,
+          species_id: null,
+        }
 
 
-      if (!this.pet) {
-        petServices.addPet(this.formData)
-            .then(res => {
-              this.loading = false;
-              if (!res.success) {
-                if (res.errors) {
-                  this.errors = {
-                    breed: null,
-                    date_of_birth: null,
-                    name: null,
-                    neutered: null,
-                    photo: null,
-                    temperament: null,
-                    sex_id: null,
-                    species_id: null,
-                    ...res.errors
+        if (!this.pet) {
+          petServices.addPet(this.formData)
+              .then(res => {
+                this.loading = false;
+                if (!res.success) {
+                  if (res.errors) {
+                    this.errors = {
+                      breed: null,
+                      date_of_birth: null,
+                      name: null,
+                      neutered: null,
+                      photo: null,
+                      temperament: null,
+                      sex_id: null,
+                      species_id: null,
+                      ...res.errors
+                    }
+
+                    this.store.setStatus({
+                      msg: "Por favor corregí los datos del formulario.",
+                      type: 'warning',
+                    });
+                  } else {
+                    this.store.setStatus({
+                      msg: 'Algo salió mal. Tu mascota no se guardó.',
+                      type: 'error',
+                    });
                   }
-
-                  this.store.setStatus({
-                    msg: "Por favor corregí los datos del formulario.",
-                    type: 'warning',
-                  });
                 } else {
                   this.store.setStatus({
-                    msg: 'Algo salió mal. Tu mascota no se guardó.',
-                    type: 'error',
+                    msg: '¡Muy bien! Tu mascota está guardada.',
+                    type: 'success',
                   });
+
+                  this.$router.push({name: 'Pets'});
                 }
-              } else {
-                this.store.setStatus({
-                  msg: '¡Muy bien! Tu mascota está guardada.',
-                  type: 'success',
-                });
+              })
+        } else {
+          petServices.updatePet(this.formData, this.pet.id)
+              .then(res => {
+                this.loading = false;
+                if (!res.success) {
+                  if (res.errors) {
+                    this.errors = {
+                      breed: null,
+                      date_of_birth: null,
+                      name: null,
+                      neutered: null,
+                      photo: null,
+                      temperament: null,
+                      sex_id: null,
+                      species_id: null,
+                      ...res.errors
+                    }
 
-                this.$router.push({name: 'Pets'});
-              }
-            })
-      } else {
-        petServices.updatePet(this.formData, this.pet.id)
-            .then(res => {
-              this.loading = false;
-              if (!res.success) {
-                if (res.errors) {
-                  this.errors = {
-                    breed: null,
-                    date_of_birth: null,
-                    name: null,
-                    neutered: null,
-                    photo: null,
-                    temperament: null,
-                    sex_id: null,
-                    species_id: null,
-                    ...res.errors
+                    this.store.setStatus({
+                      msg: "Por favor corregí los datos del formulario.",
+                      type: 'warning',
+                    });
+                  } else {
+                    this.store.setStatus({
+                      msg: 'Algo salió mal. No se guardaron los cambios.',
+                      type: 'error',
+                    });
                   }
-
-                  this.store.setStatus({
-                    msg: "Por favor corregí los datos del formulario.",
-                    type: 'warning',
-                  });
                 } else {
                   this.store.setStatus({
-                    msg: 'Algo salió mal. No se guardaron los cambios.',
-                    type: 'error',
+                    msg: '¡Muy bien! Cambios guardados con éxito.',
+                    type: 'success',
                   });
-                }
-              } else {
-                this.store.setStatus({
-                  msg: '¡Muy bien! Cambios guardados con éxito.',
-                  type: 'success',
-                });
 
-                this.$router.push({name: 'Pets'});
-              }
-            })
+                  this.$router.push({name: 'Pets'});
+                }
+              })
+        }
       }
     }
   },
