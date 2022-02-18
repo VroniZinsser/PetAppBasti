@@ -18,7 +18,10 @@
 
     <button class="main-btn" type="submit" :disabled="loading">Guardar</button>
   </v-form>
-  <button class="delete-btn" :disabled="loading" @click="showWarnDialog = true" >Borrar nota</button>
+  <div class="delete-btn-container">
+    <button class="delete-btn" :disabled="loading" @click="showWarnDialog = true" >Borrar nota</button>
+  </div>
+  
   <WarnDialog
     :showDialog="showWarnDialog" 
     dialogTitle="Borrar nota"

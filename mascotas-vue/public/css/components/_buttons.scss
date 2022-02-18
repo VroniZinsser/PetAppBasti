@@ -141,10 +141,15 @@
 
 /* ---- Delete button ---- */
 .delete-btn {
+  display: block;
+  margin: auto;
   padding: 1rem;
-  width: 100%;
   color: map.get($theme-colors, "danger");
   text-transform: uppercase;
   font-weight: 500;
   letter-spacing: .5px;
+
+  &:hover {
+    opacity: .75;
+  }
 }
