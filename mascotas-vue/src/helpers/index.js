@@ -26,10 +26,19 @@ const nameToDisplay = function(user) {
     return user.public_name ? user.public_name : user.first_name + ' ' + user.last_name;
 }
 
+const displayWeight = function (weight) {
+    if (weight < 1000) {
+        return weight + 'g';
+    } else {
+        return (weight / 1000) + 'kg';
+    }
+}
+
 export {
     formatDate,
     createImgPath,
     createStaticImgPath,
     createRequestAcceptUrl,
     nameToDisplay,
+    displayWeight,
 }
