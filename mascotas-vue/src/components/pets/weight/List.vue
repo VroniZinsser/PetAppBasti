@@ -1,6 +1,6 @@
 <template>
   <ul class="weight-list">
-    <ListItem v-for="weight in sortedArray" :weight="weight" :key="weight.id" @deleted="deleted"></ListItem>
+    <ListItem v-for="weight in sortedArray" :weight="weight" :key="weight.id" @delete="sendDelete"></ListItem>
   </ul>
 </template>
 
@@ -27,8 +27,8 @@ export default {
     }
   },
   methods: {
-    deleted(weight_id) {
-      this.$emit('deleted', weight_id);
+    sendDelete(weight_id) {
+      this.$emit('delete', weight_id);
     }
   },
   mounted() {

@@ -12,7 +12,7 @@
         <span class="sr-only">)</span>
       </router-link>
 
-      <form action="#" method="POST" @submit.prevent="deleteWeight">
+      <form action="#" method="POST" @submit.prevent="$emit('delete', weight.id);">
         <button>
           <span class="sr-only">Eliminar (icono </span>
           <span class="material-icons">delete</span>
@@ -25,7 +25,6 @@
 
 <script>
 import {displayWeight, formatDate} from "@/helpers";
-import weightService from "@/services/weights";
 
 export default {
   name: "ListItem",
@@ -41,14 +40,7 @@ export default {
       formatDate
     }
   },
-  methods: {
-    deleteWeight() {
-      weightService.delete(this.weight.id)
-          .then(() => {
-            this.$emit('deleted', this.weight.id);
-          })
-    }
-  },
+  methods: {},
   mounted() {
   }
 }

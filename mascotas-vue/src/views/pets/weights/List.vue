@@ -27,10 +27,19 @@
         <span class="weight-date"> ({{ formatDate(weights[0].date) }})</span>
       </div>
 
-      <WeightList :weights="weights" @deleted="updateWeightList"></WeightList>
+      <WeightList :weights="weights" @delete="prepareDeleteWeight"></WeightList>
+
+      <WarnDialog
+          :showDialog="showWarnDialog"
+          dialogTitle="¿Querés eliminar este peso?"
+          acceptButtonText="Borrar peso"
+
+          @cancel="cancelDelete"
+          @accept="deleteWeight"
+      />
     </template>
 
-    <p v-else>Esta mascota no tiene ningún peso agregado todavía.</p>
+    <p v-else>Esta mascota no tiene ningún peso agregado.</p>
   </v-container>
 </template>
 
@@ -42,10 +51,12 @@ import CircleButtonLinkList from "@/components/general/buttons/floating/CircleBu
 import BaseNotification from "@/components/general/notifications/BaseNotification";
 import store from "@/store";
 import {displayWeight, formatDate} from "@/helpers";
+import WarnDialog from "@/components/general/notifications/WarnDialog";
+import weightService from "@/services/weights";
 
 export default {
   name: "List",
-  components: {BaseNotification, CircleButtonLinkList, Loader, WeightList},
+  components: {WarnDialog, BaseNotification, CircleButtonLinkList, Loader, WeightList},
   data() {
     return {
       weights: null,
@@ -53,6 +64,8 @@ export default {
       store,
       displayWeight,
       formatDate,
+      wToDelete: null,
+      showWarnDialog: false,
       buttonLinkData: [
         {
           icon: 'fitness_center',
@@ -65,16 +78,31 @@ export default {
     }
   },
   methods: {
-    updateWeightList(weight_id) {
+    prepareDeleteWeight(weight_id) {
+      this.wToDelete = weight_id;
+      this.showWarnDialog = true;
+    },
+
+    cancelDelete() {
+      this.wToDelete = null;
+      this.showWarnDialog = false;
+    },
+
+    deleteWeight() {
       this.loading = true;
-      // console.warn("Se elimino un elemento", weight_id)
-      //
-      // console.log(this.weights.find(e => e.id === weight_id));
-      this.weights = this.weights.filter(weight => weight.id !== weight_id);
 
-      this.$emit('create-notification', 'success', 'El peso se eliminó con éxito');
+      weightService.delete(this.wToDelete)
+          .then(() => {
+            this.weights = this.weights.filter(weight => weight.id !== this.wToDelete);
 
-      this.loading = false
+            this.$emit('create-notification', 'success', 'El peso se eliminó con éxito');
+
+            this.wToDelete = null;
+
+            this.showWarnDialog = false;
+
+            this.loading = false
+          })
     }
   },
   mounted() {
