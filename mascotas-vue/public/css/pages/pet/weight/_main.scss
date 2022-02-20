@@ -1,0 +1,132 @@
+@use "sass:map";
+
+div.weight-list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 2.5rem;
+
+  > header {
+    display: flex;
+    margin-bottom: 1.5rem;
+    width: 100%;
+
+    a {
+      margin-right: 1rem;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: $black-gray;
+      transition: 300ms;
+      font-size: 1.2rem;
+
+      &:hover, &:focus {
+        color: $clay;
+      }
+    }
+  }
+
+  .v-alert{
+    width: 100%;
+  }
+
+  .actual-weight {
+    width: fit-content;
+    padding: 1.5rem;
+    border-radius: 5px;
+    background: $white-gray;
+    text-align: center;
+    margin-bottom: 1.5rem;
+
+    > span:first-child {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: .6rem;
+    }
+
+    > span:nth-child(2) {
+      margin-right: .5rem;
+    }
+
+    > span:last-child {
+      vertical-align: middle;
+    }
+
+    .current-weight {
+      font-size: 1.5rem;
+    }
+
+    .weight-date {
+      font-size: 12px;
+      opacity: 0.5;
+    }
+  }
+
+  .weight-list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+
+    li {
+      flex-grow: 1;
+      background: $white-gray-min;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+      margin: 1.1rem;
+      border-radius: 10px;
+      box-shadow: $shadow-x0-y0;
+
+
+      .content {
+        width: 100%;
+        max-width: 200px;
+
+        @include desktop-up {
+          width: 200px;
+          max-width: none;
+        }
+
+        p {
+          &:first-child {
+            font-weight: bold;
+            color: $black-gray;
+          }
+
+          &:last-child {
+            font-weight: 400;
+            color: rgba($black-gray, .6);
+          }
+        }
+      }
+
+      .actions {
+        height: fit-content;
+        display: flex;
+
+        a, button {
+          color: map.get($theme-colors, "info");
+          transition: 300ms;
+
+          &:hover {
+            color: $clay;
+          }
+        }
+
+        a {
+          margin-right: 1rem;
+        }
+
+        button {
+          color: map.get($theme-colors, "danger");
+        }
+
+        .material-icons {
+          font-size: 1.625rem;
+        }
+      }
+    }
+  }
+}

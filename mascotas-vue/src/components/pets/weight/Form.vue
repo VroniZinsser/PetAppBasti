@@ -1,9 +1,9 @@
 <template>
   <v-form
-      action="pesos/crear"
+      :action="weight ? 'pesos/editar' : 'pesos/crear'"
       method="post"
       ref="weightForm"
-      @submit.prevent="createWeight"
+      @submit.prevent="sendForm"
   >
     <InputText
         label="Peso en gramos"
@@ -22,12 +22,12 @@
         :loading="loading"
         :rules="[rules.obligatory, rules.date]"
         :errors="errors.date"
-        :initialDate="getCurrentDate()"
+        :initialDate="initialDate"
         :maxDate="getCurrentDate()"
         @update-date="updateDate"
     ></InputDate>
 
-    <button class="main-btn" type="submit" :disabled="loading">Agregar</button>
+    <button class="main-btn" type="submit" :disabled="loading">{{ weight ? "Guardar cambios" : "Agregar" }}</button>
   </v-form>
 </template>
 <script>
@@ -47,6 +47,10 @@ export default {
       type: [String, Number],
       required: true,
     },
+    weight: {
+      type: Object,
+      default: null,
+    },
   },
   data: function () {
     return {
@@ -57,6 +61,7 @@ export default {
         date: this.getCurrentDate(),
         pet_id: this.pet_id
       },
+      editingDate: null,
 
       errors: {
         weight: null,
@@ -72,7 +77,6 @@ export default {
       }
     }
   },
-
   methods: {
     getCurrentDate() {
       return (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
@@ -82,7 +86,7 @@ export default {
       this.formData.date = date;
     },
 
-    createWeight() {
+    sendForm() {
       if (this.$refs.weightForm.validate()) {
         this.loading = true;
 
@@ -91,42 +95,90 @@ export default {
           weight: null,
         }
 
-        weightService.create(this.formData)
-            .then(res => {
-              this.loading = false;
+        if (!this.weight) {
+          weightService.create(this.formData)
+              .then(res => {
+                this.loading = false;
 
-              if (!res.success) {
-                if (res.errors && res.errors.pet_id) {
-                  this.store.setStatus({
-                    msg: 'La mascota no existe.',
-                    type: 'error',
-                  });
-                } else if (res.errors) {
-                  this.errors = {
-                    date: null,
-                    weight: null,
-                    ...res.errors
+                if (!res.success) {
+                  if (res.errors && res.errors.pet_id) {
+                    this.store.setStatus({
+                      msg: 'La mascota no existe.',
+                      type: 'error',
+                    });
+                  } else if (res.errors) {
+                    this.errors = {
+                      date: null,
+                      weight: null,
+                      ...res.errors
+                    }
+                    this.store.setStatus({
+                      msg: "Por favor corregí los datos del formulario.",
+                      type: 'warning',
+                    });
+                  } else {
+                    this.store.setStatus({
+                      msg: 'Algo salió mal. El peso no se guardó correctamente.',
+                      type: 'error',
+                    });
                   }
-                  this.store.setStatus({
-                    msg: "Por favor corregí los datos del formulario.",
-                    type: 'warning',
-                  });
                 } else {
                   this.store.setStatus({
-                    msg: 'Algo salió mal. El peso no se guardó correctamente.',
-                    type: 'error',
+                    msg: '¡El nuevo peso está guardado!',
+                    type: 'success',
                   });
+                  this.$router.back();
                 }
-              } else {
-                this.store.setStatus({
-                  msg: '¡El nuevo peso está guardado!',
-                  type: 'success',
-                });
-                this.$router.push({name: 'Pets'});
-              }
-            })
+              })
+        } else {
+          weightService.update(this.formData, this.weight.id)
+              .then(res => {
+                this.loading = false;
+
+                if (!res.success) {
+                  if (res.errors && res.errors.pet_id) {
+                    this.store.setStatus({
+                      msg: 'La mascota no existe.',
+                      type: 'error',
+                    });
+                  } else if (res.errors) {
+                    this.errors = {
+                      date: null,
+                      weight: null,
+                      ...res.errors
+                    }
+                    this.store.setStatus({
+                      msg: "Por favor corregí los datos del formulario.",
+                      type: 'warning',
+                    });
+                  } else {
+                    this.store.setStatus({
+                      msg: 'Algo salió mal. El peso no se editó correctamente.',
+                      type: 'error',
+                    });
+                  }
+                } else {
+                  this.store.setStatus({
+                    msg: '¡Se editó el peso con éxito!',
+                    type: 'success',
+                  });
+                  this.$router.back();
+                }
+              })
+        }
       }
     }
   },
+  computed: {
+    initialDate(){
+      return this.weight ? this.weight.date : this.getCurrentDate();
+    }
+  },
+  mounted() {
+    if (this.weight) {
+      this.formData.weight = this.weight.weight;
+      this.formData.date = this.weight.date;
+    }
+  }
 }
 </script>
