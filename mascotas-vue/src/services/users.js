@@ -153,6 +153,7 @@ const userService = {
      * @param {string} user.web
      * @param {[]} user.user_types
      * @param {string} user.photo
+     * @param {int} id the user id
      * @return {Promise<{headers: Headers, ok: boolean, redirected: boolean, status: number, statusText: string, trailer: Promise<Headers>, type: ResponseType, url: string, clone(): Response, body: ReadableStream | null, bodyUsed: boolean, arrayBuffer(): Promise<ArrayBuffer>, blob(): Promise<Blob>, formData(): Promise<FormData>, json(): Promise<any>, text(): Promise<string>} | never>}
      */
     update(user, id) {

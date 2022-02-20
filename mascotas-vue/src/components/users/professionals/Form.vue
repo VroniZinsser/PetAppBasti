@@ -365,7 +365,7 @@ export default {
     sendForm() {
       if (this.$refs.form.validate()) {
         this.loading = true;
-        this.errors = this.resetErrors();
+        this.resetErrors();
         if (this.createNewUser) {
           this.createUser();
         } else {

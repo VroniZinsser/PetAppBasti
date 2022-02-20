@@ -199,8 +199,9 @@ export default {
                 'imgPath': 'contact/www.png',
                 'alt': 'link a la página web'
               }
-            ],
-                this.loading = false;
+            ];
+            this.loading = false;
+            
           } else {
             this.store.setStatus({
               msg: 'El perfil que estás buscando no está disponible.',

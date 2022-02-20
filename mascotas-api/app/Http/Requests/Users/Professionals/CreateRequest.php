@@ -13,7 +13,7 @@ class CreateRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
 
         $userId = $this->user ? $this->user->id : null;
@@ -59,7 +59,7 @@ class CreateRequest extends FormRequest
      * 
      * @return array
      */
-    public function messages() {
+    public function messages(): array {
         return [
             'first_name.required' => Validation::msg_required('tu nombre'),
             'first_name.max' => Validation::msg_max_caracters('el nombre', ':max'),
