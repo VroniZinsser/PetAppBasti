@@ -84,6 +84,22 @@ Route::prefix('/autenticacion')->group(function () {
     Route::delete("/", [AuthController::class, 'logout'])->middleware(['auth']);
 });
 
+Route::post('autenticacion/recuperar-password', function (Request $request) {
+    $request->validate(['email' => 'required|email']);
+
+    $status = Password::sendResetLink(
+        $request->only('email')
+    );
+
+    return $status === Password::RESET_LINK_SENT
+        ? back()->with(['status' => __($status)])
+        : back()->withErrors(['email' => __($status)]);
+})->middleware('guest');
+
+Route::get('/reset-password/{token}', function ($token) {
+    return response()->json(['token' => $token]);
+})->middleware('guest')->name('password.reset');
+
 Route::middleware(['auth'])->group(function () {
     Route::prefix('/peticiones')->group(function () {
         Route::get("/creadas", [ContactController::class, 'getProfessionalSharedPets']);

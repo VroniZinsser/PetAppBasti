@@ -1,6 +1,6 @@
 <template>
   <v-form
-      action="vaccines/crear"
+      action="vacunas/crear"
       method="post"
       ref="vaccineForm"
       @submit.prevent="createVaccine"

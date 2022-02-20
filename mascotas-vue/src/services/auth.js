@@ -72,6 +72,15 @@ const authService = {
         }));
     },
 
+    sendPasswordRecovery(formData) {
+        return fetch(`${API}autenticacion/recuperar-password`, {
+            method: 'POST',
+            body: JSON.stringify(formData),
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            credentials: 'include'
+        }).then(res => res.json());
+    },
+
     /**
      * Returns a boolean, true if the user is authenticated, false if not.
      *

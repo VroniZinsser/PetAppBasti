@@ -51,7 +51,7 @@ class UsersSeeder extends Seeder
                 'id' => 2,
                 'first_name' => 'Ana María',
                 'last_name' => 'Lopez',
-                'email' => 'veroz@gmail.com',
+                'email' => 'vroni.z@posteo.de',
                 'email_visible' => true,
                 'password' => Hash::make('asdasdasd'),
                 'country' => 'Argentina',
