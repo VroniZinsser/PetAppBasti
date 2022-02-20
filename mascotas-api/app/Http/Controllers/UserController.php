@@ -9,8 +9,6 @@ use App\Repositories\UserTypeRepository;
 use App\Repositories\ImageRepository;
 use App\Http\Requests\Users\Professionals\CreateRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
 
 class UserController extends Controller
 {

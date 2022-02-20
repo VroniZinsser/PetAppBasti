@@ -6,7 +6,6 @@ use App\Models\SharedPet;
 use App\Models\User;
 use App\Repositories\ContactRepository;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Auth;
 
 class ContactService implements ContactRepository
 {
