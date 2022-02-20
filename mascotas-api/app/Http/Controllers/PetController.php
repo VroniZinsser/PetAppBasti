@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Dtos\PetDTO;
-use App\Http\Requests\Pets\UpdateRequest;
+use App\Http\Requests\Pets\UpdateOrCreateRequest;
 use App\Repositories\ImageRepository;
 use App\Repositories\PetRepository;
 use App\Repositories\SexRepository;
@@ -53,10 +53,10 @@ class PetController extends Controller
     /**
      * Creates a new pet
      *
-     * @param UpdateRequest $request
+     * @param UpdateOrCreateRequest $request
      * @return JsonResponse
      */
-    public function createPet(UpdateRequest $request): JsonResponse
+    public function createPet(UpdateOrCreateRequest $request): JsonResponse
     {
         $photo = $request->get('photo');
         $image_id = $request->get('species_id');
@@ -81,11 +81,11 @@ class PetController extends Controller
     /**
      * Updates a pet with the given id
      *
-     * @param UpdateRequest $request
+     * @param UpdateOrCreateRequest $request
      * @param int $pet_id
      * @return JsonResponse
      */
-    public function updatePet(UpdateRequest $request, int $pet_id): JsonResponse
+    public function updatePet(UpdateOrCreateRequest $request, int $pet_id): JsonResponse
     {
         $user_id = Auth::user()->id;
 

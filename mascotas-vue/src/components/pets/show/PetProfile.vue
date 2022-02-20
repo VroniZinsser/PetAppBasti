@@ -78,7 +78,7 @@ export default {
   data() {
     return {
       store,
-      formatted_date_of_birth: formatDate(this.pet.date_of_birth),
+      
       showWarnDialog: false,
     }
   },
@@ -101,6 +101,11 @@ export default {
 
             this.$emit('deleted');
           })
+    }
+  },
+  computed: {
+    formatted_date_of_birth() { 
+      return formatDate(this.pet.date_of_birth);
     }
   }
 }
