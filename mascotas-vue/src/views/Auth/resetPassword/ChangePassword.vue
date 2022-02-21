@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import InputText from "@/components/general/inputs/InputText";
 import FormContainer from "@/components/general/forms/FormContainer";
 import Loader from "@/components/general/notifications/Loader";
 import Form from "@/components/auth/password/Form"
@@ -23,7 +22,6 @@ import store from "@/store";
 export default {
   name: "ChangePassword",
   components: {
-    InputText,
     FormContainer,
     Loader,
     Form,
