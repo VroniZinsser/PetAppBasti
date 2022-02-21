@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\JsonResponse;
-use App\Models\User;
+use App\Repositories\UserRepository;
 
 class AuthController extends Controller
 {
@@ -13,8 +13,9 @@ class AuthController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserRepository $userRepository)
     {
+        $this->userRepository = $userRepository;
         $this->middleware('auth:api', ['except' => ['login']]);
     }
 
@@ -39,7 +40,7 @@ class AuthController extends Controller
         }
 
         $cookie = cookie("token", $token);
-        $user = User::find(auth()->user()->id)->load('profile_image');
+        $user = $this->userRepository->find(auth()->user()->id);
         return response()->json([
             'success' => true,
             'data' => [
@@ -55,7 +56,7 @@ class AuthController extends Controller
      */
     public function me(): JsonResponse
     {
-        $user = User::find(auth()->user()->id)->load(['profile_image']);
+        $user = $this->userRepository->find(auth()->user()->id);
         
         return response()->json([
             'data' => [
