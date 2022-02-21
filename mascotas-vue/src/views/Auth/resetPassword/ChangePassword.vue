@@ -2,29 +2,12 @@
     <Loader v-if="loading" />
     <FormContainer
         v-else
-        headline="Recuperar Contraseña"
-        form_class="form-forgot-password"
+        headline="Restablecer Contraseña"
+        form_class="form-change-password"
         :is_short_form="true"
     >
-        <p v-if="showFinalMessage">¡Listo! Si tu correo está registrado en Basti, dentro de poco te llegará un correo electrónico con un link para resetear tu contraseña.</p>
-        <form
-            v-else
-            action="autenticacion/recuperar-password"
-            method="post"
-            ref="passwordRecoveryForm"
-            @submit.prevent="sendPasswordReset"
-        >
-            <p>¡No te preocupes! Te enviamos un mail para que puedas establecer una nueva contraseña.</p>
-            <InputText
-                type="email"
-                label="Correo electrónico"
-                v-model="formData.email"
-                :loading="loading"
-                :rules="[rules.obligatory, rules.email]"
-                :errors="errors.email"
-            ></InputText>
-            <button class="main-btn" type="submit" :disabled="loading">Enviar mail</button>
-        </form>
+        <Form />
+        
     </FormContainer>
   
 </template>
@@ -32,16 +15,18 @@
 <script>
 import InputText from "@/components/general/inputs/InputText";
 import FormContainer from "@/components/general/forms/FormContainer";
-import Loader from "../../components/general/notifications/Loader";
+import Loader from "@/components/general/notifications/Loader";
+import Form from "@/components/auth/password/Form"
 import authService from "@/services/auth";
 import store from "@/store";
 
 export default {
-  name: "ResetPasswordForm",
+  name: "ChangePassword",
   components: {
     InputText,
     FormContainer,
     Loader,
+    Form,
   },
   data() {
       return {
@@ -82,7 +67,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

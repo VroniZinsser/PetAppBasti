@@ -89,6 +89,25 @@ const authService = {
     },
 
     /**
+     * Sends an email to the given address with a link to reset the password
+     *
+     * @param {{}} formData
+     * @param {string} formData.email
+     * @param {string} formData.password
+     * @param {string} formData.token
+     * @returns {Promise<any>}
+     */
+    resetPassword(formData) {
+        console.log('reset password ', formData);
+        // return fetch(`${API}autenticacion/recuperar-password`, {
+        //     method: 'POST',
+        //     body: JSON.stringify(formData),
+        //     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        //     credentials: 'include'
+        // }).then(res => res.json());
+    },
+
+    /**
      * Returns a boolean, true if the user is authenticated, false if not.
      *
      * @returns {boolean}
