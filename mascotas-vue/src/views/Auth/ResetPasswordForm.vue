@@ -1,14 +1,18 @@
 <template>
+    <Loader v-if="loading" />
     <FormContainer
+        v-else
         headline="Recuperar Contraseña"
         form_class="form-forgot-password"
         :is_short_form="true"
     >
-        <form 
+        <p v-if="showFinalMessage">¡Listo! Si tu correo está registrado en Basti, dentro de poco te llegará un correo electrónico con un link para resetear tu contraseña.</p>
+        <form
+            v-else
             action="autenticacion/recuperar-password"
             method="post"
             ref="passwordRecoveryForm"
-            @submit.prevent="sendPasswordRecovery"
+            @submit.prevent="sendPasswordReset"
         >
             <p>¡No te preocupes! Te enviamos un mail para que puedas establecer una nueva contraseña.</p>
             <InputText
@@ -28,18 +32,22 @@
 <script>
 import InputText from "@/components/general/inputs/InputText";
 import FormContainer from "@/components/general/forms/FormContainer";
+import Loader from "../../components/general/notifications/Loader";
 import authService from "@/services/auth";
+import store from "@/store";
 
 export default {
-  name: "ForgotPassword",
+  name: "ResetPasswordForm",
   components: {
     InputText,
     FormContainer,
+    Loader,
   },
   data() {
       return {
         loading: false,
-        // store,
+        store,
+        showFinalMessage: false,
         formData: {
             email: null,
         },
@@ -58,8 +66,18 @@ export default {
   },
 
   methods: {
-      sendPasswordRecovery() {
-          authService.sendPasswordRecovery(this.formData);
+      sendPasswordReset() {
+          this.loading = true;
+          this.errors.email = null;
+          authService.sendPasswordReset(this.formData)
+            .then(res => {
+                this.loading = false;
+                if (res.errors && res.errors.email) {
+                    this.errors.email = res.errors.email;
+                } else { 
+                    this.showFinalMessage = true;
+                }
+            });
       }
   }
 }

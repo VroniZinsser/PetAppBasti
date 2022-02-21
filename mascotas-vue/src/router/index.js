@@ -5,7 +5,7 @@ import Explore from "../views/explore/Explore";
 // import Home from '../views/Home.vue'
 // import Inbox from "../views/contact/Inbox";
 import Login from "../views/Auth/Login";
-import ForgotPassword from "../views/Auth/ForgotPassword";
+import ResetPasswordForm from "../views/Auth/ResetPasswordForm";
 import MedicinesAddForm from "../views/pets/medicines/MedicinesAddForm";
 import ObservationForm from "../views/pets/ObservationForm";
 import OwnerSingUp from "../views/Auth/sing-up/OwnerSingUp";
@@ -62,8 +62,8 @@ const routes = [
     },
     {
         path: '/recuperar-password',
-        name: 'ForgotPassword',
-        component: ForgotPassword,
+        name: 'ResetPasswordForm',
+        component: ResetPasswordForm,
         meta: {
             requiresGuest: true,
         }
