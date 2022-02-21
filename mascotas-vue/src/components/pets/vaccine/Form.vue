@@ -1,9 +1,9 @@
 <template>
   <v-form
-      :action="vaccine ? 'vaccines/editar' : 'vaccines/crear'"
-      :method="vaccine ? 'put' : 'post'"
+      :action="vaccine ? 'vacunas/editar' : 'vacunas/crear'"
+      :method="'post'"
       ref="vaccineForm"
-      @submit.prevent="vaccine ? updateVaccine : createVaccine"
+      @submit.prevent="sendForm"
   >
     <InputText
         label="Nombre de la vacuna"
@@ -21,12 +21,12 @@
         :loading="loading"
         :rules="[rules.obligatory, rules.date]"
         :errors="errors.date"
-        :initialDate="getCurrentDate()"
+        :initialDate="initialDate"
         :maxDate="getCurrentDate()"
         @update-date="updateDate"
     ></InputDate>
 
-    <button class="main-btn" type="submit" :disabled="loading">Agregar</button>
+    <button class="main-btn" type="submit" :disabled="loading">{{ vaccine ? "Guardar cambios" : "Agregar" }}</button>
   </v-form>
 </template>
 <script>
@@ -73,27 +73,16 @@ export default {
       }
     }
   },
-  mounted() {
-    if(this.vaccine) {
-      this.formData.name = this.vaccine.name;
-      this.formData.date = this.vaccine.date;
-    }
-  //     vaccineService.find(this.vaccine_id)
-  //       .then(res => {
-  //         this.formData.name = res.vaccine.name;
-  //         this.formData.date = res.vaccine.date;
-  //       })
-  //   }
-  },
-
   methods: {
     getCurrentDate() {
       return (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
     },
+
     updateDate(date) {
       this.formData.date = date;
     },
-    createVaccine() {
+
+    sendForm() {
       if (this.$refs.vaccineForm.validate()) {
         this.loading = true;
 
@@ -102,43 +91,92 @@ export default {
           date: null,
         }
 
-        vaccineService.create(this.formData)
-            .then(res => {
-              this.loading = false;
+        if (!this.vaccine) {
+          vaccineService.create(this.formData)
+              .then(res => {
+                this.loading = false;
 
-              if (!res.success) {
-                if (res.errors && res.errors.pet_id) {
-                  this.store.setStatus({
-                    msg: 'La mascota no existe.',
-                    type: 'error',
-                  });
-                } else if (res.errors) {
-                  this.errors = {
-                    name: null,
-                    date: null,
-                    ...res.errors
+                if (!res.success) {
+                  if (res.errors && res.errors.pet_id) {
+                    this.store.setStatus({
+                      msg: 'La mascota no existe.',
+                      type: 'error',
+                    });
+                  } else if (res.errors) {
+                    this.errors = {
+                      name: null,
+                      date: null,
+                      ...res.errors
+                    }
+                    this.store.setStatus({
+                      msg: "Por favor corregí los datos del formulario.",
+                      type: 'warning',
+                    });
+                  } else {
+                    this.store.setStatus({
+                      msg: 'Algo salió mal. La vacuna no se guardó correctamente.',
+                      type: 'error',
+                    });
                   }
-                  this.store.setStatus({
-                    msg: "Por favor corregí los datos del formulario.",
-                    type: 'warning',
-                  });
                 } else {
                   this.store.setStatus({
-                    msg: 'Algo salió mal. La vacuna no se guardó correctamente.',
-                    type: 'error',
+                    msg: '¡La nueva vacuna está guardada!',
+                    type: 'success',
                   });
+                  this.$router.back();
                 }
-              } else {
-                this.store.setStatus({
-                  msg: '¡La nueva vacuna está guardada!',
-                  type: 'success',
-                });
-                this.$router.push({name: 'Pets'});
-              }
-            })
+              })
+        } else {
+          vaccineService.update(this.formData, this.vaccine.id)
+              .then(res => {
+                this.loading = false;
+
+                if (!res.success) {
+                  if (res.errors && res.errors.pet_id) {
+                    this.store.setStatus({
+                      msg: 'La mascota no existe.',
+                      type: 'error',
+                    });
+                  } else if (res.errors) {
+                    this.errors = {
+                      name: null,
+                      date: null,
+                      ...res.errors
+                    }
+                    this.store.setStatus({
+                      msg: "Por favor corregí los datos del formulario.",
+                      type: 'warning',
+                    });
+                  } else {
+                    this.store.setStatus({
+                      msg: 'Algo salió mal. La vacuna no se editó correctamente.',
+                      type: 'error',
+                    });
+                  }
+                } else {
+                  this.store.setStatus({
+                    msg: '¡La vacuna se editó con éxito!',
+                    type: 'success',
+                  });
+                  this.$router.back();
+                }
+              })
+        }
       }
     }
   },
+  computed: {
+    initialDate() {
+      return this.vaccine ? this.vaccine.date : this.getCurrentDate();
+    }
+  },
+  mounted() {
+    if (this.vaccine) {
+      this.formData.name = this.vaccine.name;
+      this.formData.date = this.vaccine.date;
+    }
+  },
+
 }
 
 </script>
