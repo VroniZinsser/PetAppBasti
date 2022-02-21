@@ -1,14 +1,14 @@
 <template>
   <Loader v-if="loading"></Loader>
 
-  <v-container v-else class="vaccine-list-container">
+  <v-container v-else class="medical-list-container">
     <header>
       <router-link :to="{name: 'Pets'}">
         <span class="sr-only">Volver al listado de mascotas</span>
         <span class="material-icons">arrow_back</span>
       </router-link>
 
-      <h1>Pesos de la mascota</h1>
+      <h1>Vacunas de la mascota</h1>
     </header>
 
     <BaseNotification

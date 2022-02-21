@@ -1,7 +1,7 @@
 <template>
   <Loader v-if="loading"></Loader>
 
-  <v-container v-else class="weight-list-container">
+  <v-container v-else class="medical-list-container">
     <header>
       <router-link :to="{name: 'Pets'}">
         <span class="sr-only">Volver al listado de mascotas</span>

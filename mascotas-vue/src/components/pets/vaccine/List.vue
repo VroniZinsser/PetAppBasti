@@ -1,5 +1,5 @@
 <template>
-  <ul class="vaccine-list">
+  <ul class="medical-list">
     <ListItem
         v-for="vaccine in sortedArray"
         :key="vaccine.id"
