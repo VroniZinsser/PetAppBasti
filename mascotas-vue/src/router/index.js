@@ -19,6 +19,7 @@ import Schedule from "../views/schedule/Schedule";
 import OwnerShareList from "../views/contact/owner/OwnerShareList";
 import VaccineForm from "../views/pets/VaccineForm";
 import WeightForm from "../views/pets/WeightForm";
+import WeightList from "../views/pets/weights/List";
 import AcceptSharedPetRequest from "@/views/contact/Accept";
 
 Vue.use(VueRouter)
@@ -145,6 +146,22 @@ const routes = [
         path: '/mascotas/:pet_id/pesos/agregar',
         name: 'WeightForm',
         component: WeightForm,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/mascotas/:pet_id/pesos/:weight_id/editar',
+        name: 'WeightFormEdit',
+        component: WeightForm,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/mascotas/:pet_id/pesos',
+        name: 'WeightList',
+        component: WeightList,
         meta: {
             requiresAuth: true,
         },

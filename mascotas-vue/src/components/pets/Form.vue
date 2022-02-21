@@ -2,53 +2,35 @@
   <v-form
       :method="this.pet ? 'PUT' : 'POST'"
       :action="this.pet ? 'mascotas/editar' : 'mascotas/agregar'"
+      ref="petForm"
       @submit.prevent="sendForm"
   >
-    <v-text-field
-        outlined
-        type="text"
-        required
-        name="name"
-        id="name"
-        class="form-control"
+    <InputText
+        label="Nombre"
         v-model="formData.name"
-        label="Nombre *"
+        identifier="name"
+        :loading="loading"
         :rules="[rules.obligatory]"
-        :messages="errors.name ? errors.name[0] : ''"
-        :error="errors.name !== null"
-        :disabled="loading"
-        color="#3fb094"
-    ></v-text-field>
-
-    <v-text-field
-        outlined
-        type="text"
+        :errors="errors.name"
         required
-        name="breed"
-        id="breed"
-        class="form-control"
-        v-model="formData.breed"
+    ></InputText>
+    
+    <InputText
         label="Raza"
-        :messages="errors.breed ? errors.breed[0] : ''"
-        :error="errors.breed !== null"
-        :disabled="loading"
-        color="#3fb094"
-    ></v-text-field>
-
-    <v-text-field
-        outlined
-        type="text"
-        required
-        name="temperament"
-        id="temperament"
-        class="form-control"
-        v-model="formData.temperament"
+        v-model="formData.breed"
+        identifier="breed"
+        :loading="loading"
+        :errors="errors.breed"
+    ></InputText>
+    
+    <InputText
         label="Temperamento"
-        :messages="errors.temperament ? errors.temperament[0] : ''"
-        :error="errors.temperament !== null"
-        :disabled="loading"
-        color="#3fb094"
-    ></v-text-field>
+        v-model="formData.temperament"
+        identifier="temperament"
+        :loading="loading"
+        :errors="errors.temperament"
+        hint="Actitudes de la mascota como tranquilo, mimoso, agresivo"
+    ></InputText>
 
     <v-checkbox
         name="neutered"
@@ -62,20 +44,16 @@
         color="#3fb094"
     ></v-checkbox>
 
-    <v-text-field
-        outlined
-        type="date"
-        required
-        name="date_of_birth"
-        id="date_of_birth"
-        class="form-control"
-        v-model="formData.date_of_birth"
+    <InputDate
         label="Fecha de nacimiento"
-        :messages="errors.date_of_birth ? errors.date_of_birth[0] : ''"
-        :error="errors.date_of_birth !== null"
-        :disabled="loading"
-        color="#3fb094"
-    ></v-text-field>
+        identifier="date_of_birth"
+        :loading="loading"
+        :rules="[rules.obligatory, rules.date]"
+        :errors="errors.date"
+        :initialDate="initialDate"
+        :maxDate="getCurrentDate()"
+        @update-date="updateDate"
+    ></InputDate>
 
     <v-select
         outlined
@@ -138,8 +116,11 @@
 </template>
 
 <script>
+import InputDate from "@/components/general/inputs/InputDate";
+import InputText from "@/components/general/inputs/InputText";
 import petServices from "../../services/pets";
 import store from "@/store";
+import {getCurrentDate} from "@/helpers";
 
 export default {
   name: "Form",
@@ -156,10 +137,15 @@ export default {
       type: Object
     }
   },
+  components: {
+    InputDate,
+    InputText,
+  },
   data: () => ({
     loading: false,
     photo: null,
     store,
+    getCurrentDate,
     formData: {
       breed: null,
       date_of_birth: null,
@@ -182,6 +168,10 @@ export default {
     },
     rules: {
       obligatory: v => !!v || 'Este campo es obligatorio.',
+      date: value => {
+          const pattern = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
+          return pattern.test(value) || 'Por favor, ingresá una fecha válida (31/01/2021)'
+        },
     }
   }),
   methods: {
@@ -203,97 +193,108 @@ export default {
      * Submit the form and check if it is to edit the mascot or to create a new one.
      */
     sendForm() {
-      this.loading = true;
+      if (this.$refs.petForm.validate()) {
+        this.loading = true;
 
-      this.errors = {
-        breed: null,
-        date_of_birth: null,
-        name: null,
-        neutered: false,
-        photo: null,
-        temperament: null,
-        sex_id: null,
-        species_id: null,
-      }
+        this.errors = {
+          breed: null,
+          date_of_birth: null,
+          name: null,
+          neutered: false,
+          photo: null,
+          temperament: null,
+          sex_id: null,
+          species_id: null,
+        }
 
 
-      if (!this.pet) {
-        petServices.addPet(this.formData)
-            .then(res => {
-              this.loading = false;
-              if (!res.success) {
-                if (res.errors) {
-                  this.errors = {
-                    breed: null,
-                    date_of_birth: null,
-                    name: null,
-                    neutered: null,
-                    photo: null,
-                    temperament: null,
-                    sex_id: null,
-                    species_id: null,
-                    ...res.errors
+        if (!this.pet) {
+          petServices.addPet(this.formData)
+              .then(res => {
+                this.loading = false;
+                if (!res.success) {
+                  if (res.errors) {
+                    this.errors = {
+                      breed: null,
+                      date_of_birth: null,
+                      name: null,
+                      neutered: null,
+                      photo: null,
+                      temperament: null,
+                      sex_id: null,
+                      species_id: null,
+                      ...res.errors
+                    }
+
+                    this.store.setStatus({
+                      msg: "Por favor corregí los datos del formulario.",
+                      type: 'warning',
+                    });
+                  } else {
+                    this.store.setStatus({
+                      msg: 'Algo salió mal. Tu mascota no se guardó.',
+                      type: 'error',
+                    });
                   }
-
-                  this.store.setStatus({
-                    msg: "Por favor corregí los datos del formulario.",
-                    type: 'warning',
-                  });
                 } else {
                   this.store.setStatus({
-                    msg: 'Algo salió mal. Tu mascota no se guardó.',
-                    type: 'error',
+                    msg: '¡Muy bien! Tu mascota está guardada.',
+                    type: 'success',
                   });
+
+                  this.$router.push({name: 'Pets'});
                 }
-              } else {
-                this.store.setStatus({
-                  msg: '¡Muy bien! Tu mascota está guardada.',
-                  type: 'success',
-                });
+              })
+        } else {
+          petServices.updatePet(this.formData, this.pet.id)
+              .then(res => {
+                this.loading = false;
+                if (!res.success) {
+                  if (res.errors) {
+                    this.errors = {
+                      breed: null,
+                      date_of_birth: null,
+                      name: null,
+                      neutered: null,
+                      photo: null,
+                      temperament: null,
+                      sex_id: null,
+                      species_id: null,
+                      ...res.errors
+                    }
 
-                this.$router.push({name: 'Pets'});
-              }
-            })
-      } else {
-        petServices.updatePet(this.formData, this.pet.id)
-            .then(res => {
-              this.loading = false;
-              if (!res.success) {
-                if (res.errors) {
-                  this.errors = {
-                    breed: null,
-                    date_of_birth: null,
-                    name: null,
-                    neutered: null,
-                    photo: null,
-                    temperament: null,
-                    sex_id: null,
-                    species_id: null,
-                    ...res.errors
+                    this.store.setStatus({
+                      msg: "Por favor corregí los datos del formulario.",
+                      type: 'warning',
+                    });
+                  } else {
+                    this.store.setStatus({
+                      msg: 'Algo salió mal. No se guardaron los cambios.',
+                      type: 'error',
+                    });
                   }
-
-                  this.store.setStatus({
-                    msg: "Por favor corregí los datos del formulario.",
-                    type: 'warning',
-                  });
                 } else {
                   this.store.setStatus({
-                    msg: 'Algo salió mal. No se guardaron los cambios.',
-                    type: 'error',
+                    msg: '¡Muy bien! Cambios guardados con éxito.',
+                    type: 'success',
                   });
-                }
-              } else {
-                this.store.setStatus({
-                  msg: '¡Muy bien! Cambios guardados con éxito.',
-                  type: 'success',
-                });
 
-                this.$router.push({name: 'Pets'});
-              }
-            })
+                  this.$router.push({name: 'Pets'});
+                }
+              })
+        }
       }
+    },
+    updateDate(date) {
+      this.formData.date_of_birth = date;
     }
   },
+  computed: {
+    initialDate(){
+      return this.pet ? this.pet.date_of_birth : null;
+    }
+  },
+
   mounted() {
     if (this.pet) {
       this.formData = {
