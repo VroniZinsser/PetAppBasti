@@ -72,7 +72,14 @@ const authService = {
         }));
     },
 
-    sendPasswordRecovery(formData) {
+    /**
+     * Sends an email to the given address with a link to reset the password
+     *
+     * @param {{}} formData
+     * @param {string} formData.email
+     * @returns {Promise<any>}
+     */
+    sendPasswordReset(formData) {
         return fetch(`${API}autenticacion/recuperar-password`, {
             method: 'POST',
             body: JSON.stringify(formData),
