@@ -18,6 +18,7 @@ import OwnerShareList from "../views/contact/owner/OwnerShareList";
 import VaccineForm from "../views/pets/VaccineForm";
 import WeightForm from "../views/pets/WeightForm";
 import WeightList from "../views/pets/weights/List";
+import VaccineList from "../views/pets/vaccines/List";
 import AcceptSharedPetRequest from "@/views/contact/Accept";
 
 Vue.use(VueRouter)
@@ -142,6 +143,14 @@ const routes = [
         },
     },
     {
+        path: '/mascotas/:pet_id/vacunas',
+        name: 'VaccineList',
+        component: VaccineList,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
         path: '/mascotas/:pet_id/vacunas/agregar',
         name: 'VaccineForm',
         component: VaccineForm,
@@ -151,7 +160,7 @@ const routes = [
     },
     {
         path: '/mascotas/:pet_id/vacunas/:vaccine_id/editar',
-        name: 'VaccineEditForm',
+        name: 'VaccineFormEdit',
         component: VaccineForm,
         meta: {
             requiresAuth: true,
