@@ -165,11 +165,6 @@ const userService = {
         })
             .then(rta => rta.json())
             .then(respuesta => {
-                // if (respuesta.success) {
-                //     if (Array.isArray(users)) {
-                //         users.push(respuesta.user);
-                //     }
-                // }
                 return { ...respuesta };
             });
     },
