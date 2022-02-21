@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\LoginRequest;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
 {
@@ -14,7 +16,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login', 'sendPasswordReset']]);
     }
 
     /**
@@ -73,6 +75,24 @@ class AuthController extends Controller
         $cookie = cookie("token", null, -1);
 
         return response()->json(['message' => 'Se cerró la sesión con éxito'])->cookie($cookie);
+    }
+
+    /**
+     * Sends an email to the request's email address with a link to reset password
+     *
+     * @param Request $request
+     * @return JsonResponse 'success true' if the mail was sent successfully
+     */
+    public function sendPasswordReset(Request $request): JsonResponse {
+        $request->validate(['email' => 'required|email']);
+
+        Password::sendResetLink(
+            $request->only('email')
+        );
+
+        return response()->json([
+            'success' => 'true',
+        ]);
     }
 
     /**
