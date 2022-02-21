@@ -273,6 +273,7 @@
 
 <script>
 import userService from "@/services/users";
+import authService from "@/services/auth";
 import store from "@/store";
 import InputAddress from "@/components/general/inputs/InputAddress";
 import DeleteAccountButton from "@/components/general/buttons/DeleteAccountButton";
@@ -412,6 +413,7 @@ export default {
           window.scrollTo(0,0);
           
           if (res.success) {
+            authService.saveAuthUser(res.data.user);
             this.store.setStatus({
               msg: "Los cambios se guardaron con éxito.",
               type: 'success',
