@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\ChangePasswordRequest;
 use App\Http\Requests\Auth\LoginRequest;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -16,7 +20,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'sendPasswordReset']]);
+        $this->middleware('auth:api', ['except' => ['login', 'sendPasswordReset', 'changePassword']]);
     }
 
     /**
@@ -93,6 +97,33 @@ class AuthController extends Controller
         return response()->json([
             'success' => 'true',
         ]);
+    }
+
+    /**
+     * Sends token, email and new password to the backend in order to update the password savely
+     *
+     * @param Request $request
+     * @return JsonResponse 
+     */
+    public function changePassword(ChangePasswordRequest $request): JsonResponse {
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->setRememberToken(Str::random(60));
+    
+                $user->save();
+    
+                event(new PasswordReset($user));
+            }
+        );
+ 
+        $success = $status === Password::PASSWORD_RESET;
+        return response()->json([
+            'success' => $success
+        ]);
+
     }
 
     /**

@@ -54,7 +54,6 @@ export default {
         errors: {
             email: null,
             password: null,
-            password_confirm: null,
         },
         rules: {
             obligatory: value => !!value || 'Este campo es obligatorio.',
@@ -92,7 +91,10 @@ export default {
                     ...res.errors
                   }
                 } else {
-                  alert('Uno o ambos campos son incorrectos');
+                  this.store.setStatus({
+                    msg: 'Hubo un error al cambiar la contraseña. Por favor, intentalo más tarde.',
+                    type: 'error',
+                  });
                 }
                 this.formData.password = null;
               } else {

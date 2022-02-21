@@ -98,13 +98,12 @@ const authService = {
      * @returns {Promise<any>}
      */
     resetPassword(formData) {
-        console.log('reset password ', formData);
-        // return fetch(`${API}autenticacion/recuperar-password`, {
-        //     method: 'POST',
-        //     body: JSON.stringify(formData),
-        //     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        //     credentials: 'include'
-        // }).then(res => res.json());
+        return fetch(`${API}autenticacion/cambiar-password`, {
+            method: 'POST',
+            body: JSON.stringify(formData),
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            credentials: 'include'
+        }).then(res => res.json());
     },
 
     /**

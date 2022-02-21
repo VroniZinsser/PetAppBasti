@@ -82,6 +82,7 @@ Route::prefix('/autenticacion')->group(function () {
     Route::get("/", [AuthController::class, 'me'])->middleware(['auth']);
     Route::post("/", [AuthController::class, 'login'])->middleware(['guest']);
     Route::post("recuperar-password", [AuthController::class, 'sendPasswordReset'])->middleware(['guest']);
+    Route::post("cambiar-password", [AuthController::class, 'changePassword'])->middleware(['guest']);
     Route::delete("/", [AuthController::class, 'logout'])->middleware(['auth']);
 });
 
