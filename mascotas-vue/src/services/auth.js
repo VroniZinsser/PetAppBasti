@@ -97,7 +97,7 @@ const authService = {
      * @param {string} formData.token
      * @returns {Promise<any>}
      */
-    resetPassword(formData) {
+    changePassword(formData) {
         return fetch(`${API}autenticacion/cambiar-password`, {
             method: 'POST',
             body: JSON.stringify(formData),

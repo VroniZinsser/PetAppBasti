@@ -86,10 +86,6 @@ Route::prefix('/autenticacion')->group(function () {
     Route::delete("/", [AuthController::class, 'logout'])->middleware(['auth']);
 });
 
-Route::get('/reset-password/{token}', function ($token) {
-    return response()->json(['token' => $token]);
-})->middleware('guest')->name('password.reset');
-
 Route::middleware(['auth'])->group(function () {
     Route::prefix('/peticiones')->group(function () {
         Route::get("/creadas", [ContactController::class, 'getProfessionalSharedPets']);

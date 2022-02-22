@@ -29,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
          * Customize the reset password url that is sent by mail to the user
          */
         ResetPassword::createUrlUsing(function ($user, string $token) {
-            return 'http://127.0.0.1:8080/#/resetear-password?token=' . $token;
+            return 'http://127.0.0.1:8080/#/cambiar-password?token=' . $token;
         });
     }
 }

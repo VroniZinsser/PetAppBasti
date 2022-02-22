@@ -70,7 +70,7 @@ const routes = [
         }
     },
     {
-        path: '/resetear-password',
+        path: '/cambiar-password',
         name: 'ChangePassword',
         component: ChangePassword,
         meta: {

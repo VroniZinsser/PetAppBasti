@@ -2,7 +2,7 @@
   <v-form
       action="autenticacion"
       method="post"
-      ref="resetForm"
+      ref="form"
       @submit.prevent="sendForm"
   >
     <InputText
@@ -73,7 +73,7 @@ export default {
      * Attempts to authenticate the user
      */
     sendForm() {
-      if (this.$refs.resetForm.validate()) {
+      if (this.$refs.form.validate()) {
         this.loading = true;
 
         this.errors = {
@@ -81,7 +81,7 @@ export default {
           password: null,
         }
 
-        authService.resetPassword(this.formData)
+        authService.changePassword(this.formData)
             .then(res => {
               if (!res.success) {
                 if (res.errors) {
