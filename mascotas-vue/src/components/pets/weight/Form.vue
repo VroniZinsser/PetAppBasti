@@ -62,7 +62,6 @@ export default {
         pet_id: this.pet_id
       },
       editingDate: null,
-
       errors: {
         weight: null,
         date: null,

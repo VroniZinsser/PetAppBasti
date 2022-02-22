@@ -1,6 +1,6 @@
 @use "sass:map";
 
-div.weight-list-container {
+div.medical-list-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,7 +62,7 @@ div.weight-list-container {
     }
   }
 
-  .weight-list {
+  .medical-list {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -98,6 +98,7 @@ div.weight-list-container {
           &:last-child {
             font-weight: 400;
             color: rgba($black-gray, .6);
+            margin-bottom: 0;
           }
         }
       }
