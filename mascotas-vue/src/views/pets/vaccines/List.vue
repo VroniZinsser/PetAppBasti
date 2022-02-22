@@ -8,7 +8,7 @@
         <span class="material-icons">arrow_back</span>
       </router-link>
 
-      <h1>Pesos de la mascota</h1>
+      <h1>Vacunas de la mascota</h1>
     </header>
 
     <BaseNotification
@@ -20,57 +20,52 @@
 
     <CircleButtonLinkList :button-link-data="buttonLinkData"></CircleButtonLinkList>
 
-    <template v-if="weights.length > 0">
-      <div class="actual-weight">
-        <span>Peso actual: </span>
-        <span class="current-weight">{{ displayWeight(weights[0].weight) }}</span>
-        <span class="weight-date"> ({{ formatDate(weights[0].date) }})</span>
-      </div>
+    <template v-if="vaccines.length > 0">
 
-      <WeightList :weights="weights" @delete="prepareDeleteWeight"></WeightList>
+      <VaccineList :vaccines="vaccines" @delete="prepareDeleteVaccine"></VaccineList>
 
       <WarnDialog
           :showDialog="showWarnDialog"
-          dialogTitle="¿Querés eliminar este peso?"
-          acceptButtonText="Borrar peso"
+          dialogTitle="¿Querés eliminar esta vacuna?"
+          acceptButtonText="Borrar vacuna"
 
           @cancel="cancelDelete"
-          @accept="deleteWeight"
+          @accept="deleteVaccine"
       />
     </template>
 
-    <p v-else>Esta mascota no tiene ningún peso agregado.</p>
+    <p v-else>Esta mascota no tiene ninguna vacuna agregada.</p>
   </v-container>
 </template>
 
 <script>
-import petServices from "@/services/pets";
-import WeightList from "@/components/pets/weight/List";
 import Loader from "@/components/general/notifications/Loader";
-import CircleButtonLinkList from "@/components/general/buttons/floating/CircleButtonLinkList";
 import BaseNotification from "@/components/general/notifications/BaseNotification";
-import store from "@/store";
-import {displayWeight, formatDate} from "@/helpers";
 import WarnDialog from "@/components/general/notifications/WarnDialog";
-import weightService from "@/services/weights";
+import store from "@/store";
+import {formatDate} from "@/helpers";
+import vaccineService from "@/services/vaccines";
+import VaccineList from "@/components/pets/vaccine/List";
+import petServices from "@/services/pets";
+import CircleButtonLinkList from "@/components/general/buttons/floating/CircleButtonLinkList";
 
 export default {
   name: "List",
-  components: {WarnDialog, BaseNotification, CircleButtonLinkList, Loader, WeightList},
+  components: {CircleButtonLinkList, WarnDialog, BaseNotification, Loader, VaccineList},
+  props: {},
   data() {
     return {
-      weights: null,
+      vaccines: null,
       loading: true,
       store,
-      displayWeight,
       formatDate,
-      wToDelete: null,
+      vToDelete: null,
       showWarnDialog: false,
       buttonLinkData: [
         {
-          icon: 'fitness_center',
-          text: 'Nuevo peso',
-          pathName: 'WeightForm',
+          icon: 'vaccines',
+          text: 'Nueva vacuna',
+          pathName: 'VaccineForm',
           pathParams: {pet_id: this.$route.params.pet_id},
           default: true,
         },
@@ -78,26 +73,26 @@ export default {
     }
   },
   methods: {
-    prepareDeleteWeight(weight_id) {
-      this.wToDelete = weight_id;
+    prepareDeleteVaccine(vaccine_id) {
+      this.vToDelete = vaccine_id;
       this.showWarnDialog = true;
     },
 
     cancelDelete() {
-      this.wToDelete = null;
+      this.vToDelete = null;
       this.showWarnDialog = false;
     },
 
-    deleteWeight() {
+    deleteVaccine() {
       this.loading = true;
 
-      weightService.delete(this.wToDelete)
+      vaccineService.delete(this.vToDelete)
           .then(() => {
-            this.weights = this.weights.filter(weight => weight.id !== this.wToDelete);
+            this.vaccines = this.vaccines.filter(vaccine => vaccine.id !== this.vToDelete);
 
-            this.$emit('create-notification', 'success', 'El peso se eliminó con éxito');
+            this.$emit('create-notification', 'success', 'La vacuna se eliminó con éxito');
 
-            this.wToDelete = null;
+            this.vToDelete = null;
 
             this.showWarnDialog = false;
 
@@ -107,9 +102,9 @@ export default {
   },
   mounted() {
     if (this.$route.params.pet_id) {
-      petServices.getWeights(this.$route.params.pet_id)
+      petServices.getVaccines(this.$route.params.pet_id)
           .then(res => {
-            this.weights = res.data.weights;
+            this.vaccines = res.data.vaccines;
             this.loading = false
           })
     }
