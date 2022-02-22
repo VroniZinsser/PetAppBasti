@@ -128,6 +128,10 @@ class User extends Authenticatable implements JWTSubject
         'profile_img_id',
     ];
 
+    protected $appends = [
+        'is_professional'
+    ];
+
     /**
      * The user types that belong to the user.
      */
@@ -192,6 +196,21 @@ class User extends Authenticatable implements JWTSubject
     public function profile_image(): BelongsTo
     {
         return $this->belongsTo(Image::class, 'profile_img_id');
+    }
+
+    /** 
+     * Returns true if the user has at least one user type that belongs to professional user
+     *
+     * @return bool
+     */
+    public function getIsProfessionalAttribute(): bool
+    {
+        foreach ($this->userTypes as $type) {
+            if (in_array($type->id, [5, 6, 7, 8])) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

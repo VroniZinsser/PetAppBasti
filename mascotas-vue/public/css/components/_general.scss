@@ -6,6 +6,10 @@
     }
 }
 
+.v-card__title {
+  word-break: normal !important;
+}
+
 .card {
   padding: 16px;
   background: white;
@@ -26,3 +30,9 @@
     opacity: .5;
   }
 }
+
+.address {
+    span {
+      display: block;
+    }
+  }

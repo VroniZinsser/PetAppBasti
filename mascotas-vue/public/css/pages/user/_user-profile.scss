@@ -1,5 +1,5 @@
 .professional-profile {
-    padding-bottom: 56px;
+    padding-bottom: $navbar-height-mobile;
     @include desktop-up {
         padding-bottom: 0;
     }
@@ -19,7 +19,7 @@
             @include desktop-up {
                 flex-basis: 66%;
             }
-
+            
             .float-circle-btn {
                 img {
                     width: 32px;

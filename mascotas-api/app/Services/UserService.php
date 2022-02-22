@@ -29,7 +29,9 @@ class UserService implements UserRepository {
         $user->email = $dto->get_email();
         $user->email_verified_at = $dto->get_email_verified_at();
         $user->email_visible = $dto->get_email_visible();
-        $user->password = Hash::make($dto->get_password());
+        if ($dto->get_password()) {
+            $user->password = Hash::make($dto->get_password());
+        }
         $user->country = $dto->get_country();
         $user->state = $dto->get_state();
         $user->city = $dto->get_city();

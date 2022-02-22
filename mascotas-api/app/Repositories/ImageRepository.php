@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Image;
-use App\Models\Pet;
 
 interface ImageRepository
 {

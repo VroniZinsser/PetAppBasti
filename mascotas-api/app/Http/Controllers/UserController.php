@@ -76,10 +76,12 @@ class UserController extends Controller
      * @param CreateRequest $request
      * @return JsonResponse
      */
-    public function updateProfessional(CreateRequest $request): JsonResponse
+    public function updateProfessional(CreateRequest $request): JsonResponse 
     {
+        // TODO: check if user_id of request is authenticated user - when accept pet share request ist merged in main
+        // Auth::user()->id !== $request->get('id')
         $dto = new UserDTO;
-        $dto->loadFromArray($request->input());
+        $dto->loadFromArray($request->except('password'));
 
         if ($photo = $request->get('photo')) {
             $image = $this->imageRepository->uploadImage($photo, 'users/profile/', 'Perfil ' . $request->get('first_name') . ' ' . $request->get('last_name'));
@@ -133,6 +135,7 @@ class UserController extends Controller
      */
     public function deleteUser($user_id): JsonResponse
     {
+        //TODO: check that $user_id is the authenticated user
         $this->userRepository->delete($user_id);
 
         return response()->json([

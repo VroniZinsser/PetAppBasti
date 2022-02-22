@@ -11,6 +11,8 @@ import OwnerSingUp from "../views/Auth/sing-up/OwnerSingUp";
 import Pets from "../views/pets/Pets";
 import PetAddForm from "../views/pets/AddForm";
 import PetEditForm from "../views/pets/EditForm";
+import ProfessionalEdit from "../views/users/ProfessionalEdit";
+import ProfessionalHome from "../views/users/ProfessionalHome";
 import ProfessionalSignUp from "../views/users/ProfessionalSignUp";
 import ProfessionalProfile from "../views/users/ProfessionalProfile";
 import Schedule from "../views/schedule/Schedule";
@@ -63,6 +65,30 @@ const routes = [
         }
     },
     {
+        path: '/profesional/agenda',
+        name: 'ScheduleProfessional',
+        component: Schedule,
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/profesional/explorar',
+        name: 'ExploreProfessional',
+        component: Explore,
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/profesional/home',
+        name: 'HomeProfessional',
+        component: ProfessionalHome,
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
         path: '/registrarme/amo',
         name: 'OwnerSingUp',
         component: OwnerSingUp,
@@ -76,7 +102,6 @@ const routes = [
         component: ProfessionalSignUp,
         meta: {
             requiresGuest: true,
-            role: 'professional'
         }
     },
     {
@@ -185,6 +210,13 @@ const routes = [
         },
     },
     {
+        path: '/perfil/editar/profesional',
+        name: 'ProfessionalEdit',
+        component: ProfessionalEdit,
+        meta: {
+            requiresAuth: true,
+        },
+    },
         path: '*',
         name: 'PageNotFound',
         component: PageNotFound,
