@@ -19,6 +19,7 @@ import VaccineForm from "../views/pets/VaccineForm";
 import WeightForm from "../views/pets/WeightForm";
 import WeightList from "../views/pets/weights/List";
 import AcceptSharedPetRequest from "@/views/contact/Accept";
+import PageNotFound from "@/views/PageNotFound";
 
 Vue.use(VueRouter)
 
@@ -165,6 +166,11 @@ const routes = [
             requiresAuth: true,
         },
     },
+    {
+        path: '*',
+        name: 'PageNotFound',
+        component: PageNotFound,
+    }
 ]
 
 const router = new VueRouter({
