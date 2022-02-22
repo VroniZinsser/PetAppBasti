@@ -26,6 +26,19 @@ DB_DATABASE=laravel
 DB_USERNAME=root
 DB_PASSWORD=
 ~~~
+- **modificar las siguientes variables** del archivo `.env` de modo que concuerden con la cuenta de correo electrónica usada para enviar correos a los usuarios
+~~~
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=465
+MAIL_USERNAME=basti.mascotas@gmail.com
+MAIL_PASSWORD=El password de la cuenta
+MAIL_ENCRYPTION=ssl
+MAIL_FROM_ADDRESS=basti.mascotas@gmail.com
+MAIL_FROM_NAME="Basti Mascotas"
+~~~
+- Modificar el nombre de la app en el archivo `.env`: APP_NAME=Basti
+- Modificar la url que va hacía el frontend en AuthServiceProvider.php en el método ResetPassword::createUrlUsing()
 - Ejecutar las migrations y seeders ejecutando el comando `php artisan migrate --seed`
 - Recrear el `symlink` para el storage ejecutando el comando `php artisan storage:link`. Esto te creará una carpeta "storage" dentro de la carpeta "public".
 - Dentro de la carpeta "public/storage" tienes que crear las siguientes carpetas
