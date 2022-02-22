@@ -1,7 +1,7 @@
 <template>
   <v-form
       :action="vaccine ? 'vacunas/editar' : 'vacunas/crear'"
-      :method="'post'"
+      method="post"
       ref="vaccineForm"
       @submit.prevent="sendForm"
   >
