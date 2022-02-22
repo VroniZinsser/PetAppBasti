@@ -14,11 +14,6 @@
         </div>
       </v-col>
     </v-row>
-
-    <p>No se encontró la página</p>
-    <p>
-      <router-link to="/">Volver al inicio</router-link>
-    </p>
   </v-container>
 </template>
 
