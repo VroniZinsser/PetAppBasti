@@ -63,7 +63,6 @@ export default {
     methods: {
         deleteAccount() {
             this.showWarnDialog = false;
-            this.$router.push({name: 'Login'});
             const id = this.store.user.id;
             authService.removeAuthUser();
             userService.delete(id)

@@ -19,7 +19,6 @@
             
             &.accept {
                 color: white;
-                margin-bottom: 1rem;
                 border-radius: 3px;
                 background: map.get($theme-colors, "danger");
 
@@ -29,9 +28,9 @@
             }
 
             &.cancel {
+                margin-top: 1rem;
                 @include tablet-up {
                     margin-right: .5rem;
-                    margin-bottom: .5rem;
                 }
             }
         }
