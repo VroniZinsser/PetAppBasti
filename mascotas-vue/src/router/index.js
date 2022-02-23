@@ -23,6 +23,7 @@ import WeightList from "../views/pets/weights/List";
 import VaccineList from "../views/pets/vaccines/List";
 import AcceptSharedPetRequest from "@/views/contact/Accept";
 import PageNotFound from "@/views/PageNotFound";
+import MedicineList from "@/views/pets/medicines/List";
 
 Vue.use(VueRouter)
 
@@ -132,6 +133,14 @@ const routes = [
         path: '/mascotas/:pet_id/medicamentos/agregar',
         name: 'MedicinesAddForm',
         component: MedicinesAddForm,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/mascotas/:pet_id/medicamentos',
+        name: 'MedicineList',
+        component: MedicineList,
         meta: {
             requiresAuth: true,
         },
