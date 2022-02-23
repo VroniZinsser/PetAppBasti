@@ -3,7 +3,7 @@
       action="usuario/dueño"
       method="post"
       ref="ownerForm"
-      @submit.prevent="singUp"
+      @submit.prevent="sendForm"
   >
     <InputText
         label="Nombre"
@@ -31,6 +31,7 @@
     ></InputText>
 
     <InputText
+        v-if="!user"
         :type="showPassword ? 'text' : 'password'"
         label="Contraseña"
         v-model="formData.password"
@@ -43,7 +44,7 @@
         @click:append="showPassword = !showPassword"
     ></InputText>
 
-    <button class="main-btn" type="submit" :disabled="loading">Crear cuenta</button>
+    <button class="main-btn" type="submit" :disabled="loading">{{ user ? 'Guardar cambios' : 'Crear cuenta'}}</button>
   </v-form>
 </template>
 
@@ -51,13 +52,22 @@
 import InputText from "../../general/inputs/InputText";
 import userService from "../../../services/users";
 import authService from "../../../services/auth";
+import store from "@/store";
+
 
 export default {
   name: "OwnerForm",
   components: {InputText},
+  props: {
+    user: {
+      type: Object,
+      default: null,
+    },
+  },
   data: () => ({
     showPassword: false,
     loading: false,
+    store,
     formData: {
       first_name: null,
       last_name: null,
@@ -84,53 +94,106 @@ export default {
     },
   }),
   methods: {
-    /**
-     * Attempt to create a new user with the role of owner, if something fails it will show error messages and why it failed.
-     * If the process completes successfully the user will be authenticated and sent to home.
-     */
-    singUp() {
+    sendForm() {
       if (this.$refs.ownerForm.validate()) {
         this.loading = true;
 
         this.errors = {
+          first_name: null,
+          last_name: null,
           email: null,
           password: null,
         }
 
-        userService.createOwner(this.formData)
-            .then(res => {
-              if (!res.success) {
-                if (res.errors) {
-                  this.errors = {
-                    first_name: null,
-                    last_name: null,
-                    email: null,
-                    password: null,
-                    ...res.errors
-                  }
-                } else {
-                  alert('Hubo un error inesperado, inténtalo de nuevo más tarde y si el problema persiste póngase en contacto a través de basti.mascotas@gmail.com');
-                }
-              } else {
-                let credentials = {
-                  email: this.formData.email,
-                  password: this.formData.password,
-                }
-
-                authService.login(credentials)
-                    .then(res => {
-                      authService.saveAuthUser(res.data.user);
-
-                      this.$router.push({name: 'Home'});
-                    });
-              }
-              this.loading = false
-            });
+        if (!this.user) {
+          this.signUp();
+        } else {
+          this.updateUser();
+        }
       }
+
+    },
+    /**
+     * Attempt to create a new user with the role of owner, if something fails it will show error messages and why it failed.
+     * If the process completes successfully the user will be authenticated and sent to home.
+     */
+    signUp() {
+      userService.createOwner(this.formData)
+        .then(res => {
+          if (!res.success) {
+            if (res.errors) {
+              this.errors = {
+                first_name: null,
+                last_name: null,
+                email: null,
+                password: null,
+                ...res.errors
+              }
+            } else {
+              this.store.setStatus({
+                msg: "¡Algo salió mal! Por favor, intentalo nuevamente más tarde",
+                type: 'error'
+              });
+            }
+          } else {
+            let credentials = {
+              email: this.formData.email,
+              password: this.formData.password,
+            }
+
+            authService.login(credentials)
+                .then(res => {
+                  authService.saveAuthUser(res.data.user);
+
+                  this.$router.push({name: 'Home'});
+                });
+          }
+          this.loading = false
+        });
+      
+    },
+
+    updateUser() {
+      userService.update(this.formData, this.user.id)
+        .then(res => {
+          this.loading = false;
+
+          if (!res.success) {
+            if (res.errors) {
+              this.errors = {
+                first_name: null,
+                last_name: null,
+                email: null,
+                password: null,
+                ...res.errors
+              }
+              this.store.setStatus({
+                msg: "Por favor corregí los datos del formulario.",
+                type: 'warning',
+              });
+            } else {
+              this.store.setStatus({
+                msg: '¡Algo salió mal! Por favor, intentalo nuevamente más tarde.',
+                type: 'error',
+              });
+            }
+          } else {
+            this.store.setStatus({
+              msg: 'Los cambios se guardaron con éxito.',
+              type: 'success',
+            });
+            this.$router.back();
+          }
+        })
     }
   },
   mounted() {
-  }
+    if (this.user) {
+      this.formData.first_name = this.user.first_name;
+      this.formData.last_name = this.user.last_name;
+      this.formData.email = this.user.email;
+    }
+  },
 }
 </script>
 

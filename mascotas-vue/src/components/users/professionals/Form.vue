@@ -407,7 +407,7 @@ export default {
     },
 
     updateUser() {
-      userService.update(this.formData, this.professional.id)
+      userService.updateProfessional(this.formData, this.professional.id)
         .then(res => {
           this.loading = false;
           window.scrollTo(0,0);
