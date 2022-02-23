@@ -1,175 +1,220 @@
 .pet-medical-info {
-    display: flex;
-    flex-direction: column;
-    
-    @include desktop-up { 
-        flex-direction: row;
-        flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+
+  @include desktop-up {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .medical-container {
+    width: 100%;
+    min-height: 200px;
+    padding: 16px 16px 0;
+
+    .medical-container-body, .medical-container-header {
+      max-width: 426px;
+      margin: auto;
+
+      @include tablet-up {
+        max-width: none;
+      }
     }
 
-    .medical-container {
-        padding: 16px;
-        width: 100%;
-        min-height: 200px; 
+    .medical-container-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-        .medical-container-body, .medical-container-header {
-            max-width: 426px;
-            margin: auto;
+      h2 {
+        font-size: 20px;
+      }
 
-            @include tablet-up {
-                max-width: none;
-            }
+      a {
+        color: black;
+        font-size: 14px;
+      }
+    }
+
+    .no-data{
+      padding-bottom: 1rem;
+    }
+
+    &.medicine {
+      background-color: $white-gray;
+
+      @include tablet-up {
+        width: calc(100vw - 320px);
+      }
+
+      .medical-container-body {
+        display: flex;
+        overflow-x: auto;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+
+        &::-webkit-scrollbar {
+          width: 0;
         }
 
-        .medical-container-header {
+        .card {
+          margin-top: 0;
+        }
+
+        .medicine-item {
+          min-width: 70vw;
+          margin-right: 16px;
+
+          &.disabled{
+            opacity: .7;
+          }
+
+          @include tablet-up {
+            min-width: calc((100vw - 320px) * 0.6);
+          }
+          @include desktop-up {
+            min-width: 350px;
+          }
+
+          .medicine-item-info {
+            span {
+              display: block;
+              margin-bottom: 8px;
+            }
+          }
+
+          .medicine-item-hours {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            
-            h2 {
-                font-size: 20px;
-            }  
+            flex-wrap: wrap;
 
-            a {
-                color: black;
-                font-size: 14px;
+            div {
+              background: $white-gray-min;
+              border-radius: 2px;
+              padding: 3px;
+              margin-right: 9px;
+              margin-bottom: 8px;
             }
+          }
+
         }
-        
-        &.medicine {
-            background-color: $white-gray;
-            @include tablet-up {
-                width: calc(100vw - 320px);
-            }
-            .medical-container-body {
-                display: flex;
-                overflow-x: auto;
+      }
 
-                &::-webkit-scrollbar {
-                    width: 0;
-                }
-                .medicine-item {
-                    min-width: 70vw;
-                    margin-right: 16px;
-                    @include tablet-up {
-                        min-width: calc((100vw - 320px) * 0.6); 
-                    }
-                    @include desktop-up {
-                        min-width: 350px;
-                    }
-                    .medicine-item-info {
-                        span {
-                            display: block;
-                            margin-bottom: 8px;
-                        }
-                    }
+      .more {
+        min-width: 140px;
+        padding: 0;
+        transition: 300ms;
 
-                    .medicine-item-hours {
-                        display: flex;
-                        flex-wrap: wrap;
-                        div {
-                            background: $white-gray-min;
-                            border-radius: 2px;
-                            padding: 3px;
-                            margin-right: 9px;
-                            margin-bottom: 8px;
-                        }
-                    }
-
-                }
-            }
-
-            .more {
-                min-width: 140px;
-                a {
-                    text-decoration: none;
-                }
-                .inner {
-                    width: 100%;
-                    height: 100%;
-                    p {
-                        color: $black-gray;
-                        font-weight: 700;
-                        font-size: 16px;
-                       
-                        span {
-                            font-weight: 400;
-                            font-size: 14px;
-                            opacity: .6;
-                        }
-                    }
-                }
-            }
+        &:hover {
+          background: $white-gray-min;
         }
 
-        &.vaccine {
-            background-color: $white-gray;
-            @include desktop-up { 
-                background: $white-gray-min;
-            } 
-
-            .medical-container-body {
-                display: grid;
-                grid-auto-flow: row;
-                gap: 16px 20px;
-                justify-items: stretch;
-
-                @include tablet-up { 
-                    grid-template-columns: 1fr 1fr;
-                }
-
-                @include desktop-up { 
-                    grid-template-columns: 1fr 1fr 1fr;
-                }
-                
-                .vaccine-item {
-                    display: flex;
-                    justify-content: space-between;
-
-                    .card-date {
-                        padding-top: 3px;
-                    }
-                }
-            }
-        }
-        
-        &.weight {
-            @include tablet-up { 
-                background: $white-gray-min;
-            }
-            @include desktop-up { 
-                order: -2;
-                width: 50%;
-            }
-
-            ul {
-                @include reset-list;
-                margin-top: 2rem;
-                width: fit-content;
-                text-align: right;
-
-                li {
-                    margin-bottom: .33rem;
-                }
-            }
-
-            .current-weight {
-                font-size: 1.5rem;
-            }
-            .weight-date {
-                font-size: 12px;
-                opacity: 0.5;
-            }
+        a {
+          text-decoration: none;
         }
 
-        &.observation {
-            @include tablet-up {
-                background: $light-gray;
+        .inner {
+          width: 100%;
+          height: 100%;
+          padding: 1rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+          p {
+            text-align: center;
+          }
+
+          .material-icons {
+            font-size: 2rem;
+            color: $clay;
+          }
+
+          p:last-child {
+            color: $black-gray;
+            font-weight: 700;
+            font-size: 16px;
+            margin: 0;
+
+            span {
+              font-weight: 400;
+              font-size: 14px;
+              opacity: .6;
             }
-            @include desktop-up { 
-                order:-1;
-                width: 50%;
-            }
+          }
         }
+      }
     }
+
+    &.vaccine {
+      background-color: $white-gray;
+      @include desktop-up {
+        background: $white-gray-min;
+      }
+
+      .medical-container-body {
+        display: grid;
+        grid-auto-flow: row;
+        gap: 16px 20px;
+        justify-items: stretch;
+
+        @include tablet-up {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        @include desktop-up {
+          grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .vaccine-item {
+          display: flex;
+          justify-content: space-between;
+
+          .card-date {
+            padding-top: 3px;
+          }
+        }
+      }
+    }
+
+    &.weight {
+      @include tablet-up {
+        background: $white-gray-min;
+      }
+      @include desktop-up {
+        order: -2;
+        width: 50%;
+      }
+
+      ul {
+        @include reset-list;
+        margin-top: 2rem;
+        width: fit-content;
+        text-align: right;
+
+        li {
+          margin-bottom: .33rem;
+        }
+      }
+
+      .current-weight {
+        font-size: 1.5rem;
+      }
+
+      .weight-date {
+        font-size: 12px;
+        opacity: 0.5;
+      }
+    }
+
+    &.observation {
+      @include tablet-up {
+        background: $light-gray;
+      }
+      @include desktop-up {
+        order: -1;
+        width: 50%;
+      }
+    }
+  }
+
 }
