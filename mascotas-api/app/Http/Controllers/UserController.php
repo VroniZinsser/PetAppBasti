@@ -127,6 +127,15 @@ class UserController extends Controller
         ]);
     }
 
+    public function updateUser(): JsonResponse
+    {
+        // $user = $this->userRepository->find($user_id);
+
+        return response()->json([
+            'data' => 'update user'
+        ]);
+    }
+
     /**
      * Deletes a user with the given id
      *

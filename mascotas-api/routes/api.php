@@ -40,6 +40,7 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/usuarios/{user_id}', [UserController::class, 'findUser']);
+    Route::put('/usuarios/{user_id}', [UserController::class, 'updateUser']);
     Route::delete('/usuarios/{user_id}', [UserController::class, 'deleteUser']);
 });
 

@@ -125,7 +125,7 @@ const userService = {
     },
 
     /**
-     * Updates an existing user.
+     * Updates an existing professional user.
      *
      * @param {{}} user
      * @param {string} user.first_name
@@ -156,8 +156,31 @@ const userService = {
      * @param {int} id the user id
      * @return {Promise<{headers: Headers, ok: boolean, redirected: boolean, status: number, statusText: string, trailer: Promise<Headers>, type: ResponseType, url: string, clone(): Response, body: ReadableStream | null, bodyUsed: boolean, arrayBuffer(): Promise<ArrayBuffer>, blob(): Promise<Blob>, formData(): Promise<FormData>, json(): Promise<any>, text(): Promise<string>} | never>}
      */
-    update(user, id) {
+    updateProfessional(user, id) {
         return fetch(`${API}profesionales/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify(user),
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            credentials: 'include'
+        })
+            .then(rta => rta.json())
+            .then(respuesta => {
+                return { ...respuesta };
+            });
+    },
+
+    /**
+     * Updates an existing professional user.
+     *
+     * @param {{}} user
+     * @param {string} user.first_name
+     * @param {string} user.last_name
+     * @param {string} user.email
+     * @param {int} id the user id
+     * @return {Promise<{headers: Headers, ok: boolean, redirected: boolean, status: number, statusText: string, trailer: Promise<Headers>, type: ResponseType, url: string, clone(): Response, body: ReadableStream | null, bodyUsed: boolean, arrayBuffer(): Promise<ArrayBuffer>, blob(): Promise<Blob>, formData(): Promise<FormData>, json(): Promise<any>, text(): Promise<string>} | never>}
+     */
+    update(user, id) {
+        return fetch(`${API}usuarios/${id}`, {
             method: 'PUT',
             body: JSON.stringify(user),
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
