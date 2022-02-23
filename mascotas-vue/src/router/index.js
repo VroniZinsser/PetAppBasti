@@ -217,6 +217,7 @@ const routes = [
             requiresAuth: true,
         },
     },
+    {
         path: '*',
         name: 'PageNotFound',
         component: PageNotFound,
