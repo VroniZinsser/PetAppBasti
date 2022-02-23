@@ -4,6 +4,7 @@ namespace App\Http\Requests\Users\Owner;
 
 use App\Messages\Validation;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateRequest extends FormRequest
 {
@@ -24,11 +25,14 @@ class CreateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $userId = $this->user ? $this->user->id : null;
+        $rulesPassword = $this->user ? '' : 'required|min:6|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])/';
+
         return [
             'first_name' => 'required|max:30|min:2|string',
             'last_name' => 'required|max:30|min:2|string',
-            'email' => 'required|email|max:60|unique:users,email',
-            'password' => 'required|min:6|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])/',
+            'email' => ['required', 'email', 'max:60', Rule::unique('users', 'email')->ignore($userId)],
+            'password' => $rulesPassword,
         ];
     }
 

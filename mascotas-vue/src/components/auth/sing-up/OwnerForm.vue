@@ -178,6 +178,7 @@ export default {
               });
             }
           } else {
+            authService.saveAuthUser(res.data.user);
             this.store.setStatus({
               msg: 'Los cambios se guardaron con éxito.',
               type: 'success',
@@ -189,9 +190,9 @@ export default {
   },
   mounted() {
     if (this.user) {
-      this.formData.first_name = this.user.first_name;
-      this.formData.last_name = this.user.last_name;
-      this.formData.email = this.user.email;
+      this.formData = {
+        ...this.user
+      }
     }
   },
 }
