@@ -45,11 +45,15 @@
     ></InputText>
 
     <button class="main-btn" type="submit" :disabled="loading">{{ user ? 'Guardar cambios' : 'Crear cuenta'}}</button>
+    <DeleteAccountButton 
+      v-if="user"
+    />
   </v-form>
 </template>
 
 <script>
 import InputText from "../../general/inputs/InputText";
+import DeleteAccountButton from "@/components/general/buttons/DeleteAccountButton";
 import userService from "../../../services/users";
 import authService from "../../../services/auth";
 import store from "@/store";
@@ -57,7 +61,10 @@ import store from "@/store";
 
 export default {
   name: "OwnerForm",
-  components: {InputText},
+  components: {
+    InputText,
+    DeleteAccountButton,
+  },
   props: {
     user: {
       type: Object,

@@ -73,6 +73,11 @@ const authService = {
         }));
     },
 
+    removeAuthUser() {
+        store.removeUser();
+        localStorage.removeItem('user');
+    },
+
     /**
      * Returns a boolean, true if the user is authenticated, false if not.
      *

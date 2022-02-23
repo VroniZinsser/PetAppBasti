@@ -75,7 +75,6 @@
     button.main-btn {
         max-width: 450px;
         margin: auto;
-        margin-bottom: .5rem;
 
         @include desktop-up {
             margin-right: 0;
@@ -87,6 +86,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin-bottom: .5rem;
 
         @include desktop-up {
             flex-direction: row-reverse;
@@ -96,9 +96,6 @@
     }
 
     .v-btn.button-delete-account {
-        color: map.get($theme-colors, "danger");
-        margin-top: 1rem;
-
         @include desktop-up {
             margin-top: 0;
         }

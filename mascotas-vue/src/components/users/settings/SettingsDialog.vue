@@ -1,10 +1,10 @@
 <template>
-    <v-dialog v-model="showDialog" max-width="500" @click:outside="$emit('cancle')">
+    <v-dialog v-model="showDialog" max-width="500" @click:outside="$emit('cancel')">
       <v-card class="settings-dialog basti-dialog">
         <v-card-title>
             <SettingsDialogHeader 
                 :user="user"
-                @close="$emit('cancle')"
+                @close="$emit('cancel')"
             />
         </v-card-title>
         <v-list nav>
@@ -60,7 +60,7 @@ export default {
                 params: { 'professional_id': this.user.id } 
             });
         }
-        this.$emit('cancle')
+        this.$emit('cancel')
       },
 
       editProfile() {
@@ -70,7 +70,7 @@ export default {
                 name: routeName,
             });
         }
-        this.$emit('cancle')
+        this.$emit('cancel')
       }
   }
 }

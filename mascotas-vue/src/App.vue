@@ -39,7 +39,7 @@
     <SettingsDialog 
       :showDialog="showSettingsDialog"
       :user="store.user"
-      @cancle="showSettingsDialog = false"
+      @cancel="showSettingsDialog = false"
       @logout="logout"
     />
 
