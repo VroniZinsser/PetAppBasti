@@ -10,6 +10,7 @@
         <v-list nav>
             <v-list-item-group>
                 <SettingsDialogItem 
+                    v-if="user.is_professional"
                     icon="mdi-account"
                     text="Ver Perfil"
                     @onclick="viewProfile"
@@ -63,9 +64,10 @@ export default {
       },
 
       editProfile() {
-        if (this.$route.name !== 'ProfessionalEdit') {
+        const routeName = this.user.is_professional ? 'ProfessionalEdit' : 'OwnerEdit'
+        if (this.$route.name !== routeName) {
             this.$router.push({
-                name: 'ProfessionalEdit',
+                name: routeName,
             });
         }
         this.$emit('cancle')

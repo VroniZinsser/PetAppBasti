@@ -1,7 +1,7 @@
 <template>
     <div class="settings-dialog-header">
         <div>
-            <v-avatar v-if="user && user.profile_image" size="42px">
+            <v-avatar v-if="user && user.is_professional" size="42px">
                 <img
                     :alt="user.name"
                     :src="createImgPath(user.profile_image.src)"
