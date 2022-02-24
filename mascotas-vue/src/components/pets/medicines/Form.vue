@@ -62,9 +62,9 @@
 </template>
 
 <script>
-import InputText from "../../../general/inputs/InputText";
-import InputDate from "../../../general/inputs/InputDate";
-import medicineServices from "../../../../services/medicines";
+import InputText from "../../general/inputs/InputText";
+import InputDate from "../../general/inputs/InputDate";
+import medicineServices from "../../../services/medicines";
 import store from "@/store";
 
 export default {

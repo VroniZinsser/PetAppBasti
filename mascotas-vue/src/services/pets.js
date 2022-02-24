@@ -152,6 +152,19 @@ const petServices = {
     },
 
     /**
+     * Get all medicines of the pet
+     *
+     * @param petId
+     * @returns {Promise<any>}
+     */
+    getMedicines(petId) {
+        return fetch(`${API}mascotas/${petId}/medicamentos`, {
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
+        }).then(res => res.json());
+    },
+
+    /**
      * Get all weights of the pet
      *
      * @param petId

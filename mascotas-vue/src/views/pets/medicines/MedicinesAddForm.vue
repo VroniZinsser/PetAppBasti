@@ -16,7 +16,7 @@
 
 <script>
 
-import Form from '@/components/pets/medicines/add/Form';
+import Form from '@/components/pets/medicines/Form';
 import medicineServices from "@/services/medicines";
 import FormContainer from "@/components/general/forms/FormContainer";
 

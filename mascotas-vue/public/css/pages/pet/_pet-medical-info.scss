@@ -59,43 +59,6 @@
         .card {
           margin-top: 0;
         }
-
-        .medicine-item {
-          min-width: 70vw;
-          margin-right: 16px;
-
-          &.disabled{
-            opacity: .7;
-          }
-
-          @include tablet-up {
-            min-width: calc((100vw - 320px) * 0.6);
-          }
-          @include desktop-up {
-            min-width: 350px;
-          }
-
-          .medicine-item-info {
-            span {
-              display: block;
-              margin-bottom: 8px;
-            }
-          }
-
-          .medicine-item-hours {
-            display: flex;
-            flex-wrap: wrap;
-
-            div {
-              background: $white-gray-min;
-              border-radius: 2px;
-              padding: 3px;
-              margin-right: 9px;
-              margin-bottom: 8px;
-            }
-          }
-
-        }
       }
 
       .more {
@@ -213,6 +176,43 @@
         order: -1;
         width: 50%;
       }
+    }
+  }
+
+}
+
+.medicine-item {
+  min-width: 70vw;
+  margin-right: 16px;
+
+  &.disabled{
+    opacity: .7;
+  }
+
+  @include tablet-up {
+    min-width: calc((100vw - 320px) * 0.6);
+  }
+  @include desktop-up {
+    min-width: 350px;
+  }
+
+  .medicine-item-info {
+    span {
+      display: block;
+      margin-bottom: 8px;
+    }
+  }
+
+  .medicine-item-hours {
+    display: flex;
+    flex-wrap: wrap;
+
+    div {
+      background: $white-gray-min;
+      border-radius: 2px;
+      padding: 3px;
+      margin-right: 9px;
+      margin-bottom: 8px;
     }
   }
 
