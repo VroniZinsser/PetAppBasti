@@ -124,4 +124,20 @@ class MedicineController extends Controller
             "data" => compact('hours')
         ]);
     }
+
+    /**
+     * Returns the data necessary for the creation of the edit form in the front-end.
+     *
+     * @param $medicine_id
+     * @return JsonResponse
+     */
+    public function updateForm($medicine_id): JsonResponse
+    {
+        $hours = $this->hourRepository->getAll();
+        $medicine = $this->medicineRepository->find($medicine_id);
+
+        return response()->json([
+            "data" => compact('hours', 'medicine')
+        ]);
+    }
 }
