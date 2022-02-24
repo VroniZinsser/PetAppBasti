@@ -21,7 +21,7 @@ import medicineServices from "@/services/medicines";
 import FormContainer from "@/components/general/forms/FormContainer";
 
 export default {
-  name: "MedicinesAddForm",
+  name: "MedicineForm",
   components: {
     Form,
     FormContainer,

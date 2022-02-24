@@ -5,7 +5,7 @@ import Explore from "../views/explore/Explore";
 // import Home from '../views/Home.vue'
 // import Inbox from "../views/contact/Inbox";
 import Login from "../views/Auth/Login";
-import MedicinesAddForm from "../views/pets/medicines/MedicinesAddForm";
+import MedicineForm from "../views/pets/medicines/Form";
 import ObservationForm from "../views/pets/ObservationForm";
 import OwnerSingUp from "../views/Auth/sing-up/OwnerSingUp";
 import Pets from "../views/pets/Pets";
@@ -131,10 +131,19 @@ const routes = [
     },
     {
         path: '/mascotas/:pet_id/medicamentos/agregar',
-        name: 'MedicinesAddForm',
-        component: MedicinesAddForm,
+        name: 'MedicineForm',
+        component: MedicineForm,
         meta: {
             requiresAuth: true,
+        },
+    },
+    {
+        path: '/mascotas/:pet_id/medicamentos/:medicine_id/editar',
+        name: 'MedicineFormEdit',
+        component: MedicineForm,
+        meta: {
+            requiresAuth: true,
+            editing: true,
         },
     },
     {

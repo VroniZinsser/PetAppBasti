@@ -63,7 +63,7 @@ export default {
         {
           icon: 'medication',
           text: 'Nuevo medicamento',
-          pathName: 'MedicinesAddForm',
+          pathName: 'MedicineForm',
           pathParams: {pet_id: this.$route.params.pet_id},
           default: true,
         },

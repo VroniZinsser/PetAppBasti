@@ -82,7 +82,7 @@ export default {
           img_src: createStaticImgPath('ui/no_medicine.png'),
           text: `Agregá medicamentos actuales o del pasado para el registro de medicación de :petName.`,
           cta: {
-            path_name: 'MedicinesAddForm',
+            path_name: 'MedicineForm',
             text: 'Agregar medicamento'
           }
         },
