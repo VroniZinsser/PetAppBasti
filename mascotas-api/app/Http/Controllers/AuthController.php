@@ -119,11 +119,26 @@ class AuthController extends Controller
             }
         );
  
-        $success = $status === Password::PASSWORD_RESET;
-        return response()->json([
-            'success' => $success
-        ]);
+        $msg = '';
+        $success = false;
+        switch ($status) {
+            case Password::PASSWORD_RESET:
+                $success = true;
+                break;
+            case Password::INVALID_USER:
+                $msg = 'El correo que ingresaste no es válido.';
+                break;
+            case Password::INVALID_TOKEN:
+                $msg = 'El link para restablecer tu contraseña caducó.';
+                break;
+            default:
+                $msg = 'Hubo un error inesperado. Por favor intentalo más tarde.';
+            }
 
+        return response()->json([
+            'success' => $success,
+            'msg' => $msg
+        ]);
     }
 
     /**

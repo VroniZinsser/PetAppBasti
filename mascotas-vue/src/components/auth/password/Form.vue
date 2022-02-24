@@ -92,7 +92,7 @@ export default {
                   }
                 } else {
                   this.store.setStatus({
-                    msg: 'Hubo un error al cambiar la contraseña. Por favor, intentalo más tarde.',
+                    msg: 'No se pudo cambiar la contraseña: ' + res.msg,
                     type: 'error',
                   });
                 }

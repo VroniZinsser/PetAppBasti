@@ -15,6 +15,7 @@
             @submit.prevent="sendPasswordReset"
         >
             <p>¡No te preocupes! Te enviamos un mail para que puedas establecer una nueva contraseña.</p>
+            <p>Recordá que el link que te enviamos es válido por <strong>60 minutos</strong>.</p>
             <InputText
                 type="email"
                 label="Correo electrónico"
