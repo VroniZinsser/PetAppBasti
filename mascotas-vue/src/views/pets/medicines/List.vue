@@ -14,13 +14,12 @@
     <CircleButtonLinkList :button-link-data="buttonLinkData"></CircleButtonLinkList>
 
     <template v-if="medicines.length > 0">
-      <!--      <WeightList :weights="weights" @delete="prepareDeleteWeight"></WeightList>-->
       <MedicineList :medicines="medicines" @delete="prepareDeleteMedicine"></MedicineList>
 
       <WarnDialog
           :showDialog="showWarnDialog"
-          dialogTitle="¿Querés eliminar este peso?"
-          acceptButtonText="Borrar peso"
+          dialogTitle="¿Querés eliminar este medicamento?"
+          acceptButtonText="Borrar medicamento"
 
           @cancel="cancelDelete"
           @accept="deleteMedicine"

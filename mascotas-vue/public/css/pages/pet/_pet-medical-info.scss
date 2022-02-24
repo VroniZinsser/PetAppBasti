@@ -36,7 +36,7 @@
       }
     }
 
-    .no-data{
+    .no-data {
       padding-bottom: 1rem;
     }
 
@@ -185,7 +185,7 @@
   min-width: 70vw;
   margin-right: 16px;
 
-  &.disabled{
+  &.disabled {
     opacity: .7;
   }
 
@@ -197,6 +197,22 @@
   }
 
   .medicine-item-info {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: .5rem;
+
+    > div:first-child {
+      flex-grow: 1;
+    }
+
+    .drop-drown-container {
+      .v-btn {
+        span {
+          margin-bottom: 0;
+        }
+      }
+    }
+
     span {
       display: block;
       margin-bottom: 8px;
