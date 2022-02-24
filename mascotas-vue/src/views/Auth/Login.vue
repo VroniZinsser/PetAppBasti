@@ -5,13 +5,6 @@
     :is_short_form="true"
   >
     <Form/>
-    
-    <div class="forgot-password">
-      <router-link :to="{name: 'ResetPasswordForm'}">Olvidé mi Contraseña</router-link>
-    </div>
-    
-    <v-divider />
-    
     <div class="register">
       <p>¿Todavía no tenés una cuenta? <router-link :to="{name: 'OwnerSingUp'}">Registrarme</router-link></p>
     </div>

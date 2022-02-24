@@ -23,6 +23,9 @@
         :loading="loading"
         :errors="errors.password"
     ></InputText>
+    <div class="forgot-password">
+      <router-link :to="{name: 'ResetPasswordForm'}">Olvidé mi Contraseña</router-link>
+    </div>
 
     <button class="main-btn" type="submit" :disabled="loading">Iniciar sesión</button>
   </v-form>
