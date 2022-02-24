@@ -13,13 +13,18 @@ import OwnerSingUp from "../views/Auth/sing-up/OwnerSingUp";
 import Pets from "../views/pets/Pets";
 import PetAddForm from "../views/pets/AddForm";
 import PetEditForm from "../views/pets/EditForm";
+import ProfessionalEdit from "../views/users/ProfessionalEdit";
+import ProfessionalHome from "../views/users/ProfessionalHome";
 import ProfessionalSignUp from "../views/users/ProfessionalSignUp";
 import ProfessionalProfile from "../views/users/ProfessionalProfile";
 import Schedule from "../views/schedule/Schedule";
 import OwnerShareList from "../views/contact/owner/OwnerShareList";
 import VaccineForm from "../views/pets/VaccineForm";
 import WeightForm from "../views/pets/WeightForm";
+import WeightList from "../views/pets/weights/List";
+import VaccineList from "../views/pets/vaccines/List";
 import AcceptSharedPetRequest from "@/views/contact/Accept";
+import PageNotFound from "@/views/PageNotFound";
 
 Vue.use(VueRouter)
 
@@ -77,6 +82,30 @@ const routes = [
             requiresGuest: true,
         }
     },
+      {
+        path: '/profesional/agenda',
+        name: 'ScheduleProfessional',
+        component: Schedule,
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/profesional/explorar',
+        name: 'ExploreProfessional',
+        component: Explore,
+        meta: {
+            requiresAuth: true,
+        }
+    },
+    {
+        path: '/profesional/home',
+        name: 'HomeProfessional',
+        component: ProfessionalHome,
+        meta: {
+            requiresAuth: true,
+        }
+    },
     {
         path: '/registrarme/amo',
         name: 'OwnerSingUp',
@@ -91,7 +120,6 @@ const routes = [
         component: ProfessionalSignUp,
         meta: {
             requiresGuest: true,
-            role: 'professional'
         }
     },
     {
@@ -143,11 +171,44 @@ const routes = [
         },
     },
     {
+        path: '/mascotas/:pet_id/pesos/:weight_id/editar',
+        name: 'WeightFormEdit',
+        component: WeightForm,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/mascotas/:pet_id/pesos',
+        name: 'WeightList',
+        component: WeightList,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/mascotas/:pet_id/vacunas',
+        name: 'VaccineList',
+        component: VaccineList,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
         path: '/mascotas/:pet_id/vacunas/agregar',
         name: 'VaccineForm',
         component: VaccineForm,
         meta: {
             requiresAuth: true,
+        },
+    },
+    {
+        path: '/mascotas/:pet_id/vacunas/:vaccine_id/editar',
+        name: 'VaccineFormEdit',
+        component: VaccineForm,
+        meta: {
+            requiresAuth: true,
+            editing: true,
         },
     },
     {
@@ -166,6 +227,19 @@ const routes = [
             requiresAuth: true,
         },
     },
+    {
+        path: '/perfil/editar/profesional',
+        name: 'ProfessionalEdit',
+        component: ProfessionalEdit,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '*',
+        name: 'PageNotFound',
+        component: PageNotFound,
+    }
 ]
 
 const router = new VueRouter({

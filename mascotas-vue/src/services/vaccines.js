@@ -2,6 +2,20 @@ import {API} from "../constants";
 
 const vaccineService = {
     /**
+     * Search for a vaccine and return its data
+     *
+     * @param {string | int} vaccine_id
+     * @returns {Promise<any>}
+     */
+    find(vaccine_id) {
+        return fetch(`${API}vacunas/${vaccine_id}`, {
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            credentials: 'include'
+        })
+            .then(res => res.json());
+    },
+
+    /**
      * Creates new vaccine
      *
      * @param {{}} data

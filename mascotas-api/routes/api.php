@@ -28,6 +28,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware(['auth'])->group(function () {
     Route::get('profesionales', [UserController::class, 'getProfessionals']);
     Route::get('profesionales/tipos', [UserController::class, 'getProfessionalUserTypes']);
+    // This param must be 'user' because it has a route binding to exactly this string
+    Route::put('/profesionales/{user}', [UserController::class, 'updateProfessional']);
 });
 
 Route::middleware(['guest'])->group(function () {
@@ -88,7 +90,7 @@ Route::prefix('/autenticacion')->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('/peticiones')->group(function () {
-        Route::get("/creadas", [ContactController::class, 'getProfessionalSharedPets']);
+        Route::get("/profesional", [ContactController::class, 'getProfessionalSharedPets']);
         Route::get("/aceptadas", [ContactController::class, 'getRequestsByProfessional']);
         Route::get("/{request_id}/aceptar", [ContactController::class, 'generateAcceptSharedPetRequest']);
         Route::put("/{request_id}", [ContactController::class, 'updateSharedPetRequest']);

@@ -3,7 +3,12 @@
 
   <div v-else class="professional-profile">
     <TitleBar :title="nameToDisplay(professional)"></TitleBar>
-    
+    <BaseNotification
+        v-if="store.status.msg != null"
+        :type="store.status.type"
+        :text="store.status.msg"
+        :title="store.status.title"
+    />
 
     <div class="profile-container">
       <PetShareDialog 
@@ -14,9 +19,22 @@
       />
       
       <div class="profile-main-content">
-        <button class="float-circle-btn" @click="showPetShareDialog = true">
+        <button 
+          v-if="!isProfessional"
+          class="float-circle-btn" 
+          @click="showPetShareDialog = true"
+        >
           <img :src="createStaticImgPath('contact/share-pet.svg')" alt="Compartir mascota">
           <span class="sr-only">Compartir mascota con este profesional</span>
+        </button>
+        <button 
+          v-if="canEditProfile"
+          class="float-circle-btn" 
+          @click="function() { 
+            $router.push({ name: 'ProfessionalEdit' })
+          }">
+          <v-icon>mdi-pencil</v-icon>
+          <span class="sr-only">Editar perfil</span>
         </button>
         <div class="intro">
           <div>
@@ -57,11 +75,7 @@
         </div>
         <div class="location">
           <h3>Dirección</h3>
-          <div>
-            <span>{{ professional.street }} {{ professional.house_number }}</span>
-            <span>{{ professional.postal_code }} {{ professional.district }} {{ professional.city }}</span>
-            <span>{{ professional.state }}</span>
-          </div>
+          <Address :professional="professional" />
           <a :href="googleMapsLink" target="_blank">
             <img :src="createStaticImgPath('contact/google-maps.png')" alt="Link a Google Maps">
             <span>Google Maps</span>
@@ -73,8 +87,8 @@
 </template>
 
 <script>
-import ContactItem from "@/components/users/profile/professional/ContactItem";
 import PetShareDialog from "@/components/contact/requests/PetShareDialog";
+import ContactItem from "@/components/users/professionals/ContactItem";
 import {createImgPath} from "@/helpers";
 import {createStaticImgPath} from "@/helpers";
 import TitleBar from "@/components/general/layouts/TitleBar";
@@ -82,6 +96,8 @@ import userServices from "@/services/users";
 import store from "@/store";
 import Loader from "@/components/general/notifications/Loader";
 import {nameToDisplay} from "@/helpers";
+import Address from "@/components/users/professionals/Address";
+import BaseNotification from "@/components/general/notifications/BaseNotification";
 
 export default {
   name: "ProfessionalProfile",
@@ -90,6 +106,8 @@ export default {
     Loader,
     ContactItem,
     PetShareDialog,
+    Address,
+    BaseNotification,
   },
   data() {
     return {
@@ -127,6 +145,14 @@ export default {
           || this.professional.web;
     },
 
+    /** Returns true if the logged in user has the same id as the profile's user */
+    canEditProfile() {
+      return this.professional.id === this.store.user.id;
+    },
+
+    isProfessional() {
+      return store.user.is_professional;
+    }
   },
   methods: {
     whiteSpacesToPlus(str) {
@@ -173,8 +199,9 @@ export default {
                 'imgPath': 'contact/www.png',
                 'alt': 'link a la página web'
               }
-            ],
-                this.loading = false;
+            ];
+            this.loading = false;
+            
           } else {
             this.store.setStatus({
               msg: 'El perfil que estás buscando no está disponible.',

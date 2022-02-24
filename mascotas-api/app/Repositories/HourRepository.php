@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Models\Hour;
 use Illuminate\Database\Eloquent\Collection;
 
 interface HourRepository

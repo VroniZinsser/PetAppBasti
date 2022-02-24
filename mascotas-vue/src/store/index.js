@@ -10,7 +10,8 @@ const store = {
         email: null,
         first_name: null,
         last_name: null,
-        image: null
+        profile_image: null,
+        is_professional: false,
     },
     activePet: {
         id: null,
@@ -42,7 +43,7 @@ const store = {
      * @param {string} authUser.email
      * @param {string} authUser.first_name
      * @param {string} authUser.last_name
-     * @param {{} | null} authUser.image
+     * @param {{} | null} authUser.profile_image
      */
     setUser(authUser) {
         if (this.debug) {
@@ -55,7 +56,8 @@ const store = {
             email: authUser.email,
             first_name: authUser.first_name,
             last_name: authUser.last_name,
-            image: authUser.image,
+            profile_image: authUser.profile_image,
+            is_professional: authUser.is_professional,
         }
     },
 
@@ -73,7 +75,7 @@ const store = {
             email: null,
             first_name: null,
             last_name: null,
-            image: null
+            profile_image: null
         }
     },
     /**

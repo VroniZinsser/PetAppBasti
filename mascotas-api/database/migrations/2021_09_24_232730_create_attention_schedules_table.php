@@ -20,7 +20,7 @@ class CreateAttentionSchedulesTable extends Migration
             $table->time('open_time');
             $table->time('close_time');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

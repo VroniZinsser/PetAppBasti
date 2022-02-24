@@ -101,7 +101,7 @@ $pet-img-max-height: 270px;
     display: none;
     position: absolute;
     width: 100%;
-    padding-bottom: 56px;
+    padding-bottom: $navbar-height-mobile;
 
     &.show {
       display: block;
