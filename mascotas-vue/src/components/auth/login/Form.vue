@@ -83,17 +83,14 @@ export default {
                     ...res.errors
                   }
                 } else {
-                  alert('Uno o ambos campos son incorrectos');
+                  this.store.setStatus({
+                    msg: 'Uno o ambos campos son incorrectos.',
+                    type: 'error',
+                  });
                 }
                 this.formData.password = null;
               } else {
                 authService.saveAuthUser(res.data.user);
-                this.store.setStatus({
-                    msg: null,
-                    type: 'success',
-                    title: null
-                  });
-
                 this.$router.push({name: 'Pets'});
               }
 
