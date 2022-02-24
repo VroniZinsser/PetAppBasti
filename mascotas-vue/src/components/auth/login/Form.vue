@@ -13,7 +13,7 @@
         :rules="[rules.obligatory, rules.email]"
         :errors="errors.email"
     ></InputText>
-
+    
     <InputText
         :type="showPassword ? 'text' : 'password'"
         label="Contraseña"
@@ -23,6 +23,7 @@
         :loading="loading"
         :errors="errors.password"
     ></InputText>
+    
     <div class="forgot-password">
       <router-link :to="{name: 'ResetPasswordForm'}">Olvidé mi Contraseña</router-link>
     </div>
