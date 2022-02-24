@@ -34,7 +34,7 @@ class MedicineService implements MedicineRepository
      */
     public function find(int $id): Medicine
     {
-        return Medicine::find($id);
+        return Medicine::find($id)->load('hours');
     }
 
     /**
