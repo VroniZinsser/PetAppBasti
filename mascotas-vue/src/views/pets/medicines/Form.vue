@@ -1,15 +1,17 @@
 <template>
   <FormContainer
-    headline="Agregá un nuevo medicamento"
-    form_class="form-medicine"
-    :is_short_form="false"
+      :headline="this.$route.params.medicine_id ? 'Editar medicamento' : 'Agregá un nuevo medicamento'"
+      form_class="form-medicine"
+      :is_short_form="false"
   >
     <p>Podés agregar medicamentos actuales pero también medicamentos del pasado para tener un registro.</p>
-    <p v-if="loading">Cargando...</p>
 
-    <Form v-else
-          :hours="hours"
-          :pet_id="$route.params.pet_id">
+    <Form
+        v-if="!loading"
+        :hours="hours"
+        :pet_id="$route.params.pet_id"
+        :medicine="medicine"
+    >
     </Form>
   </FormContainer>
 </template>
@@ -26,18 +28,28 @@ export default {
     Form,
     FormContainer,
   },
-  data: function (){
+  data: function () {
     return {
       loading: true,
       hours: [],
+      medicine: null,
     }
   },
   mounted() {
-    medicineServices.createForm()
-        .then(res => {
-          this.hours = res.data.hours;
-          this.loading = false;
-        })
+    if (this.$route.params.medicine_id) {
+      medicineServices.updateForm(this.$route.params.medicine_id)
+          .then(res => {
+            this.medicine = res.data.medicine;
+            this.hours = res.data.hours;
+            this.loading = false;
+          })
+    } else {
+      medicineServices.createForm()
+          .then(res => {
+            this.hours = res.data.hours;
+            this.loading = false;
+          })
+    }
   }
 }
 </script>
