@@ -2,23 +2,17 @@
   <Loader v-if="loading"></Loader>
 
   <v-container v-else class="medical-list-container">
-    <header>
-      <router-link :to="{name: 'Pets'}">
-        <span class="sr-only">Volver al listado de mascotas</span>
-        <span class="material-icons">arrow_back</span>
-      </router-link>
-
-      <h1>Medicamentos de la mascota</h1>
-    </header>
+    <ListHeader title="Medicamentos de la mascota" />
   </v-container>
 </template>
 
 <script>
 import Loader from "@/components/general/notifications/Loader";
+import ListHeader from "@/components/pets/show/medical/ListHeader";
 
 export default {
   name: "List",
-  components: {Loader},
+  components: {ListHeader, Loader},
   props: {},
   data() {
     return {

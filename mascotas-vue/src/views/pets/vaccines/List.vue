@@ -2,14 +2,7 @@
   <Loader v-if="loading"></Loader>
 
   <v-container v-else class="medical-list-container">
-    <header>
-      <router-link :to="{name: 'Pets'}">
-        <span class="sr-only">Volver al listado de mascotas</span>
-        <span class="material-icons">arrow_back</span>
-      </router-link>
-
-      <h1>Vacunas de la mascota</h1>
-    </header>
+    <ListHeader title="Vacunas de la mascota"/>
 
     <BaseNotification
         v-if="store.status.msg != null"
@@ -48,10 +41,11 @@ import vaccineService from "@/services/vaccines";
 import VaccineList from "@/components/pets/vaccine/List";
 import petServices from "@/services/pets";
 import CircleButtonLinkList from "@/components/general/buttons/floating/CircleButtonLinkList";
+import ListHeader from "@/components/pets/show/medical/ListHeader";
 
 export default {
   name: "List",
-  components: {CircleButtonLinkList, WarnDialog, BaseNotification, Loader, VaccineList},
+  components: {ListHeader, CircleButtonLinkList, WarnDialog, BaseNotification, Loader, VaccineList},
   props: {},
   data() {
     return {
