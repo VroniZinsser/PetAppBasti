@@ -80,7 +80,7 @@ const authService = {
      * @returns {Promise<any>}
      */
     sendPasswordReset(formData) {
-        return fetch(`${API}autenticacion/recuperar-password`, {
+        return fetch(`${API}autenticacion/recuperar-contrasena`, {
             method: 'POST',
             body: JSON.stringify(formData),
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -98,7 +98,7 @@ const authService = {
      * @returns {Promise<any>}
      */
     changePassword(formData) {
-        return fetch(`${API}autenticacion/cambiar-password`, {
+        return fetch(`${API}autenticacion/cambiar-contrasena`, {
             method: 'POST',
             body: JSON.stringify(formData),
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },

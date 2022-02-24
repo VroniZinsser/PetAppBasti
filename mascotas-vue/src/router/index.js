@@ -62,7 +62,7 @@ const routes = [
         }
     },
     {
-        path: '/recuperar-password',
+        path: '/recuperar-contrasena',
         name: 'ResetPasswordForm',
         component: ResetPasswordForm,
         meta: {
@@ -70,7 +70,7 @@ const routes = [
         }
     },
     {
-        path: '/cambiar-password',
+        path: '/cambiar-contrasena',
         name: 'ChangePassword',
         component: ChangePassword,
         meta: {

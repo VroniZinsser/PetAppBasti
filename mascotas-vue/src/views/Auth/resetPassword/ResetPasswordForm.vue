@@ -9,7 +9,7 @@
         <p v-if="showFinalMessage">¡Listo! Si tu correo está registrado en Basti, dentro de poco te llegará un correo electrónico con un link para resetear tu contraseña.</p>
         <form
             v-else
-            action="autenticacion/recuperar-password"
+            action="autenticacion/recuperar-contrasena"
             method="post"
             ref="passwordRecoveryForm"
             @submit.prevent="sendPasswordReset"
