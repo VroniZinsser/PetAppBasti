@@ -4,10 +4,10 @@
     form_class="form-login"
     :is_short_form="true"
   >
-
     <Form/>
-    
-    <p>¿Todavía no tenés una cuenta? <router-link :to="{name: 'OwnerSingUp'}">Registrarme</router-link></p>
+    <div class="register">
+      <p>¿Todavía no tenés una cuenta? <router-link :to="{name: 'OwnerSingUp'}">Registrarme</router-link></p>
+    </div>
   </FormContainer>
 </template>
 

@@ -5,6 +5,8 @@ import Explore from "../views/explore/Explore";
 // import Home from '../views/Home.vue'
 // import Inbox from "../views/contact/Inbox";
 import Login from "../views/Auth/Login";
+import ResetPasswordForm from "../views/Auth/resetPassword/ResetPasswordForm";
+import ChangePassword from "../views/Auth/resetPassword/ChangePassword";
 import MedicinesAddForm from "../views/pets/medicines/MedicinesAddForm";
 import ObservationForm from "../views/pets/ObservationForm";
 import OwnerSingUp from "../views/Auth/sing-up/OwnerSingUp";
@@ -65,6 +67,22 @@ const routes = [
         }
     },
     {
+        path: '/recuperar-contrasena',
+        name: 'ResetPasswordForm',
+        component: ResetPasswordForm,
+        meta: {
+            requiresGuest: true,
+        }
+    },
+    {
+        path: '/cambiar-contrasena',
+        name: 'ChangePassword',
+        component: ChangePassword,
+        meta: {
+            requiresGuest: true,
+        }
+    },
+      {
         path: '/profesional/agenda',
         name: 'ScheduleProfessional',
         component: Schedule,
