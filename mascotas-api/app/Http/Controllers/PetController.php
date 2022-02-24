@@ -58,6 +58,8 @@ class PetController extends Controller
      */
     public function createPet(UpdateOrCreateRequest $request): JsonResponse
     {
+        $this->authorize('create', Pet::class);
+
         $photo = $request->get('photo');
         $image_id = $request->get('species_id');
 
@@ -193,25 +195,13 @@ class PetController extends Controller
     public function findPet($pet_id): JsonResponse
     {
         $pet = $this->petRepository->findWithRelationship($pet_id);
+        
+        $this->authorize('view', $pet);
 
-        $access = false;
-
-        foreach ($pet->owners as $owner) {
-            if (Auth::user()->id === $owner->id){
-                $access = true;
-            }
-        }
-
-        if ($pet && $access) {
-            return response()->json([
-                'success' => true,
-                'data' => compact('pet'),
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'data' => compact('pet'),
+        ]);
     }
 
     /**
@@ -222,9 +212,9 @@ class PetController extends Controller
      */
     public function deletePet($pet_id): JsonResponse
     {
-        if (!$this->petRepository->isOwner(Auth::user()->id, $pet_id)) {
-            return $this->denyPermission();
-        }
+        $pet = $this->petRepository->findWithOwners($pet_id);
+
+        $this->authorize('delete', $pet);
 
         $this->petRepository->delete($pet_id);
 

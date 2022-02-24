@@ -49,6 +49,14 @@ interface PetRepository
     public function findWithRelationship(int $id);
 
     /**
+     * Return the pet with the given id and its relations.
+     *
+     * @param int $id
+     * @return mixed
+     */
+    public function findWithOwners(int $id);
+
+    /**
      * Deletes the pet with the given id and returns true if deletion was successful
      *
      * @param int $id
