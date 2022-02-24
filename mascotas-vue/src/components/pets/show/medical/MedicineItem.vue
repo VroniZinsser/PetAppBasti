@@ -22,6 +22,15 @@
           <v-list>
             <v-list-item>
               <v-list-item-title>
+                <router-link
+                    :to="{name: 'MedicineFormEdit', params: {pet_id: medicine.pets_id, medicine_id: medicine.id}}">
+                  <button>Editar</button>
+                </router-link>
+              </v-list-item-title>
+            </v-list-item>
+
+            <v-list-item>
+              <v-list-item-title>
                 <button @click="$emit('delete', medicine.id);">Eliminar</button>
               </v-list-item-title>
             </v-list-item>
