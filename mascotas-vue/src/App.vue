@@ -21,7 +21,7 @@
           </router-link>
         </li>
         <li v-if="store.user.id">
-          <a href="#" @click.prevent="dialog = true">
+          <a href="#" @click.prevent="showSettingsDialog = true">
             <span class="material-icons">account_circle</span>
             <span class="sr-only">Abrir opciones (abre ventana modal)</span>
           </a>
@@ -35,6 +35,13 @@
 
       </ul>
     </v-app-bar>
+
+    <SettingsDialog 
+      :showDialog="showSettingsDialog"
+      :user="store.user"
+      @cancle="showSettingsDialog = false"
+      @logout="logout"
+    />
 
     <!--Config modal-->
     <v-dialog v-model="dialog" max-width="500" class="container--fluid">
@@ -59,16 +66,24 @@
 
 import {createStaticImgPath} from "@/helpers";
 import authService from "./services/auth";
+import SettingsDialog from "@/components/users/settings/SettingsDialog";
 import store from "./store";
+
 
 export default {
   name: 'App',
 
+  components: {
+    SettingsDialog,
+  },
+
   data: () => ({
     dialog: false,
+    showSettingsDialog: false,
+    showWarnDialog: false,
     createStaticImgPath,
     store,
-    routerLinks: [
+    routerLinksOwner: [
       {
         name: 'Schedule',
         text: 'Agenda',
@@ -89,6 +104,23 @@ export default {
         text: 'Compartir',
         icon: 'share',
       },
+    ],
+    routerLinksProfessional: [
+      {
+        name: 'HomeProfessional',
+        text: 'Home',
+        icon: 'home',
+      },
+      {
+        name: 'ScheduleProfessional',
+        text: 'Agenda',
+        icon: 'event',
+      },
+      {
+        name: 'ExploreProfessional',
+        text: 'Explorar',
+        icon: 'search',
+      },
     ]
   }),
   methods: {
@@ -96,6 +128,7 @@ export default {
      * Logs out the user, and redirects to the login view
      */
     logout() {
+      this.showSettingsDialog = false;
       this.store.setActivePet(null);
       this.store.setStatus({
         msg: 'Gracias y hasta la próxima',
@@ -113,7 +146,22 @@ export default {
         msg: content,
         type: type,
       });
-    }
+    },
+
+    showDeleteAccountDialog() {
+      this.showSettingsDialog = false;
+      this.showWarnDialog = true;
+    },
   },
+
+  computed: {
+    routerLinks() {
+      if (store.user.is_professional) {
+        return this.routerLinksProfessional;
+      } else {
+        return this.routerLinksOwner;
+      }
+    }
+  }
 };
 </script>

@@ -91,7 +91,12 @@ export default {
                 this.formData.password = null;
               } else {
                 authService.saveAuthUser(res.data.user);
-                this.$router.push({name: 'Pets'});
+
+                if (res.data.user.is_professional) {
+                  this.$router.push({name: 'HomeProfessional'})
+                } else {
+                  this.$router.push({name: 'Pets'});
+                }
               }
 
               this.loading = false

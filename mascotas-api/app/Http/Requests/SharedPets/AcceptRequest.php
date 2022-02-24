@@ -2,10 +2,8 @@
 
 namespace App\Http\Requests\SharedPets;
 
-use App\Repositories\ContactRepository;
 use App\Services\ContactService;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
 class AcceptRequest extends FormRequest
 {

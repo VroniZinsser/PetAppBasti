@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
+use App\Repositories\UserRepository;
 
 class AuthController extends Controller
 {
@@ -18,9 +19,10 @@ class AuthController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserRepository $userRepository)
     {
         $this->middleware('auth:api', ['except' => ['login', 'sendPasswordReset', 'changePassword']]);
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -44,11 +46,11 @@ class AuthController extends Controller
         }
 
         $cookie = cookie("token", $token);
-
+        $user = $this->userRepository->find(auth()->user()->id);
         return response()->json([
             'success' => true,
             'data' => [
-                'user' => auth()->user(),
+                'user' => $user,
             ],
         ])->cookie($cookie);
     }
@@ -60,9 +62,11 @@ class AuthController extends Controller
      */
     public function me(): JsonResponse
     {
+        $user = $this->userRepository->find(auth()->user()->id);
+        
         return response()->json([
             'data' => [
-                'user' => auth()->user(),
+                'user' => $user,
             ],
         ]);
     }

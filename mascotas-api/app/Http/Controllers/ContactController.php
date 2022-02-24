@@ -6,9 +6,7 @@ use App\Http\Requests\SharedPets\AcceptRequest;
 use App\Http\Requests\SharedPets\CreateRequest;
 use App\Http\Requests\SharedPets\UpdateRequest;
 use App\Repositories\ContactRepository;
-use App\Services\ContactService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller

@@ -58,7 +58,7 @@ const authService = {
      * @param {string} user.email
      * @param {string} user.first_name
      * @param {string} user.last_name
-     * @param {{} | null} user.image
+     * @param {{} | null} user.profile_image
      */
     saveAuthUser(user) {
         store.setUser(user);
@@ -68,7 +68,8 @@ const authService = {
             'email': user.email,
             'first_name': user.first_name,
             'last_name': user.last_name,
-            'image': user.image,
+            'profile_image': user.profile_image,
+            'is_professional': user.is_professional,
         }));
     },
 
