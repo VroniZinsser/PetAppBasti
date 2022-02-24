@@ -76,19 +76,6 @@ class PetService implements PetRepository
     /**
      * @inheritDoc
      */
-    public function findWithOwners(int $id)
-    {
-        try {
-            $pet = Pet::where('id', $id)->with('owners')->first();
-        } catch (Exception $exception) {
-            return $exception;
-        }
-        return $pet;
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function delete(int $id): bool
     {
         Pet::find($id)->delete();
