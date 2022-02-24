@@ -18,8 +18,8 @@
       <MedicineItem
           v-for="medicine in medicines"
           :key="medicine.id"
-          :medicine="medicine">
-      </MedicineItem>
+          :medicine="medicine"
+          @delete="sendDelete"/>
 
       <MedicineItemMore v-if="medicines.length > 3" :quantity="medicines.length" :pet_id="pet_id"></MedicineItemMore>
     </div>
@@ -56,5 +56,10 @@ export default {
     MedicineItem,
     MedicineItemMore
   },
+  methods: {
+    sendDelete(medicine_id) {
+      this.$emit('delete', medicine_id);
+    }
+  }
 }
 </script>
