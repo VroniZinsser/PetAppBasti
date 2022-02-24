@@ -20,6 +20,21 @@ class MedicineController extends Controller
     }
 
     /**
+     * Returns all medicines of a pet
+     *
+     * @param $pet_id
+     * @return JsonResponse
+     */
+    public function getMedicinesByPet($pet_id): JsonResponse
+    {
+        $medicines = $this->medicineRepository->getMedicinesByPet($pet_id)->values();
+
+        return response()->json([
+            'data' => compact('medicines'),
+        ]);
+    }
+
+    /**
      * Add a new medication to a pet
      *
      * @param AddRequest $request

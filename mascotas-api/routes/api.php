@@ -62,6 +62,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/medicamentos/{medicine_id}', [MedicineController::class, 'findMedicine']);
     Route::put('/medicamentos/{medicine_id}', [MedicineController::class, 'updateMedicine']);
     Route::delete('/medicamentos/{medicine_id}', [MedicineController::class, 'deleteMedicine']);
+    Route::get('/mascotas/{pet_id}/medicamentos', [MedicineController::class, 'getMedicinesByPet']);
+
 });
 
 Route::middleware(['auth'])->group(function () {

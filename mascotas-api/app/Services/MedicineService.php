@@ -7,7 +7,13 @@ use App\Repositories\MedicineRepository;
 
 class MedicineService implements MedicineRepository
 {
-
+    /**
+     * @inheritDoc
+     */
+    public function getMedicinesByPet(int $pet_id): object
+    {
+        return Medicine::get()->where('pets_id', $pet_id)->load('hours');
+    }
 
     /**
      * @inheritDoc
