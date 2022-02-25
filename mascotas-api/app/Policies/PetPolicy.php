@@ -72,13 +72,13 @@ class PetPolicy
     }
 
     /**
-     * Determine whether the user can update the observation of a pet.
+     * Determine whether the user can update or delete the observation of a pet.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\Pet  $pet
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function updateObservation(User $user, Pet $pet)
+    public function updateOrDeleteObservation(User $user, Pet $pet)
     {
         return $this->isPetOwner($user, $pet);
     }
@@ -91,18 +91,6 @@ class PetPolicy
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function delete(User $user, Pet $pet)
-    {
-        return $this->isPetOwner($user, $pet);
-    }
-
-    /**
-     * Determine whether the user can delete the observation of a pet.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Pet  $pet
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function deleteObservation(User $user, Pet $pet)
     {
         return $this->isPetOwner($user, $pet);
     }

@@ -121,9 +121,9 @@ class PetController extends Controller
      */
     public function updateObservation(Request $request, $pet_id): JsonResponse
     {
-        if (!$this->petRepository->isOwner(Auth::user()->id, $pet_id)) {
-            return $this->denyPermission();
-        }
+        $pet = $this->petRepository->find($pet_id);
+        $this->authorize('updateOrDeleteObservation', $pet);
+
         switch ($request->input('action')) {
             case 'update':
                 $this->validateObservation($request->all());
@@ -173,7 +173,10 @@ class PetController extends Controller
 
     public function getObservation($pet_id)
     {
-        $observation = $this->petRepository->getObservation($pet_id);
+        $pet = $this->petRepository->find($pet_id);
+        $this->authorize('viewMedicalDetails', $pet);
+
+        $observation = $pet->observation;
 
         return response()->json([
             'success' => true,
