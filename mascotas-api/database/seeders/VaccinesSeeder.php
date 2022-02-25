@@ -67,7 +67,7 @@ class VaccinesSeeder extends Seeder
                 'id' => 7,
                 'name' => 'Moquillo canino',
                 'date' => '2021-10-28',
-                'pets_id' => 2,
+                'pets_id' => 4,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]
