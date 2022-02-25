@@ -38,7 +38,7 @@ import WarnDialog from "@/components/general/notifications/WarnDialog";
 
 
 export default {
-  name: "ShareListSubitem",
+  name: "ShareListSubItem",
   props: {
     request: {
       type: Object,

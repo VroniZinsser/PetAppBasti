@@ -17,7 +17,7 @@
       :value="expandedItems(professional.requests_professional)"
     >
 
-      <ShareListSubitem
+      <ShareListSubItem
         v-for="request in professional.requests_professional"
         :key="request.id"
         :request="request"
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import ShareListSubitem from "@/components/contact/owner/ShareListSubitem";
+import ShareListSubItem from "@/components/contact/owner/ShareListSubItem";
 
 export default {
   name: "ShareListItem",
@@ -39,7 +39,7 @@ export default {
     },
   },
   components: {
-    ShareListSubitem,
+    ShareListSubItem,
   },
 
   methods: {
