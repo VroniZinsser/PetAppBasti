@@ -78,8 +78,9 @@ class UserController extends Controller
      */
     public function updateProfessional(CreateRequest $request): JsonResponse 
     {
-        // TODO: check if user_id of request is authenticated user
-        // Auth::user()->id !== $request->get('id')
+        $user = $this->userRepository->find($request->id);
+        $this->authorize('update', $user);
+        
         $dto = new UserDTO;
         $dto->loadFromArray($request->except('password'));
 
@@ -129,6 +130,9 @@ class UserController extends Controller
 
     public function updateOwner(CreateOwnerRequest $request): JsonResponse
     {
+        $user = $this->userRepository->find($request->id);
+        $this->authorize('update', $user);
+
         $dto = new UserDTO;
         $dto->loadFromArray($request->except('password'));
 
@@ -150,7 +154,9 @@ class UserController extends Controller
      */
     public function deleteUser($user_id): JsonResponse
     {
-        //TODO: check that $user_id is the authenticated user
+        $user = $this->userRepository->find($user_id);
+        $this->authorize('delete', $user);
+
         $this->userRepository->delete($user_id);
 
         return response()->json([
