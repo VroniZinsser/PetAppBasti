@@ -265,6 +265,7 @@
         <button class="main-btn" type="submit">{{ professional ? 'Guardar cambios' : 'Crear cuenta'}}</button>
         <DeleteAccountButton 
             v-if="!createNewUser"
+            :is_professional="true"
           />
       </div>
     </v-container>
