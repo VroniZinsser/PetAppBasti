@@ -40,9 +40,9 @@ class MedicinePolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(User $user, Pet $pet)
     {
-        //
+        return !$user->is_professional && $this->isPetOwner($user, $pet);
     }
 
     /**

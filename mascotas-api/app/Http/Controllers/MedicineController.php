@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Medicines\AddRequest;
 use App\Repositories\HourRepository;
 use App\Repositories\MedicineRepository;
+use App\Repositories\PetRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -13,10 +14,11 @@ class MedicineController extends Controller
     protected $medicineRepository;
     protected $hourRepository;
 
-    public function __construct(MedicineRepository $medicineRepository, HourRepository $hourRepository)
+    public function __construct(MedicineRepository $medicineRepository, HourRepository $hourRepository, PetRepository $petRepository)
     {
         $this->medicineRepository = $medicineRepository;
         $this->hourRepository = $hourRepository;
+        $this->petRepository = $petRepository;
     }
 
     /**
@@ -27,6 +29,9 @@ class MedicineController extends Controller
      */
     public function createMedicine(AddRequest $request): JsonResponse
     {
+        $pet = $this->petRepository->find($request->get('pet_id'));
+        $this->authorize('create', [Medicine::class, $pet]);
+
         $medicine = $this->medicineRepository->create(
             $request->get('name'),
             $request->get('quantity'),

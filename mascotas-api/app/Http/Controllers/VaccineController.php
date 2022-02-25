@@ -42,6 +42,9 @@ class VaccineController extends Controller
      */
     public function createVaccine(VaccineRequest $request): JsonResponse
     {
+        $pet = $this->petRepository->find($request->get('pet_id'));
+        $this->authorize('create', [Vaccine::class, $pet]);
+
         $vaccine = $this->vaccineRepository->create($request->get('name'), $request->get('date'), $request->get('pet_id'));
 
         return response()->json([

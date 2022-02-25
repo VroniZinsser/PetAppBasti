@@ -43,6 +43,9 @@ class WeightController extends Controller
      */
     public function createWeight(WeightRequest $request): JsonResponse
     {
+        $pet = $this->petRepository->find($request->get('pet_id'));
+        $this->authorize('create', [Weight::class, $pet]);
+
         $weight = $this->weightRepository->create($request->get('date'), $request->get('weight'), $request->get('pet_id'));
 
         return response()->json([
