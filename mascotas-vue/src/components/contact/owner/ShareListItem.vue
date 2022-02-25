@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import ShareListSubItem from "@/components/contact/owner/ShareListSubItem";
+import ShareListSubItem from "@/components/contact/ShareListSubItem";
 
 export default {
   name: "ShareListItem",
