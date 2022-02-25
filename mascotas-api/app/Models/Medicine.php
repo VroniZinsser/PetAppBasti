@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
@@ -47,4 +48,14 @@ class Medicine extends Model
     {
         return $this->belongsToMany(Hour::class, 'medicines_has_hours', 'medicines_id', 'hours_id');
     }
+
+  /**
+   * Returns the related pet
+   *
+   * @return BelongsTo
+   */
+  public function pet(): BelongsTo
+  {
+    return $this->belongsTo(Pet::class, 'pets_id');
+  }
 }

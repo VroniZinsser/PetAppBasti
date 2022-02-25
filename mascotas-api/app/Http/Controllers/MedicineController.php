@@ -51,6 +51,7 @@ class MedicineController extends Controller
     public function findMedicine($medicine_id): JsonResponse
     {
         $medicine = $this->medicineRepository->find($medicine_id);
+        $this->authorize('view', $medicine);
 
         return response()->json([
             'data' => compact('medicine')
@@ -66,6 +67,9 @@ class MedicineController extends Controller
      */
     public function updateMedicine(Request $request, $medicine_id): JsonResponse
     {
+        $medicine = $this->medicineRepository->find($medicine_id);
+        $this->authorize('update', $medicine);
+
         $medicine = $this->medicineRepository->update(
             $medicine_id,
             $request->get('name'),
@@ -89,6 +93,9 @@ class MedicineController extends Controller
      */
     public function deleteMedicine($medicine_id): JsonResponse
     {
+        $medicine = $this->medicineRepository->find($medicine_id);
+        $this->authorize('delete', $medicine);
+
         $this->medicineRepository->delete($medicine_id);
 
         return response()->json([
