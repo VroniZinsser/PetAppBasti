@@ -39,6 +39,7 @@ import Textarea from "@/components/general/inputs/Textarea";
 import WarnDialog from "@/components/general/notifications/WarnDialog";
 import petServices from "../../../services/pets";
 import store from "@/store";
+import { handleAccessError } from "@/helpers";
 
 export default {
   name: "Form",
@@ -59,6 +60,7 @@ export default {
     return {
       loading: false,
       store,
+      handleAccessError,
       showWarnDialog: false,
       formData: {
         observation: null,
@@ -82,6 +84,7 @@ export default {
             .then(res => {
               this.loading = false;
               if (!res.success) {
+                if (this.handleAccessError(res)) return;
                 if (res.errors && res.errors.pets_id) {
                   this.store.setStatus({
                     msg: 'La mascota no existe',
@@ -118,6 +121,7 @@ export default {
       petServices.deleteObservation(this.pet_id)
         .then(res => {
           if (!res.success) {
+            if (this.handleAccessError(res)) return;
             this.store.setStatus({
               msg: 'Algo salió mal. Intentalo nuevamente más tarde.',
               type: 'error',

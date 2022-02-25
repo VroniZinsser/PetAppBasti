@@ -1,7 +1,7 @@
 <template>
   <Loader v-if="loading"></Loader>
 
-  <v-container v-else-if="request" fluid class="justify-center d-flex align-center">
+  <v-container v-else-if="request && hasAccess" fluid class="justify-center d-flex align-center">
     <h1 class="sr-only">Aceptar petición</h1>
 
     <AcceptCard
@@ -9,6 +9,7 @@
         :request="request"
         @accepted="accepted"
         @rejected="rejected"
+        @accessDenied="accessDenied"
     />
 
     <TitleWithLink
@@ -40,6 +41,7 @@ export default {
     loading: true,
     request: null,
     incomplete: true,
+    hasAccess: true,
     notification: {
       text: null,
       type: 'success',
@@ -70,6 +72,10 @@ export default {
 
       this.incomplete = false;
     },
+    
+    accessDenied() {
+      this.hasAccess = false;
+    }
   },
   mounted() {
     contactService.acceptGenerate(this.$route.params.request_id)

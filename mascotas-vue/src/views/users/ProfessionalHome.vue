@@ -28,6 +28,7 @@ import BaseNotification from "@/components/general/notifications/BaseNotificatio
 import store from "@/store";
 import contactService from "@/services/contact";
 import authService from "@/services/auth";
+import { handleAccessError } from "@/helpers";
 
 export default {
   name: "ProfessionalHome",
@@ -46,6 +47,7 @@ export default {
       sharedPets: [],
       authenticatedUser: [],
       me: null,
+      handleAccessError,
     }
   },
 
@@ -56,6 +58,7 @@ export default {
         this.me = res.data.user;
         contactService.getProfessionalSharedPets()
         .then(res => {
+            if (this.handleAccessError(res)) return;
             this.sharedPets = res.data.sharedPets;
             this.loading = false;
         })

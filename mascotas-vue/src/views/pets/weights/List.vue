@@ -53,6 +53,7 @@ import store from "@/store";
 import {displayWeight, formatDate} from "@/helpers";
 import WarnDialog from "@/components/general/notifications/WarnDialog";
 import weightService from "@/services/weights";
+import { handleAccessError } from "@/helpers";
 
 export default {
   name: "List",
@@ -66,6 +67,7 @@ export default {
       formatDate,
       wToDelete: null,
       showWarnDialog: false,
+      handleAccessError,
       buttonLinkData: [
         {
           icon: 'fitness_center',
@@ -92,7 +94,9 @@ export default {
       this.loading = true;
 
       weightService.delete(this.wToDelete)
-          .then(() => {
+          .then((res) => {
+            if (this.handleAccessError(res)) return;
+
             this.weights = this.weights.filter(weight => weight.id !== this.wToDelete);
 
             this.$emit('create-notification', 'success', 'El peso se eliminó con éxito');

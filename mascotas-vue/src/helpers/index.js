@@ -1,6 +1,8 @@
 import {PATH_IMG} from "@/constants";
 import {PATH_STATIC_IMG} from "@/constants";
 import {URL_REQUESTS} from "@/constants";
+import store from "@/store";
+import router from "@/router";
 
 const formatDate = function(date) {
         if (!date) return null
@@ -38,6 +40,25 @@ const displayWeight = function (weight) {
     }
 }
 
+/**
+ * If the server response contains an access deny set up a message to the user and send back to previous page
+ * @param {*} res 
+ * @returns bool true if there is an access error
+ */
+const handleAccessError = function(res) {
+    let hasError = false;
+    
+    if (res.access === false) {
+        hasError = true;
+        store.setStatus({
+            msg: "Esta acción no está habilitada para tu cuenta.",
+            type: 'error',
+        });
+        router.back();
+    }
+    return hasError;
+}
+
 export {
     formatDate,
     createImgPath,
@@ -46,4 +67,5 @@ export {
     nameToDisplay,
     getCurrentDate,
     displayWeight,
+    handleAccessError
 }

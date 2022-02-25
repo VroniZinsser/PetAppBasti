@@ -71,15 +71,6 @@ interface ContactRepository
     public function acceptSharedPetRequest(int $id);
 
     /**
-     * Verify that the request exists and if it does, verify that the authenticated user has the same ID as the "professionals_id" field in the SharedPets table.
-     *
-     * @param int $id
-     * @return bool
-     */
-    public function checkAcceptRequest(int $id): bool;
-
-
-    /**
      * Searches the database for a request.
      *
      * @param int $id

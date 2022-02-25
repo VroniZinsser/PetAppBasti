@@ -19,7 +19,7 @@ import userService from "@/services/users"
 import store from "@/store";
 import TitleBar from "@/components/general/layouts/TitleBar";
 import Loader from "@/components/general/notifications/Loader";
-
+import { handleAccessError } from "@/helpers";
 
 export default {
   name: "ProfessionalEdit",
@@ -33,6 +33,7 @@ export default {
     user_types: [],
     professional: null,
     store,
+    handleAccessError,
   }),
   mounted() {
     userService.getProfessionalUserTypes()
@@ -44,6 +45,7 @@ export default {
                 if (res.data.user) {
                     this.professional = res.data.user;
                 } else {
+                    if (this.handleAccessError(res)) return;
                     this.store.setStatus({
                         msg: 'Hubo un error mientras cargamos tus datos. Por favor intentalo más tarde.',
                         type: 'error',

@@ -48,6 +48,7 @@ import vaccineService from "@/services/vaccines";
 import VaccineList from "@/components/pets/vaccine/List";
 import petServices from "@/services/pets";
 import CircleButtonLinkList from "@/components/general/buttons/floating/CircleButtonLinkList";
+import { handleAccessError } from "@/helpers";
 
 export default {
   name: "List",
@@ -61,6 +62,7 @@ export default {
       formatDate,
       vToDelete: null,
       showWarnDialog: false,
+      handleAccessError,
       buttonLinkData: [
         {
           icon: 'vaccines',
@@ -87,7 +89,9 @@ export default {
       this.loading = true;
 
       vaccineService.delete(this.vToDelete)
-          .then(() => {
+          .then((res) => {
+            if (this.handleAccessError(res)) return;
+
             this.vaccines = this.vaccines.filter(vaccine => vaccine.id !== this.vToDelete);
 
             this.$emit('create-notification', 'success', 'La vacuna se eliminó con éxito');
