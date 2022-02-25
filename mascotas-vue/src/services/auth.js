@@ -73,6 +73,11 @@ const authService = {
         }));
     },
 
+    removeAuthUser() {
+        store.removeUser();
+        localStorage.removeItem('user');
+    },
+
     /**
      * Sends an email to the given address with a link to reset the password
      *

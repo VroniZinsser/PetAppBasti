@@ -78,7 +78,7 @@ class UserController extends Controller
      */
     public function updateProfessional(CreateRequest $request): JsonResponse 
     {
-        // TODO: check if user_id of request is authenticated user - when accept pet share request ist merged in main
+        // TODO: check if user_id of request is authenticated user
         // Auth::user()->id !== $request->get('id')
         $dto = new UserDTO;
         $dto->loadFromArray($request->except('password'));
@@ -127,6 +127,19 @@ class UserController extends Controller
         ]);
     }
 
+    public function updateOwner(CreateOwnerRequest $request): JsonResponse
+    {
+        $dto = new UserDTO;
+        $dto->loadFromArray($request->except('password'));
+
+        $user = $this->userRepository->updateOrCreate($dto);
+
+        return response()->json([
+            'success' => true,
+            'data' => compact('user')
+        ]);
+    }
+
     /**
      * Deletes a user with the given id
      *
@@ -160,9 +173,7 @@ class UserController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => [
-                'user' => $user
-            ]
+            'data' => compact('user')
         ]);
     }
 }

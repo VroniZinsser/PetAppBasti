@@ -153,3 +153,10 @@
     opacity: .75;
   }
 }
+
+.v-btn.button-delete-account {
+  color: map.get($theme-colors, "danger") !important;
+  margin: auto;
+  display: block;
+  margin-top: 1.5rem;
+}

@@ -28,7 +28,7 @@
     dialogText="Podrás escribir una nueva nota cuando quieras"
     acceptButtonText="Borrar"
 
-    @cancle="showWarnDialog = false"
+    @cancel="showWarnDialog = false"
     @accept="deleteObservation()"
   />
 </div>

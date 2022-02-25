@@ -265,6 +265,7 @@
         <button class="main-btn" type="submit">{{ professional ? 'Guardar cambios' : 'Crear cuenta'}}</button>
         <DeleteAccountButton 
             v-if="!createNewUser"
+            :is_professional="true"
           />
       </div>
     </v-container>
@@ -407,7 +408,7 @@ export default {
     },
 
     updateUser() {
-      userService.update(this.formData, this.professional.id)
+      userService.updateProfessional(this.formData, this.professional.id)
         .then(res => {
           this.loading = false;
           window.scrollTo(0,0);

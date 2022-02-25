@@ -13,6 +13,7 @@ import OwnerSingUp from "../views/Auth/sing-up/OwnerSingUp";
 import Pets from "../views/pets/Pets";
 import PetAddForm from "../views/pets/AddForm";
 import PetEditForm from "../views/pets/EditForm";
+import OwnerEdit from "../views/users/OwnerEdit";
 import ProfessionalEdit from "../views/users/ProfessionalEdit";
 import ProfessionalHome from "../views/users/ProfessionalHome";
 import ProfessionalSignUp from "../views/users/ProfessionalSignUp";
@@ -231,6 +232,14 @@ const routes = [
         path: '/perfil/editar/profesional',
         name: 'ProfessionalEdit',
         component: ProfessionalEdit,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/perfil/editar',
+        name: 'OwnerEdit',
+        component: OwnerEdit,
         meta: {
             requiresAuth: true,
         },

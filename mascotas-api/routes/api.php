@@ -40,6 +40,8 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/usuarios/{user_id}', [UserController::class, 'findUser']);
+    // This param must be 'user' because it has a route binding to exactly this string
+    Route::put('/usuarios/{user}', [UserController::class, 'updateOwner']);
     Route::delete('/usuarios/{user_id}', [UserController::class, 'deleteUser']);
 });
 
