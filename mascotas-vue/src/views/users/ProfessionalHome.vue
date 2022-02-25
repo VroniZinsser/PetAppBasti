@@ -16,7 +16,7 @@
       <div class="owner-share-list" v-if="sharedPets.length > 0">
         <h2>Mascotas compartidas con vos</h2>
 
-        <List/>
+        <List :shared-pets="sharedPets"/>
 
       </div>
       <p v-if="sharedPets.length === 0">Actualmente no hay mascotas compartidas.</p>
