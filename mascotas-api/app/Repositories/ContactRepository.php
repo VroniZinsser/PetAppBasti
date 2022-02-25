@@ -8,6 +8,14 @@ use Illuminate\Database\Eloquent\Collection;
 interface ContactRepository
 {
     /**
+     * Returns the shared pet request with the given id
+     *
+     * @param int $id
+     * @return mixed
+     */
+    public function find(int $id);
+
+    /**
      * Gets all requests created by the user, grouped by the professionals who recieved the requests
      *
      * @param int $owner_id

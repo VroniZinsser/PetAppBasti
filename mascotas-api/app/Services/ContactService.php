@@ -13,6 +13,14 @@ class ContactService implements ContactRepository
     /**
      * @inheritDoc
      */
+    public function find(int $id): SharedPet
+    {
+        return SharedPet::find($id);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getRequestsByProfessional(int $owner_id): Collection
     {
         $filterCurrentAccepted = function ($query) {
@@ -100,13 +108,13 @@ class ContactService implements ContactRepository
      */
     public function checkAcceptRequest(int $id): bool
     {
-        $request = $this->findSharedPetRequest($id);
+        // $request = $this->findSharedPetRequest($id);
 
-        $user = \Auth::user();
+        // $user = \Auth::user();
 
-        if (!$request || $user->id !== $request->professionals_id || $request->accepted || $request->expiration_date < now()->format("Y-m-d")) {
-            return false;
-        }
+        // if (!$request || $user->id !== $request->professionals_id || $request->accepted || $request->expiration_date < now()->format("Y-m-d")) {
+        //     return false;
+        // }
 
         return true;
     }

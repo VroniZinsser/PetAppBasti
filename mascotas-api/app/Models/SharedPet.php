@@ -40,7 +40,7 @@ class SharedPet extends Model
     use HasFactory, SoftDeletes;
 
     /**
-     * Returns the related owner
+     * Returns the related pet
      *
      * @return BelongsTo
      */
@@ -50,7 +50,7 @@ class SharedPet extends Model
     }
 
     /**
-     * Returns the related pet
+     * Returns the related owner
      *
      * @return BelongsTo
      */
