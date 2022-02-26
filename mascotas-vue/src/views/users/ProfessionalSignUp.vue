@@ -7,7 +7,9 @@
       <Form
           :user_types="user_types"
       >
-        <p>Registrate acá si trabajás en el rubro veterinario y querés <strong>ofrecer tus servicios</strong> en Basti.</p>
+        <div class="register-intro">
+          <p>Llená este formulario si querés <strong>ofrecer tus servicios</strong> en Basti. Si querés usar Basti como dueña o dueño de mascota <router-link :to="{name: 'OwnerSignUp'}">registrate acá</router-link></p>
+        </div>
       </Form>
     </div>
   </div>

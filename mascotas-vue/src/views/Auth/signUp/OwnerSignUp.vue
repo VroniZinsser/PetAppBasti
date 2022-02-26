@@ -4,6 +4,16 @@
     form_class="form-signup-owner"
     :is_short_form="false"
   >
+  
+    <v-alert
+      class="register-alert"
+      color="#CC613E"
+      text
+      icon="mdi-account-plus"
+      prominent
+    >
+      Si trabajás en el rubro veterinario podés <br><router-link :to="{name: 'UserCreate'}">registrarte como profesional</router-link>
+    </v-alert>
 
     <OwnerForm/>
 
