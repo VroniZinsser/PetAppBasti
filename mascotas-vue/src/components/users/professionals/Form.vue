@@ -72,6 +72,7 @@
           ></v-switch>
 
           <InputPassword
+            v-if="createNewUser"
             label="Contraseña" 
             v-model="formData.password"
             :loading="loading"

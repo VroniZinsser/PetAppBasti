@@ -31,6 +31,7 @@
     ></InputText>
 
     <InputPassword
+      v-if="!user"
       label="Contraseña" 
       v-model="formData.password"
       :loading="loading"
