@@ -16,7 +16,7 @@
       <div class="owner-share-list" v-if="sharedPets.length > 0">
         <h2>Mascotas compartidas con vos</h2>
 
-        <List :shared-pets="sharedPets"/>
+        <List :shared-pets="sharedPets" @delete-request="deleteRequest"/>
 
       </div>
       <p v-if="sharedPets.length === 0">Actualmente no hay mascotas compartidas.</p>
@@ -45,7 +45,6 @@ export default {
     BaseNotification,
     ProfileCard,
   },
-
   data() {
     return {
       loading: true,
@@ -55,7 +54,22 @@ export default {
       me: null,
     }
   },
+  methods: {
+    deleteRequest(id) {
+      contactService.delete(id)
+          .then(res => {
+            console.log(res);
+            if(res.success){
+              this.sharedPets = this.sharedPets.filter(request => request.id !== id);
+              this.store.setStatus({
+                msg: 'La mascota se elimino con éxito',
+                type: 'success',
+              })
+            }
 
+          });
+    }
+  },
   mounted() {
     this.loading = true;
     authService.me()

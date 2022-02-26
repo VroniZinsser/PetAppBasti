@@ -7,7 +7,7 @@
         :acceptButtonText="dialogButtonText"
 
         @cancel="showWarnDialog = false"
-        @accept="$parent.$parent.$emit('delete-request', request.id)"
+        @accept="deleteRequest"
     />
     <v-expansion-panel-header>
       <div>
@@ -77,17 +77,23 @@ export default {
       return this.professionalName ? 'Tu mensaje a this.professionalName: ' : 'Mensaje: '
     },
 
-    dialogTitle(){
+    dialogTitle() {
       return this.professionalName ? `¿Dejar de compartir a ${this.pet.name}?` : `¿Dejar de ver a ${this.pet.name}?`
     },
 
-    dialogText(){
+    dialogText() {
       return this.professionalName ? `${this.professionalName} no podrá ver más el perfil de ${this.pet.name}. Podés volver a compartir la mascota cuando quieras.` : `no podrá ver más el perfil de ${this.pet.name} hasta que el dueño te la vuelva a compartir.`
     },
 
-    dialogButtonText(){
+    dialogButtonText() {
       return this.professionalName ? `Dejar de compartir` : `Dejar de ver`
     },
+  },
+  methods: {
+    deleteRequest() {
+      this.professionalName ? this.$parent.$parent.$emit('delete-request', this.request.id) : this.$parent.$parent.$parent.$emit('delete-request', this.request.id)
+      this.showWarnDialog = false;
+    }
   },
   mounted() {
 
