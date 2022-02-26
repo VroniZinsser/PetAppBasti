@@ -57,11 +57,11 @@ export default {
         showFinalMessage: false,
         formData: {
             currentPassword: null,
-            oldPassword: null,
+            newPassword: null,
         },
         errors: {
             currentPassword: null,
-            oldPassword: null,
+            newPassword: null,
         },
         rules: {
             obligatory: value => !!value || 'Este campo es obligatorio.',
@@ -71,19 +71,51 @@ export default {
   },
 
   methods: {
-      sendPasswordReset() {
+      changePassword() {
           this.loading = true;
-          this.errors.email = null;
-          authService.sendPasswordReset(this.formData)
+
+          this.errors = {
+            currentPassword: null,
+            newPassword: null,
+          }
+
+          authService.changePasswordAuthenticated(this.formData)
             .then(res => {
                 this.loading = false;
-                if (res.errors && res.errors.email) {
-                    this.errors.email = res.errors.email;
-                } else { 
-                    this.showFinalMessage = true;
+                if (!res.success) {
+                    if (res.errors) {
+                        this.errors = {
+                            ...res.errors
+                        }
+                    } else {
+                        this.store.setStatus({
+                            msg: 'Lamentablemente no se pudo cambiar la contraseña. ' + res.msg ? res.msg : '',
+                            type: 'error',
+                        });
+                    }
+                    this.formData = {
+                        currentPassword: null,
+                        newPassword: null,
+                    }
+                } else {
+                    // password changed successfully -> force user to log in with new credentials
+                    this.logout();
                 }
+            })
+      },
+      logout() {
+        this.showSettingsDialog = false;
+        this.store.setActivePet(null);
+        this.store.setStatus({
+            msg: 'Ya te podés loguear con tu nueva contraseña',
+            type: 'success',
+        });
+        authService.logout()
+            .then(() => {
+                this.dialog = false;
+                this.$router.push({name: 'Login'});
             });
-      }
+        },
   }
 }
 </script>

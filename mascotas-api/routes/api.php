@@ -86,6 +86,7 @@ Route::prefix('/autenticacion')->group(function () {
     Route::get("/", [AuthController::class, 'me'])->middleware(['auth']);
     Route::post("/", [AuthController::class, 'login'])->middleware(['guest']);
     Route::post("recuperar-contrasena", [AuthController::class, 'sendPasswordReset'])->middleware(['guest']);
+    Route::post("cambiar-contrasena-autenticado", [AuthController::class, 'changePasswordAuthenticated'])->middleware(['auth']);
     Route::post("cambiar-contrasena", [AuthController::class, 'changePassword'])->middleware(['guest']);
     Route::delete("/", [AuthController::class, 'logout'])->middleware(['auth']);
 });

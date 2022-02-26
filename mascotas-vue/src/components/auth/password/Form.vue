@@ -81,7 +81,7 @@ export default {
                   }
                 } else {
                   this.store.setStatus({
-                    msg: 'No se pudo cambiar la contraseña: ' + res.msg,
+                    msg: 'Lamentablemente no se pudo cambiar la contraseña. ' + res.msg,
                     type: 'error',
                   });
                 }
