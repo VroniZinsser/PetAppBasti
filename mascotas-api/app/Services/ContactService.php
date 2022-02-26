@@ -114,6 +114,22 @@ class ContactService implements ContactRepository
     /**
      * @inheritDoc
      */
+    public function checkDeleteRequest(int $id): bool
+    {
+        $request = $this->findSharedPetRequest($id);
+
+        $user = \Auth::user();
+
+        if (!$request || ($user->id !== $request->professionals_id && $user->id !== $request->owners_id)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function findSharedPetRequest(int $id)
     {
         try {

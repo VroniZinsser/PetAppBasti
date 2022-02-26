@@ -70,6 +70,14 @@ interface ContactRepository
      */
     public function checkAcceptRequest(int $id): bool;
 
+    /**
+     * Verify that the request exists and if it does, verify that you are the owner of the request or the professional to whom the request is assigned.
+     *
+     * @param int $id
+     * @return bool
+     */
+    public function checkDeleteRequest(int $id): bool;
+
 
     /**
      * Searches the database for a request.

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SharedPets\AcceptRequest;
 use App\Http\Requests\SharedPets\CreateRequest;
+use App\Http\Requests\SharedPets\DeleteRequest;
 use App\Http\Requests\SharedPets\UpdateRequest;
 use App\Repositories\ContactRepository;
 use Illuminate\Http\JsonResponse;
@@ -99,7 +100,7 @@ class ContactController extends Controller
         ]);
     }
 
-    public function deleteSharedPetRequest(AcceptRequest $request, int $request_id): JsonResponse
+    public function deleteSharedPetRequest(DeleteRequest $request, int $request_id): JsonResponse
     {
         $this->contactRepository->deleteSharedPetRequest($request_id);
 
