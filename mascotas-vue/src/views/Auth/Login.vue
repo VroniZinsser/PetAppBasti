@@ -6,7 +6,7 @@
   >
     <Form/>
     <div class="register">
-      <p>¿Todavía no tenés una cuenta? <router-link :to="{name: 'OwnerSingUp'}">Registrarme</router-link></p>
+      <p>¿Todavía no tenés una cuenta? <router-link :to="{name: 'OwnerSignUp'}">Registrarme</router-link></p>
     </div>
   </FormContainer>
 </template>

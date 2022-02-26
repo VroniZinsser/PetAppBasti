@@ -13,7 +13,7 @@
 
 <script>
 
-import Form from "@/components/auth/sing-up/OwnerForm";
+import Form from "@/components/auth/signUp/OwnerForm";
 import userService from "@/services/users"
 import store from "@/store";
 import FormContainer from "@/components/general/forms/FormContainer";

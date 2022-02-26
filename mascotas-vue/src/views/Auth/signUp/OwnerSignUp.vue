@@ -12,11 +12,11 @@
 </template>
 
 <script>
-import OwnerForm from "../../../components/auth/sing-up/OwnerForm";
+import OwnerForm from "@/components/auth/signUp/OwnerForm";
 import FormContainer from "@/components/general/forms/FormContainer";
 
 export default {
-  name: "OwnerSingUp",
+  name: "OwnerSignUp",
   components: {
     OwnerForm,
     FormContainer,

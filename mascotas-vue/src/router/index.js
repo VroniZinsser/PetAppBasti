@@ -9,7 +9,7 @@ import ResetPasswordForm from "../views/Auth/resetPassword/ResetPasswordForm";
 import ChangePassword from "../views/Auth/resetPassword/ChangePassword";
 import MedicinesAddForm from "../views/pets/medicines/MedicinesAddForm";
 import ObservationForm from "../views/pets/ObservationForm";
-import OwnerSingUp from "../views/Auth/sing-up/OwnerSingUp";
+import OwnerSignUp from "../views/Auth/signUp/OwnerSignUp";
 import Pets from "../views/pets/Pets";
 import PetAddForm from "../views/pets/AddForm";
 import PetEditForm from "../views/pets/EditForm";
@@ -109,8 +109,8 @@ const routes = [
     },
     {
         path: '/registrarme/amo',
-        name: 'OwnerSingUp',
-        component: OwnerSingUp,
+        name: 'OwnerSignUp',
+        component: OwnerSignUp,
         meta: {
             requiresGuest: true,
         }
