@@ -20,6 +20,21 @@ class MedicineController extends Controller
     }
 
     /**
+     * Returns all medicines of a pet
+     *
+     * @param $pet_id
+     * @return JsonResponse
+     */
+    public function getMedicinesByPet($pet_id): JsonResponse
+    {
+        $medicines = $this->medicineRepository->getMedicinesByPet($pet_id)->values();
+
+        return response()->json([
+            'data' => compact('medicines'),
+        ]);
+    }
+
+    /**
      * Add a new medication to a pet
      *
      * @param AddRequest $request
@@ -107,6 +122,22 @@ class MedicineController extends Controller
 
         return response()->json([
             "data" => compact('hours')
+        ]);
+    }
+
+    /**
+     * Returns the data necessary for the creation of the edit form in the front-end.
+     *
+     * @param $medicine_id
+     * @return JsonResponse
+     */
+    public function updateForm($medicine_id): JsonResponse
+    {
+        $hours = $this->hourRepository->getAll();
+        $medicine = $this->medicineRepository->find($medicine_id);
+
+        return response()->json([
+            "data" => compact('hours', 'medicine')
         ]);
     }
 }

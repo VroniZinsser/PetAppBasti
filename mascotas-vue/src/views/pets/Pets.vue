@@ -84,7 +84,7 @@ export default {
       {
         icon: 'medication',
         text: 'Medicamento',
-        pathName: 'MedicinesAddForm',
+        pathName: 'MedicineForm',
         pathParams: {pet_id: null},
         default: false,
       },

@@ -3,9 +3,18 @@
 namespace App\Repositories;
 
 use App\Models\Medicine;
+use Illuminate\Database\Eloquent\Collection;
 
 interface MedicineRepository
 {
+    /**
+     * Returns all vaccines that belong to a pet with the given id
+     *
+     * @param int $pet_id
+     * @return Collection | []Vaccine
+     */
+    public function getMedicinesByPet(int $pet_id): object;
+
     /**
      * Creates, inserts and returns the medicine
      *

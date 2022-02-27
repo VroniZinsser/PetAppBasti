@@ -2,7 +2,7 @@
   <Loader v-if="loading"></Loader>
 
   <v-container v-else class="medical-list-container">
-    <ListHeader title="Vacunas de la mascota"/>
+    <ListHeader title="Medicamentos de la mascota"/>
 
     <BaseNotification
         v-if="store.status.msg != null"
@@ -13,53 +13,57 @@
 
     <CircleButtonLinkList :button-link-data="buttonLinkData"></CircleButtonLinkList>
 
-    <template v-if="vaccines.length > 0">
-
-      <VaccineList :vaccines="vaccines" @delete="prepareDeleteVaccine"></VaccineList>
+    <template v-if="medicines.length > 0">
+      <MedicineList :medicines="medicines" @delete="prepareDeleteMedicine"></MedicineList>
 
       <WarnDialog
           :showDialog="showWarnDialog"
-          dialogTitle="¿Querés eliminar esta vacuna?"
-          acceptButtonText="Borrar vacuna"
+          dialogTitle="¿Querés eliminar este medicamento?"
+          acceptButtonText="Borrar medicamento"
 
           @cancel="cancelDelete"
-          @accept="deleteVaccine"
+          @accept="deleteMedicine"
       />
     </template>
 
-    <p v-else>Esta mascota no tiene ninguna vacuna agregada.</p>
+    <p v-else>Esta mascota no tiene ningún medicamento agregado.</p>
   </v-container>
 </template>
 
 <script>
 import Loader from "@/components/general/notifications/Loader";
+import ListHeader from "@/components/pets/show/medical/ListHeader";
 import BaseNotification from "@/components/general/notifications/BaseNotification";
-import WarnDialog from "@/components/general/notifications/WarnDialog";
 import store from "@/store";
-import {formatDate} from "@/helpers";
-import vaccineService from "@/services/vaccines";
-import VaccineList from "@/components/pets/vaccine/List";
+import WarnDialog from "@/components/general/notifications/WarnDialog";
+import medicineService from "@/services/medicines";
 import petServices from "@/services/pets";
 import CircleButtonLinkList from "@/components/general/buttons/floating/CircleButtonLinkList";
-import ListHeader from "@/components/pets/show/medical/ListHeader";
+import MedicineList from "@/components/pets/medicines/List";
 
 export default {
   name: "List",
-  components: {ListHeader, CircleButtonLinkList, WarnDialog, BaseNotification, Loader, VaccineList},
+  components: {
+    CircleButtonLinkList,
+    WarnDialog,
+    BaseNotification,
+    ListHeader,
+    Loader,
+    MedicineList
+  },
   props: {},
   data() {
     return {
-      vaccines: null,
+      medicines: null,
       loading: true,
       store,
-      formatDate,
-      vToDelete: null,
+      mToDelete: null,
       showWarnDialog: false,
       buttonLinkData: [
         {
-          icon: 'vaccines',
-          text: 'Nueva vacuna',
-          pathName: 'VaccineForm',
+          icon: 'medication',
+          text: 'Nuevo medicamento',
+          pathName: 'MedicineForm',
           pathParams: {pet_id: this.$route.params.pet_id},
           default: true,
         },
@@ -67,26 +71,26 @@ export default {
     }
   },
   methods: {
-    prepareDeleteVaccine(vaccine_id) {
-      this.vToDelete = vaccine_id;
+    prepareDeleteMedicine(medicine_id) {
+      this.mToDelete = medicine_id;
       this.showWarnDialog = true;
     },
 
     cancelDelete() {
-      this.vToDelete = null;
+      this.mToDelete = null;
       this.showWarnDialog = false;
     },
 
-    deleteVaccine() {
+    deleteMedicine() {
       this.loading = true;
 
-      vaccineService.delete(this.vToDelete)
+      medicineService.delete(this.mToDelete)
           .then(() => {
-            this.vaccines = this.vaccines.filter(vaccine => vaccine.id !== this.vToDelete);
+            this.medicines = this.medicines.filter(medicine => medicine.id !== this.mToDelete);
 
-            this.$emit('create-notification', 'success', 'La vacuna se eliminó con éxito');
+            this.$emit('create-notification', 'success', 'El medicamento se eliminó con éxito');
 
-            this.vToDelete = null;
+            this.mToDelete = null;
 
             this.showWarnDialog = false;
 
@@ -96,9 +100,9 @@ export default {
   },
   mounted() {
     if (this.$route.params.pet_id) {
-      petServices.getVaccines(this.$route.params.pet_id)
+      petServices.getMedicines(this.$route.params.pet_id)
           .then(res => {
-            this.vaccines = res.data.vaccines;
+            this.medicines = res.data.medicines;
             this.loading = false
           })
     }
