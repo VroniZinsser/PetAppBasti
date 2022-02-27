@@ -1,15 +1,16 @@
 <template>
-    <v-dialog v-model="showDialog" max-width="500" @click:outside="$emit('cancle')">
+    <v-dialog v-model="showDialog" max-width="500" @click:outside="$emit('cancel')">
       <v-card class="settings-dialog basti-dialog">
         <v-card-title>
             <SettingsDialogHeader 
                 :user="user"
-                @close="$emit('cancle')"
+                @close="$emit('cancel')"
             />
         </v-card-title>
         <v-list nav>
             <v-list-item-group>
                 <SettingsDialogItem 
+                    v-if="user.is_professional"
                     icon="mdi-account"
                     text="Ver Perfil"
                     @onclick="viewProfile"
@@ -59,16 +60,17 @@ export default {
                 params: { 'professional_id': this.user.id } 
             });
         }
-        this.$emit('cancle')
+        this.$emit('cancel')
       },
 
       editProfile() {
-        if (this.$route.name !== 'ProfessionalEdit') {
+        const routeName = this.user.is_professional ? 'ProfessionalEdit' : 'OwnerEdit'
+        if (this.$route.name !== routeName) {
             this.$router.push({
-                name: 'ProfessionalEdit',
+                name: routeName,
             });
         }
-        this.$emit('cancle')
+        this.$emit('cancel')
       }
   }
 }

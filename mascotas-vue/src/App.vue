@@ -6,7 +6,7 @@
 
     <v-app-bar app>
       <div id="brand-image">
-        <router-link :to="{name: 'Home'}">
+        <router-link :to="store.user.id ? {name: 'Home'} : '#'">
           <img :src="createStaticImgPath('brand/logotype.png')" alt="Logo de Basti">
         </router-link>
       </div>
@@ -14,32 +14,28 @@
       <v-spacer></v-spacer>
 
       <ul id="nav-links">
-        <li v-for="link in routerLinks" :key="link.text">
-          <router-link :to="{name: link.name}" exact>
-            <span class="material-icons">{{ link.icon }}</span>
-            <span>{{ link.text }}</span>
-          </router-link>
-        </li>
-        <li v-if="store.user.id">
-          <a href="#" @click.prevent="showSettingsDialog = true">
-            <span class="material-icons">account_circle</span>
-            <span class="sr-only">Abrir opciones (abre ventana modal)</span>
-          </a>
-        </li>
-        <li v-else>
-          <router-link :to="{name: 'Login'}" exact>
-            <span class="material-icons">login</span>
-            <span>Ingresar</span>
-          </router-link>
-        </li>
+        <template v-if="store.user.id">
+          <li v-for="link in routerLinks" :key="link.text">
+            <router-link :to="{name: link.name}" exact>
+              <span class="material-icons">{{ link.icon }}</span>
+              <span>{{ link.text }}</span>
+            </router-link>
+          </li>
 
+          <li>
+            <a href="#" @click.prevent="showSettingsDialog = true">
+              <span class="material-icons">account_circle</span>
+              <span class="sr-only">Abrir opciones (abre ventana modal)</span>
+            </a>
+          </li>
+        </template>
       </ul>
     </v-app-bar>
 
     <SettingsDialog 
       :showDialog="showSettingsDialog"
       :user="store.user"
-      @cancle="showSettingsDialog = false"
+      @cancel="showSettingsDialog = false"
       @logout="logout"
     />
 

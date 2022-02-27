@@ -262,7 +262,7 @@ export default {
       for (const hour of this.medicine.hours) {
         hours.push(hour.id)
       }
-      
+
       this.formData = {
         name: this.medicine.name,
         quantity: this.medicine.quantity,

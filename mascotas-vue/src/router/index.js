@@ -6,11 +6,14 @@ import Explore from "../views/explore/Explore";
 // import Inbox from "../views/contact/Inbox";
 import Login from "../views/Auth/Login";
 import MedicineForm from "../views/pets/medicines/Form";
+import ResetPasswordForm from "../views/Auth/resetPassword/ResetPasswordForm";
+import ChangePassword from "../views/Auth/resetPassword/ChangePassword";
 import ObservationForm from "../views/pets/ObservationForm";
 import OwnerSingUp from "../views/Auth/sing-up/OwnerSingUp";
 import Pets from "../views/pets/Pets";
 import PetAddForm from "../views/pets/AddForm";
 import PetEditForm from "../views/pets/EditForm";
+import OwnerEdit from "../views/users/OwnerEdit";
 import ProfessionalEdit from "../views/users/ProfessionalEdit";
 import ProfessionalHome from "../views/users/ProfessionalHome";
 import ProfessionalSignUp from "../views/users/ProfessionalSignUp";
@@ -66,6 +69,22 @@ const routes = [
         }
     },
     {
+        path: '/recuperar-contrasena',
+        name: 'ResetPasswordForm',
+        component: ResetPasswordForm,
+        meta: {
+            requiresGuest: true,
+        }
+    },
+    {
+        path: '/cambiar-contrasena',
+        name: 'ChangePassword',
+        component: ChangePassword,
+        meta: {
+            requiresGuest: true,
+        }
+    },
+      {
         path: '/profesional/agenda',
         name: 'ScheduleProfessional',
         component: Schedule,
@@ -231,6 +250,14 @@ const routes = [
         path: '/perfil/editar/profesional',
         name: 'ProfessionalEdit',
         component: ProfessionalEdit,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/perfil/editar',
+        name: 'OwnerEdit',
+        component: OwnerEdit,
         meta: {
             requiresAuth: true,
         },

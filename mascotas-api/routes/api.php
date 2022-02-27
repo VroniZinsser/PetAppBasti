@@ -40,6 +40,8 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/usuarios/{user_id}', [UserController::class, 'findUser']);
+    // This param must be 'user' because it has a route binding to exactly this string
+    Route::put('/usuarios/{user}', [UserController::class, 'updateOwner']);
     Route::delete('/usuarios/{user_id}', [UserController::class, 'deleteUser']);
 });
 
@@ -86,6 +88,8 @@ Route::middleware(['auth'])->group(function () {
 Route::prefix('/autenticacion')->group(function () {
     Route::get("/", [AuthController::class, 'me'])->middleware(['auth']);
     Route::post("/", [AuthController::class, 'login'])->middleware(['guest']);
+    Route::post("recuperar-contrasena", [AuthController::class, 'sendPasswordReset'])->middleware(['guest']);
+    Route::post("cambiar-contrasena", [AuthController::class, 'changePassword'])->middleware(['guest']);
     Route::delete("/", [AuthController::class, 'logout'])->middleware(['auth']);
 });
 

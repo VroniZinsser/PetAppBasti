@@ -13,7 +13,7 @@
         :rules="[rules.obligatory, rules.email]"
         :errors="errors.email"
     ></InputText>
-
+    
     <InputText
         :type="showPassword ? 'text' : 'password'"
         label="Contraseña"
@@ -23,6 +23,10 @@
         :loading="loading"
         :errors="errors.password"
     ></InputText>
+    
+    <div class="forgot-password">
+      <router-link :to="{name: 'ResetPasswordForm'}">Olvidé mi Contraseña</router-link>
+    </div>
 
     <button class="main-btn" type="submit" :disabled="loading">Iniciar sesión</button>
   </v-form>
@@ -79,16 +83,14 @@ export default {
                     ...res.errors
                   }
                 } else {
-                  alert('Uno o ambos campos son incorrectos');
+                  this.store.setStatus({
+                    msg: 'Uno o ambos campos son incorrectos.',
+                    type: 'error',
+                  });
                 }
                 this.formData.password = null;
               } else {
                 authService.saveAuthUser(res.data.user);
-                this.store.setStatus({
-                    msg: null,
-                    type: 'success',
-                    title: null
-                  });
 
                 if (res.data.user.is_professional) {
                   this.$router.push({name: 'HomeProfessional'})
