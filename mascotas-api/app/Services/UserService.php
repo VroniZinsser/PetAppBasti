@@ -22,8 +22,8 @@ class UserService implements UserRepository {
     /**
      * @inheritDoc
      */
-    public function updateOrCreate(UserDTO $dto): User {
-        $user = User::findOrNew($dto->get_id());
+    public function updateOrCreate(UserDTO $dto, ?User $user = null) : User {
+        $user = $user ?? new User();
         $user->first_name = $dto->get_first_name();
         $user->last_name = $dto->get_last_name();
         $user->email = $dto->get_email();
@@ -60,17 +60,17 @@ class UserService implements UserRepository {
     /**
      * @inheritDoc
      */
-    public function find(int $id): User | null
+    public function find(int $id): User
     {
-        return User::with(['profile_image', 'userTypes'])->find($id);
+        return User::findOrFail($id)->load(['profile_image', 'userTypes']);
     }
 
     /**
      * @inheritDoc
      */
-    public function delete(int $id): bool
+    public function delete(User $user): bool
     {
-        User::find($id)->delete();
+        $user->delete();
 
         return true;
     }

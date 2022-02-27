@@ -82,7 +82,7 @@ class MedicineController extends Controller
         $this->authorize('update', $medicine);
 
         $medicine = $this->medicineRepository->update(
-            $medicine_id,
+            $medicine,
             $request->get('name'),
             $request->get('quantity'),
             $request->get('start_date'),
@@ -108,7 +108,7 @@ class MedicineController extends Controller
         $medicine = $this->medicineRepository->find($medicine_id);
         $this->authorize('delete', $medicine);
 
-        $this->medicineRepository->delete($medicine_id);
+        $this->medicineRepository->delete($medicine);
 
         return response()->json([
             'success' => true,

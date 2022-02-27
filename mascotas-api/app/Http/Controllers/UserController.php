@@ -91,7 +91,7 @@ class UserController extends Controller
             $dto->set_profile_img_id($image->id);
         }
 
-        $user = $this->userRepository->updateOrCreate($dto);
+        $user = $this->userRepository->updateOrCreate($dto, $user);
 
         $user->userTypes()->sync($request->get('user_types'));
 
@@ -145,7 +145,7 @@ class UserController extends Controller
         $dto = new UserDTO;
         $dto->loadFromArray($request->except('password'));
 
-        $user = $this->userRepository->updateOrCreate($dto);
+        $user = $this->userRepository->updateOrCreate($dto, $user);
 
         return response()->json([
             'success' => true,
@@ -167,7 +167,7 @@ class UserController extends Controller
         $user = $this->userRepository->find($user_id);
         $this->authorize('delete', $user);
 
-        $this->userRepository->delete($user_id);
+        $this->userRepository->delete($user);
 
         return response()->json([
             'success' => true,

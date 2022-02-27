@@ -36,18 +36,18 @@ interface WeightRepository
     /**
      * Updates and returns the weight with the given id
      *
-     * @param int $id
+     * @param Weight $weight
      * @param string $date
      * @param int $weight_number
      * @return Weight The updated weight
      */
-    public function update (int $id, string $date, int $weight_number): Weight;
+    public function update (Weight $weight, string $date, int $weight_number): Weight;
 
     /**
      * Deletes the weight with the given id and returns true if deletion was successful
      *
-     * @param int $id
+     * @param Weight $weight
      * @return boolean success
      */
-    public function delete (int $id): bool;
+    public function delete (Weight $weight): bool;
 }

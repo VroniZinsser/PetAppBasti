@@ -21,9 +21,10 @@ interface UserRepository
      * Creates/Updates and returns a user
      *
      * @param UserDTO $dto
+     * @param User|null $user
      * @return User The created or updated user
      */
-     public function updateOrCreate(UserDTO $dto): User;
+     public function updateOrCreate(UserDTO $dto, ?User $user = null): User;
 
      /**
      * Returns the user with the given id
@@ -36,8 +37,8 @@ interface UserRepository
     /**
      * Deletes the user with the given id and returns true if deletion was successful
      *
-     * @param int $id
+     * @param User $user
      * @return boolean success
      */
-    public function delete (int $id): bool;
+    public function delete (User $user): bool;
 }

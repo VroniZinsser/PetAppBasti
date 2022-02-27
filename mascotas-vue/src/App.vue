@@ -147,11 +147,6 @@ export default {
         type: type,
       });
     },
-
-    showDeleteAccountDialog() {
-      this.showSettingsDialog = false;
-      this.showWarnDialog = true;
-    },
   },
 
   computed: {

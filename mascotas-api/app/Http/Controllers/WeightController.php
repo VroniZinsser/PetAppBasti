@@ -90,7 +90,7 @@ class WeightController extends Controller
         $weight = $this->weightRepository->find($weight_id);
         $this->authorize('update', $weight);
 
-        $weight = $this->weightRepository->update($weight_id, $request->get('date'), $request->get('weight'));
+        $weight = $this->weightRepository->update($weight, $request->get('date'), $request->get('weight'));
 
         return response()->json([
             'success' => true,
@@ -110,7 +110,7 @@ class WeightController extends Controller
         $weight = $this->weightRepository->find($weight_id);
         $this->authorize('delete', $weight);
 
-        $this->weightRepository->delete($weight_id);
+        $this->weightRepository->delete($weight);
 
         return response()->json([
             'success' => true,

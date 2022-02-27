@@ -108,11 +108,11 @@ class ContactController extends Controller
      */
     public function updateSharedPetRequest(UpdateRequest $request, int $request_id): JsonResponse
     {
-        $request = $this->contactRepository->find($request_id);
-        $this->authorize('update', $request);
+        $currentRequest = $this->contactRepository->find($request_id);
+        $this->authorize('update', $currentRequest);
 
         $requestUpdated = $this->contactRepository->updateSharedPetRequest(
-            $request_id,
+            $currentRequest,
             $request->get('description'),
             $request->get('expiration_date'),
             $request->get('pet_id'),
@@ -136,7 +136,7 @@ class ContactController extends Controller
         $request = $this->contactRepository->find($request_id);
         $this->authorize('accept', $request);
 
-        $request = $this->contactRepository->acceptSharedPetRequest($request_id);
+        $this->contactRepository->acceptSharedPetRequest($request);
 
         return response()->json([
             'success' => true,
@@ -153,10 +153,8 @@ class ContactController extends Controller
      */
     public function generateAcceptSharedPetRequest(int $request_id): JsonResponse
     {
-        $request = $this->contactRepository->find($request_id);
-        $this->authorize('accept', $request);
-
         $request = $this->contactRepository->findSharedPetRequest($request_id);
+        $this->authorize('accept', $request);
 
         return response()->json([
             'success' => true,
@@ -176,7 +174,7 @@ class ContactController extends Controller
         $request = $this->contactRepository->find($request_id);
         $this->authorize('delete', $request);
 
-        $this->contactRepository->deleteSharedPetRequest($request_id);
+        $this->contactRepository->deleteSharedPetRequest($request);
 
         return response()->json([
             'success' => true,

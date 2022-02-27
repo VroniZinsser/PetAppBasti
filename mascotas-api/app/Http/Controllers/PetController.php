@@ -146,7 +146,7 @@ class PetController extends Controller
         }
 
         try {
-            $pet = $this->petRepository->updateObservation($pet_id, $observation);
+            $this->petRepository->updateObservation($pet, $observation);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'success' => false,
@@ -227,7 +227,7 @@ class PetController extends Controller
 
         $this->authorize('delete', $pet);
 
-        $this->petRepository->delete($pet_id);
+        $this->petRepository->delete($pet);
 
         return response()->json([
             'success' => true,

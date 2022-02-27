@@ -88,7 +88,7 @@ class VaccineController extends Controller
         $vaccine = $this->vaccineRepository->find($vaccine_id);
         $this->authorize('update', $vaccine);
 
-        $vaccine = $this->vaccineRepository->update($vaccine_id, $request->get('name'), $request->get('date'));
+        $vaccine = $this->vaccineRepository->update($vaccine, $request->get('name'), $request->get('date'));
 
         return response()->json([
             'success' => true,
@@ -108,7 +108,7 @@ class VaccineController extends Controller
         $vaccine = $this->vaccineRepository->find($vaccine_id);
         $this->authorize('delete', $vaccine);
 
-        $this->vaccineRepository->delete($vaccine_id);
+        $this->vaccineRepository->delete($vaccine);
 
         return response()->json([
             'success' => true,

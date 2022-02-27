@@ -57,7 +57,7 @@ export default {
       this.result = {
         title: 'Petición aceptada con éxito',
         linkText: 'Ir al inicio',
-        routeName: 'Pets', // NOTE: Esto es temporal, cuando este completa la pantalla de inicio para el profesional se debe de poner el route name correspondiente
+        routeName: 'Pets', // TODO: Esto es temporal, cuando este completa la pantalla de inicio para el profesional se debe de poner el route name correspondiente
       }
 
       this.incomplete = false;
@@ -67,7 +67,7 @@ export default {
       this.result = {
         title: 'Petición rechazada con éxito',
         linkText: 'Ir al inicio',
-        routeName: 'Pets', // NOTE: Esto es temporal, cuando este completa la pantalla de inicio para el profesional se debe de poner el route name correspondiente
+        routeName: 'Pets', // TODO: Esto es temporal, cuando este completa la pantalla de inicio para el profesional se debe de poner el route name correspondiente
       }
 
       this.incomplete = false;
@@ -80,7 +80,7 @@ export default {
   mounted() {
     contactService.acceptGenerate(this.$route.params.request_id)
         .then(res => {
-          if (res.access !== false ) {
+          if (res.success) {
             this.request = res.data.request;
           }
 

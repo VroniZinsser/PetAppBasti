@@ -54,21 +54,21 @@ interface ContactRepository
     /**
      * Edits a request already registered in the database
      *
-     * @param int $id
+     * @param SharedPet $request
      * @param string|null $description
      * @param string $expiration_date
      * @param int $pet_id
      * @return SharedPet
      */
-    public function updateSharedPetRequest(int $id, ?string $description, string $expiration_date, int $pet_id): SharedPet;
+    public function updateSharedPetRequest(SharedPet $request, ?string $description, string $expiration_date, int $pet_id): SharedPet;
 
     /**
      * Changes the value of the "accepted" field to a true value
      *
-     * @param int $id
+     * @param SharedPet $request
      * @return mixed
      */
-    public function acceptSharedPetRequest(int $id);
+    public function acceptSharedPetRequest(SharedPet $request);
 
     /**
      * Searches the database for a request.
@@ -81,8 +81,8 @@ interface ContactRepository
     /**
      * Removes a request from the database
      *
-     * @param int $id
+     * @param SharedPet $request
      * @return bool
      */
-    public function deleteSharedPetRequest(int $id): bool;
+    public function deleteSharedPetRequest(SharedPet $request): bool;
 }
