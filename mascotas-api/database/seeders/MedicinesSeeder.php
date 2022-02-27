@@ -45,6 +45,36 @@ class MedicinesSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'id' => 4,
+                'name' => 'Paracetamol',
+                'quantity' => '1/5 pastilla',
+                'start_date' => '2021/11/20',
+                'end_date' => '2021/11/24',
+                'pets_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id' => 5,
+                'name' => 'Paracetamol',
+                'quantity' => '1/5 pastilla',
+                'start_date' => '2021/11/20',
+                'end_date' => '2021/11/24',
+                'pets_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id' => 6,
+                'name' => 'Paracetamol',
+                'quantity' => '1/5 pastilla',
+                'start_date' => '2021/11/20',
+                'end_date' => '2021/11/24',
+                'pets_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
 
         DB::table('medicines_has_hours')->insert([
@@ -86,6 +116,21 @@ class MedicinesSeeder extends Seeder
             [
                 'id' => 8,
                 'medicines_id' => 3,
+                'hours_id' => 81, // 16:00
+            ],
+            [
+                'id' => 9,
+                'medicines_id' => 4,
+                'hours_id' => 81, // 16:00
+            ],
+            [
+                'id' => 10,
+                'medicines_id' => 5,
+                'hours_id' => 81, // 16:00
+            ],
+            [
+                'id' => 11,
+                'medicines_id' => 6,
                 'hours_id' => 81, // 16:00
             ],
         ]);
