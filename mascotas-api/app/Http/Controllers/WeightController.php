@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Pets\WeightRequest;
+use App\Models\Weight;
 use App\Repositories\PetRepository;
 use App\Repositories\WeightRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class WeightController extends Controller
 {
     protected $weightRepository;
+    protected $petRepository;
 
     public function __construct(WeightRepository $weightRepository, PetRepository $petRepository)
     {
@@ -23,6 +26,7 @@ class WeightController extends Controller
      *
      * @param $pet_id
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function getWeightsByPet($pet_id): JsonResponse
     {
@@ -40,6 +44,7 @@ class WeightController extends Controller
      *
      * @param WeightRequest $request
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function createWeight(WeightRequest $request): JsonResponse
     {
@@ -60,6 +65,7 @@ class WeightController extends Controller
      *
      * @param $weight_id
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function findWeight($weight_id): JsonResponse
     {
@@ -77,6 +83,7 @@ class WeightController extends Controller
      * @param Request $request
      * @param $weight_id
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function updateWeight(Request $request, $weight_id): JsonResponse
     {
@@ -96,6 +103,7 @@ class WeightController extends Controller
      *
      * @param $weight_id
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function deleteWeight($weight_id): JsonResponse
     {

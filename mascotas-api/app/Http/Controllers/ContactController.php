@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SharedPets\AcceptRequest;
 use App\Http\Requests\SharedPets\CreateRequest;
 use App\Http\Requests\SharedPets\UpdateRequest;
 use App\Models\SharedPet;
 use App\Repositories\ContactRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,6 +19,12 @@ class ContactController extends Controller
         $this->contactRepository = $contactRepository;
     }
 
+    /**
+     * Gets all requests to share a pet emitted by the authenticated user grouped by the professionals they are related to
+     *
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
     public function getRequestsByProfessional(): JsonResponse
     {
         $this->authorize('viewOwnerSharedPets', SharedPet::class);
@@ -31,6 +37,12 @@ class ContactController extends Controller
         ]);
     }
 
+    /**
+     * Gets all requests to share a pet emitted by the authenticated user
+     *
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
     public function getOwnerSharedPets(): JsonResponse
     {
         $this->authorize('viewOwnerSharedPets', SharedPet::class);
@@ -43,6 +55,12 @@ class ContactController extends Controller
         ]);
     }
 
+    /**
+     * Gets all requests to share a pet received the authenticated professional
+     *
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
     public function getProfessionalSharedPets(): JsonResponse
     {
         $this->authorize('viewProfessionalSharedPets', SharedPet::class);
@@ -55,6 +73,13 @@ class ContactController extends Controller
         ]);
     }
 
+    /**
+     * Create request to share a pet
+     *
+     * @param CreateRequest $request
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
     public function createSharedPetRequest(CreateRequest $request): JsonResponse
     {
         $this->authorize('create', SharedPet::class);
@@ -73,6 +98,14 @@ class ContactController extends Controller
         ]);
     }
 
+    /**
+     * Update the request to share a pet
+     *
+     * @param UpdateRequest $request
+     * @param int $request_id
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
     public function updateSharedPetRequest(UpdateRequest $request, int $request_id): JsonResponse
     {
         $request = $this->contactRepository->find($request_id);
@@ -91,6 +124,13 @@ class ContactController extends Controller
         ]);
     }
 
+    /**
+     * Sets the accepted state of a request to true
+     *
+     * @param int $request_id
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
     public function acceptSharedPetRequest(int $request_id): JsonResponse
     {
         $request = $this->contactRepository->find($request_id);
@@ -104,11 +144,18 @@ class ContactController extends Controller
         ]);
     }
 
+    /**
+     * Gets the request of a shared pet by its id
+     *
+     * @param int $request_id
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
     public function generateAcceptSharedPetRequest(int $request_id): JsonResponse
     {
         $request = $this->contactRepository->find($request_id);
         $this->authorize('accept', $request);
-        
+
         $request = $this->contactRepository->findSharedPetRequest($request_id);
 
         return response()->json([
@@ -117,6 +164,13 @@ class ContactController extends Controller
         ]);
     }
 
+    /**
+     * Deletes a request to share a pet
+     *
+     * @param int $request_id
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
     public function deleteSharedPetRequest(int $request_id): JsonResponse
     {
         $request = $this->contactRepository->find($request_id);

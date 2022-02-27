@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\VaccineRequest;
+use App\Models\Vaccine;
 use App\Repositories\PetRepository;
 use App\Repositories\VaccineRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 
 class VaccineController extends Controller
 {
     protected $vaccineRepository;
+    protected $petRepository;
 
     public function __construct(VaccineRepository $vaccineRepository, PetRepository $petRepository)
     {
@@ -22,6 +25,7 @@ class VaccineController extends Controller
      *
      * @param $pet_id
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function getVaccinesByPet($pet_id): JsonResponse
     {
@@ -39,6 +43,7 @@ class VaccineController extends Controller
      *
      * @param VaccineRequest $request
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function createVaccine(VaccineRequest $request): JsonResponse
     {
@@ -58,6 +63,7 @@ class VaccineController extends Controller
      *
      * @param $vaccine_id
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function findVaccine($vaccine_id): JsonResponse
     {
@@ -75,6 +81,7 @@ class VaccineController extends Controller
      * @param VaccineRequest $request
      * @param $vaccine_id
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function updateVaccine(VaccineRequest $request, $vaccine_id): JsonResponse
     {
@@ -94,6 +101,7 @@ class VaccineController extends Controller
      *
      * @param $vaccine_id
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function deleteVaccine($vaccine_id): JsonResponse
     {

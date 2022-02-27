@@ -8,6 +8,7 @@ use App\Repositories\UserRepository;
 use App\Repositories\UserTypeRepository;
 use App\Repositories\ImageRepository;
 use App\Http\Requests\Users\Professionals\CreateRequest;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
@@ -75,12 +76,13 @@ class UserController extends Controller
      *
      * @param CreateRequest $request
      * @return JsonResponse
+     * @throws AuthorizationException
      */
-    public function updateProfessional(CreateRequest $request): JsonResponse 
+    public function updateProfessional(CreateRequest $request): JsonResponse
     {
-        $user = $this->userRepository->find($request->id);
+        $user = $this->userRepository->find($request->get('id'));
         $this->authorize('update', $user);
-        
+
         $dto = new UserDTO;
         $dto->loadFromArray($request->except('password'));
 
@@ -128,9 +130,16 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Updates a pet owner
+     *
+     * @param CreateOwnerRequest $request
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
     public function updateOwner(CreateOwnerRequest $request): JsonResponse
     {
-        $user = $this->userRepository->find($request->id);
+        $user = $this->userRepository->find($request->get('id'));
         $this->authorize('update', $user);
 
         $dto = new UserDTO;
@@ -151,6 +160,7 @@ class UserController extends Controller
      *
      * @param $user_id
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function deleteUser($user_id): JsonResponse
     {
@@ -164,7 +174,7 @@ class UserController extends Controller
         ]);
     }
 
-    /* Create a new user of type owner
+    /** Create a new user of type owner
      *
      * @param CreateOwnerRequest $request
      * @return JsonResponse

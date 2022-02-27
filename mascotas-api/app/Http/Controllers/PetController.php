@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Dtos\PetDTO;
 use App\Http\Requests\Pets\UpdateOrCreateRequest;
+use App\Models\Pet;
 use App\Repositories\ImageRepository;
 use App\Repositories\PetRepository;
 use App\Repositories\SexRepository;
 use App\Repositories\SpeciesRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -55,6 +57,7 @@ class PetController extends Controller
      *
      * @param UpdateOrCreateRequest $request
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function createPet(UpdateOrCreateRequest $request): JsonResponse
     {
@@ -86,6 +89,7 @@ class PetController extends Controller
      * @param UpdateOrCreateRequest $request
      * @param int $pet_id
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function updatePet(UpdateOrCreateRequest $request, int $pet_id): JsonResponse
     {
@@ -117,7 +121,7 @@ class PetController extends Controller
      * @param Request $request
      * @param $pet_id
      * @return JsonResponse
-     * @throws ValidationException
+     * @throws ValidationException|AuthorizationException
      */
     public function updateObservation(Request $request, $pet_id): JsonResponse
     {
@@ -171,7 +175,14 @@ class PetController extends Controller
         ]);
     }
 
-    public function getObservation($pet_id)
+    /**
+     * Gets the observation of a pet
+     *
+     * @param $pet_id
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
+    public function getObservation($pet_id): JsonResponse
     {
         $pet = $this->petRepository->find($pet_id);
         $this->authorize('viewMedicalDetails', $pet);
@@ -189,11 +200,12 @@ class PetController extends Controller
      *
      * @param $pet_id
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function findPet($pet_id): JsonResponse
     {
         $pet = $this->petRepository->findWithRelationship($pet_id);
-        
+
         $this->authorize('view', $pet);
 
         return response()->json([
@@ -207,6 +219,7 @@ class PetController extends Controller
      *
      * @param $pet_id
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function deletePet($pet_id): JsonResponse
     {

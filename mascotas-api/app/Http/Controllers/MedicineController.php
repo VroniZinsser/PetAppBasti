@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Medicines\AddRequest;
+use App\Models\Medicine;
 use App\Repositories\HourRepository;
 use App\Repositories\MedicineRepository;
 use App\Repositories\PetRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -13,6 +15,7 @@ class MedicineController extends Controller
 {
     protected $medicineRepository;
     protected $hourRepository;
+    protected $petRepository;
 
     public function __construct(MedicineRepository $medicineRepository, HourRepository $hourRepository, PetRepository $petRepository)
     {
@@ -26,6 +29,7 @@ class MedicineController extends Controller
      *
      * @param AddRequest $request
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function createMedicine(AddRequest $request): JsonResponse
     {
@@ -52,6 +56,7 @@ class MedicineController extends Controller
      *
      * @param $medicine_id
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function findMedicine($medicine_id): JsonResponse
     {
@@ -69,6 +74,7 @@ class MedicineController extends Controller
      * @param Request $request
      * @param $medicine_id
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function updateMedicine(Request $request, $medicine_id): JsonResponse
     {
@@ -95,6 +101,7 @@ class MedicineController extends Controller
      *
      * @param $medicine_id
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function deleteMedicine($medicine_id): JsonResponse
     {
