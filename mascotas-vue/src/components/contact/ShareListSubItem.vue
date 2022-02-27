@@ -74,7 +74,7 @@ export default {
     },
 
     quoteIntro() {
-      return this.professionalName ? 'Tu mensaje a this.professionalName: ' : 'Mensaje: '
+      return this.professionalName ? `Tu mensaje a ${this.professionalName}: ` : 'Mensaje: '
     },
 
     dialogTitle() {
@@ -82,7 +82,7 @@ export default {
     },
 
     dialogText() {
-      return this.professionalName ? `${this.professionalName} no podrá ver más el perfil de ${this.pet.name}. Podés volver a compartir la mascota cuando quieras.` : `no podrá ver más el perfil de ${this.pet.name} hasta que el dueño te la vuelva a compartir.`
+      return this.professionalName ? `${this.professionalName} no podrá ver más el perfil de ${this.pet.name}. Podés volver a compartir la mascota cuando quieras.` : `No podrás ver más el perfil de ${this.pet.name} hasta que el dueño te la vuelva a compartir.`
     },
 
     dialogButtonText() {
