@@ -65,8 +65,8 @@ export default {
   },
   computed: {
     cardClass() {
-      const medicineEndDate = new Date(this.medicine.end_date).toLocaleDateString();
-      const actualDate = new Date(Date.now()).toLocaleDateString();
+      const medicineEndDate = new Date(this.medicine.end_date);
+      const actualDate = new Date(Date.now());
       return (actualDate > medicineEndDate ? 'disabled ' : '') + "card medicine-item";
     },
 
