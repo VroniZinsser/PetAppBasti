@@ -51,11 +51,7 @@
         display: flex;
         overflow-x: auto;
         padding: 1rem 1rem 1rem 0;
-
-        &::-webkit-scrollbar {
-          width: 0;
-        }
-
+        
         .card {
           margin-top: 0;
         }
