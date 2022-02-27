@@ -8,6 +8,7 @@ import Login from "../views/Auth/Login";
 import MedicineForm from "../views/pets/medicines/Form";
 import ResetPasswordForm from "../views/Auth/resetPassword/ResetPasswordForm";
 import ChangePassword from "../views/Auth/resetPassword/ChangePassword";
+import ChangePasswordAuthenticated from "../views/Auth/resetPassword/ChangePasswordAuthenticated";
 import ObservationForm from "../views/pets/ObservationForm";
 import OwnerSingUp from "../views/Auth/sing-up/OwnerSingUp";
 import Pets from "../views/pets/Pets";
@@ -258,6 +259,14 @@ const routes = [
         path: '/perfil/editar',
         name: 'OwnerEdit',
         component: OwnerEdit,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/perfil/editar/contrasena',
+        name: 'ChangePasswordAuthenticated',
+        component: ChangePasswordAuthenticated,
         meta: {
             requiresAuth: true,
         },
