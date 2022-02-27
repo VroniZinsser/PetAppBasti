@@ -7,7 +7,13 @@ use App\Repositories\MedicineRepository;
 
 class MedicineService implements MedicineRepository
 {
-
+    /**
+     * @inheritDoc
+     */
+    public function getMedicinesByPet(int $pet_id): object
+    {
+        return Medicine::get()->where('pets_id', $pet_id)->load('hours');
+    }
 
     /**
      * @inheritDoc
@@ -28,7 +34,7 @@ class MedicineService implements MedicineRepository
      */
     public function find(int $id): Medicine
     {
-        return Medicine::find($id);
+        return Medicine::find($id)->load('hours');
     }
 
     /**

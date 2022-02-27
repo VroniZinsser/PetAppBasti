@@ -5,10 +5,10 @@ import Explore from "../views/explore/Explore";
 // import Home from '../views/Home.vue'
 // import Inbox from "../views/contact/Inbox";
 import Login from "../views/Auth/Login";
+import MedicineForm from "../views/pets/medicines/Form";
 import ResetPasswordForm from "../views/Auth/resetPassword/ResetPasswordForm";
 import ChangePassword from "../views/Auth/resetPassword/ChangePassword";
 import ChangePasswordAuthenticated from "../views/Auth/resetPassword/ChangePasswordAuthenticated";
-import MedicinesAddForm from "../views/pets/medicines/MedicinesAddForm";
 import ObservationForm from "../views/pets/ObservationForm";
 import OwnerSingUp from "../views/Auth/sing-up/OwnerSingUp";
 import Pets from "../views/pets/Pets";
@@ -27,6 +27,7 @@ import WeightList from "../views/pets/weights/List";
 import VaccineList from "../views/pets/vaccines/List";
 import AcceptSharedPetRequest from "@/views/contact/Accept";
 import PageNotFound from "@/views/PageNotFound";
+import MedicineList from "@/views/pets/medicines/List";
 
 Vue.use(VueRouter)
 
@@ -150,8 +151,25 @@ const routes = [
     },
     {
         path: '/mascotas/:pet_id/medicamentos/agregar',
-        name: 'MedicinesAddForm',
-        component: MedicinesAddForm,
+        name: 'MedicineForm',
+        component: MedicineForm,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/mascotas/:pet_id/medicamentos/:medicine_id/editar',
+        name: 'MedicineFormEdit',
+        component: MedicineForm,
+        meta: {
+            requiresAuth: true,
+            editing: true,
+        },
+    },
+    {
+        path: '/mascotas/:pet_id/medicamentos',
+        name: 'MedicineList',
+        component: MedicineList,
         meta: {
             requiresAuth: true,
         },
