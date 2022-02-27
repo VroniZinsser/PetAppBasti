@@ -257,12 +257,18 @@ export default {
     if (this.medicine) {
       this.formData.name = this.medicine.name;
       this.formData.date = this.medicine.date;
+
+      let hours = [];
+      for (const hour of this.medicine.hours) {
+        hours.push(hour.id)
+      }
+      
       this.formData = {
         name: this.medicine.name,
         quantity: this.medicine.quantity,
         start_date: this.medicine.start_date,
         end_date: this.medicine.end_date,
-        hours: this.medicine.hours,
+        hours: hours,
         pet_id: this.pet_id,
       }
     }
