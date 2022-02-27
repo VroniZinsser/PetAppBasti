@@ -40,7 +40,7 @@ class ContactService implements ContactRepository
      */
     public function getProfessionalSharedPets(int $professional_id): Collection
     {
-        return SharedPet::where('professionals_id', $professional_id)->get();
+        return SharedPet::where('professionals_id', $professional_id)->with('pet', 'pet.image', 'owner')->get();
     }
 
     /**
@@ -105,6 +105,22 @@ class ContactService implements ContactRepository
         $user = \Auth::user();
 
         if (!$request || $user->id !== $request->professionals_id || $request->accepted || $request->expiration_date < now()->format("Y-m-d")) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function checkDeleteRequest(int $id): bool
+    {
+        $request = $this->findSharedPetRequest($id);
+
+        $user = \Auth::user();
+
+        if (!$request || ($user->id !== $request->professionals_id && $user->id !== $request->owners_id)) {
             return false;
         }
 

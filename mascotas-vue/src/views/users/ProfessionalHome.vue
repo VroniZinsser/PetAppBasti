@@ -4,20 +4,25 @@
   <div v-else class="professional-home">
     <TitleBar :title="`Buenos días ${store.user.first_name} ${store.user.last_name}`"></TitleBar>
     <BaseNotification
-      v-if="store.status.msg != null"
-      :type="store.status.type"
-      :text="store.status.msg"
-      :title="store.status.title"
+        v-if="store.status.msg != null"
+        :type="store.status.type"
+        :text="store.status.msg"
+        :title="store.status.title"
     />
     <div class="home-container">
-      <ProfileCard 
-        :user="me"
+      <ProfileCard
+          :user="me"
       />
-      <h2>Mascotas compartidas con vos</h2>
+      <div class="owner-share-list" v-if="sharedPets.length > 0">
+        <h2>Mascotas compartidas con vos</h2>
+
+        <List :shared-pets="sharedPets" @delete-request="deleteRequest"/>
+
+      </div>
       <p v-if="sharedPets.length === 0">Actualmente no hay mascotas compartidas.</p>
     </div>
   </div>
-    
+
 </template>
 
 <script>
@@ -28,18 +33,19 @@ import BaseNotification from "@/components/general/notifications/BaseNotificatio
 import store from "@/store";
 import contactService from "@/services/contact";
 import authService from "@/services/auth";
+import List from "@/components/contact/professional/request/List";
 
 export default {
   name: "ProfessionalHome",
 
   components: {
+    List,
     TitleBar,
     Loader,
     BaseNotification,
     ProfileCard,
   },
-
-   data() {
+  data() {
     return {
       loading: true,
       store,
@@ -48,18 +54,32 @@ export default {
       me: null,
     }
   },
+  methods: {
+    deleteRequest(id) {
+      contactService.delete(id)
+          .then(res => {
+            if(res.success){
+              this.sharedPets = this.sharedPets.filter(request => request.id !== id);
+              this.store.setStatus({
+                msg: 'La mascota se quitó de la lista con éxito',
+                type: 'success',
+              })
+            }
 
+          });
+    }
+  },
   mounted() {
     this.loading = true;
     authService.me()
-      .then(res => {
-        this.me = res.data.user;
-        contactService.getProfessionalSharedPets()
         .then(res => {
-            this.sharedPets = res.data.sharedPets;
-            this.loading = false;
+          this.me = res.data.user;
+          contactService.getProfessionalSharedPets()
+              .then(res => {
+                this.sharedPets = res.data.sharedPets;
+                this.loading = false;
+              })
         })
-      })
   }
 }
 
