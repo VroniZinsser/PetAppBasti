@@ -13,7 +13,7 @@
       <div>
         <img :src="createImgPath(pet.image.src)" :alt="pet.image.alt"/>
         <div class="pet-container">
-          <p class="pet-name">{{ pet.name }}</p>
+          <p class="pet-name">{{ petName }}</p>
           <p class="expiration">{{ expirationText }}</p>
         </div>
       </div>
@@ -62,6 +62,14 @@ export default {
   computed: {
     pet() {
       return this.request.pet;
+    },
+
+    owner() {
+      return this.request.owner;
+    },
+
+    petName() {
+      return this.professionalName ? this.pet.name : `${this.owner.first_name} ${this.owner.last_name}: ${this.pet.name}`;
     },
 
     /**
