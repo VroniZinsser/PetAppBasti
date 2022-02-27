@@ -198,7 +198,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo(Image::class, 'profile_img_id');
     }
 
-    /** 
+    /**
      * Returns true if the user has at least one user type that belongs to professional user
      *
      * @return bool
