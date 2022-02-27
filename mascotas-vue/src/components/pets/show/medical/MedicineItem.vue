@@ -39,7 +39,7 @@
       </div>
     </div>
     <div class="medicine-item-hours">
-      <div v-for="hour in medicine.hours" :key="hour.id">
+      <div v-for="hour in formatHours" :key="hour.id">
         {{ hour.time }}
       </div>
     </div>
@@ -68,6 +68,14 @@ export default {
       const medicineEndDate = new Date(this.medicine.end_date).toLocaleDateString();
       const actualDate = new Date(Date.now()).toLocaleDateString();
       return (actualDate > medicineEndDate ? 'disabled ' : '') + "card medicine-item";
+    },
+
+    formatHours() {
+      this.medicine.hours.map((item) => {
+        item.time = item.time.slice(0, 5);
+      })
+
+      return this.medicine.hours
     }
   }
 }
