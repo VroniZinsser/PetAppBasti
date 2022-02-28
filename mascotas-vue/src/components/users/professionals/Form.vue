@@ -394,6 +394,7 @@ export default {
     },
 
     updateUser() {
+      if (!this.showFileInput) this.formData.photo = null;
       userService.updateProfessional(this.formData, this.professional.id)
         .then(res => {
           this.loading = false;
