@@ -13,6 +13,19 @@ const medicineServices = {
         })
             .then(res => res.json());
     },
+    /**
+     * Obtains the data necessary for the creation of the form and the medication information to be edited.
+     *
+     * @param {string | int} id
+     * @returns {Promise<any>}
+     */
+    updateForm(id) {
+        return fetch(`${API}medicamentos/${id}/formulario-editar`, {
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
+        })
+            .then(res => res.json());
+    },
 
     /**
      * Creates a new medication
@@ -49,7 +62,8 @@ const medicineServices = {
         return fetch(`${API}medicamentos/${id}`, {
             method: 'PUT',
             body: JSON.stringify(data),
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
         }).then(res => res.json());
     },
 
@@ -61,7 +75,8 @@ const medicineServices = {
     delete(id) {
         return fetch(`${API}medicamentos/${id}`, {
             method: 'DELETE',
-            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
+            headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+            credentials: 'include'
         }).then(res => res.json());
     },
 }

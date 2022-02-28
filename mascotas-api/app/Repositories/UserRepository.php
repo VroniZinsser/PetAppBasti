@@ -26,6 +26,15 @@ interface UserRepository
      */
      public function updateOrCreate(UserDTO $dto, ?User $user = null): User;
 
+    /**
+     * Updates a user's password
+     *
+     * @param String $password
+     * @param int $id the user's id
+     * @return User The updated user
+     */
+    public function updatePassword(String $password, int $id): Bool;
+
      /**
      * Returns the user with the given id
      *

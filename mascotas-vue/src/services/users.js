@@ -170,7 +170,7 @@ const userService = {
     },
 
     /**
-     * Updates an existing professional user.
+     * Updates an existing pet owner.
      *
      * @param {{}} user
      * @param {string} user.first_name

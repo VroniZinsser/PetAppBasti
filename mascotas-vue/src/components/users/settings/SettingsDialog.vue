@@ -21,6 +21,11 @@
                     @onclick="editProfile"
                 />
                 <SettingsDialogItem 
+                    icon="mdi-lock-reset"
+                    text="Cambiar Contraseña"
+                    @onclick="changePassword"
+                />
+                <SettingsDialogItem 
                     icon="mdi-logout"
                     text="Cerrar Sesión"
                     @onclick="$emit('logout')"
@@ -65,7 +70,15 @@ export default {
 
       editProfile() {
         const routeName = this.user.is_professional ? 'ProfessionalEdit' : 'OwnerEdit'
-        if (this.$route.name !== routeName) {
+        this.redirectAndClose(routeName);
+      },
+
+      changePassword() {
+          this.redirectAndClose('ChangePasswordAuthenticated');
+      },
+
+      redirectAndClose(routeName) {
+          if (this.$route.name !== routeName) {
             this.$router.push({
                 name: routeName,
             });

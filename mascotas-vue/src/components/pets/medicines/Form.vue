@@ -1,9 +1,9 @@
 <template>
   <v-form
-      action="/mascotas/medicamentos/agregar"
+      :action="medicine ? 'medicamentos/editar' : 'medicamentos/crear'"
       method="post"
       ref="medicineForm"
-      @submit.prevent="addMedicine"
+      @submit.prevent="sendForm"
   >
     <InputText
         label="Nombre del medicamento"
@@ -27,7 +27,7 @@
         :loading="loading"
         :rules="[rules.obligatory, rules.date]"
         :errors="errors.start_date"
-        :initialDate="getCurrentDate()"
+        :initialDate="initialDate"
         @update-date="updateStartDate"
     ></InputDate>
 
@@ -38,7 +38,7 @@
         :min-date="formData.start_date"
         :rules="[rules.obligatory, rules.date]"
         :errors="errors.end_date"
-        :initialDate="getCurrentDate()"
+        :initialDate="finalDate"
         @update-date="updateEndDate"
     ></InputDate>
 
@@ -57,14 +57,14 @@
         :error="errors.hours !== null"
     ></v-select>
 
-    <button class="main-btn" type="submit" :disabled="loading">Agregar</button>
+    <button class="main-btn" type="submit" :disabled="loading">{{ medicine ? "Guardar cambios" : "Agregar" }}</button>
   </v-form>
 </template>
 
 <script>
-import InputText from "../../../general/inputs/InputText";
-import InputDate from "../../../general/inputs/InputDate";
-import medicineServices from "../../../../services/medicines";
+import InputText from "../../general/inputs/InputText";
+import InputDate from "../../general/inputs/InputDate";
+import medicineServices from "../../../services/medicines";
 import store from "@/store";
 import { handleAccessError } from "@/helpers";
 
@@ -80,6 +80,10 @@ export default {
       type: [Number, String],
       required: true,
     },
+    medicine: {
+      type: Object,
+      default: null,
+    }
   },
   data: function () {
     return {
@@ -131,7 +135,7 @@ export default {
     /**
      * Add the medication to the pet
      */
-    addMedicine() {
+    sendForm() {
       if (this.$refs.medicineForm.validate()) {
         this.loading = true;
 
@@ -143,39 +147,78 @@ export default {
           hours: null,
         }
 
-        medicineServices.create(this.formData)
-            .then(res => {
+        if (!this.medicine) {
+          medicineServices.create(this.formData)
+              .then(res => {
 
-              if (!res.success) {
-                if (this.handleAccessError(res)) return;
-                if (res.errors) {
-                  this.errors = {
-                    name: null,
-                    quantity: null,
-                    start_date: null,
-                    end_date: null,
-                    hours: null,
-                    ...res.errors
+                if (!res.success) {
+                  if (this.handleAccessError(res)) return;
+                  if (res.errors) {
+                    this.errors = {
+                      name: null,
+                      quantity: null,
+                      start_date: null,
+                      end_date: null,
+                      hours: null,
+                      ...res.errors
+                    }
+                    this.store.setStatus({
+                      msg: "Por favor corregí los datos del formulario.",
+                      type: 'warning',
+                    });
+                  } else {
+                    this.store.setStatus({
+                      msg: 'Algo salió mal. El medicamento no se guardó correctamente.',
+                      type: 'error',
+                    });
                   }
-                  this.store.setStatus({
-                    msg: "Por favor corregí los datos del formulario.",
-                    type: 'warning',
-                  });
                 } else {
                   this.store.setStatus({
-                    msg: 'Algo salió mal. El medicamento no se guardó correctamente.',
-                    type: 'error',
+                    msg: '¡El nuevo medicamento está guardado!',
+                    type: 'success',
                   });
+                  this.$router.back();
                 }
-              } else {
-                this.store.setStatus({
-                  msg: '¡El nuevo medicamento está guardado!',
-                  type: 'success',
-                });
-                this.$router.push({name: 'Pets'});
-              }
-            })
+              })
+        } else {
+          medicineServices.update(this.formData, this.medicine.id)
+              .then(res => {
+                this.loading = false;
 
+                if (!res.success) {
+                  if (res.errors && res.errors.pet_id) {
+                    this.store.setStatus({
+                      msg: 'La mascota no existe.',
+                      type: 'error',
+                    });
+                  } else if (res.errors) {
+                    this.errors = {
+                      name: null,
+                      quantity: null,
+                      start_date: null,
+                      end_date: null,
+                      hours: null,
+                      ...res.errors
+                    }
+                    this.store.setStatus({
+                      msg: "Por favor corregí los datos del formulario.",
+                      type: 'warning',
+                    });
+                  } else {
+                    this.store.setStatus({
+                      msg: 'Algo salió mal. El medicamento no se editó correctamente.',
+                      type: 'error',
+                    });
+                  }
+                } else {
+                  this.store.setStatus({
+                    msg: '¡El medicamento se editó con éxito!',
+                    type: 'success',
+                  });
+                  this.$router.back();
+                }
+              })
+        }
         this.loading = false
       }
     },
@@ -202,6 +245,35 @@ export default {
         item.time = item.time.slice(0, 5);
       })
       return daytimeHours;
+    }
+  },
+  computed: {
+    initialDate() {
+      return this.medicine ? this.medicine.start_date : this.getCurrentDate();
+    },
+
+    finalDate() {
+      return this.medicine ? this.medicine.end_date : this.getCurrentDate();
+    }
+  },
+  mounted() {
+    if (this.medicine) {
+      this.formData.name = this.medicine.name;
+      this.formData.date = this.medicine.date;
+
+      let hours = [];
+      for (const hour of this.medicine.hours) {
+        hours.push(hour.id)
+      }
+
+      this.formData = {
+        name: this.medicine.name,
+        quantity: this.medicine.quantity,
+        start_date: this.medicine.start_date,
+        end_date: this.medicine.end_date,
+        hours: hours,
+        pet_id: this.pet_id,
+      }
     }
   },
 }

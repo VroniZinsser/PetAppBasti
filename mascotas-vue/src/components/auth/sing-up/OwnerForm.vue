@@ -30,19 +30,13 @@
         :errors="errors.email"
     ></InputText>
 
-    <InputText
-        v-if="!user"
-        :type="showPassword ? 'text' : 'password'"
-        label="Contraseña"
-        v-model="formData.password"
-        hint="La contraseña debe tener mínimo 6 caracteres y contener al menos un número"
-        persistent-hint
-        :loading="loading"
-        :rules="[rules.obligatory, rules.password, rules.passwordMin]"
-        :errors="errors.password"
-        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-        @click:append="showPassword = !showPassword"
-    ></InputText>
+    <InputPassword
+      v-if="!user"
+      label="Contraseña" 
+      v-model="formData.password"
+      :loading="loading"
+      :errors="errors.password"
+    />
 
     <button class="main-btn" type="submit" :disabled="loading">{{ user ? 'Guardar cambios' : 'Crear cuenta'}}</button>
     <DeleteAccountButton 
@@ -53,6 +47,7 @@
 
 <script>
 import InputText from "../../general/inputs/InputText";
+import InputPassword from "../../general/inputs/InputPassword";
 import DeleteAccountButton from "@/components/general/buttons/DeleteAccountButton";
 import userService from "../../../services/users";
 import authService from "../../../services/auth";
@@ -63,6 +58,7 @@ export default {
   name: "OwnerForm",
   components: {
     InputText,
+    InputPassword,
     DeleteAccountButton,
   },
   props: {
@@ -72,7 +68,6 @@ export default {
     },
   },
   data: () => ({
-    showPassword: false,
     loading: false,
     store,
     handleAccessError,
@@ -94,11 +89,6 @@ export default {
         const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return pattern.test(value) || 'El correo electrónico no es válido';
       },
-      password: value => {
-        const pattern = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
-        return pattern.test(value) || 'La contraseña debe contener como mínimo una letra y un número'
-      },
-      passwordMin: value => (value && value.length >= 6) || 'La contraseña debe de tener como mínimo 6 caracteres',
     },
   }),
   methods: {

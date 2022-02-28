@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SharedPets\CreateRequest;
+use App\Http\Requests\SharedPets\DeleteRequest;
 use App\Http\Requests\SharedPets\UpdateRequest;
 use App\Models\SharedPet;
 use App\Repositories\ContactRepository;
@@ -170,6 +171,7 @@ class ContactController extends Controller
      * @throws AuthorizationException
      */
     public function deleteSharedPetRequest(int $request_id): JsonResponse
+
     {
         $request = $this->contactRepository->find($request_id);
         $this->authorize('delete', $request);

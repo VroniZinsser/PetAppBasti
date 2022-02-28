@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Auth\Notifications\ResetPassword;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +25,11 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        /**
+         * Customize the reset password url that is sent by mail to the user
+         */
+        ResetPassword::createUrlUsing(function ($user, string $token) {
+            return 'http://127.0.0.1:8080/#/cambiar-contrasena?token=' . $token;
+        });
     }
 }

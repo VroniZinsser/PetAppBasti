@@ -2,14 +2,7 @@
   <Loader v-if="loading"></Loader>
 
   <v-container v-else class="medical-list-container">
-    <header>
-      <router-link :to="{name: 'Pets'}">
-        <span class="sr-only">Volver al listado de mascotas</span>
-        <span class="material-icons">arrow_back</span>
-      </router-link>
-
-      <h1>Pesos de la mascota</h1>
-    </header>
+    <ListHeader title="Pesos de la mascota"/>
 
     <BaseNotification
         v-if="store.status.msg != null"
@@ -54,10 +47,11 @@ import {displayWeight, formatDate} from "@/helpers";
 import WarnDialog from "@/components/general/notifications/WarnDialog";
 import weightService from "@/services/weights";
 import { handleAccessError } from "@/helpers";
+import ListHeader from "@/components/pets/show/medical/ListHeader";
 
 export default {
   name: "List",
-  components: {WarnDialog, BaseNotification, CircleButtonLinkList, Loader, WeightList},
+  components: {ListHeader, WarnDialog, BaseNotification, CircleButtonLinkList, Loader, WeightList},
   data() {
     return {
       weights: null,

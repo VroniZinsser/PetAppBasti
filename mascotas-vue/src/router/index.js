@@ -5,7 +5,10 @@ import Explore from "../views/explore/Explore";
 // import Home from '../views/Home.vue'
 // import Inbox from "../views/contact/Inbox";
 import Login from "../views/Auth/Login";
-import MedicinesAddForm from "../views/pets/medicines/MedicinesAddForm";
+import MedicineForm from "../views/pets/medicines/Form";
+import ResetPasswordForm from "../views/Auth/resetPassword/ResetPasswordForm";
+import ChangePassword from "../views/Auth/resetPassword/ChangePassword";
+import ChangePasswordAuthenticated from "../views/Auth/resetPassword/ChangePasswordAuthenticated";
 import ObservationForm from "../views/pets/ObservationForm";
 import OwnerSingUp from "../views/Auth/sing-up/OwnerSingUp";
 import Pets from "../views/pets/Pets";
@@ -24,6 +27,7 @@ import WeightList from "../views/pets/weights/List";
 import VaccineList from "../views/pets/vaccines/List";
 import AcceptSharedPetRequest from "@/views/contact/Accept";
 import PageNotFound from "@/views/PageNotFound";
+import MedicineList from "@/views/pets/medicines/List";
 
 Vue.use(VueRouter)
 
@@ -66,6 +70,22 @@ const routes = [
         }
     },
     {
+        path: '/recuperar-contrasena',
+        name: 'ResetPasswordForm',
+        component: ResetPasswordForm,
+        meta: {
+            requiresGuest: true,
+        }
+    },
+    {
+        path: '/cambiar-contrasena',
+        name: 'ChangePassword',
+        component: ChangePassword,
+        meta: {
+            requiresGuest: true,
+        }
+    },
+      {
         path: '/profesional/agenda',
         name: 'ScheduleProfessional',
         component: Schedule,
@@ -131,8 +151,25 @@ const routes = [
     },
     {
         path: '/mascotas/:pet_id/medicamentos/agregar',
-        name: 'MedicinesAddForm',
-        component: MedicinesAddForm,
+        name: 'MedicineForm',
+        component: MedicineForm,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/mascotas/:pet_id/medicamentos/:medicine_id/editar',
+        name: 'MedicineFormEdit',
+        component: MedicineForm,
+        meta: {
+            requiresAuth: true,
+            editing: true,
+        },
+    },
+    {
+        path: '/mascotas/:pet_id/medicamentos',
+        name: 'MedicineList',
+        component: MedicineList,
         meta: {
             requiresAuth: true,
         },
@@ -222,6 +259,14 @@ const routes = [
         path: '/perfil/editar',
         name: 'OwnerEdit',
         component: OwnerEdit,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/perfil/editar/contrasena',
+        name: 'ChangePasswordAuthenticated',
+        component: ChangePasswordAuthenticated,
         meta: {
             requiresAuth: true,
         },

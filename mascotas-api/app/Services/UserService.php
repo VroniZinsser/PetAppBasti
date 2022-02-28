@@ -60,6 +60,14 @@ class UserService implements UserRepository {
     /**
      * @inheritDoc
      */
+    public function updatePassword(string $password, int $id): Bool
+    {
+        return User::find($id)->update(['password' => Hash::make($password)]);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function find(int $id): User
     {
         return User::findOrFail($id)->load(['profile_image', 'userTypes']);

@@ -149,9 +149,7 @@ class UserController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => [
-                'user' => $user
-            ]
+            'data' => compact('user')
         ]);
     }
 
@@ -191,9 +189,7 @@ class UserController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => [
-                'user' => $user
-            ]
+            'data' => compact('user')
         ]);
     }
 }

@@ -61,9 +61,12 @@ Route::post('mascotas/{pet}/observacion', [PetController::class, 'updateObservat
 Route::middleware(['auth'])->group(function () {
     Route::get('/medicamentos/formulario-agregar', [MedicineController::class, 'addForm']);
     Route::post('/medicamentos', [MedicineController::class, 'createMedicine']);
+    Route::get('/medicamentos/{medicine_id}/formulario-editar', [MedicineController::class, 'updateForm']);
     Route::get('/medicamentos/{medicine_id}', [MedicineController::class, 'findMedicine']);
     Route::put('/medicamentos/{medicine_id}', [MedicineController::class, 'updateMedicine']);
     Route::delete('/medicamentos/{medicine_id}', [MedicineController::class, 'deleteMedicine']);
+    Route::get('/mascotas/{pet_id}/medicamentos', [MedicineController::class, 'getMedicinesByPet']);
+
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -85,6 +88,9 @@ Route::middleware(['auth'])->group(function () {
 Route::prefix('/autenticacion')->group(function () {
     Route::get("/", [AuthController::class, 'me'])->middleware(['auth']);
     Route::post("/", [AuthController::class, 'login'])->middleware(['guest']);
+    Route::post("recuperar-contrasena", [AuthController::class, 'sendPasswordReset'])->middleware(['guest']);
+    Route::post("cambiar-contrasena-autenticado", [AuthController::class, 'changePasswordAuthenticated'])->middleware(['auth']);
+    Route::post("cambiar-contrasena", [AuthController::class, 'changePassword'])->middleware(['guest']);
     Route::delete("/", [AuthController::class, 'logout'])->middleware(['auth']);
 });
 

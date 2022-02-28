@@ -79,6 +79,57 @@ const authService = {
     },
 
     /**
+     * Sends an email to the given address with a link to reset the password
+     *
+     * @param {{}} formData
+     * @param {string} formData.email
+     * @returns {Promise<any>}
+     */
+    sendPasswordReset(formData) {
+        return fetch(`${API}autenticacion/recuperar-contrasena`, {
+            method: 'POST',
+            body: JSON.stringify(formData),
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            credentials: 'include'
+        }).then(res => res.json());
+    },
+
+    /**
+     * Changes the password of unauthenticated user by mail and token
+     *
+     * @param {{}} formData
+     * @param {string} formData.email
+     * @param {string} formData.password
+     * @param {string} formData.token
+     * @returns {Promise<any>}
+     */
+    changePassword(formData) {
+        return fetch(`${API}autenticacion/cambiar-contrasena`, {
+            method: 'POST',
+            body: JSON.stringify(formData),
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            credentials: 'include'
+        }).then(res => res.json());
+    },
+
+    /**
+     * Changes the password of an authenticated user by current password 
+     *
+     * @param {{}} formData
+     * @param {string} formData.currentPassword
+     * @param {string} formData.newPassword
+     * @returns {Promise<any>}
+     */
+    changePasswordAuthenticated(formData) {
+        return fetch(`${API}autenticacion/cambiar-contrasena-autenticado`, {
+            method: 'POST',
+            body: JSON.stringify(formData),
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            credentials: 'include'
+        }).then(res => res.json());
+    },
+
+    /**
      * Returns a boolean, true if the user is authenticated, false if not.
      *
      * @returns {boolean}
