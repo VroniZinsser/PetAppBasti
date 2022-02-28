@@ -7,12 +7,14 @@
   
     <v-alert
       class="register-alert"
-      color="#CC613E"
-      text
+      color="#17a2b8"
+      colored-border
+      border="left"
+      elevation="1"
       icon="mdi-account-plus"
       prominent
     >
-      Si trabajás en el rubro veterinario podés <br><router-link :to="{name: 'UserCreate'}">registrarte como profesional</router-link>
+      Si trabajás en el rubro veterinario podés <router-link :to="{name: 'UserCreate'}">registrarte como profesional</router-link>
     </v-alert>
 
     <OwnerForm/>
