@@ -47,6 +47,7 @@ import InputDate from "../../general/inputs/InputDate";
 import Textarea from "../../general/inputs/Textarea";
 import contactService from "../../../services/contact";
 import BaseNotification from "../../general/notifications/BaseNotification";
+import { handleAccessError } from "@/helpers";
 
 export default {
   name: "Form",
@@ -72,6 +73,7 @@ export default {
     return {
       loading: false,
       formData: {},
+      handleAccessError,
       errors: {
         description: null,
         expiration_date: null,
@@ -143,6 +145,7 @@ export default {
           contactService.create(this.formData)
               .then(res => {
                 if (!res.success) {
+                  if (this.handleAccessError(res)) return;
                   this.notification.type = 'error';
 
                   if (res.errors) {
@@ -169,6 +172,7 @@ export default {
           contactService.update(this.formData, this.request.id)
               .then(res => {
                 if (!res.success) {
+                  if (this.handleAccessError(res)) return;
                   this.notification.type = 'error';
 
                   if (res.errors) {

@@ -17,8 +17,7 @@ import Form from "@/components/auth/sing-up/OwnerForm";
 import userService from "@/services/users"
 import store from "@/store";
 import FormContainer from "@/components/general/forms/FormContainer";
-
-
+import { handleAccessError } from "@/helpers";
 
 export default {
   name: "OwnerEdit",
@@ -30,6 +29,7 @@ export default {
     loading: true,
     user: null,
     store,
+    handleAccessError,
   }),
   mounted() {
     userService.getUserById(this.store.user.id)
@@ -37,6 +37,7 @@ export default {
             if (res.data.user) {
                 this.user = res.data.user;
             } else {
+                if (this.handleAccessError(res)) return;
                 this.store.setStatus({
                     msg: 'Hubo un error mientras cargamos tus datos. Por favor intentalo más tarde.',
                     type: 'error',

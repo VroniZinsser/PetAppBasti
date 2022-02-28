@@ -22,7 +22,7 @@ class WeightService implements WeightRepository
      */
     public function find(int $id): Weight
     {
-        return Weight::find($id);
+        return Weight::findOrFail($id);
     }
 
     /**
@@ -41,9 +41,8 @@ class WeightService implements WeightRepository
     /**
      * @inheritDoc
      */
-    public function update(int $id, string $date, int $weight_number): Weight
+    public function update(Weight $weight, string $date, int $weight_number): Weight
     {
-        $weight = Weight::find($id);
         $weight->date = $date;
         $weight->weight = $weight_number;
         $weight->save();
@@ -53,9 +52,9 @@ class WeightService implements WeightRepository
     /**
      * @inheritDoc
      */
-    public function delete(int $id): bool
+    public function delete(Weight $weight): bool
     {
-        Weight::find($id)->delete();
+        $weight->delete();
         return true;
     }
 }

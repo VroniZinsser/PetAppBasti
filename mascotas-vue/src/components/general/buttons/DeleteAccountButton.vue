@@ -31,6 +31,7 @@ import WarnDialog from "@/components/general/notifications/WarnDialog";
 import authService from "@/services/auth";
 import userService from "@/services/users";
 import store from "@/store";
+import { handleAccessError } from "@/helpers"
 
 
 export default {
@@ -40,6 +41,7 @@ export default {
         return {
             showWarnDialog: false,
             store,
+            handleAccessError,
             dialogTextProfessional: "¿Estás seguro que ya no querés ser parte de Basti? Si eliminás tu cuenta, tu perfil ya no estará disponible y no aparecerá en el mapa. No tendrás más acceso a las mascotas compartidas con vos.",
             dialogTextOwner: "¿Estás seguro que ya no querés ser parte de Basti? Si eliminás tu cuenta, no podrás acceder más a nuestro mapa. Las mascotas que agregaste a tu cuenta se eliminarán del sistema."
         }   
@@ -70,9 +72,10 @@ export default {
                 if (res.success) {
                     this.$router.push({name: 'Login'});
                 } else {
+                    if (this.handleAccessError(res)) return;
                     this.store.setStatus({
-                    msg: 'Algo salió mal. Intentalo nuevamente más tarde.',
-                    type: 'error',
+                        msg: 'Algo salió mal. Intentalo nuevamente más tarde.',
+                        type: 'error',
                     });
                 }
             })

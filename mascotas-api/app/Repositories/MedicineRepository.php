@@ -39,7 +39,7 @@ interface MedicineRepository
     /**
      * Updates and returns the medicine with the given id
      *
-     * @param int $id
+     * @param Medicine $medicine
      * @param string $name
      * @param string $quantity
      * @param string $start_date
@@ -47,13 +47,13 @@ interface MedicineRepository
      * @param array $hours
      * @return Medicine The updated medicine
      */
-    public function update(int $id, string $name, string $quantity, string $start_date, string $end_date, array $hours): Medicine;
+    public function update(Medicine $medicine, string $name, string $quantity, string $start_date, string $end_date, array $hours): Medicine;
 
     /**
      * Deletes the medicine with the given id and returns true if deletion was successful
      *
-     * @param int $id
+     * @param Medicine $medicine
      * @return boolean success
      */
-    public function delete(int $id): bool;
+    public function delete(Medicine $medicine): bool;
 }

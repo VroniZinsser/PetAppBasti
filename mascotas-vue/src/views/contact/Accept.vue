@@ -1,7 +1,7 @@
 <template>
   <Loader v-if="loading"></Loader>
 
-  <v-container v-else-if="request" fluid class="justify-center d-flex align-center">
+  <v-container v-else-if="request && hasAccess" fluid class="justify-center d-flex align-center">
     <h1 class="sr-only">Aceptar petición</h1>
 
     <AcceptCard
@@ -9,6 +9,7 @@
         :request="request"
         @accepted="accepted"
         @rejected="rejected"
+        @accessDenied="accessDenied"
     />
 
     <TitleWithLink
@@ -40,6 +41,7 @@ export default {
     loading: true,
     request: null,
     incomplete: true,
+    hasAccess: true,
     notification: {
       text: null,
       type: 'success',
@@ -55,7 +57,7 @@ export default {
       this.result = {
         title: 'Petición aceptada con éxito',
         linkText: 'Ir al inicio',
-        routeName: 'Pets', // NOTE: Esto es temporal, cuando este completa la pantalla de inicio para el profesional se debe de poner el route name correspondiente
+        routeName: 'Pets', // TODO: Esto es temporal, cuando este completa la pantalla de inicio para el profesional se debe de poner el route name correspondiente
       }
 
       this.incomplete = false;
@@ -65,16 +67,20 @@ export default {
       this.result = {
         title: 'Petición rechazada con éxito',
         linkText: 'Ir al inicio',
-        routeName: 'Pets', // NOTE: Esto es temporal, cuando este completa la pantalla de inicio para el profesional se debe de poner el route name correspondiente
+        routeName: 'Pets', // TODO: Esto es temporal, cuando este completa la pantalla de inicio para el profesional se debe de poner el route name correspondiente
       }
 
       this.incomplete = false;
     },
+    
+    accessDenied() {
+      this.hasAccess = false;
+    }
   },
   mounted() {
     contactService.acceptGenerate(this.$route.params.request_id)
         .then(res => {
-          if (res.access !== false ) {
+          if (res.success) {
             this.request = res.data.request;
           }
 

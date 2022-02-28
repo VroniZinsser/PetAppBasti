@@ -52,7 +52,7 @@ import DeleteAccountButton from "@/components/general/buttons/DeleteAccountButto
 import userService from "../../../services/users";
 import authService from "../../../services/auth";
 import store from "@/store";
-
+import { handleAccessError } from "@/helpers";
 
 export default {
   name: "OwnerForm",
@@ -70,6 +70,7 @@ export default {
   data: () => ({
     loading: false,
     store,
+    handleAccessError,
     formData: {
       first_name: null,
       last_name: null,
@@ -118,6 +119,7 @@ export default {
       userService.createOwner(this.formData)
         .then(res => {
           if (!res.success) {
+            if (this.handleAccessError(res)) return;
             if (res.errors) {
               this.errors = {
                 first_name: null,
@@ -156,6 +158,7 @@ export default {
           this.loading = false;
 
           if (!res.success) {
+            if (this.handleAccessError(res)) return;
             if (res.errors) {
               this.errors = {
                 first_name: null,

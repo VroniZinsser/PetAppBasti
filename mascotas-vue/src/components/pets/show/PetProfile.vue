@@ -62,6 +62,7 @@ import Dropdown from "../../general/buttons/Dropdown";
 import petServices from "../../../services/pets";
 import store from "../../../store";
 import WarnDialog from "@/components/general/notifications/WarnDialog";
+import { handleAccessError } from "@/helpers";
 
 export default {
   name: "PetProfile",
@@ -78,7 +79,7 @@ export default {
   data() {
     return {
       store,
-      
+      handleAccessError,
       showWarnDialog: false,
     }
   },
@@ -87,6 +88,7 @@ export default {
       petServices.deletePet(this.pet.id)
           .then(res => {
             if (!res.success) {
+              if (this.handleAccessError(res)) return;
               this.store.setStatus({
                 msg: 'Algo salió mal. No se pudo eliminar la mascota.',
                 type: 'error',

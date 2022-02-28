@@ -20,7 +20,7 @@ class VaccineService implements VaccineRepository
      */
     public function find(int $id): Vaccine
     {
-        return Vaccine::find($id);
+        return Vaccine::findOrFail($id);
     }
 
     /**
@@ -41,9 +41,8 @@ class VaccineService implements VaccineRepository
     /**
      * @inheritDoc
      */
-    public function update(int $id, string $name, string $date): Vaccine
+    public function update(Vaccine $vaccine, string $name, string $date): Vaccine
     {
-        $vaccine = Vaccine::find($id);
         $vaccine->name = $name;
         $vaccine->date = $date;
 
@@ -55,9 +54,9 @@ class VaccineService implements VaccineRepository
     /**
      * @inheritDoc
      */
-    public function delete(int $id): bool
+    public function delete(Vaccine $vaccine): bool
     {
-        Vaccine::find($id)->delete();
+        $vaccine->delete();
 
         return true;
     }

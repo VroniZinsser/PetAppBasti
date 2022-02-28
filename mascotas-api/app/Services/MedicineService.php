@@ -34,15 +34,14 @@ class MedicineService implements MedicineRepository
      */
     public function find(int $id): Medicine
     {
-        return Medicine::find($id)->load('hours');
+        return Medicine::findOrFail($id)->load('hours');
     }
 
     /**
      * @inheritDoc
      */
-    public function update(int $id, string $name, string $quantity, string $start_date, string $end_date, array $hours): Medicine
+    public function update(Medicine $medicine, string $name, string $quantity, string $start_date, string $end_date, array $hours): Medicine
     {
-        $medicine = Medicine::find($id);
         $medicine->name = $name;
         $medicine->quantity = $quantity;
         $medicine->start_date = $start_date;
@@ -57,9 +56,9 @@ class MedicineService implements MedicineRepository
     /**
      * @inheritDoc
      */
-    public function delete(int $id): bool
+    public function delete(Medicine $medicine): bool
     {
-        Medicine::find($id)->delete();
+        $medicine->delete();
 
         return true;
     }

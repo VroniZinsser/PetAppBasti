@@ -36,6 +36,7 @@
 <script>
 import contactService from "@/services/contact";
 import {formatDate} from "@/helpers";
+import { handleAccessError } from "@/helpers";
 
 export default {
   name: "AcceptCard",
@@ -48,20 +49,29 @@ export default {
   data() {
     return {
       expirationDate: formatDate(this.request.expiration_date),
+      handleAccessError,
     }
   },
   methods: {
     accept() {
       contactService.accept(this.request.id)
-          .then(() => {
-            this.$emit('accepted')
+          .then((res) => {
+            if (res.access === false) {
+              this.$emit('accessDenied');
+            } else {
+              this.$emit('accepted')
+            }
           })
     },
 
     decline() {
       contactService.delete(this.request.id)
-          .then(() => {
-            this.$emit('rejected')
+          .then((res) => {
+            if (res.access === false) {
+              this.$emit('accessDenied');
+            } else {
+              this.$emit('rejected')
+            }
           })
     },
   }

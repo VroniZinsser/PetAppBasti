@@ -66,6 +66,7 @@ import InputText from "../../general/inputs/InputText";
 import InputDate from "../../general/inputs/InputDate";
 import medicineServices from "../../../services/medicines";
 import store from "@/store";
+import { handleAccessError } from "@/helpers";
 
 export default {
   name: "Form",
@@ -88,6 +89,7 @@ export default {
     return {
       loading: false,
       store,
+      handleAccessError,
       formData: {
         name: null,
         quantity: null,
@@ -150,6 +152,7 @@ export default {
               .then(res => {
 
                 if (!res.success) {
+                  if (this.handleAccessError(res)) return;
                   if (res.errors) {
                     this.errors = {
                       name: null,

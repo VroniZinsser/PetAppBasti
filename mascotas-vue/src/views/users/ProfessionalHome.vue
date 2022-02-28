@@ -33,6 +33,7 @@ import BaseNotification from "@/components/general/notifications/BaseNotificatio
 import store from "@/store";
 import contactService from "@/services/contact";
 import authService from "@/services/auth";
+import { handleAccessError } from "@/helpers";
 import List from "@/components/contact/professional/request/List";
 
 export default {
@@ -52,6 +53,7 @@ export default {
       sharedPets: [],
       authenticatedUser: [],
       me: null,
+      handleAccessError,
     }
   },
   methods: {
@@ -76,6 +78,7 @@ export default {
           this.me = res.data.user;
           contactService.getProfessionalSharedPets()
               .then(res => {
+                if (this.handleAccessError(res)) return;
                 this.sharedPets = res.data.sharedPets;
                 this.loading = false;
               })

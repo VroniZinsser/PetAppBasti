@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\SharedPet
@@ -17,21 +20,21 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $pets_id
  * @property int|null $owners_id
  * @property int|null $professionals_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|SharedPet newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|SharedPet newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|SharedPet query()
- * @method static \Illuminate\Database\Eloquent\Builder|SharedPet whereAccepted($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SharedPet whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SharedPet whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SharedPet whereExpirationDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SharedPet whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SharedPet whereOwnersId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SharedPet wherePetsId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SharedPet whereProfessionalsId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SharedPet whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static Builder|SharedPet newModelQuery()
+ * @method static Builder|SharedPet newQuery()
+ * @method static Builder|SharedPet query()
+ * @method static Builder|SharedPet whereAccepted($value)
+ * @method static Builder|SharedPet whereCreatedAt($value)
+ * @method static Builder|SharedPet whereDescription($value)
+ * @method static Builder|SharedPet whereExpirationDate($value)
+ * @method static Builder|SharedPet whereId($value)
+ * @method static Builder|SharedPet whereOwnersId($value)
+ * @method static Builder|SharedPet wherePetsId($value)
+ * @method static Builder|SharedPet whereProfessionalsId($value)
+ * @method static Builder|SharedPet whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class SharedPet extends Model
 {
@@ -40,7 +43,7 @@ class SharedPet extends Model
     use HasFactory, SoftDeletes;
 
     /**
-     * Returns the related owner
+     * Returns the related pet
      *
      * @return BelongsTo
      */
@@ -50,7 +53,7 @@ class SharedPet extends Model
     }
 
     /**
-     * Returns the related pet
+     * Returns the related owner
      *
      * @return BelongsTo
      */
