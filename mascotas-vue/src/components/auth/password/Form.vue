@@ -13,37 +13,30 @@
         :rules="[rules.obligatory, rules.email]"
         :errors="errors.email"
     ></InputText>
-
-    <InputText
-        label="Nueva contraseña"
-        v-model="formData.password"
-        identifier="password"
-        :loading="loading"
-        :rules="[rules.obligatory, rules.password]"
-        :errors="errors.password"
-        :type="showPassword ? 'text' : 'password'"
-        hint="La contraseña debe tener mínimo 6 caracteres y contener un número"
-        persistent-hint
-        counter
-        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-        @click:append="showPassword = !showPassword"
-    ></InputText>
-
+    <InputPassword 
+      label="Nueva contraseña"
+      v-model="formData.password"
+      :loading="loading"
+      :errors="errors.email"
+    />
     <button class="main-btn" type="submit" :disabled="loading">Guardar contraseña</button>
   </v-form>
 </template>
 
 <script>
 import InputText from "../../general/inputs/InputText";
+import InputPassword from "../../general/inputs/InputPassword";
 import authService from "../../../services/auth";
 import store from "../../../store";
 
 export default {
   name: 'Form',
-  components: {InputText},
+  components: {
+    InputText,
+    InputPassword
+  },
   data() { 
       return {
-        showPassword: false,
         loading: false,
         store,
         formData: {
@@ -60,10 +53,6 @@ export default {
             email: value => {
                 const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 return pattern.test(value) || 'El correo electrónico no es válido.';
-            },
-            password: value => {
-                const pattern = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
-                return pattern.test(value) || 'La contraseña no coincide con los estándares de seguridad'
             },
         },
     }
@@ -92,7 +81,7 @@ export default {
                   }
                 } else {
                   this.store.setStatus({
-                    msg: 'No se pudo cambiar la contraseña: ' + res.msg,
+                    msg: 'Lamentablemente no se pudo cambiar la contraseña. ' + res.msg,
                     type: 'error',
                   });
                 }

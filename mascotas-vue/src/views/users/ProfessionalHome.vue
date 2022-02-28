@@ -58,11 +58,10 @@ export default {
     deleteRequest(id) {
       contactService.delete(id)
           .then(res => {
-            console.log(res);
             if(res.success){
               this.sharedPets = this.sharedPets.filter(request => request.id !== id);
               this.store.setStatus({
-                msg: 'La mascota se elimino con éxito',
+                msg: 'La mascota se quitó de la lista con éxito',
                 type: 'success',
               })
             }

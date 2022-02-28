@@ -40,7 +40,7 @@ class ContactService implements ContactRepository
      */
     public function getProfessionalSharedPets(int $professional_id): Collection
     {
-        return SharedPet::where('professionals_id', $professional_id)->with('pet', 'pet.image')->get();
+        return SharedPet::where('professionals_id', $professional_id)->with('pet', 'pet.image', 'owner')->get();
     }
 
     /**

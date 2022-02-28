@@ -71,22 +71,14 @@
               color="#3fb094"
           ></v-switch>
 
-          <InputText
-              v-if="createNewUser"
-              label="Contraseña"
-              v-model="formData.password"
-              identifier="password"
-              :loading="loading"
-              :rules="[rules.obligatory, rules.password]"
-              :errors="errors.password"
-              required
-              :type="show_password ? 'text' : 'password'"
-              hint="La contraseña debe tener mínimo 6 caracteres y contener un número"
-              persistent-hint
-              counter
-              :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
-              @click:append="show_password = !show_password"
-          ></InputText>
+          <InputPassword
+            v-if="createNewUser"
+            label="Contraseña" 
+            v-model="formData.password"
+            :loading="loading"
+            :errors="errors.password"
+          />
+        
         </fieldset>
 
         <fieldset>
@@ -168,8 +160,6 @@
                 color="#3fb094"
             ></v-file-input>
           </div>
-
-          
         </fieldset>
 
         <fieldset>
@@ -234,7 +224,6 @@
               :professional="professional" 
             />
           
-        
             <InputAddress
                 v-if="createNewUser || showAddressInput"
                 label="Dirección"
@@ -279,6 +268,7 @@ import store from "@/store";
 import InputAddress from "@/components/general/inputs/InputAddress";
 import DeleteAccountButton from "@/components/general/buttons/DeleteAccountButton";
 import InputText from "@/components/general/inputs/InputText";
+import InputPassword from "@/components/general/inputs/InputPassword";
 import {createImgPath} from "@/helpers";
 import Address from "@/components/users/professionals/Address"
 import BaseNotification from "@/components/general/notifications/BaseNotification";
@@ -306,6 +296,7 @@ export default {
   components: {
     InputAddress,
     InputText,
+    InputPassword,
     Address,
     BaseNotification,
     DeleteAccountButton
@@ -313,7 +304,6 @@ export default {
 
   data() {
     return {
-      show_password: false,
       loading: false,
       store,
       photo: null,
@@ -327,10 +317,6 @@ export default {
         email: value => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
           return pattern.test(value) || 'El correo electrónico no es válido.'
-        },
-        password: value => {
-          const pattern = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
-          return pattern.test(value) || 'La contraseña no coincide con los estándares de seguridad'
         },
         url: value => {
           const pattern = /^(ftp|http|https):\/\/[^ "]+$/;

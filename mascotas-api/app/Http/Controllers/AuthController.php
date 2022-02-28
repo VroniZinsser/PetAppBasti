@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\ChangePasswordRequest;
+use App\Http\Requests\Auth\ChangePasswordAuthenticatedRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
@@ -104,7 +105,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Sends token, email and new password to the backend in order to update the password savely
+     * Changes the password of unauthenticated user by mail and token
      *
      * @param Request $request
      * @return JsonResponse 
@@ -143,6 +144,30 @@ class AuthController extends Controller
             'success' => $success,
             'msg' => $msg
         ]);
+    }
+
+    /**
+     * Changes the password of an authenticated user by current password 
+     *
+     * @param Request $request
+     * @return JsonResponse 
+     */
+    public function changePasswordAuthenticated(ChangePasswordAuthenticatedRequest $request): JsonResponse {
+        if (!Hash::check($request->get('currentPassword'), auth()->user()->password)) {
+            return response()->json([
+                'success' => false,
+                'errors' => [
+                    'currentPassword' => ['La contraseña ingresada no es correcta.']
+                ]
+            ]);
+        }
+
+        $this->userRepository->updatePassword($request->get('newPassword'), auth()->user()->id);
+
+        return response()->json([
+            'success' => 'true',
+        ]);
+
     }
 
     /**
