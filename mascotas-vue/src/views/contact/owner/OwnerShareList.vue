@@ -25,6 +25,7 @@ import TitleBar from "@/components/general/layouts/TitleBar";
 import Loader from "@/components/general/notifications/Loader";
 import ShareListItem from "@/components/contact/owner/ShareListItem";
 import contactService from "@/services/contact";
+import { handleAccessError } from "@/helpers";
 
 export default {
   name: "OwnerShareList",
@@ -36,6 +37,7 @@ export default {
   data: () => ({
     loading: true,
     professionals: null,
+    handleAccessError,
 
   }),
   mounted() {
@@ -43,13 +45,17 @@ export default {
   },
   methods: {
     deleteRequest(id) {
-      contactService.delete(id);
+      contactService.delete(id)
+        .then(res => {
+          if (this.handleAccessError(res)) return;
+        });
       this.getSharedPets();
     },
     getSharedPets() {
       this.loading = true;
       contactService.getOwnerSharedPets()
         .then(res => {
+          if (this.handleAccessError(res)) return;
           this.professionals = res.data.professionals;
           this.loading = false;
         });

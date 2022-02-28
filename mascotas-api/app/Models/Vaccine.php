@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Vaccine
@@ -13,19 +16,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $name
  * @property string $date
  * @property int $pets_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Pet $pet
- * @method static \Illuminate\Database\Eloquent\Builder|Vaccine newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Vaccine newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Vaccine query()
- * @method static \Illuminate\Database\Eloquent\Builder|Vaccine whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Vaccine whereDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Vaccine whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Vaccine whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Vaccine wherePetsId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Vaccine whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Pet $pet
+ * @method static Builder|Vaccine newModelQuery()
+ * @method static Builder|Vaccine newQuery()
+ * @method static Builder|Vaccine query()
+ * @method static Builder|Vaccine whereCreatedAt($value)
+ * @method static Builder|Vaccine whereDate($value)
+ * @method static Builder|Vaccine whereId($value)
+ * @method static Builder|Vaccine whereName($value)
+ * @method static Builder|Vaccine wherePetsId($value)
+ * @method static Builder|Vaccine whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class Vaccine extends Model
 {

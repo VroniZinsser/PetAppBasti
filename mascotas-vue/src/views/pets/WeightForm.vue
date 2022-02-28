@@ -18,6 +18,7 @@
 import Form from "../../components/pets/weight/Form";
 import FormContainer from "../../components/general/forms/FormContainer";
 import weightService from "@/services/weights";
+import { handleAccessError } from "@/helpers";
 
 export default {
   name: "WeightForm",
@@ -29,12 +30,15 @@ export default {
     return {
       loading: true,
       weight: null,
+      handleAccessError,
     }
   },
   mounted() {
     if (this.$route.params.weight_id) {
       weightService.find(this.$route.params.weight_id)
           .then(res => {
+            if (this.handleAccessError(res)) return;
+
             this.weight = res.data.weight;
             this.loading = false;
           })

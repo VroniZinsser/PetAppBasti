@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,12 +12,12 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property string $name
- * @method static \Illuminate\Database\Eloquent\Builder|Sex newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Sex newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Sex query()
- * @method static \Illuminate\Database\Eloquent\Builder|Sex whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Sex whereName($value)
- * @mixin \Eloquent
+ * @method static Builder|Sex newModelQuery()
+ * @method static Builder|Sex newQuery()
+ * @method static Builder|Sex query()
+ * @method static Builder|Sex whereId($value)
+ * @method static Builder|Sex whereName($value)
+ * @mixin Eloquent
  */
 class Sex extends Model
 {

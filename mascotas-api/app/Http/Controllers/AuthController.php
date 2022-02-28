@@ -15,10 +15,11 @@ use App\Repositories\UserRepository;
 
 class AuthController extends Controller
 {
+    protected $userRepository;
     /**
      * Create a new AuthController instance.
      *
-     * @return void
+     * @param UserRepository $userRepository
      */
     public function __construct(UserRepository $userRepository)
     {
@@ -64,7 +65,7 @@ class AuthController extends Controller
     public function me(): JsonResponse
     {
         $user = $this->userRepository->find(auth()->user()->id);
-        
+
         return response()->json([
             'data' => [
                 'user' => $user,

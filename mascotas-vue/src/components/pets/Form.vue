@@ -121,6 +121,7 @@ import InputText from "@/components/general/inputs/InputText";
 import petServices from "../../services/pets";
 import store from "@/store";
 import {getCurrentDate} from "@/helpers";
+import { handleAccessError } from "@/helpers";
 
 export default {
   name: "Form",
@@ -146,6 +147,7 @@ export default {
     photo: null,
     store,
     getCurrentDate,
+    handleAccessError,
     formData: {
       breed: null,
       date_of_birth: null,
@@ -213,6 +215,7 @@ export default {
               .then(res => {
                 this.loading = false;
                 if (!res.success) {
+                  if (this.handleAccessError(res)) return;
                   if (res.errors) {
                     this.errors = {
                       breed: null,
@@ -250,6 +253,7 @@ export default {
               .then(res => {
                 this.loading = false;
                 if (!res.success) {
+                  if (this.handleAccessError(res)) return;
                   if (res.errors) {
                     this.errors = {
                       breed: null,

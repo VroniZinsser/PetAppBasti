@@ -25,12 +25,12 @@ interface PetRepository
     public function getPetsByUser(int $owner_id): object;
 
     /**
-     * @param int $pet_id
+     * @param Pet $pet
      * @param string $observation
      * @return Pet The patched pet
      * @throws ModelNotFoundException
      */
-    public function updateObservation(int $pet_id, string $observation): Pet;
+    public function updateObservation(Pet $pet, string $observation): Pet;
 
     /**
      * Returns the pet with the given id
@@ -51,10 +51,10 @@ interface PetRepository
     /**
      * Deletes the pet with the given id and returns true if deletion was successful
      *
-     * @param int $id
+     * @param Pet $pet
      * @return boolean success
      */
-    public function delete (int $id): bool;
+    public function delete (Pet $pet): bool;
 
     /**
      * Returns true if the given user id matches with the owners of the pet

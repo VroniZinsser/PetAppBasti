@@ -8,6 +8,7 @@ use App\Repositories\UserRepository;
 use App\Repositories\UserTypeRepository;
 use App\Repositories\ImageRepository;
 use App\Http\Requests\Users\Professionals\CreateRequest;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
@@ -75,11 +76,13 @@ class UserController extends Controller
      *
      * @param CreateRequest $request
      * @return JsonResponse
+     * @throws AuthorizationException
      */
-    public function updateProfessional(CreateRequest $request): JsonResponse 
+    public function updateProfessional(CreateRequest $request): JsonResponse
     {
-        // TODO: check if user_id of request is authenticated user
-        // Auth::user()->id !== $request->get('id')
+        $user = $this->userRepository->find($request->get('id'));
+        $this->authorize('update', $user);
+
         $dto = new UserDTO;
         $dto->loadFromArray($request->except('password'));
 
@@ -87,7 +90,7 @@ class UserController extends Controller
             $image = $this->imageRepository->uploadImage($photo, 'users/profile/', 'Perfil ' . $request->get('first_name') . ' ' . $request->get('last_name'));
             $dto->set_profile_img_id($image->id);
         }
-
+      
         $user = $this->userRepository->updateOrCreate($dto)->load(['profile_image']);
 
         $user->userTypes()->sync($request->get('user_types'));
@@ -127,12 +130,22 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Updates a pet owner
+     *
+     * @param CreateOwnerRequest $request
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
     public function updateOwner(CreateOwnerRequest $request): JsonResponse
     {
+        $user = $this->userRepository->find($request->get('id'));
+        $this->authorize('update', $user);
+
         $dto = new UserDTO;
         $dto->loadFromArray($request->except('password'));
 
-        $user = $this->userRepository->updateOrCreate($dto);
+        $user = $this->userRepository->updateOrCreate($dto, $user);
 
         return response()->json([
             'success' => true,
@@ -145,18 +158,21 @@ class UserController extends Controller
      *
      * @param $user_id
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function deleteUser($user_id): JsonResponse
     {
-        //TODO: check that $user_id is the authenticated user
-        $this->userRepository->delete($user_id);
+        $user = $this->userRepository->find($user_id);
+        $this->authorize('delete', $user);
+
+        $this->userRepository->delete($user);
 
         return response()->json([
             'success' => true,
         ]);
     }
 
-    /* Create a new user of type owner
+    /** Create a new user of type owner
      *
      * @param CreateOwnerRequest $request
      * @return JsonResponse

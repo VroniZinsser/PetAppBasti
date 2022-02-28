@@ -272,6 +272,7 @@ import InputPassword from "@/components/general/inputs/InputPassword";
 import {createImgPath} from "@/helpers";
 import Address from "@/components/users/professionals/Address"
 import BaseNotification from "@/components/general/notifications/BaseNotification";
+import { handleAccessError } from "@/helpers";
 
 export default {
   name: "Form",
@@ -310,6 +311,7 @@ export default {
       formData: {},
       errors: {},
       createImgPath,
+      handleAccessError,
       rules: {
         obligatory: value => !!value || 'Este campo es obligatorio.',
         numeric: value => !isNaN(value) || 'El valor debe ser numérico.',
@@ -422,6 +424,7 @@ export default {
             });
 
           } else {
+            if (this.handleAccessError(res)) return;
             this.store.setStatus({
               msg: "¡Algo salió mal! Por favor, intentalo nuevamente más tarde",
               type: 'error'

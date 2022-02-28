@@ -19,6 +19,8 @@ import Form from "../../components/pets/Form";
 import FormContainer from "../../components/general/forms/FormContainer";
 import Loader from "../../components/general/notifications/Loader";
 import petServices from "../../services/pets";
+import { handleAccessError } from "@/helpers";
+import store from "@/store";
 
 export default {
   name: "EditForm",
@@ -31,7 +33,9 @@ export default {
     loading: true,
     sexes: [],
     species: [],
-    pet: null
+    pet: null,
+    handleAccessError,
+    store,
   }),
   mounted() {
     petServices.createForm()
@@ -45,7 +49,11 @@ export default {
           if (res.data) {
             this.pet = res.data.pet;
           } else {
-            this.$emit('create-notification', 'error', 'No se encontró la mascota solicitada');
+            if (this.handleAccessError(res)) return;
+            this.store.setStatus({
+              msg: "No se encontró la mascota solicitada.",
+              type: 'Error'
+            });
             this.$router.push({name: 'Pets'});
           }
           this.loading = false;
