@@ -61,9 +61,12 @@ Route::post('mascotas/{pet}/observacion', [PetController::class, 'updateObservat
 Route::middleware(['auth'])->group(function () {
     Route::get('/medicamentos/formulario-agregar', [MedicineController::class, 'addForm']);
     Route::post('/medicamentos', [MedicineController::class, 'createMedicine']);
+    Route::get('/medicamentos/{medicine_id}/formulario-editar', [MedicineController::class, 'updateForm']);
     Route::get('/medicamentos/{medicine_id}', [MedicineController::class, 'findMedicine']);
     Route::put('/medicamentos/{medicine_id}', [MedicineController::class, 'updateMedicine']);
     Route::delete('/medicamentos/{medicine_id}', [MedicineController::class, 'deleteMedicine']);
+    Route::get('/mascotas/{pet_id}/medicamentos', [MedicineController::class, 'getMedicinesByPet']);
+
 });
 
 Route::middleware(['auth'])->group(function () {
