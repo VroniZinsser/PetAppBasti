@@ -34,6 +34,17 @@ const store = {
             ...this.status,
             ...newStatus
         }
+
+        const timeToWait = newStatus.type === "success" ? 5000 : 10000;
+
+        // reset notification after 5 seconds
+        setTimeout(() => { 
+            this.status = {
+                msg: null,
+                type: 'success',
+                title: null
+            }
+        }, timeToWait);
     },
     /**
      * Update the store user
