@@ -5,7 +5,9 @@
     @include desktop-up {
         padding-bottom: 0;
     }
-
+    .register-alert {
+        margin-bottom: 4px;
+    }
     form {
         background: $white-gray;
     }
