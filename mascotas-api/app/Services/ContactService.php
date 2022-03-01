@@ -30,7 +30,7 @@ class ContactService implements ContactRepository
         return $owner->relatedProfessionals()
             ->groupBy('id', 'first_name', 'last_name', 'owners_id', 'professionals_id')
             ->whereHas('requestsProfessional', $filterCurrentAccepted)
-            ->with(['requestsProfessional' => $filterCurrentAccepted,'requestsProfessional.pet', 'requestsProfessional.pet.image'])
+            ->with(['requestsProfessional' => $filterCurrentAccepted, 'requestsProfessional.pet', 'requestsProfessional.pet.image'])
             ->get();
     }
 
@@ -94,22 +94,6 @@ class ContactService implements ContactRepository
         $request->accepted = true;
 
         $request->save();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function checkDeleteRequest(int $id): bool
-    {
-        $request = $this->findSharedPetRequest($id);
-
-        $user = \Auth::user();
-
-        if (!$request || ($user->id !== $request->professionals_id && $user->id !== $request->owners_id)) {
-            return false;
-        }
-
-        return true;
     }
 
     /**
