@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,12 +12,12 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property string $name
- * @method static \Illuminate\Database\Eloquent\Builder|Species newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Species newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Species query()
- * @method static \Illuminate\Database\Eloquent\Builder|Species whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Species whereName($value)
- * @mixin \Eloquent
+ * @method static Builder|Species newModelQuery()
+ * @method static Builder|Species newQuery()
+ * @method static Builder|Species query()
+ * @method static Builder|Species whereId($value)
+ * @method static Builder|Species whereName($value)
+ * @mixin Eloquent
  */
 class Species extends Model
 {

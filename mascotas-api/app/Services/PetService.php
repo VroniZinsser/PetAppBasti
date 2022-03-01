@@ -52,12 +52,7 @@ class PetService implements PetRepository
      */
     public function find(int $id)
     {
-        try {
-            $pet = Pet::find($id);
-        } catch (Exception $exception) {
-            return $exception;
-        }
-        return $pet;
+        return Pet::findOrFail($id);
     }
 
     /**
@@ -76,9 +71,9 @@ class PetService implements PetRepository
     /**
      * @inheritDoc
      */
-    public function delete(int $id): bool
+    public function delete(Pet $pet): bool
     {
-        Pet::find($id)->delete();
+        $pet->delete();
 
         return true;
     }
@@ -87,9 +82,8 @@ class PetService implements PetRepository
      * @inheritDoc
      */
 
-    public function updateObservation(int $pet_id, string $observation): Pet
+    public function updateObservation(Pet $pet, string $observation): Pet
     {
-        $pet = Pet::findOrFail($pet_id);
         $pet->observation = $observation;
 
         $pet->save();

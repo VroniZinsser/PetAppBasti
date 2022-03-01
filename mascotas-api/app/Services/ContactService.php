@@ -13,18 +13,25 @@ class ContactService implements ContactRepository
     /**
      * @inheritDoc
      */
+    public function find(int $id): SharedPet
+    {
+        return SharedPet::find($id);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getRequestsByProfessional(int $owner_id): Collection
     {
         $filterCurrentAccepted = function ($query) {
             $query->whereDate('expiration_date', '>=', date('Y-m-d'))->where('accepted', 1);
         };
         $owner = User::find($owner_id);
-        $requestsByProfessionals = $owner->relatedProfessionals()
+        return $owner->relatedProfessionals()
             ->groupBy('id', 'first_name', 'last_name', 'owners_id', 'professionals_id')
             ->whereHas('requestsProfessional', $filterCurrentAccepted)
             ->with(['requestsProfessional' => $filterCurrentAccepted,'requestsProfessional.pet', 'requestsProfessional.pet.image'])
             ->get();
-        return $requestsByProfessionals;
     }
 
     /**
@@ -67,10 +74,8 @@ class ContactService implements ContactRepository
     /**
      * @inheritDoc
      */
-    public function updateSharedPetRequest(int $id, ?string $description, string $expiration_date, int $pet_id): SharedPet
+    public function updateSharedPetRequest(SharedPet $request, ?string $description, string $expiration_date, int $pet_id): SharedPet
     {
-        $request = SharedPet::find($id);
-
         $request->description = $description;
         $request->expiration_date = $expiration_date;
         $request->pets_id = $pet_id;
@@ -84,31 +89,11 @@ class ContactService implements ContactRepository
     /**
      * @inheritDoc
      */
-    public function acceptSharedPetRequest(int $id)
+    public function acceptSharedPetRequest(SharedPet $request)
     {
-        $request = SharedPet::find($id);
-
         $request->accepted = true;
 
         $request->save();
-
-        return $request;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function checkAcceptRequest(int $id): bool
-    {
-        $request = $this->findSharedPetRequest($id);
-
-        $user = \Auth::user();
-
-        if (!$request || $user->id !== $request->professionals_id || $request->accepted || $request->expiration_date < now()->format("Y-m-d")) {
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -132,23 +117,15 @@ class ContactService implements ContactRepository
      */
     public function findSharedPetRequest(int $id)
     {
-        try {
-            $request = SharedPet::findOrFail($id);
-        } catch (\Exception $exception) {
-            return null;
-        }
-
-        $request->load(['owner', 'pet']);
-
-        return $request;
+        return SharedPet::findOrFail($id)->load(['owner', 'pet']);
     }
 
     /**
      * @inheritDoc
      */
-    public function deleteSharedPetRequest(int $id): bool
+    public function deleteSharedPetRequest(SharedPet $request): bool
     {
-        SharedPet::find($id)->delete();
+        $request->delete();
 
         return true;
     }

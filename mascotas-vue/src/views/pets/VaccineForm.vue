@@ -18,23 +18,26 @@
 import Form from "../../components/pets/vaccine/Form";
 import FormContainer from "../../components/general/forms/FormContainer";
 import vaccineService from "@/services/vaccines";
+import { handleAccessError } from "@/helpers";
 
 export default {
   name: "VaccineForm",
   components: {
     Form,
-    FormContainer
+    FormContainer,
   },
   data() {
     return {
       loading: true,
       vaccine: null,
+      handleAccessError,
     }
   },
   mounted() {
     if (this.$route.params.vaccine_id) {
       vaccineService.find(this.$route.params.vaccine_id)
           .then(res => {
+            if (this.handleAccessError(res)) return;
             this.vaccine = res.data.vaccine;
             this.loading = false;
           })

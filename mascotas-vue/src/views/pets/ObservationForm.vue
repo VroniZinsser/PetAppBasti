@@ -18,21 +18,24 @@ import Form from "../../components/pets/observation/Form";
 import FormContainer from "../../components/general/forms/FormContainer";
 import petServices from "../../services/pets";
 import Loader from "../../components/general/notifications/Loader";
+import { handleAccessError } from "@/helpers";
 
 export default {
   name: "ObservationForm",
   components: {
     Loader,
     Form,
-    FormContainer
+    FormContainer,
   },
   data: () => ({
     loading: true,
-    observation: null
+    observation: null,
+    handleAccessError,
   }),
   mounted() {
     petServices.getObservation(this.$route.params.pet_id)
         .then(res => {
+          if (this.handleAccessError(res)) return;
           this.loading = false
           if (res.success) {
             this.observation = res.data.observation;

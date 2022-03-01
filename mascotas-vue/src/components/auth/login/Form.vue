@@ -36,6 +36,7 @@
 import InputText from "../../general/inputs/InputText";
 import authService from "../../../services/auth";
 import store from "../../../store";
+import { handleAccessError } from "@/helpers";
 
 export default {
   name: 'Form',
@@ -44,6 +45,7 @@ export default {
     showPassword: false,
     loading: false,
     store,
+    handleAccessError,
     formData: {
       email: null,
       password: null,
@@ -76,6 +78,7 @@ export default {
         authService.login(this.formData)
             .then(res => {
               if (!res.success) {
+                if (this.handleAccessError(res)) return;
                 if (res.errors) {
                   this.errors = {
                     email: null,

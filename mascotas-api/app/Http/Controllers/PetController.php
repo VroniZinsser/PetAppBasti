@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Dtos\PetDTO;
 use App\Http\Requests\Pets\UpdateOrCreateRequest;
+use App\Models\Pet;
 use App\Repositories\ImageRepository;
 use App\Repositories\PetRepository;
 use App\Repositories\SexRepository;
 use App\Repositories\SpeciesRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -55,9 +57,12 @@ class PetController extends Controller
      *
      * @param UpdateOrCreateRequest $request
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function createPet(UpdateOrCreateRequest $request): JsonResponse
     {
+        $this->authorize('create', Pet::class);
+
         $photo = $request->get('photo');
         $image_id = $request->get('species_id');
 
@@ -84,14 +89,12 @@ class PetController extends Controller
      * @param UpdateOrCreateRequest $request
      * @param int $pet_id
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function updatePet(UpdateOrCreateRequest $request, int $pet_id): JsonResponse
     {
-        $user_id = Auth::user()->id;
-
-        if (!$this->petRepository->isOwner($user_id, $pet_id)) {
-            return $this->denyPermission();
-        }
+        $pet = $this->petRepository->find($pet_id);
+        $this->authorize('update', $pet);
 
         $dto = new PetDTO();
         $dto->loadFromArray($request->input());
@@ -101,12 +104,10 @@ class PetController extends Controller
             $image = $this->imageRepository->uploadImage($photo, 'pets/', 'Mascota ' . $request->get('name'));
             $dto->set_image_id($image->id);
         } else {
-//            $pet = $this->petRepository->find($pet_id);
-
             $dto->set_image_id($this->petRepository->find($pet_id)->images_id);
         }
 
-        $pet = $this->petRepository->updateOrCreate($dto, $user_id);
+        $pet = $this->petRepository->updateOrCreate($dto, Auth::user()->id);
 
         return response()->json([
             'success' => true,
@@ -120,13 +121,13 @@ class PetController extends Controller
      * @param Request $request
      * @param $pet_id
      * @return JsonResponse
-     * @throws ValidationException
+     * @throws ValidationException|AuthorizationException
      */
     public function updateObservation(Request $request, $pet_id): JsonResponse
     {
-        if (!$this->petRepository->isOwner(Auth::user()->id, $pet_id)) {
-            return $this->denyPermission();
-        }
+        $pet = $this->petRepository->find($pet_id);
+        $this->authorize('updateOrDeleteObservation', $pet);
+
         switch ($request->input('action')) {
             case 'update':
                 $this->validateObservation($request->all());
@@ -145,7 +146,7 @@ class PetController extends Controller
         }
 
         try {
-            $pet = $this->petRepository->updateObservation($pet_id, $observation);
+            $this->petRepository->updateObservation($pet, $observation);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'success' => false,
@@ -174,9 +175,19 @@ class PetController extends Controller
         ]);
     }
 
-    public function getObservation($pet_id)
+    /**
+     * Gets the observation of a pet
+     *
+     * @param $pet_id
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
+    public function getObservation($pet_id): JsonResponse
     {
-        $observation = $this->petRepository->getObservation($pet_id);
+        $pet = $this->petRepository->find($pet_id);
+        $this->authorize('viewMedicalDetails', $pet);
+
+        $observation = $pet->observation;
 
         return response()->json([
             'success' => true,
@@ -189,29 +200,18 @@ class PetController extends Controller
      *
      * @param $pet_id
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function findPet($pet_id): JsonResponse
     {
         $pet = $this->petRepository->findWithRelationship($pet_id);
 
-        $access = false;
+        $this->authorize('view', $pet);
 
-        foreach ($pet->owners as $owner) {
-            if (Auth::user()->id === $owner->id){
-                $access = true;
-            }
-        }
-
-        if ($pet && $access) {
-            return response()->json([
-                'success' => true,
-                'data' => compact('pet'),
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'data' => compact('pet'),
+        ]);
     }
 
     /**
@@ -219,14 +219,15 @@ class PetController extends Controller
      *
      * @param $pet_id
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function deletePet($pet_id): JsonResponse
     {
-        if (!$this->petRepository->isOwner(Auth::user()->id, $pet_id)) {
-            return $this->denyPermission();
-        }
+        $pet = $this->petRepository->find($pet_id);
 
-        $this->petRepository->delete($pet_id);
+        $this->authorize('delete', $pet);
+
+        $this->petRepository->delete($pet);
 
         return response()->json([
             'success' => true,

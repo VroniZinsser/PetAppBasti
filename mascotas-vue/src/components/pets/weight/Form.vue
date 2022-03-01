@@ -35,6 +35,7 @@ import InputText from "@/components/general/inputs/InputText";
 import InputDate from "@/components/general/inputs/InputDate";
 import weightService from "../../../services/weights";
 import store from "@/store";
+import { handleAccessError } from "@/helpers";
 
 export default {
   name: "Form",
@@ -56,6 +57,7 @@ export default {
     return {
       loading: false,
       store,
+      handleAccessError,
       formData: {
         weight: null,
         date: this.getCurrentDate(),
@@ -100,6 +102,7 @@ export default {
                 this.loading = false;
 
                 if (!res.success) {
+                  if (this.handleAccessError(res)) return;
                   if (res.errors && res.errors.pet_id) {
                     this.store.setStatus({
                       msg: 'La mascota no existe.',
@@ -135,6 +138,7 @@ export default {
                 this.loading = false;
 
                 if (!res.success) {
+                  if (this.handleAccessError(res)) return;
                   if (res.errors && res.errors.pet_id) {
                     this.store.setStatus({
                       msg: 'La mascota no existe.',
