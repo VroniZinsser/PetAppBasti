@@ -24,7 +24,7 @@ import ImageSourceNotification from "@/components/general/notification/BaseNotif
 import {createStaticImgPath} from "@/helpers"; 
 
 export default {
-  name: "NoPet",
+  name: "petEmpty",
   data: () => ({
     showImgAlert: false,
     createStaticImgPath,

@@ -31,7 +31,7 @@
 import ShareListSubItem from "@/components/contact/list/ShareListSubItem";
 
 export default {
-  name: "ShareListItem",
+  name: "OwnerSignUpForm",
   props: {
     professional: {
       type: Object,

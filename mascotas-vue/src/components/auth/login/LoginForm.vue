@@ -39,7 +39,7 @@ import store from "../../../store";
 import { handleAccessError } from "@/helpers";
 
 export default {
-  name: 'Form',
+  name: 'LoginForm',
   components: {InputText},
   data: () => ({
     showPassword: false,

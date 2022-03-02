@@ -27,7 +27,7 @@
 import {displayWeight, formatDate} from "@/helpers";
 
 export default {
-  name: "ListItem",
+  name: "WeightListItem",
   props: {
     weight: {
       type: Object,

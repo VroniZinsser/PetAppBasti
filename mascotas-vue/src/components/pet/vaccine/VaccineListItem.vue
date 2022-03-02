@@ -28,7 +28,7 @@
 import {formatDate} from "@/helpers";
 
 export default {
-  name: "ListItem",
+  name: "VaccineListItem",
   components: {},
   props: {
     vaccine: {

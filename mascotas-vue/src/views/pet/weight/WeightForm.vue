@@ -1,30 +1,30 @@
 <template>
-  <FormContainer
+  <BaseFormContainer
       :headline="this.$route.params.weight_id ? 'Editar peso' : '¿Cuánto pesa tu mascota?'"
       form_class="form-weight"
       :is_short_form="true"
   >
     <p>Si pesás a tu mascota regularmente será mucho más fácil llevar un control sobre su dieta.</p>
 
-    <Form
+    <WeightForm
         v-if="!loading"
         :pet_id="$route.params.pet_id"
         :weight="weight"
-    ></Form>
-  </FormContainer>
+    ></WeightForm>
+  </BaseFormContainer>
 </template>
 
 <script>
-import Form from "@/components/pet/weight/WeightForm";
-import FormContainer from "@/components/general/form/BaseFormContainer";
+import WeightForm from "@/components/pet/weight/WeightForm";
+import BaseFormContainer from "@/components/general/form/BaseFormContainer";
 import weightService from "@/services/weights";
 import { handleAccessError } from "@/helpers";
 
 export default {
   name: "WeightForm",
   components: {
-    Form,
-    FormContainer
+    WeightForm,
+    BaseFormContainer
   },
   data() {
     return {

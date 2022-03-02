@@ -31,7 +31,7 @@ import VaccineItem from "@/components/pet/show/detail/medical/PetDetailMedicalVa
 import Placeholder from "@/components/pet/show/detail/medical/PetDetailMedicalPlaceholder";
 
 export default {
-  name: "Vaccine",
+  name: "PetDetailMedicalVaccine",
   props: {
     vaccines: {
       type: Array,

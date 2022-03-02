@@ -48,7 +48,7 @@ import medicineService from "@/services/medicines";
 import store from "@/store";
 
 export default {
-  name: "PetMedicalInfo",
+  name: "PetDetailMedical",
   props: {
     pet: {
       type: Object,

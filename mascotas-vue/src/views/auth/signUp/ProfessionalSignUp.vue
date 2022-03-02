@@ -1,10 +1,10 @@
 <template>
  <div>
     <TitleBar title="Crear tu perfil"></TitleBar>
-    <Loader v-if="loading"></Loader>
+    <TheLoader v-if="loading"></TheLoader>
     
     <div v-else class="professional-form-container">
-      <Form
+      <ProfessionalSignUpForm
           :user_types="user_types"
       >
         <v-alert
@@ -19,7 +19,7 @@
           Con este formulario podés <strong>ofrecer tus servicios</strong> en Basti. Si querés usar Basti como dueña o dueño de mascota <router-link :to="{name: 'OwnerSignUp'}">registrate acá</router-link>
         </v-alert>
 
-      </Form>
+      </ProfessionalSignUpForm>
     </div>
   </div>
 
@@ -27,17 +27,17 @@
 
 <script>
 
-import Form from "@/components/auth/signUp/ProfessionalSignUpForm";
+import ProfessionalSignUpForm from "@/components/auth/signUp/ProfessionalSignUpForm";
 import userService from "@/services/users"
 import TitleBar from "@/components/general/layout/TitleBar";
-import Loader from "@/components/general/layout/TheLoader";
+import TheLoader from "@/components/general/layout/TheLoader";
 
 export default {
   name: "ProfessionalSignUp",
   components: {
-    Form,
+    ProfessionalSignUpForm,
     TitleBar,
-    Loader,
+    TheLoader,
   },
   data: () => ({
     loading: true,

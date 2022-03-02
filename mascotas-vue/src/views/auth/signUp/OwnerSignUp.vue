@@ -1,5 +1,5 @@
 <template>
-  <FormContainer
+  <BaseFormContainer
     headline="Registrarme"
     form_class="form-signup-owner"
     :is_short_form="false"
@@ -17,21 +17,21 @@
       Si trabajás en el rubro veterinario podés <router-link :to="{name: 'UserCreate'}">registrarte como profesional</router-link>
     </v-alert>
 
-    <OwnerForm/>
+    <OwnerSignUpForm/>
 
     <p>¿Ya tenés una cuenta? <router-link :to="{name: 'Login'}">Ingresar</router-link></p>
-  </FormContainer>
+  </BaseFormContainer>
 </template>
 
 <script>
-import OwnerForm from "@/components/auth/signUp/OwnerSignUpForm";
-import FormContainer from "@/components/general/form/BaseFormContainer";
+import OwnerSignUpForm from "@/components/auth/signUp/OwnerSignUpForm";
+import BaseFormContainer from "@/components/general/form/BaseFormContainer";
 
 export default {
   name: "OwnerSignUp",
   components: {
-    OwnerForm,
-    FormContainer,
+    OwnerSignUpForm,
+    BaseFormContainer,
   }
 }
 </script>

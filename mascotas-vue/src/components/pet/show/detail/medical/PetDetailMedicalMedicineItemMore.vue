@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: "MedicineItem",
+  name: "PetDetailMedicalMedicineItemMore",
   props: {
     quantity: {
       type: Number,

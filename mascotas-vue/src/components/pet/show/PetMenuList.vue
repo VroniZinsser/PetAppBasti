@@ -11,7 +11,7 @@
 import PetMenuItem from "@/components/pet/show/PetMenuListItem";
 
 export default {
-  name: "PetMenu",
+  name: "PetMenuList",
   components: {PetMenuItem},
   props: {
     active: {

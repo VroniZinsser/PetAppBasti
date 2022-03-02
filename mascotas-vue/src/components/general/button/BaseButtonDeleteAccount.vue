@@ -35,7 +35,7 @@ import { handleAccessError } from "@/helpers"
 
 
 export default {
-  name: "DeleteAccountButton",
+  name: "BaseButtonDeleteAccount",
 
     data() {
         return {

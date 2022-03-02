@@ -39,7 +39,7 @@ import {formatDate} from "@/helpers";
 import { handleAccessError } from "@/helpers";
 
 export default {
-  name: "AcceptCard",
+  name: "SharePetAcceptCard",
   props: {
     request: {
       required: true,

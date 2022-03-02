@@ -1,30 +1,30 @@
 <template>
-    <Loader v-if="loading" />
-    <FormContainer
+    <TheLoader v-if="loading" />
+    <BaseFormContainer
         v-else
         headline="Restablecer Contraseña"
         form_class="form-change-password"
         :is_short_form="true"
     >
-        <Form />
+        <PasswordForm />
         
-    </FormContainer>
+    </BaseFormContainer>
   
 </template>
 
 <script>
-import FormContainer from "@/components/general/form/BaseFormContainer";
-import Loader from "@/components/general/layout/TheLoader";
-import Form from "@/components/auth/password/PasswordForm"
+import BaseFormContainer from "@/components/general/form/BaseFormContainer";
+import TheLoader from "@/components/general/layout/TheLoader";
+import PasswordForm from "@/components/auth/password/PasswordForm"
 import authService from "@/services/auth";
 import store from "@/store";
 
 export default {
   name: "ChangePassword",
   components: {
-    FormContainer,
-    Loader,
-    Form,
+    BaseFormContainer,
+    TheLoader,
+    PasswordForm,
   },
   data() {
       return {

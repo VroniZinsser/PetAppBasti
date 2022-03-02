@@ -1,33 +1,33 @@
 <template>
-  <Loader v-if="loading"></Loader>
-  <FormContainer
+  <TheLoader v-if="loading"></TheLoader>
+  <BaseFormContainer
       headline="Editar mascota"
       form_class="form-pet-edit"
       :is_short_form="false"
       v-else
   >
-    <Form v-if="pet"
+    <PetForm v-if="pet"
           :sexes="sexes"
           :species="species"
           :pet="pet"
-    ></Form>
-  </FormContainer>
+    ></PetForm>
+  </BaseFormContainer>
 </template>
 
 <script>
-import Form from "@/components/pet/PetForm";
-import FormContainer from "@/components/general/form/BaseFormContainer";
-import Loader from "@/components/general/layout/TheLoader";
+import PetForm from "@/components/pet/PetForm";
+import BaseFormContainer from "@/components/general/form/BaseFormContainer";
+import TheLoader from "@/components/general/layout/TheLoader";
 import petServices from "../../services/pets";
 import { handleAccessError } from "@/helpers";
 import store from "@/store";
 
 export default {
-  name: "EditForm",
+  name: "PetEditForm",
   components: {
-    Loader,
-    Form,
-    FormContainer,
+    TheLoader,
+    PetForm,
+    BaseFormContainer,
   },
   data: () => ({
     loading: true,

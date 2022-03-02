@@ -1,12 +1,12 @@
 <template>
   <div>
     <TitleBar title="Editar tu perfil"></TitleBar>
-    <Loader v-if="loading"></Loader>
+    <TheLoader v-if="loading"></TheLoader>
     <div v-else class="professional-form-container">
-      <Form
+      <ProfessionalSignUpForm
         :user_types="user_types"
         :professional="professional"
-      ></Form>
+      ></ProfessionalSignUpForm>
     </div>
     
     </div>
@@ -14,18 +14,18 @@
 
 <script>
 
-import Form from "@/components/auth/signUp/ProfessionalSignUpForm";
+import ProfessionalSignUpForm from "@/components/auth/signUp/ProfessionalSignUpForm";
 import userService from "@/services/users"
 import store from "@/store";
 import TitleBar from "@/components/general/layout/TitleBar";
-import Loader from "@/components/general/layout/TheLoader";
+import TheLoader from "@/components/general/layout/TheLoader";
 import { handleAccessError } from "@/helpers";
 
 export default {
-  name: "ProfessionalEdit",
+  name: "ProfessionalEditForm",
   components: {
-    Form,
-    Loader,
+    ProfessionalSignUpForm,
+    TheLoader,
     TitleBar,
  },
   data: () => ({

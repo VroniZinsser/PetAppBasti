@@ -10,7 +10,7 @@
 <script>
 
 export default {
-  name: "Placeholder",
+  name: "PetDetailMedicalPlaceholder",
   props: {
     img_src: {
       type: String,

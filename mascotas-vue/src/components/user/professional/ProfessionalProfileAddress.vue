@@ -9,7 +9,7 @@
 <script>
 
 export default {
-  name: "Address",
+  name: "ProfessionalProfileAddress",
   props: {
     professional: {
       type: Object,

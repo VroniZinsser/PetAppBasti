@@ -1,8 +1,8 @@
 <template>
-  <Loader v-if="loading"></Loader>
+  <TheLoader v-if="loading"></TheLoader>
 
   <v-container v-else class="medical-list-container">
-    <ListHeader title="Vacunas de la mascota"/>
+    <PetDetailMedicalListHeader title="Vacunas de la mascota"/>
 
     <BaseNotification
         v-if="store.status.msg != null"
@@ -11,13 +11,13 @@
         :title="store.status.title"
     />
 
-    <CircleButtonLinkList :button-link-data="buttonLinkData"></CircleButtonLinkList>
+    <BaseButtonCircleLinkList :button-link-data="buttonLinkData"></BaseButtonCircleLinkList>
 
     <template v-if="vaccines.length > 0">
 
       <VaccineList :vaccines="vaccines" @delete="prepareDeleteVaccine"></VaccineList>
 
-      <WarnDialog
+      <BaseDialogWarn
           :showDialog="showWarnDialog"
           dialogTitle="¿Querés eliminar esta vacuna?"
           acceptButtonText="Borrar vacuna"
@@ -32,21 +32,21 @@
 </template>
 
 <script>
-import Loader from "@/components/general/layout/TheLoader";
+import TheLoader from "@/components/general/layout/TheLoader";
 import BaseNotification from "@/components/general/notification/BaseNotification";
-import WarnDialog from "@/components/general/notification/BaseDialogWarn";
+import BaseDialogWarn from "@/components/general/notification/BaseDialogWarn";
 import store from "@/store";
 import {formatDate} from "@/helpers";
 import vaccineService from "@/services/vaccines";
 import VaccineList from "@/components/pet/vaccine/VaccineList";
 import petServices from "@/services/pets";
-import CircleButtonLinkList from "@/components/general/button/floating/BaseButtonCircleLinkList";
+import BaseButtonCircleLinkList from "@/components/general/button/floating/BaseButtonCircleLinkList";
 import { handleAccessError } from "@/helpers";
-import ListHeader from "@/components/pet/show/detail/medical/PetDetailMedicalListHeader";
+import PetDetailMedicalListHeader from "@/components/pet/show/detail/medical/PetDetailMedicalListHeader";
 
 export default {
-  name: "List",
-  components: {ListHeader, CircleButtonLinkList, WarnDialog, BaseNotification, Loader, VaccineList},
+  name: "VaccineList",
+  components: {PetDetailMedicalListHeader, BaseButtonCircleLinkList, BaseDialogWarn, BaseNotification, TheLoader, VaccineList},
   props: {},
   data() {
     return {

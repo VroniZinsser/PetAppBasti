@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: "CircleButton",
+  name: "BaseButtonCircle",
   props: {
     icon: {
       type: String

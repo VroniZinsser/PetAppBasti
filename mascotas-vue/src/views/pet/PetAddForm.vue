@@ -1,30 +1,30 @@
 <template>
-  <Loader v-if="loading"></Loader>
-  <FormContainer
+  <TheLoader v-if="loading"></TheLoader>
+  <BaseFormContainer
     headline="Agregar una nueva mascota"
     form_class="form-pet"
     :is_short_form="false"
     v-else
   >
-    <Form
+    <PetForm
           :sexes="sexes"
           :species="species"
-    ></Form>
-  </FormContainer>
+    ></PetForm>
+  </BaseFormContainer>
 </template>
 
 <script>
-import Form from "@/components/pet/PetForm";
-import FormContainer from "@/components/general/form/BaseFormContainer";
+import PetForm from "@/components/pet/PetForm";
+import BaseFormContainer from "@/components/general/form/BaseFormContainer";
 import petServices from "../../services/pets";
-import Loader from "@/components/general/layout/TheLoader";
+import TheLoader from "@/components/general/layout/TheLoader";
 
 export default {
-  name: "CreateForm",
+  name: "PetAddForm",
   components: {
-    Loader,
-    Form,
-    FormContainer,
+    TheLoader,
+    PetForm,
+    BaseFormContainer,
   },
   data: () => ({
     loading: true,

@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: "ListHeader",
+  name: "PetDetailMedicalListHeader",
   components: {},
   props: {
     title: {

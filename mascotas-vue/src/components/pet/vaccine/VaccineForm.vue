@@ -37,7 +37,7 @@ import store from "@/store";
 import { handleAccessError } from "@/helpers";
 
 export default {
-  name: "Form",
+  name: "VaccineForm",
   components: {
     InputText,
     InputDate,

@@ -1,8 +1,8 @@
 <template>
-  <Loader v-if="loading"></Loader>
+  <TheLoader v-if="loading"></TheLoader>
 
   <v-container v-else class="medical-list-container">
-    <ListHeader title="Medicamentos de la mascota"/>
+    <PetDetailMedicalListHeader title="Medicamentos de la mascota"/>
 
     <BaseNotification
         v-if="store.status.msg != null"
@@ -11,12 +11,12 @@
         :title="store.status.title"
     />
 
-    <CircleButtonLinkList :button-link-data="buttonLinkData"></CircleButtonLinkList>
+    <BaseButtonCircleLinkList :button-link-data="buttonLinkData"></BaseButtonCircleLinkList>
 
     <template v-if="medicines.length > 0">
       <MedicineList :medicines="medicines" @delete="prepareDeleteMedicine"></MedicineList>
 
-      <WarnDialog
+      <BaseDialogWarn
           :showDialog="showWarnDialog"
           dialogTitle="¿Querés eliminar este medicamento?"
           acceptButtonText="Borrar medicamento"
@@ -31,24 +31,24 @@
 </template>
 
 <script>
-import Loader from "@/components/general/layout/TheLoader";
-import ListHeader from "@/components/pet/show/detail/medical/PetDetailMedicalListHeader";
+import TheLoader from "@/components/general/layout/TheLoader";
+import PetDetailMedicalListHeader from "@/components/pet/show/detail/medical/PetDetailMedicalListHeader";
 import BaseNotification from "@/components/general/notification/BaseNotification";
 import store from "@/store";
-import WarnDialog from "@/components/general/notification/BaseDialogWarn";
+import BaseDialogWarn from "@/components/general/notification/BaseDialogWarn";
 import medicineService from "@/services/medicines";
 import petServices from "@/services/pets";
-import CircleButtonLinkList from "@/components/general/button/floating/BaseButtonCircleLinkList";
+import BaseButtonCircleLinkList from "@/components/general/button/floating/BaseButtonCircleLinkList";
 import MedicineList from "@/components/pet/medicine/MedicineList";
 
 export default {
-  name: "List",
+  name: "MedicineList",
   components: {
-    CircleButtonLinkList,
-    WarnDialog,
+    BaseButtonCircleLinkList,
+    BaseDialogWarn,
     BaseNotification,
-    ListHeader,
-    Loader,
+    PetDetailMedicalListHeader,
+    TheLoader,
     MedicineList
   },
   props: {},

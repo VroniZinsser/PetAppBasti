@@ -26,7 +26,7 @@ import BaseNotification from "@/components/general/notification/BaseNotification
 import store from "@/store";
 
 export default {
-  name: "FormContainer",
+  name: "BaseFormContainer",
   components: {
     BaseNotification,
   },

@@ -30,7 +30,7 @@ import authService from "../../../services/auth";
 import store from "../../../store";
 
 export default {
-  name: 'Form',
+  name: 'ChangePassword',
   components: {
     InputText,
     InputPassword

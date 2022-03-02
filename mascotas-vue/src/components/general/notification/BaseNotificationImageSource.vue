@@ -13,7 +13,7 @@
 <script>
 
 export default {
-  name: "ImageSourceNotification",
+  name: "BaseNotificationImageSource",
   props: {
     show: {
         type: Boolean,

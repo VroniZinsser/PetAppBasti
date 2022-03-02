@@ -12,7 +12,7 @@
 import ListItem from "@/components/pet/vaccine/VaccineListItem";
 
 export default {
-  name: "List",
+  name: "VaccineList",
   components: {ListItem},
   props: {
     vaccines: {

@@ -14,7 +14,7 @@
 import ListItem from "./ProfessionalShareListItem"
 
 export default {
-  name: "List",
+  name: "ProfessionalSignUpForm",
   components: {ListItem},
   props: {
     sharedPets: {

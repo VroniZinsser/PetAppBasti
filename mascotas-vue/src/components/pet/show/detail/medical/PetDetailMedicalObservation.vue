@@ -25,7 +25,7 @@
 import Placeholder from "@/components/pet/show/detail/medical/PetDetailMedicalPlaceholder";
 
 export default {
-  name: "Observation",
+  name: "PetDetailMedicalObservation",
   props: {
     observation: {
       type: String,

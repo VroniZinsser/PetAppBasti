@@ -124,7 +124,7 @@ import {getCurrentDate} from "@/helpers";
 import { handleAccessError } from "@/helpers";
 
 export default {
-  name: "Form",
+  name: "PetForm",
   props: {
     sexes: {
       type: Array,

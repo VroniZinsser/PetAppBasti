@@ -1,8 +1,8 @@
 <template>
-  <Loader v-if="loading"></Loader>
+  <TheLoader v-if="loading"></TheLoader>
 
   <v-container v-else class="medical-list-container">
-    <ListHeader title="Pesos de la mascota"/>
+    <PetDetailMedicalListHeader title="Pesos de la mascota"/>
 
     <BaseNotification
         v-if="store.status.msg != null"
@@ -11,7 +11,7 @@
         :title="store.status.title"
     />
 
-    <CircleButtonLinkList :button-link-data="buttonLinkData"></CircleButtonLinkList>
+    <BaseButtonCircleLinkList :button-link-data="buttonLinkData"></BaseButtonCircleLinkList>
 
     <template v-if="weights.length > 0">
       <div class="actual-weight">
@@ -22,7 +22,7 @@
 
       <WeightList :weights="weights" @delete="prepareDeleteWeight"></WeightList>
 
-      <WarnDialog
+      <BaseDialogWarn
           :showDialog="showWarnDialog"
           dialogTitle="¿Querés eliminar este peso?"
           acceptButtonText="Borrar peso"
@@ -39,19 +39,19 @@
 <script>
 import petServices from "@/services/pets";
 import WeightList from "@/components/pet/weight/WeightList";
-import Loader from "@/components/general/layout/TheLoader";
-import CircleButtonLinkList from "@/components/general/button/floating/BaseButtonCircleLinkList";
+import TheLoader from "@/components/general/layout/TheLoader";
+import BaseButtonCircleLinkList from "@/components/general/button/floating/BaseButtonCircleLinkList";
 import BaseNotification from "@/components/general/notification/BaseNotification";
 import store from "@/store";
 import {displayWeight, formatDate} from "@/helpers";
-import WarnDialog from "@/components/general/notification/BaseDialogWarn";
+import BaseDialogWarn from "@/components/general/notification/BaseDialogWarn";
 import weightService from "@/services/weights";
 import { handleAccessError } from "@/helpers";
-import ListHeader from "@/components/pet/show/detail/medical/PetDetailMedicalListHeader";
+import PetDetailMedicalListHeader from "@/components/pet/show/detail/medical/PetDetailMedicalListHeader";
 
 export default {
-  name: "List",
-  components: {ListHeader, WarnDialog, BaseNotification, CircleButtonLinkList, Loader, WeightList},
+  name: "WeightList",
+  components: {PetDetailMedicalListHeader, BaseDialogWarn, BaseNotification, BaseButtonCircleLinkList, TheLoader, WeightList},
   data() {
     return {
       weights: null,

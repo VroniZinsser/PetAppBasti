@@ -1,10 +1,10 @@
 <template>
-  <Loader v-if="loading"></Loader>
+  <TheLoader v-if="loading"></TheLoader>
 
   <v-container v-else-if="request && hasAccess" fluid class="justify-center d-flex align-center">
     <h1 class="sr-only">Aceptar petición</h1>
 
-    <AcceptCard
+    <SharePetAcceptCard
         v-if="incomplete"
         :request="request"
         @accepted="accepted"
@@ -29,14 +29,14 @@
 </template>
 
 <script>
-import Loader from "@/components/general/layout/TheLoader";
+import TheLoader from "@/components/general/layout/TheLoader";
 import contactService from "@/services/contact";
-import AcceptCard from "@/components/contact/request/SharePetAcceptCard";
+import SharePetAcceptCard from "@/components/contact/request/SharePetAcceptCard";
 import TitleWithLink from "@/components/general/layout/TitleWithLink";
 
 export default {
-  name: "Accept",
-  components: {TitleWithLink, AcceptCard, Loader},
+  name: "SharePetAccept",
+  components: {TitleWithLink, SharePetAcceptCard, TheLoader},
   data: () => ({
     loading: true,
     request: null,

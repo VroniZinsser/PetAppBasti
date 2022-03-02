@@ -42,7 +42,7 @@ import store from "@/store";
 import { handleAccessError } from "@/helpers";
 
 export default {
-  name: "Form",
+  name: "ObservationForm",
   components: {
     Textarea,
     WarnDialog,

@@ -55,7 +55,7 @@ import store from "@/store";
 import { handleAccessError } from "@/helpers";
 
 export default {
-  name: "OwnerForm",
+  name: "OwnerSignUpForm",
   components: {
     InputText,
     InputPassword,

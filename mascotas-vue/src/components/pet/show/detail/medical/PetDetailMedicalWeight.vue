@@ -31,7 +31,7 @@ import {formatDate, displayWeight} from "@/helpers";
 
 
 export default {
-  name: "Weight",
+  name: "PetDetailMedicalWeight",
   props: {
     weights: {
       type: Array,

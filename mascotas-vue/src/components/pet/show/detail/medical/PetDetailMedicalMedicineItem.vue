@@ -50,7 +50,7 @@
 import {formatDate} from "@/helpers";
 
 export default {
-  name: "MedicineItem",
+  name: "PetDetailMedicalMedicineItem",
   components: {},
   props: {
     medicine: {

@@ -18,7 +18,7 @@
 import ShareListSubItem from "@/components/contact/list/ShareListSubItem";
 
 export default {
-  name: "ListItem",
+  name: "ProfessionalShareListItem",
   components: {ShareListSubItem},
   props: {
     request: {

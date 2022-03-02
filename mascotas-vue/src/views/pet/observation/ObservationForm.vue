@@ -1,7 +1,7 @@
 <template>
-  <Loader v-if="loading"></Loader>
+  <TheLoader v-if="loading"></TheLoader>
 
-  <FormContainer
+  <BaseFormContainer
       headline="¿Hay algo que te llamó la atención?"
       form_class="form-observation"
       :is_short_form="true"
@@ -9,23 +9,23 @@
   >
     <p>Tu espacio libre para anotar observaciones acerca del comportamiento o la salud de tu mascota.</p>
 
-    <Form :pet_id="$route.params.pet_id" :observation="observation"></Form>
-  </FormContainer>
+    <ObservationForm :pet_id="$route.params.pet_id" :observation="observation"></ObservationForm>
+  </BaseFormContainer>
 </template>
 
 <script>
-import Form from "@/components/pet/observation/ObservationForm";
-import FormContainer from "@/components/general/form/BaseFormContainer";
+import ObservationForm from "@/components/pet/observation/ObservationForm";
+import BaseFormContainer from "@/components/general/form/BaseFormContainer";
 import petServices from "@/services/pets";
-import Loader from "@/components/general/layout/TheLoader";
+import TheLoader from "@/components/general/layout/TheLoader";
 import { handleAccessError } from "@/helpers";
 
 export default {
   name: "ObservationForm",
   components: {
-    Loader,
-    Form,
-    FormContainer,
+    TheLoader,
+    ObservationForm,
+    BaseFormContainer,
   },
   data: () => ({
     loading: true,

@@ -50,7 +50,7 @@ import BaseNotification from "../../general/notification/BaseNotification";
 import { handleAccessError } from "@/helpers";
 
 export default {
-  name: "Form",
+  name: "SharePetForm",
   components: {BaseNotification, InputDate, Textarea},
   props: {
     pets: {

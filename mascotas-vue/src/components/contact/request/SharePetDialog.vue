@@ -65,7 +65,7 @@ import BaseNotification from "@/components/general/notification/BaseNotification
 import {createRequestAcceptUrl} from "@/helpers";
 
 export default {
-  name: "PetShareDialog",
+  name: "SharePetDialog",
   components: {
     BaseNotification,
     Form

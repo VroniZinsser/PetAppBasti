@@ -1,6 +1,6 @@
 <template>
-    <Loader v-if="loading" />
-    <FormContainer
+    <TheLoader v-if="loading" />
+    <BaseFormContainer
         v-else
         headline="Recuperar Contraseña"
         form_class="form-forgot-password"
@@ -26,14 +26,14 @@
             ></InputText>
             <button class="main-btn" type="submit" :disabled="loading">Enviar mail</button>
         </form>
-    </FormContainer>
+    </BaseFormContainer>
   
 </template>
 
 <script>
 import InputText from "@/components/general/input/InputText";
-import FormContainer from "@/components/general/form/BaseFormContainer";
-import Loader from "@/components/general/layout/TheLoader";
+import BaseFormContainer from "@/components/general/form/BaseFormContainer";
+import TheLoader from "@/components/general/layout/TheLoader";
 import authService from "@/services/auth";
 import store from "@/store";
 
@@ -41,8 +41,8 @@ export default {
   name: "ResetPasswordForm",
   components: {
     InputText,
-    FormContainer,
-    Loader,
+    BaseFormContainer,
+    TheLoader,
   },
   data() {
       return {

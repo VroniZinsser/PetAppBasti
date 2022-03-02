@@ -34,7 +34,7 @@
 <script>
 
 export default {
-  name: "WarnDialog",
+  name: "BaseDialogWarn",
   props: {
     showDialog: {
         type: Boolean,

@@ -1,5 +1,5 @@
 <template>
-  <Loader v-if="loading"></Loader>
+  <TheLoader v-if="loading"></TheLoader>
 
   <div v-else class="professional-profile">
     <TitleBar :title="nameToDisplay(professional)"></TitleBar>
@@ -63,7 +63,7 @@
           <h3>Contactar a {{ professional.first_name }}</h3>
 
           <ul class="contact-data-container">
-            <ContactItem
+            <ProfessionalProfileContactItem
                 v-for="method in contactMethods"
                 :key="method.name"
                 :contactData="method.contactData"
@@ -75,7 +75,7 @@
         </div>
         <div class="location">
           <h3>Dirección</h3>
-          <Address :professional="professional" />
+          <ProfessionalProfileAddress :professional="professional" />
           <a :href="googleMapsLink" target="_blank">
             <img :src="createStaticImgPath('contact/google-maps.png')" alt="Link a Google Maps">
             <span>Google Maps</span>
@@ -88,25 +88,25 @@
 
 <script>
 import PetShareDialog from "@/components/contact/request/SharePetDialog";
-import ContactItem from "@/components/user/professional/ProfessionalProfileContactItem";
+import ProfessionalProfileContactItem from "@/components/user/professional/ProfessionalProfileContactItem";
 import {createImgPath} from "@/helpers";
 import {createStaticImgPath} from "@/helpers";
 import TitleBar from "@/components/general/layout/TitleBar";
 import userServices from "@/services/users";
 import store from "@/store";
-import Loader from "@/components/general/layout/TheLoader";
+import TheLoader from "@/components/general/layout/TheLoader";
 import {nameToDisplay} from "@/helpers";
-import Address from "@/components/user/professional/ProfessionalProfileAddress";
+import ProfessionalProfileAddress from "@/components/user/professional/ProfessionalProfileAddress";
 import BaseNotification from "@/components/general/notification/BaseNotification";
 
 export default {
   name: "ProfessionalProfile",
   components: {
     TitleBar,
-    Loader,
-    ContactItem,
+    TheLoader,
+    ProfessionalProfileContactItem,
     PetShareDialog,
-    Address,
+    ProfessionalProfileAddress,
     BaseNotification,
   },
   data() {

@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: "CircleButtonLink",
+  name: "BaseButtonCircleLink",
   props: {
     pathName: {
       required: true,

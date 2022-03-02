@@ -8,7 +8,7 @@
 import ListItem from "@/components/pet/weight/WeightListItem";
 
 export default {
-  name: "List",
+  name: "WeightList",
   components: {ListItem},
   props: {
     weights: {

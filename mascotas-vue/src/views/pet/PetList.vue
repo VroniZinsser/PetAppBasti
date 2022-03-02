@@ -3,16 +3,16 @@
 
     <TitleBar title="Tus mascotas"></TitleBar>
 
-    <Loader v-if="loading"></Loader>
+    <TheLoader v-if="loading"></TheLoader>
 
     <div v-else>
       <div v-if="pets !== null && pets.length > 0">
-        <CircleButtonLinkList :button-link-data="buttonLinkData"></CircleButtonLinkList>
+        <BaseButtonCircleLinkList :button-link-data="buttonLinkData"></BaseButtonCircleLinkList>
 
-        <PetMenu
+        <PetMenuList
             :active="activePet.id"
             :pets="pets" @show-pet="updateActivePet"
-        ></PetMenu>
+        ></PetMenuList>
 
         <BaseNotification
             v-if="store.status.msg != null"
@@ -25,7 +25,7 @@
       </div>
 
       <div v-else>
-        <CircleButtonLinkList :button-link-data="[buttonLinkData[0]]"></CircleButtonLinkList>
+        <BaseButtonCircleLinkList :button-link-data="[buttonLinkData[0]]"></BaseButtonCircleLinkList>
 
         <BaseNotification
             v-if="store.status.msg != null"
@@ -42,24 +42,24 @@
 
 <script>
 import TitleBar from "@/components/general/layout/TitleBar";
-import Loader from "@/components/general/layout/TheLoader";
-import PetMenu from "@/components/pet/show/PetMenuList";
+import TheLoader from "@/components/general/layout/TheLoader";
+import PetMenuList from "@/components/pet/show/PetMenuList";
 import PetDetail from "@/components/pet/show/detail/PetDetail";
 import petServices from "../../services/pets";
-import CircleButtonLinkList from "@/components/general/button/floating/BaseButtonCircleLinkList";
+import BaseButtonCircleLinkList from "@/components/general/button/floating/BaseButtonCircleLinkList";
 import PetEmpty from "@/components/pet/show/PetEmpty";
 import BaseNotification from "@/components/general/notification/BaseNotification";
 import store from "../../store";
 
 export default {
-  name: "Pets",
+  name: "PetList",
   components: {
-    CircleButtonLinkList,
+    BaseButtonCircleLinkList,
     BaseNotification,
     TitleBar,
-    PetMenu,
+    PetMenuList,
     PetDetail,
-    Loader,
+    TheLoader,
     PetEmpty,
   },
   data: () => ({

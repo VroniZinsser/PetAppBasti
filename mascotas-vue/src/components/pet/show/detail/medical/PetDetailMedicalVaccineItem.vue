@@ -9,7 +9,7 @@
 import {formatDate} from "@/helpers";
 
 export default {
-  name: "VaccineItem",
+  name: "PetDetailMedicalVaccineItem",
   props: {
     vaccine: {
       type: Object,

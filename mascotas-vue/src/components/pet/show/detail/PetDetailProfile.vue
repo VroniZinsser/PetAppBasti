@@ -65,7 +65,7 @@ import WarnDialog from "@/components/general/notification/BaseDialogWarn";
 import {handleAccessError} from "@/helpers";
 
 export default {
-  name: "PetProfile",
+  name: "PetDetailProfile",
   components: {
     Dropdown,
     WarnDialog,

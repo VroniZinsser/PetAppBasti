@@ -15,7 +15,7 @@ import {createImgPath} from "@/helpers";
 import {nameToDisplay} from "@/helpers";
 
 export default {
-  name: "ProfileCard",
+  name: "ProfessionalProfileCard",
   props: {
     user: {
       type: Object,

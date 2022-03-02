@@ -12,7 +12,7 @@
 import MedicineItem from "@/components/pet/show/detail/medical/PetDetailMedicalMedicineItem";
 
 export default {
-  name: "List",
+  name: "MedicineList",
   components: {MedicineItem},
   props: {
     medicines: {

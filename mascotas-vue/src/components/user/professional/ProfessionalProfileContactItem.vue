@@ -10,7 +10,7 @@
 import {createStaticImgPath} from "@/helpers";
 
 export default {
-  name: "ContactItem",
+  name: "ProfessionalProfileContactItem",
   props: {
     contactData: {
       type: String,

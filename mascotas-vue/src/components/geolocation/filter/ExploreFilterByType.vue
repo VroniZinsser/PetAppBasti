@@ -13,7 +13,7 @@
 
 <script>
 export default {
-    name: "ExploreSearchBar",
+    name: "ExploreFilterByType",
     props: {
         professionals: {
             type: Array,

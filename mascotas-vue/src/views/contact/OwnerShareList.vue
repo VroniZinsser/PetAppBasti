@@ -9,7 +9,7 @@
             </div>
             <ul v-if="professionals.length > 0">
                 <li v-for="professional in professionals" :key="professional.id">
-                    <ShareListItem 
+                    <OwnerSignUpForm
                       :professional="professional"
                       @delete-request="deleteRequest"
                     />
@@ -23,7 +23,7 @@
 <script>
 import TitleBar from "@/components/general/layout/TitleBar";
 import Loader from "@/components/general/layout/TheLoader";
-import ShareListItem from "@/components/contact/list/OwnerShareListItem";
+import OwnerSignUpForm from "@/components/contact/list/OwnerShareListItem";
 import contactService from "@/services/contact";
 import { handleAccessError } from "@/helpers";
 
@@ -32,7 +32,7 @@ export default {
   components: {
     TitleBar,
     Loader,
-    ShareListItem,
+    OwnerSignUpForm,
   },
   data: () => ({
     loading: true,

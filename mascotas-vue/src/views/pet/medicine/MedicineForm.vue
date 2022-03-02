@@ -1,32 +1,32 @@
 <template>
-  <FormContainer
+  <BaseFormContainer
       :headline="this.$route.params.medicine_id ? 'Editar medicamento' : 'Agregá un nuevo medicamento'"
       form_class="form-medicine"
       :is_short_form="false"
   >
     <p>Podés agregar medicamentos actuales pero también medicamentos del pasado para tener un registro.</p>
 
-    <Form
+    <MedicineForm
         v-if="!loading"
         :hours="hours"
         :pet_id="$route.params.pet_id"
         :medicine="medicine"
     >
-    </Form>
-  </FormContainer>
+    </MedicineForm>
+  </BaseFormContainer>
 </template>
 
 <script>
 
-import Form from '@/components/pet/medicine/MedicineForm';
+import MedicineForm from '@/components/pet/medicine/MedicineForm';
 import medicineServices from "@/services/medicines";
-import FormContainer from "@/components/general/form/BaseFormContainer";
+import BaseFormContainer from "@/components/general/form/BaseFormContainer";
 
 export default {
   name: "MedicineForm",
   components: {
-    Form,
-    FormContainer,
+    MedicineForm,
+    BaseFormContainer,
   },
   data: function () {
     return {

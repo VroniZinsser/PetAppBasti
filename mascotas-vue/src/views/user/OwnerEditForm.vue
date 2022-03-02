@@ -1,29 +1,29 @@
 <template>
-  <FormContainer
+  <BaseFormContainer
       v-if="!loading"
       headline="Editar tu perfil"
       form_class="form-usuario"
       :is_short_form="true"
   >
-      <Form
+      <OwnerSignUpForm
         :user="user"
-      ></Form>
-  </FormContainer>
+      ></OwnerSignUpForm>
+  </BaseFormContainer>
 </template>
 
 <script>
 
-import Form from "@/components/auth/signUp/OwnerSignUpForm";
+import OwnerSignUpForm from "@/components/auth/signUp/OwnerSignUpForm";
 import userService from "@/services/users"
 import store from "@/store";
-import FormContainer from "@/components/general/form/BaseFormContainer";
+import BaseFormContainer from "@/components/general/form/BaseFormContainer";
 import { handleAccessError } from "@/helpers";
 
 export default {
-  name: "OwnerEdit",
+  name: "OwnerEditForm",
   components: {
-    Form,
-    FormContainer
+    OwnerSignUpForm,
+    BaseFormContainer
  },
   data: () => ({
     loading: true,

@@ -1,5 +1,5 @@
 <template>
-  <FormContainer
+  <BaseFormContainer
       v-if="!loading"
       :headline="this.$route.params.vaccine_id ? 'Editar vacuna' : 'Agregar una nueva vacuna'"
       form_class="form-vaccine"
@@ -7,24 +7,24 @@
   >
     <p>No olvides de anotar el nombre exacto de la vacuna para poder reconocerla después.</p>
 
-    <Form
+    <VaccineForm
         :pet_id="this.$route.params.pet_id"
         :vaccine="vaccine"
-    ></Form>
-  </FormContainer>
+    ></VaccineForm>
+  </BaseFormContainer>
 </template>
 
 <script>
-import Form from "@/components/pet/vaccine/VaccineForm";
-import FormContainer from "@/components/general/form/BaseFormContainer";
+import VaccineForm from "@/components/pet/vaccine/VaccineForm";
+import BaseFormContainer from "@/components/general/form/BaseFormContainer";
 import vaccineService from "@/services/vaccines";
 import { handleAccessError } from "@/helpers";
 
 export default {
   name: "VaccineForm",
   components: {
-    Form,
-    FormContainer,
+    VaccineForm,
+    BaseFormContainer,
   },
   data() {
     return {

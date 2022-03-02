@@ -22,7 +22,7 @@ import CircleButton from "./BaseButtonCircle";
 import CircleButtonLink from "./BaseButtonCircleLink";
 
 export default {
-  name: "CircleButtonLinkList",
+  name: "BaseButtonCircleLinkList",
   components: {CircleButtonLink, CircleButton},
   props: {
     buttonLinkData: {

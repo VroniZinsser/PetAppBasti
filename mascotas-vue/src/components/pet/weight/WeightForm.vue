@@ -38,7 +38,7 @@ import store from "@/store";
 import { handleAccessError } from "@/helpers";
 
 export default {
-  name: "Form",
+  name: "WeightForm",
   components: {
     InputText,
     InputDate

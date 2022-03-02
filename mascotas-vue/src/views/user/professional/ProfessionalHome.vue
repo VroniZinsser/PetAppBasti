@@ -1,5 +1,5 @@
 <template>
-  <Loader v-if="loading"></Loader>
+  <TheLoader v-if="loading"></TheLoader>
 
   <div v-else class="professional-home">
     <TitleBar :title="`Buenos días ${store.user.first_name} ${store.user.last_name}`"></TitleBar>
@@ -10,13 +10,13 @@
         :title="store.status.title"
     />
     <div class="home-container">
-      <ProfileCard
+      <ProfessionalProfileCard
           :user="me"
       />
       <div class="owner-share-list" v-if="sharedPets.length > 0">
         <h2>Mascotas compartidas con vos</h2>
 
-        <List :shared-pets="sharedPets" @delete-request="deleteRequest"/>
+        <ProfessionalShareList :shared-pets="sharedPets" @delete-request="deleteRequest"/>
 
       </div>
       <p v-if="sharedPets.length === 0">Actualmente no hay mascotas compartidas.</p>
@@ -27,24 +27,24 @@
 
 <script>
 import TitleBar from "@/components/general/layout/TitleBar";
-import Loader from "@/components/general/layout/TheLoader";
-import ProfileCard from "@/components/user/professional/ProfessionalProfileCard";
+import TheLoader from "@/components/general/layout/TheLoader";
+import ProfessionalProfileCard from "@/components/user/professional/ProfessionalProfileCard";
 import BaseNotification from "@/components/general/notification/BaseNotification";
 import store from "@/store";
 import contactService from "@/services/contact";
 import authService from "@/services/auth";
 import { handleAccessError } from "@/helpers";
-import List from "@/components/contact/list/ProfessionalShareList";
+import ProfessionalShareList from "@/components/contact/list/ProfessionalShareList";
 
 export default {
   name: "ProfessionalHome",
 
   components: {
-    List,
+    ProfessionalShareList,
     TitleBar,
-    Loader,
+    TheLoader,
     BaseNotification,
-    ProfileCard,
+    ProfessionalProfileCard,
   },
   data() {
     return {

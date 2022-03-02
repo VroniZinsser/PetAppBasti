@@ -32,7 +32,7 @@ import MedicineItem from "@/components/pet/show/detail/medical/PetDetailMedicalM
 import MedicineItemMore from "@/components/pet/show/detail/medical/PetDetailMedicalMedicineItemMore";
 
 export default {
-  name: "Medicine",
+  name: "PetDetailMedicalMedicine",
   props: {
     medicines: {
       type: Array,

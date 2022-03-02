@@ -1,6 +1,6 @@
 <template>
-    <Loader v-if="loading" />
-    <FormContainer
+    <TheLoader v-if="loading" />
+    <BaseFormContainer
         v-else
         headline="Cambiar Contraseña"
         :is_short_form="true"
@@ -29,25 +29,25 @@
             />
             <button class="main-btn" type="submit" :disabled="loading">Guardar contraseña</button>
         </form>
-    </FormContainer>
+    </BaseFormContainer>
   
 </template>
 
 <script>
 import InputText from "@/components/general/input/InputText";
 import InputPassword from "@/components/general/input/InputPassword";
-import FormContainer from "@/components/general/form/BaseFormContainer";
-import Loader from "@/components/general/layout/TheLoader";
+import BaseFormContainer from "@/components/general/form/BaseFormContainer";
+import TheLoader from "@/components/general/layout/TheLoader";
 import authService from "@/services/auth";
 import store from "@/store";
 
 export default {
-  name: "ResetPasswordForm",
+  name: "ChangePasswordAuthenticated",
   components: {
     InputText,
     InputPassword,
-    FormContainer,
-    Loader,
+    BaseFormContainer,
+    TheLoader,
   },
   data() {
       return {

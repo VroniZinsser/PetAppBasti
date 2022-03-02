@@ -14,7 +14,7 @@
 import {createImgPath} from "@/helpers";
 
 export default {
-  name: "PetMenuItem",
+  name: "PetMenuListItem",
   props: {
     is_active: {
       type: Boolean,
