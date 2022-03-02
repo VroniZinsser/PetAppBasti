@@ -5,26 +5,23 @@
       form_class="form-usuario"
       :is_short_form="true"
   >
-      <OwnerSignUpForm
-        :user="user"
-      ></OwnerSignUpForm>
+    <OwnerSignUpForm :user="user"/>
   </BaseFormContainer>
 </template>
 
 <script>
-
-import OwnerSignUpForm from "@/components/auth/signUp/OwnerSignUpForm";
-import userService from "@/services/users"
-import store from "@/store";
 import BaseFormContainer from "@/components/general/form/BaseFormContainer";
-import { handleAccessError } from "@/helpers";
+import OwnerSignUpForm from "@/components/auth/signUp/OwnerSignUpForm";
+import store from "@/store";
+import userService from "@/services/users"
+import {handleAccessError} from "@/helpers";
 
 export default {
   name: "OwnerEditForm",
   components: {
     OwnerSignUpForm,
     BaseFormContainer
- },
+  },
   data: () => ({
     loading: true,
     user: null,
@@ -34,23 +31,20 @@ export default {
   mounted() {
     userService.getUserById(this.store.user.id)
         .then(res => {
-            if (res.data.user) {
-                this.user = res.data.user;
-            } else {
-                if (this.handleAccessError(res)) return;
-                this.store.setStatus({
-                    msg: 'Hubo un error mientras cargamos tus datos. Por favor intentalo más tarde.',
-                    type: 'error',
-                });
-                this.$router.go(-1);
-            }
-            this.loading = false;
-        })        
+          if (res.data.user) {
+            this.user = res.data.user;
+          } else {
+            if (this.handleAccessError(res)) return;
+
+            this.store.setStatus({
+              msg: 'Hubo un error mientras cargamos tus datos. Por favor intentalo más tarde.',
+              type: 'error',
+            });
+
+            this.$router.go(-1);
+          }
+          this.loading = false;
+        })
   }
-  
 }
 </script>
-
-<style scoped>
-
-</style>

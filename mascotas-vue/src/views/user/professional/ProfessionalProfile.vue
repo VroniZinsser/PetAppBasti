@@ -1,8 +1,9 @@
 <template>
-  <TheLoader v-if="loading"></TheLoader>
+  <TheLoader v-if="loading"/>
 
   <div v-else class="professional-profile">
-    <TitleBar :title="nameToDisplay(professional)"></TitleBar>
+    <TitleBar :title="nameToDisplay(professional)"/>
+
     <BaseNotification
         v-if="store.status.msg != null"
         :type="store.status.type"
@@ -11,34 +12,42 @@
     />
 
     <div class="profile-container">
-      <PetShareDialog 
-        :showDialog="showPetShareDialog"
-        :professionalName="professional.first_name"
-        :professionalId="professional.id"
-        @closeDialog="showPetShareDialog = false"
+      <PetShareDialog
+          :showDialog="showPetShareDialog"
+          :professionalName="professional.first_name"
+          :professionalId="professional.id"
+          @closeDialog="showPetShareDialog = false"
       />
-      
+
       <div class="profile-main-content">
-        <button 
-          v-if="!isProfessional"
-          class="float-circle-btn" 
-          @click="showPetShareDialog = true"
+        <button
+            v-if="!isProfessional"
+            class="float-circle-btn"
+            @click="showPetShareDialog = true"
         >
+
           <img :src="createStaticImgPath('contact/share-pet.svg')" alt="Compartir mascota">
+
           <span class="sr-only">Compartir mascota con este profesional</span>
         </button>
-        <button 
-          v-if="canEditProfile"
-          class="float-circle-btn" 
-          @click="function() { 
+
+        <button
+            v-if="canEditProfile"
+            class="float-circle-btn"
+            @click="function() {
             $router.push({ name: 'ProfessionalEdit' })
-          }">
+          }"
+        >
+
           <v-icon>mdi-pencil</v-icon>
+
           <span class="sr-only">Editar perfil</span>
+
         </button>
+
         <div class="intro">
           <div>
-            <img :src="createImgPath(professional.profile_image.src)" :alt="professional.profile_image.alt">
+            <img :src="createImgPath(professional.profile_image.src)" :alt="professional.profile_image.alt"/>
           </div>
 
           <h2>{{ professional.first_name }} {{ professional.last_name }}</h2>
@@ -48,7 +57,6 @@
               {{ type.name }}
             </div>
           </div>
-          
         </div>
 
         <div class="description" v-if="professional.description">
@@ -73,11 +81,15 @@
             />
           </ul>
         </div>
+
         <div class="location">
           <h3>Dirección</h3>
-          <ProfessionalProfileAddress :professional="professional" />
+
+          <ProfessionalProfileAddress :professional="professional"/>
+
           <a :href="googleMapsLink" target="_blank">
             <img :src="createStaticImgPath('contact/google-maps.png')" alt="Link a Google Maps">
+
             <span>Google Maps</span>
           </a>
         </div>
@@ -87,17 +99,15 @@
 </template>
 
 <script>
+import BaseNotification from "@/components/general/notification/BaseNotification";
 import PetShareDialog from "@/components/contact/request/SharePetDialog";
 import ProfessionalProfileContactItem from "@/components/user/professional/ProfessionalProfileContactItem";
-import {createImgPath} from "@/helpers";
-import {createStaticImgPath} from "@/helpers";
-import TitleBar from "@/components/general/layout/TitleBar";
-import userServices from "@/services/users";
+import ProfessionalProfileAddress from "@/components/user/professional/ProfessionalProfileAddress";
 import store from "@/store";
 import TheLoader from "@/components/general/layout/TheLoader";
-import {nameToDisplay} from "@/helpers";
-import ProfessionalProfileAddress from "@/components/user/professional/ProfessionalProfileAddress";
-import BaseNotification from "@/components/general/notification/BaseNotification";
+import TitleBar from "@/components/general/layout/TitleBar";
+import userServices from "@/services/users";
+import {createImgPath, createStaticImgPath, nameToDisplay} from "@/helpers";
 
 export default {
   name: "ProfessionalProfile",
@@ -121,9 +131,6 @@ export default {
       nameToDisplay,
     }
   },
-  mounted() {
-    this.loadUserProfile();
-  },
   computed: {
     googleMapsLink() {
       const directions = this.whiteSpacesToPlus(
@@ -133,6 +140,7 @@ export default {
           + this.professional.city + '+'
           + this.professional.state
       )
+
       return 'https://www.google.com.ar/maps/dir//' + directions;
     },
 
@@ -154,65 +162,6 @@ export default {
       return store.user.is_professional;
     }
   },
-  methods: {
-    whiteSpacesToPlus(str) {
-      return str.replace(/\s/g, '+');
-    },
-    loadUserProfile() {
-      userServices.getUserById(this.$route.params.professional_id)
-        .then(res => {
-          if (res.data.user) {
-            this.professional = res.data.user;
-            this.contactMethods = [
-              {
-                'name': 'whatsapp',
-                'contactData': this.professional.whatsapp,
-                'link': 'https://api.whatsapp.com/send?phone=' + this.professional.whatsapp,
-                'imgPath': 'contact/whatsapp.png',
-                'alt': 'link a Whatsapp'
-              },
-              {
-                'name': 'email',
-                'contactData': this.professional.email,
-                'link': 'mailto:' + this.professional.email,
-                'imgPath': 'contact/gmail.png',
-                'alt': 'link a Gmail'
-              },
-              {
-                'name': 'instagram',
-                'contactData': this.professional.instagram,
-                'link': 'https://www.instagram.com/' + this.professional.instagram,
-                'imgPath': 'contact/instagram.png',
-                'alt': 'link a Instagram'
-              },
-              {
-                'name': 'facebook',
-                'contactData': this.professional.facebook,
-                'link': 'https://www.facebook.com/' + this.professional.facebook,
-                'imgPath': 'contact/facebook.png',
-                'alt': 'link a Facebook'
-              },
-              {
-                'name': 'web',
-                'contactData': this.professional.web,
-                'link': this.professional.web,
-                'imgPath': 'contact/www.png',
-                'alt': 'link a la página web'
-              }
-            ];
-            this.loading = false;
-            
-          } else {
-            this.store.setStatus({
-              msg: 'El perfil que estás buscando no está disponible.',
-              type: 'error',
-            });
-            this.$router.go(-1);
-          }
-        });
-    }
-  },
-
   watch: {
     /**
      * Updates data if the url param changes
@@ -220,6 +169,70 @@ export default {
     '$route.params.professional_id': function () {
       this.loadUserProfile();
     },
-  }
+  },
+  mounted() {
+    this.loadUserProfile();
+  },
+  methods: {
+    whiteSpacesToPlus(str) {
+      return str.replace(/\s/g, '+');
+    },
+
+    loadUserProfile() {
+      userServices.getUserById(this.$route.params.professional_id)
+          .then(res => {
+            if (res.data.user) {
+              this.professional = res.data.user;
+
+              this.contactMethods = [
+                {
+                  'name': 'whatsapp',
+                  'contactData': this.professional.whatsapp,
+                  'link': 'https://api.whatsapp.com/send?phone=' + this.professional.whatsapp,
+                  'imgPath': 'contact/whatsapp.png',
+                  'alt': 'link a Whatsapp'
+                },
+                {
+                  'name': 'email',
+                  'contactData': this.professional.email,
+                  'link': 'mailto:' + this.professional.email,
+                  'imgPath': 'contact/gmail.png',
+                  'alt': 'link a Gmail'
+                },
+                {
+                  'name': 'instagram',
+                  'contactData': this.professional.instagram,
+                  'link': 'https://www.instagram.com/' + this.professional.instagram,
+                  'imgPath': 'contact/instagram.png',
+                  'alt': 'link a Instagram'
+                },
+                {
+                  'name': 'facebook',
+                  'contactData': this.professional.facebook,
+                  'link': 'https://www.facebook.com/' + this.professional.facebook,
+                  'imgPath': 'contact/facebook.png',
+                  'alt': 'link a Facebook'
+                },
+                {
+                  'name': 'web',
+                  'contactData': this.professional.web,
+                  'link': this.professional.web,
+                  'imgPath': 'contact/www.png',
+                  'alt': 'link a la página web'
+                }
+              ];
+
+              this.loading = false;
+            } else {
+              this.store.setStatus({
+                msg: 'El perfil que estás buscando no está disponible.',
+                type: 'error',
+              });
+
+              this.$router.go(-1);
+            }
+          });
+    }
+  },
 }
 </script>

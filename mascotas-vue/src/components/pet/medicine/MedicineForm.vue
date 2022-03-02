@@ -11,7 +11,7 @@
         :loading="loading"
         :rules="[rules.obligatory]"
         :errors="errors.name"
-    ></InputText>
+    />
 
     <InputText
         label="Cantidad"
@@ -19,7 +19,7 @@
         :loading="loading"
         :rules="[rules.obligatory]"
         :errors="errors.quantity"
-    ></InputText>
+    />
 
     <InputDate
         label="Inicio"
@@ -29,7 +29,7 @@
         :errors="errors.start_date"
         :initialDate="initialDate"
         @update-date="updateStartDate"
-    ></InputDate>
+    />
 
     <InputDate
         label="Fin"
@@ -40,7 +40,7 @@
         :errors="errors.end_date"
         :initialDate="finalDate"
         @update-date="updateEndDate"
-    ></InputDate>
+    />
 
     <v-select
         v-model="formData.hours"
@@ -55,18 +55,18 @@
         :rules="[rules.selectionRequired]"
         :messages="errors.hours ? errors.hours[0] : ''"
         :error="errors.hours !== null"
-    ></v-select>
+    />
 
     <button class="main-btn" type="submit" :disabled="loading">{{ medicine ? "Guardar cambios" : "Agregar" }}</button>
   </v-form>
 </template>
 
 <script>
-import InputText from "../../general/input/InputText";
-import InputDate from "../../general/input/InputDate";
-import medicineServices from "../../../services/medicines";
+import InputText from "@/components/general/input/InputText";
+import InputDate from "@/components/general/input/InputDate";
+import medicineServices from "@/services/medicines";
 import store from "@/store";
-import { handleAccessError } from "@/helpers";
+import {handleAccessError} from "@/helpers";
 
 export default {
   name: "MedicineForm",
@@ -115,6 +115,37 @@ export default {
       }
     }
   },
+  computed: {
+    initialDate() {
+      return this.medicine ? this.medicine.start_date : this.getCurrentDate();
+    },
+
+    finalDate() {
+      return this.medicine ? this.medicine.end_date : this.getCurrentDate();
+    }
+  },
+  mounted() {
+    if (this.medicine) {
+      this.formData.name = this.medicine.name;
+
+      this.formData.date = this.medicine.date;
+
+      let hours = [];
+
+      for (const hour of this.medicine.hours) {
+        hours.push(hour.id)
+      }
+
+      this.formData = {
+        name: this.medicine.name,
+        quantity: this.medicine.quantity,
+        start_date: this.medicine.start_date,
+        end_date: this.medicine.end_date,
+        hours: hours,
+        pet_id: this.pet_id,
+      }
+    }
+  },
   methods: {
     /**
      * Updates the start date of the medication
@@ -150,9 +181,9 @@ export default {
         if (!this.medicine) {
           medicineServices.create(this.formData)
               .then(res => {
-
                 if (!res.success) {
                   if (this.handleAccessError(res)) return;
+
                   if (res.errors) {
                     this.errors = {
                       name: null,
@@ -162,6 +193,7 @@ export default {
                       hours: null,
                       ...res.errors
                     }
+
                     this.store.setStatus({
                       msg: "Por favor corregí los datos del formulario.",
                       type: 'warning',
@@ -177,6 +209,7 @@ export default {
                     msg: '¡El nuevo medicamento está guardado!',
                     type: 'success',
                   });
+
                   this.$router.back();
                 }
               })
@@ -200,6 +233,7 @@ export default {
                       hours: null,
                       ...res.errors
                     }
+
                     this.store.setStatus({
                       msg: "Por favor corregí los datos del formulario.",
                       type: 'warning',
@@ -215,10 +249,12 @@ export default {
                     msg: '¡El medicamento se editó con éxito!',
                     type: 'success',
                   });
+
                   this.$router.back();
                 }
               })
         }
+
         this.loading = false
       }
     },
@@ -238,47 +274,19 @@ export default {
      */
     retrieveDaytimeHours(hours) {
       const firstHourId = 32;
+
       const lastHourId = 89;
+
       let daytimeHours = hours.slice(firstHourId, lastHourId + 1);
+
       daytimeHours.map((item) => {
         // show '08:30' instead of '08:30:00'
         item.time = item.time.slice(0, 5);
       })
+
       return daytimeHours;
-    }
-  },
-  computed: {
-    initialDate() {
-      return this.medicine ? this.medicine.start_date : this.getCurrentDate();
-    },
-
-    finalDate() {
-      return this.medicine ? this.medicine.end_date : this.getCurrentDate();
-    }
-  },
-  mounted() {
-    if (this.medicine) {
-      this.formData.name = this.medicine.name;
-      this.formData.date = this.medicine.date;
-
-      let hours = [];
-      for (const hour of this.medicine.hours) {
-        hours.push(hour.id)
-      }
-
-      this.formData = {
-        name: this.medicine.name,
-        quantity: this.medicine.quantity,
-        start_date: this.medicine.start_date,
-        end_date: this.medicine.end_date,
-        hours: hours,
-        pet_id: this.pet_id,
-      }
     }
   },
 }
 </script>
-
-<style scoped>
-</style>
 

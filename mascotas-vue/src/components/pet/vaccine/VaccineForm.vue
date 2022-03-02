@@ -13,7 +13,7 @@
         :rules="[rules.obligatory]"
         :errors="errors.name"
         required
-    ></InputText>
+    />
 
     <InputDate
         label="Fecha"
@@ -24,17 +24,18 @@
         :initialDate="initialDate"
         :maxDate="getCurrentDate()"
         @update-date="updateDate"
-    ></InputDate>
+    />
 
     <button class="main-btn" type="submit" :disabled="loading">{{ vaccine ? "Guardar cambios" : "Agregar" }}</button>
   </v-form>
 </template>
+
 <script>
 import InputText from "@/components/general/input/InputText";
 import InputDate from "@/components/general/input/InputDate";
-import vaccineService from "../../../services/vaccines";
 import store from "@/store";
-import { handleAccessError } from "@/helpers";
+import vaccineService from "@/services/vaccines";
+import {handleAccessError} from "@/helpers";
 
 export default {
   name: "VaccineForm",
@@ -75,6 +76,18 @@ export default {
       }
     }
   },
+  computed: {
+    initialDate() {
+      return this.vaccine ? this.vaccine.date : this.getCurrentDate();
+    }
+  },
+  mounted() {
+    if (this.vaccine) {
+      this.formData.name = this.vaccine.name;
+
+      this.formData.date = this.vaccine.date;
+    }
+  },
   methods: {
     getCurrentDate() {
       return (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
@@ -100,6 +113,7 @@ export default {
 
                 if (!res.success) {
                   if (this.handleAccessError(res)) return;
+
                   if (res.errors && res.errors.pet_id) {
                     this.store.setStatus({
                       msg: 'La mascota no existe.',
@@ -111,6 +125,7 @@ export default {
                       date: null,
                       ...res.errors
                     }
+
                     this.store.setStatus({
                       msg: "Por favor corregí los datos del formulario.",
                       type: 'warning',
@@ -126,6 +141,7 @@ export default {
                     msg: '¡La nueva vacuna está guardada!',
                     type: 'success',
                   });
+
                   this.$router.back();
                 }
               })
@@ -136,6 +152,7 @@ export default {
 
                 if (!res.success) {
                   if (this.handleAccessError(res)) return;
+
                   if (res.errors && res.errors.pet_id) {
                     this.store.setStatus({
                       msg: 'La mascota no existe.',
@@ -147,6 +164,7 @@ export default {
                       date: null,
                       ...res.errors
                     }
+
                     this.store.setStatus({
                       msg: "Por favor corregí los datos del formulario.",
                       type: 'warning',
@@ -162,6 +180,7 @@ export default {
                     msg: '¡La vacuna se editó con éxito!',
                     type: 'success',
                   });
+
                   this.$router.back();
                 }
               })
@@ -169,18 +188,5 @@ export default {
       }
     }
   },
-  computed: {
-    initialDate() {
-      return this.vaccine ? this.vaccine.date : this.getCurrentDate();
-    }
-  },
-  mounted() {
-    if (this.vaccine) {
-      this.formData.name = this.vaccine.name;
-      this.formData.date = this.vaccine.date;
-    }
-  },
-
 }
-
 </script>

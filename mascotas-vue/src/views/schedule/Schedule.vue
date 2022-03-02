@@ -1,9 +1,9 @@
 <template>
   <v-container fluid>
-    <construction
+    <Construction
         pageName="tu agenda"
         infoText="Aquí podrás ver todas tus tareas, ordenadas por fecha y horario"
-    ></construction>
+    />
   </v-container>
 </template>
 
@@ -17,7 +17,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

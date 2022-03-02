@@ -1,10 +1,11 @@
 <template>
   <div class="card vaccine-item">
     <span class="card-title">{{ vaccine.name }}</span>
+
     <span class="card-date">{{ formatDate(vaccine.date) }}</span>
   </div>
-
 </template>
+
 <script>
 import {formatDate} from "@/helpers";
 

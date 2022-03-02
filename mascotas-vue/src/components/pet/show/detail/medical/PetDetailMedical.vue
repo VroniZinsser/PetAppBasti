@@ -4,33 +4,35 @@
         :weights="sortedWeights"
         :placeholder="placeholder.weight"
         :pet_name="pet.name"
-        :pet_id="pet.id">
-    </Weight>
+        :pet_id="pet.id"
+    />
+
     <Medicine
         :medicines="sortedMedicinesArray"
         :placeholder="placeholder.medicine"
         :pet_name="pet.name"
         :pet_id="pet.id"
-        @delete="prepareDeleteMedicine">
-    </Medicine>
+        @delete="prepareDeleteMedicine"
+    />
+
     <Observation
         :observation="pet.observation"
         :placeholder="placeholder.observation"
         :pet_name="pet.name"
-        :pet_id="pet.id">
-    </Observation>
+        :pet_id="pet.id"
+    />
+
     <Vaccine
         :vaccines="sortedVaccines"
         :placeholder="placeholder.vaccine"
         :pet_name="pet.name"
-        :pet_id="pet.id">
-    </Vaccine>
+        :pet_id="pet.id"
+    />
 
     <WarnDialog
         :showDialog="showWarnDialog"
         dialogTitle="¿Querés eliminar este medicamento?"
         acceptButtonText="Borrar medicamento"
-
         @cancel="cancelDelete"
         @accept="deleteMedicine"
     />
@@ -38,14 +40,14 @@
 </template>
 
 <script>
-import Weight from "@/components/pet/show/detail/medical/PetDetailMedicalWeight";
 import Medicine from "@/components/pet/show/detail/medical/PetDetailMedicalMedicine";
+import medicineService from "@/services/medicines";
 import Observation from "@/components/pet/show/detail/medical/PetDetailMedicalObservation";
 import Vaccine from "@/components/pet/show/detail/medical/PetDetailMedicalVaccine";
-import {createStaticImgPath} from "@/helpers";
 import WarnDialog from "@/components/general/notification/BaseDialogWarn";
-import medicineService from "@/services/medicines";
+import Weight from "@/components/pet/show/detail/medical/PetDetailMedicalWeight";
 import store from "@/store";
+import {createStaticImgPath} from "@/helpers";
 
 export default {
   name: "PetDetailMedical",
@@ -54,6 +56,13 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  components: {
+    WarnDialog,
+    Weight,
+    Medicine,
+    Observation,
+    Vaccine
   },
   data: function () {
     return {
@@ -100,13 +109,6 @@ export default {
       store,
     }
   },
-  components: {
-    WarnDialog,
-    Weight,
-    Medicine,
-    Observation,
-    Vaccine
-  },
   computed: {
     sortedMedicinesArray() {
       let medicines = this.medicines;
@@ -134,14 +136,23 @@ export default {
       return [];
     }
   },
+  mounted() {
+    this.medicines = this.pet.medicines;
+
+    this.vaccines = this.pet.vaccines;
+
+    this.weights = this.pet.weights;
+  },
   methods: {
     prepareDeleteMedicine(medicine_id) {
       this.mToDelete = medicine_id;
+
       this.showWarnDialog = true;
     },
 
     cancelDelete() {
       this.mToDelete = null;
+
       this.showWarnDialog = false;
     },
 
@@ -165,10 +176,5 @@ export default {
           })
     }
   },
-  mounted() {
-    this.medicines = this.pet.medicines;
-    this.vaccines = this.pet.vaccines;
-    this.weights = this.pet.weights;
-  }
 }
 </script>

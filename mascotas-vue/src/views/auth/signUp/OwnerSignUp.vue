@@ -1,25 +1,29 @@
 <template>
   <BaseFormContainer
-    headline="Registrarme"
-    form_class="form-signup-owner"
-    :is_short_form="false"
+      headline="Registrarme"
+      form_class="form-signup-owner"
+      :is_short_form="false"
   >
-  
     <v-alert
-      class="register-alert"
-      color="#17a2b8"
-      colored-border
-      border="left"
-      elevation="1"
-      icon="mdi-account-plus"
-      prominent
+        class="register-alert"
+        color="#17a2b8"
+        colored-border
+        border="left"
+        elevation="1"
+        icon="mdi-account-plus"
+        prominent
     >
-      Si trabajás en el rubro veterinario podés <router-link :to="{name: 'UserCreate'}">registrarte como profesional</router-link>
+      Si trabajás en el rubro veterinario podés
+      <router-link :to="{name: 'UserCreate'}">registrarte como profesional</router-link>
     </v-alert>
 
     <OwnerSignUpForm/>
 
-    <p>¿Ya tenés una cuenta? <router-link :to="{name: 'Login'}">Ingresar</router-link></p>
+    <p>
+      ¿Ya tenés una cuenta?
+
+      <router-link :to="{name: 'Login'}">Ingresar</router-link>
+    </p>
   </BaseFormContainer>
 </template>
 
@@ -35,7 +39,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

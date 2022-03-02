@@ -7,10 +7,14 @@
             alt="Error 404, no se encontró la página solicitada"
             contain
             class="construction-img"
-        ></v-img>
+        />
+
         <div class="info-container">
           <p class="text-h5 ">No se encontró la página solicitada</p>
-          <p><router-link :to="{name: 'Pets'}" class="text-h6 font-weight-regular">Volver al inicio</router-link></p>
+
+          <p>
+            <router-link :to="{name: 'Pets'}" class="text-h6 font-weight-regular">Volver al inicio</router-link>
+          </p>
         </div>
       </v-col>
     </v-row>
@@ -22,15 +26,10 @@ import {createStaticImgPath} from "@/helpers";
 
 export default {
   name: "PageNotFound",
-  components: {},
-  props: {},
   data() {
     return {
       createStaticImgPath,
     }
   },
-  methods: {},
-  mounted() {
-  }
 }
 </script>

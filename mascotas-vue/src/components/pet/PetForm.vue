@@ -13,16 +13,16 @@
         :rules="[rules.obligatory]"
         :errors="errors.name"
         required
-    ></InputText>
-    
+    />
+
     <InputText
         label="Raza"
         v-model="formData.breed"
         identifier="breed"
         :loading="loading"
         :errors="errors.breed"
-    ></InputText>
-    
+    />
+
     <InputText
         label="Temperamento"
         v-model="formData.temperament"
@@ -30,7 +30,7 @@
         :loading="loading"
         :errors="errors.temperament"
         hint="Actitudes de la mascota como tranquilo, mimoso, agresivo"
-    ></InputText>
+    />
 
     <v-checkbox
         name="neutered"
@@ -42,7 +42,7 @@
         :error="errors.neutered !== null"
         :disabled="loading"
         color="#3fb094"
-    ></v-checkbox>
+    />
 
     <InputDate
         label="Fecha de nacimiento"
@@ -53,7 +53,7 @@
         :initialDate="initialDate"
         :maxDate="getCurrentDate()"
         @update-date="updateDate"
-    ></InputDate>
+    />
 
     <v-select
         outlined
@@ -71,7 +71,7 @@
         :item-text="'name'"
         :item-value="'id'"
         color="#3fb094"
-    ></v-select>
+    />
 
     <fieldset>
       <legend>Sexo *</legend>
@@ -80,8 +80,8 @@
           v-model="formData.sex_id"
           :rules="[rules.obligatory]"
           :messages="errors.sex_id ? errors.sex_id[0] : ''"
-          :error="errors.sex_id !== null">
-
+          :error="errors.sex_id !== null"
+      >
         <v-radio
             v-for="i in sexes"
             :key="i.id"
@@ -89,11 +89,11 @@
             :value="i.id"
             :disabled="loading"
             color="#3fb094"
-        ></v-radio>
+        />
       </v-radio-group>
     </fieldset>
 
-    <img class="img-preview" :src="formData.photo" alt="Preview de la imagen" v-if="formData.photo">
+    <img class="img-preview" :src="formData.photo" alt="Preview de la imagen" v-if="formData.photo"/>
 
     <v-file-input
         outlined
@@ -109,7 +109,7 @@
         :error="errors.photo !== null"
         :disabled="loading"
         color="#3fb094"
-    ></v-file-input>
+    />
 
     <button class="main-btn" type="submit" :disabled="loading">Guardar</button>
   </v-form>
@@ -118,13 +118,17 @@
 <script>
 import InputDate from "@/components/general/input/InputDate";
 import InputText from "@/components/general/input/InputText";
-import petServices from "../../services/pets";
+import petServices from "@/services/pets";
 import store from "@/store";
 import {getCurrentDate} from "@/helpers";
-import { handleAccessError } from "@/helpers";
+import {handleAccessError} from "@/helpers";
 
 export default {
   name: "PetForm",
+  components: {
+    InputDate,
+    InputText,
+  },
   props: {
     sexes: {
       type: Array,
@@ -137,10 +141,6 @@ export default {
     pet: {
       type: Object
     }
-  },
-  components: {
-    InputDate,
-    InputText,
   },
   data: () => ({
     loading: false,
@@ -171,11 +171,35 @@ export default {
     rules: {
       obligatory: v => !!v || 'Este campo es obligatorio.',
       date: value => {
-          const pattern = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
-          return pattern.test(value) || 'Por favor, ingresá una fecha válida (31/01/2021)'
-        },
+        const pattern = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
+        return pattern.test(value) || 'Por favor, ingresá una fecha válida (31/01/2021)'
+      },
     }
   }),
+  computed: {
+    initialDate() {
+      return this.pet ? this.pet.date_of_birth : null;
+    }
+  },
+  mounted() {
+    if (this.pet) {
+      this.formData = {
+        breed: null,
+        date_of_birth: null,
+        name: null,
+        neutered: this.pet.neutered === 1,
+        photo: null,
+        temperament: null,
+        sex_id: this.pet.sexes_id,
+        species_id: null,
+        ...this.pet
+      }
+    }
+
+    if (!this.formData.neutered) {
+      this.formData.neutered = false
+    }
+  },
   methods: {
 
     /**
@@ -293,30 +317,5 @@ export default {
       this.formData.date_of_birth = date;
     }
   },
-  computed: {
-    initialDate(){
-      return this.pet ? this.pet.date_of_birth : null;
-    }
-  },
-
-  mounted() {
-    if (this.pet) {
-      this.formData = {
-        breed: null,
-        date_of_birth: null,
-        name: null,
-        neutered: this.pet.neutered === 1,
-        photo: null,
-        temperament: null,
-        sex_id: this.pet.sexes_id,
-        species_id: null,
-        ...this.pet
-      }
-    }
-
-    if (!this.formData.neutered) {
-      this.formData.neutered = false
-    }
-  }
 }
 </script>

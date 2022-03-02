@@ -1,6 +1,8 @@
 <template>
-  <router-link :to="Object.keys(this.pathParams).length === 0 ? {name: this.pathName} : {name: this.pathName, params: this.pathParams}">
+  <router-link
+      :to="Object.keys(this.pathParams).length === 0 ? {name: this.pathName} : {name: this.pathName, params: this.pathParams}">
     <span class="text">{{ this.linkText }}</span>
+
     <div :class="getClass()">
       <span class="material-icons">{{ this.icon ? this.icon : 'add' }}</span>
     </div>
@@ -49,7 +51,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

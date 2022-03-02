@@ -11,20 +11,20 @@
         :path_name="placeholder.cta.path_name"
         :cta_text="placeholder.cta.text"
         :pet_name="pet_name"
-        :pet_id="pet_id">
-    </Placeholder>
+        :pet_id="pet_id"
+    />
 
     <div v-else class="medical-container-body">
       <MedicineItem
           v-for="medicine in medicines"
           :key="medicine.id"
           :medicine="medicine"
-          @delete="sendDelete"/>
+          @delete="sendDelete"
+      />
 
-      <MedicineItemMore v-if="medicines.length > 3" :quantity="medicines.length" :pet_id="pet_id"></MedicineItemMore>
+      <MedicineItemMore v-if="medicines.length > 3" :quantity="medicines.length" :pet_id="pet_id"/>
     </div>
   </div>
-
 </template>
 <script>
 import Placeholder from "@/components/pet/show/detail/medical/PetDetailMedicalPlaceholder";
@@ -33,6 +33,11 @@ import MedicineItemMore from "@/components/pet/show/detail/medical/PetDetailMedi
 
 export default {
   name: "PetDetailMedicalMedicine",
+  components: {
+    Placeholder,
+    MedicineItem,
+    MedicineItemMore
+  },
   props: {
     medicines: {
       type: Array,
@@ -50,11 +55,6 @@ export default {
       type: Number,
       required: true,
     },
-  },
-  components: {
-    Placeholder,
-    MedicineItem,
-    MedicineItemMore
   },
   methods: {
     sendDelete(medicine_id) {

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import authService from "../services/auth";
+import authService from "@/services/auth";
 import Explore from "../views/explore/Explore";
 import Login from "../views/auth/login/Login";
 import MedicineForm from "../views/pet/medicine/MedicineForm";

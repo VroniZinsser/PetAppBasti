@@ -11,7 +11,7 @@
         :loading="loading"
         :rules="[rules.obligatory]"
         :errors="errors.first_name"
-    ></InputText>
+    />
 
     <InputText
         label="Apellido"
@@ -19,7 +19,7 @@
         :loading="loading"
         :rules="[rules.obligatory]"
         :errors="errors.last_name"
-    ></InputText>
+    />
 
     <InputText
         type="email"
@@ -28,31 +28,30 @@
         :loading="loading"
         :rules="[rules.obligatory, rules.email]"
         :errors="errors.email"
-    ></InputText>
+    />
 
     <InputPassword
-      v-if="!user"
-      label="Contraseña" 
-      v-model="formData.password"
-      :loading="loading"
-      :errors="errors.password"
+        v-if="!user"
+        label="Contraseña"
+        v-model="formData.password"
+        :loading="loading"
+        :errors="errors.password"
     />
 
-    <button class="main-btn" type="submit" :disabled="loading">{{ user ? 'Guardar cambios' : 'Crear cuenta'}}</button>
-    <DeleteAccountButton 
-      v-if="user"
-    />
+    <button class="main-btn" type="submit" :disabled="loading">{{ user ? 'Guardar cambios' : 'Crear cuenta' }}</button>
+
+    <DeleteAccountButton v-if="user" />
   </v-form>
 </template>
 
 <script>
-import InputText from "../../general/input/InputText";
-import InputPassword from "../../general/input/InputPassword";
+import authService from "@/services/auth";
 import DeleteAccountButton from "@/components/general/button/BaseButtonDeleteAccount";
-import userService from "../../../services/users";
-import authService from "../../../services/auth";
+import InputText from "@/components/general/input/InputText";
+import InputPassword from "@/components/general/input/InputPassword";
 import store from "@/store";
-import { handleAccessError } from "@/helpers";
+import userService from "@/services/users";
+import {handleAccessError} from "@/helpers";
 
 export default {
   name: "OwnerSignUpForm",
@@ -91,6 +90,13 @@ export default {
       },
     },
   }),
+  mounted() {
+    if (this.user) {
+      this.formData = {
+        ...this.user
+      }
+    }
+  },
   methods: {
     sendForm() {
       if (this.$refs.ownerForm.validate()) {
@@ -117,87 +123,81 @@ export default {
      */
     signUp() {
       userService.createOwner(this.formData)
-        .then(res => {
-          if (!res.success) {
-            if (this.handleAccessError(res)) return;
-            if (res.errors) {
-              this.errors = {
-                first_name: null,
-                last_name: null,
-                email: null,
-                password: null,
-                ...res.errors
+          .then(res => {
+            if (!res.success) {
+              if (this.handleAccessError(res)) return;
+
+              if (res.errors) {
+                this.errors = {
+                  first_name: null,
+                  last_name: null,
+                  email: null,
+                  password: null,
+                  ...res.errors
+                }
+              } else {
+                this.store.setStatus({
+                  msg: "¡Algo salió mal! Por favor, intentalo nuevamente más tarde",
+                  type: 'error'
+                });
               }
             } else {
-              this.store.setStatus({
-                msg: "¡Algo salió mal! Por favor, intentalo nuevamente más tarde",
-                type: 'error'
-              });
-            }
-          } else {
-            let credentials = {
-              email: this.formData.email,
-              password: this.formData.password,
+              let credentials = {
+                email: this.formData.email,
+                password: this.formData.password,
+              }
+
+              authService.login(credentials)
+                  .then(res => {
+                    authService.saveAuthUser(res.data.user);
+
+                    this.$router.push({name: 'Home'});
+                  });
             }
 
-            authService.login(credentials)
-                .then(res => {
-                  authService.saveAuthUser(res.data.user);
+            this.loading = false
+          });
 
-                  this.$router.push({name: 'Home'});
-                });
-          }
-          this.loading = false
-        });
-      
     },
 
     updateUser() {
       userService.update(this.formData, this.user.id)
-        .then(res => {
-          this.loading = false;
+          .then(res => {
+            this.loading = false;
 
-          if (!res.success) {
-            if (this.handleAccessError(res)) return;
-            if (res.errors) {
-              this.errors = {
-                first_name: null,
-                last_name: null,
-                email: null,
-                password: null,
-                ...res.errors
+            if (!res.success) {
+              if (this.handleAccessError(res)) return;
+
+              if (res.errors) {
+                this.errors = {
+                  first_name: null,
+                  last_name: null,
+                  email: null,
+                  password: null,
+                  ...res.errors
+                }
+                this.store.setStatus({
+                  msg: "Por favor corregí los datos del formulario.",
+                  type: 'warning',
+                });
+              } else {
+                this.store.setStatus({
+                  msg: '¡Algo salió mal! Por favor, intentalo nuevamente más tarde.',
+                  type: 'error',
+                });
               }
-              this.store.setStatus({
-                msg: "Por favor corregí los datos del formulario.",
-                type: 'warning',
-              });
             } else {
+              authService.saveAuthUser(res.data.user);
+
               this.store.setStatus({
-                msg: '¡Algo salió mal! Por favor, intentalo nuevamente más tarde.',
-                type: 'error',
+                msg: 'Los cambios se guardaron con éxito.',
+                type: 'success',
               });
+
+              this.$router.back();
             }
-          } else {
-            authService.saveAuthUser(res.data.user);
-            this.store.setStatus({
-              msg: 'Los cambios se guardaron con éxito.',
-              type: 'success',
-            });
-            this.$router.back();
-          }
-        })
-    }
-  },
-  mounted() {
-    if (this.user) {
-      this.formData = {
-        ...this.user
-      }
+          })
     }
   },
 }
 </script>
-
-<style scoped>
-
-</style>

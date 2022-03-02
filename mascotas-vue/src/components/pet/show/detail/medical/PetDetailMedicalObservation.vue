@@ -2,7 +2,8 @@
   <div class="medical-container observation">
     <div class="medical-container-header">
       <h2>Notas</h2>
-       <router-link v-if="observation" :to="{name: 'ObservationForm', params: {pet_id: pet_id}}">Editar</router-link>
+
+      <router-link v-if="observation" :to="{name: 'ObservationForm', params: {pet_id: pet_id}}">Editar</router-link>
     </div>
 
     <Placeholder
@@ -12,8 +13,8 @@
         :path_name="placeholder.cta.path_name"
         :cta_text="placeholder.cta.text"
         :pet_name="pet_name"
-        :pet_id="pet_id">
-    </Placeholder>
+        :pet_id="pet_id"
+    />
 
     <div v-else class="medical-container-body">
       <p>{{ observation }}</p>
@@ -26,6 +27,9 @@ import Placeholder from "@/components/pet/show/detail/medical/PetDetailMedicalPl
 
 export default {
   name: "PetDetailMedicalObservation",
+  components: {
+    Placeholder,
+  },
   props: {
     observation: {
       type: String,
@@ -42,9 +46,6 @@ export default {
       type: Number,
       required: true,
     }
-  },
-  components: {
-    Placeholder,
   },
 }
 </script>

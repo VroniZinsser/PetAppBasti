@@ -6,18 +6,21 @@
       @submit.prevent="sendForm"
   >
     <v-container class="professional-form">
-      <slot />
-      
+      <slot/>
+
       <div class="fieldset-container">
         <fieldset>
           <legend>Datos personales</legend>
+
           <BaseNotification
-            v-if="store.status.msg != null"
-            :type="store.status.type"
-            :text="store.status.msg"
-            :title="store.status.title"
+              v-if="store.status.msg != null"
+              :type="store.status.type"
+              :text="store.status.msg"
+              :title="store.status.title"
           />
+
           <p>Los campos marcados con * son obligatorios.</p>
+
           <InputText
               label="Nombre"
               v-model="formData.first_name"
@@ -27,7 +30,7 @@
               :errors="errors.first_name"
               autocomplete="on"
               required
-          ></InputText>
+          />
 
           <InputText
               label="Apellido"
@@ -38,7 +41,7 @@
               :errors="errors.last_name"
               autocomplete="on"
               required
-          ></InputText>
+          />
 
           <InputText
               label="DNI"
@@ -49,7 +52,7 @@
               :errors="errors.dni"
               autocomplete="on"
               required
-          ></InputText>
+          />
 
           <InputText
               label="Correo Electrónico"
@@ -61,7 +64,7 @@
               autocomplete="on"
               required
               type="email"
-          ></InputText>
+          />
 
           <v-switch
               v-model="formData.email_visible"
@@ -69,16 +72,15 @@
               hint="Si activás esta función, los clientes te podrán contactar por correo electrónico."
               persistent-hint
               color="#3fb094"
-          ></v-switch>
+          />
 
           <InputPassword
-            v-if="createNewUser"
-            label="Contraseña" 
-            v-model="formData.password"
-            :loading="loading"
-            :errors="errors.password"
+              v-if="createNewUser"
+              label="Contraseña"
+              v-model="formData.password"
+              :loading="loading"
+              :errors="errors.password"
           />
-        
         </fieldset>
 
         <fieldset>
@@ -92,7 +94,7 @@
               :errors="errors.public_name"
               hint="Nombre de la tienda o clínica veterinaria"
               persistent-hint
-          ></InputText>
+          />
 
           <v-select
               outlined
@@ -108,7 +110,7 @@
               :disabled="loading"
               :rules="[rules.selectionRequired]"
               color="#3fb094"
-          ></v-select>
+          />
 
           <v-textarea
               outlined
@@ -122,7 +124,7 @@
               :disabled="loading"
               placeholder="Hola, soy Martina y soy veterinaria con alma y corazón..."
               color="#3fb094"
-          ></v-textarea>
+          />
 
           <div :class="!createNewUser ? 'preview-container' : ''">
             <v-switch
@@ -130,16 +132,14 @@
                 v-model="showFileInput"
                 :label="`Nueva imagen: ${showFileInput ? 'Sí' : 'No'}`"
                 color="#3fb094"
-            ></v-switch>
-          
-          
-            <v-img
-              class="preview"
-              v-if="!createNewUser && !showFileInput"
-              :src="createImgPath(professional.profile_image.src)" 
             />
-        
-          
+
+            <v-img
+                class="preview"
+                v-if="!createNewUser && !showFileInput"
+                :src="createImgPath(professional.profile_image.src)"
+            />
+
             <v-file-input
                 v-if="createNewUser || showFileInput"
                 outlined
@@ -158,7 +158,7 @@
                 :error="errors.photo"
                 :disabled="loading"
                 color="#3fb094"
-            ></v-file-input>
+            />
           </div>
         </fieldset>
 
@@ -176,7 +176,7 @@
               type="tel"
               autocomplete="on"
               placeholder="112345678"
-          ></InputText>
+          />
 
           <InputText
               label="Instagram"
@@ -187,7 +187,7 @@
               :rules="[rules.username]"
               placeholder="VeterinariaMartina"
               hint="Tu nombre de usuario sin '@'"
-          ></InputText>
+          />
 
           <InputText
               label="Facebook"
@@ -198,7 +198,7 @@
               :rules="[rules.username]"
               placeholder="veterinaria_martina"
               hint="Tu nombre de usuario como aparece en la barra de url"
-          ></InputText>
+          />
 
           <InputText
               label="Página Web"
@@ -209,7 +209,7 @@
               type="url"
               :rules="[rules.url]"
               placeholder="https://www.veterinaria-martina.com.ar"
-          ></InputText>
+          />
 
           <div :class="!createNewUser ? 'preview-container' : ''">
             <v-switch
@@ -217,13 +217,13 @@
                 v-model="showAddressInput"
                 :label="`Nueva dirección: ${showAddressInput ? 'Sí' : 'No'}`"
                 color="#3fb094"
-            ></v-switch>
-
-            <Address 
-              v-if="!createNewUser && !showAddressInput"
-              :professional="professional" 
             />
-          
+
+            <Address
+                v-if="!createNewUser && !showAddressInput"
+                :professional="professional"
+            />
+
             <InputAddress
                 v-if="createNewUser || showAddressInput"
                 label="Dirección"
@@ -235,7 +235,7 @@
                 hint="Ingresá ciudad, calle y número, para que tus clientes te puedan encontrar."
                 persistent-hint
                 required
-            ></InputAddress>
+            />
 
             <InputText
                 v-if="createNewUser || showAddressInput"
@@ -244,39 +244,46 @@
                 identifier="apartment"
                 :loading="loading"
                 :errors="errors.apartment"
-            ></InputText>
-            
+            />
           </div>
-          
         </fieldset>
       </div>
+
       <div class="button-container">
-        <button class="main-btn" type="submit">{{ professional ? 'Guardar cambios' : 'Crear cuenta'}}</button>
-        <DeleteAccountButton 
+        <button class="main-btn" type="submit">{{ professional ? 'Guardar cambios' : 'Crear cuenta' }}</button>
+
+        <DeleteAccountButton
             v-if="!createNewUser"
             :is_professional="true"
-          />
+        />
       </div>
     </v-container>
   </v-form>
 </template>
 
 <script>
-import userService from "@/services/users";
+import Address from "@/components/user/professional/ProfessionalProfileAddress"
 import authService from "@/services/auth";
-import store from "@/store";
-import InputAddress from "@/components/general/input/InputAddress";
+import BaseNotification from "@/components/general/notification/BaseNotification";
 import DeleteAccountButton from "@/components/general/button/BaseButtonDeleteAccount";
+import InputAddress from "@/components/general/input/InputAddress";
 import InputText from "@/components/general/input/InputText";
 import InputPassword from "@/components/general/input/InputPassword";
+import store from "@/store";
+import userService from "@/services/users";
 import {createImgPath} from "@/helpers";
-import Address from "@/components/user/professional/ProfessionalProfileAddress"
-import BaseNotification from "@/components/general/notification/BaseNotification";
-import { handleAccessError } from "@/helpers";
+import {handleAccessError} from "@/helpers";
 
 export default {
   name: "Form",
-
+  components: {
+    InputAddress,
+    InputText,
+    InputPassword,
+    Address,
+    BaseNotification,
+    DeleteAccountButton
+  },
   props: {
     user_types: {
       type: Array,
@@ -287,22 +294,6 @@ export default {
       default: null,
     }
   },
-
-  computed: {
-    createNewUser() {
-      return this.professional === null;
-    }
-  },
-
-  components: {
-    InputAddress,
-    InputText,
-    InputPassword,
-    Address,
-    BaseNotification,
-    DeleteAccountButton
-  },
-
   data() {
     return {
       loading: false,
@@ -338,7 +329,11 @@ export default {
       showFileInput: false,
     }
   },
-
+  computed: {
+    createNewUser() {
+      return this.professional === null;
+    }
+  },
   mounted() {
     if (this.createNewUser) {
       this.resetFormData();
@@ -346,16 +341,19 @@ export default {
       this.formData = {
         ...this.professional
       }
+
       this.cleanUserTypes();
+
       this.cleanProfileImage();
     }
   },
-  
   methods: {
     sendForm() {
       if (this.$refs.form.validate()) {
         this.loading = true;
+
         this.resetErrors();
+
         if (this.createNewUser) {
           this.createUser();
         } else {
@@ -365,72 +363,79 @@ export default {
     },
     createUser() {
       userService.create(this.formData)
-        .then(res => {
-          this.loading = false;
-          window.scrollTo(0,0);
+          .then(res => {
+            this.loading = false;
 
-          if (res.success) {
-            this.store.setStatus({
-              msg: "¡Gracias por registrarte en Basti!",
-              type: 'success',
-            });
+            window.scrollTo(0, 0);
 
-            this.$router.push({name: 'Login'});
-          } else if (res.errors) {
-            this.errors = {
-              ...res.errors
+            if (res.success) {
+              this.store.setStatus({
+                msg: "¡Gracias por registrarte en Basti!",
+                type: 'success',
+              });
+
+              this.$router.push({name: 'Login'});
+            } else if (res.errors) {
+              this.errors = {
+                ...res.errors
+              }
+
+              this.errors.address = this.concatAddressErrors(res.errors);
+
+              this.store.setStatus({
+                msg: "Por favor corregí los datos del formulario.",
+                type: 'warning'
+              });
+            } else {
+              this.store.setStatus({
+                msg: "¡Algo salió mal! Por favor, intentalo nuevamente más tarde",
+                type: 'error'
+              });
             }
-            this.errors.address = this.concatAddressErrors(res.errors);
-            this.store.setStatus({
-              msg: "Por favor corregí los datos del formulario.",
-              type: 'warning'
-            });
-
-          } else {
-            this.store.setStatus({
-              msg: "¡Algo salió mal! Por favor, intentalo nuevamente más tarde",
-              type: 'error'
-            });
-          }
-        })
+          })
     },
 
     updateUser() {
       if (!this.showFileInput) this.formData.photo = null;
+
       userService.updateProfessional(this.formData, this.professional.id)
-        .then(res => {
-          this.loading = false;
-          window.scrollTo(0,0);
-          
-          if (res.success) {
-            authService.saveAuthUser(res.data.user);
-            this.store.setStatus({
-              msg: "Los cambios se guardaron con éxito.",
-              type: 'success',
-            });
+          .then(res => {
+            this.loading = false;
 
-            this.$router.push({
-              name: 'ProfessionalProfile', 
-              params: {professional_id: this.professional.id}
-            });
-          } else if (res.errors) {
-            this.errors = {
-              ...res.errors
+            window.scrollTo(0, 0);
+
+            if (res.success) {
+              authService.saveAuthUser(res.data.user);
+
+              this.store.setStatus({
+                msg: "Los cambios se guardaron con éxito.",
+                type: 'success',
+              });
+
+              this.$router.push({
+                name: 'ProfessionalProfile',
+                params: {professional_id: this.professional.id}
+              });
+            } else if (res.errors) {
+              this.errors = {
+                ...res.errors
+              }
+
+              this.errors.address = this.concatAddressErrors(res.errors);
+
+              this.store.setStatus({
+                msg: "Por favor corregí los datos del formulario.",
+                type: 'warning'
+              });
+            } else {
+              if (this.handleAccessError(res)) return;
+
+              this.store.setStatus({
+                msg: "¡Algo salió mal! Por favor, intentalo nuevamente más tarde",
+                type: 'error'
+              });
             }
-            this.errors.address = this.concatAddressErrors(res.errors);
-            this.store.setStatus({
-              msg: "Por favor corregí los datos del formulario.",
-              type: 'warning'
-            });
-
-          } else {
-            if (this.handleAccessError(res)) return;
-            this.store.setStatus({
-              msg: "¡Algo salió mal! Por favor, intentalo nuevamente más tarde",
-              type: 'error'
-            });
-          }
-        })
+          })
     },
 
     updateAddress(address) {
@@ -479,8 +484,8 @@ export default {
     },
 
     /**
-      Sets default values to formData
-      TODO: Remove default values for final version
+     Sets default values to formData
+     TODO: Remove default values for final version
      */
     resetFormData() {
       this.formData = {
@@ -547,16 +552,13 @@ export default {
      */
     handleFileUpload() {
       const reader = new FileReader();
+
       reader.addEventListener('load', () => {
         this.formData.photo = reader.result;
       });
+
       reader.readAsDataURL(this.photo);
     },
   },
 }
-
 </script>
-
-<style scoped>
-
-</style>

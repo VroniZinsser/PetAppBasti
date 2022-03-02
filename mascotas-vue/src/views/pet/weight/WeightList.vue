@@ -1,5 +1,5 @@
 <template>
-  <TheLoader v-if="loading"></TheLoader>
+  <TheLoader v-if="loading"/>
 
   <v-container v-else class="medical-list-container">
     <PetDetailMedicalListHeader title="Pesos de la mascota"/>
@@ -11,22 +11,23 @@
         :title="store.status.title"
     />
 
-    <BaseButtonCircleLinkList :button-link-data="buttonLinkData"></BaseButtonCircleLinkList>
+    <BaseButtonCircleLinkList :button-link-data="buttonLinkData"/>
 
     <template v-if="weights.length > 0">
       <div class="actual-weight">
         <span>Peso actual: </span>
+
         <span class="current-weight">{{ displayWeight(weights[0].weight) }}</span>
+
         <span class="weight-date"> ({{ formatDate(weights[0].date) }})</span>
       </div>
 
-      <WeightList :weights="weights" @delete="prepareDeleteWeight"></WeightList>
+      <WeightList :weights="weights" @delete="prepareDeleteWeight"/>
 
       <BaseDialogWarn
           :showDialog="showWarnDialog"
           dialogTitle="¿Querés eliminar este peso?"
           acceptButtonText="Borrar peso"
-
           @cancel="cancelDelete"
           @accept="deleteWeight"
       />
@@ -37,21 +38,27 @@
 </template>
 
 <script>
-import petServices from "@/services/pets";
-import WeightList from "@/components/pet/weight/WeightList";
-import TheLoader from "@/components/general/layout/TheLoader";
 import BaseButtonCircleLinkList from "@/components/general/button/floating/BaseButtonCircleLinkList";
-import BaseNotification from "@/components/general/notification/BaseNotification";
-import store from "@/store";
-import {displayWeight, formatDate} from "@/helpers";
 import BaseDialogWarn from "@/components/general/notification/BaseDialogWarn";
-import weightService from "@/services/weights";
-import { handleAccessError } from "@/helpers";
+import BaseNotification from "@/components/general/notification/BaseNotification";
 import PetDetailMedicalListHeader from "@/components/pet/show/detail/medical/PetDetailMedicalListHeader";
+import petServices from "@/services/pets";
+import store from "@/store";
+import TheLoader from "@/components/general/layout/TheLoader";
+import WeightList from "@/components/pet/weight/WeightList";
+import weightService from "@/services/weights";
+import {handleAccessError, displayWeight, formatDate} from "@/helpers";
 
 export default {
   name: "WeightList",
-  components: {PetDetailMedicalListHeader, BaseDialogWarn, BaseNotification, BaseButtonCircleLinkList, TheLoader, WeightList},
+  components: {
+    PetDetailMedicalListHeader,
+    BaseDialogWarn,
+    BaseNotification,
+    BaseButtonCircleLinkList,
+    TheLoader,
+    WeightList
+  },
   data() {
     return {
       weights: null,
@@ -73,14 +80,25 @@ export default {
       ],
     }
   },
+  mounted() {
+    if (this.$route.params.pet_id) {
+      petServices.getWeights(this.$route.params.pet_id)
+          .then(res => {
+            this.weights = res.data.weights;
+            this.loading = false
+          })
+    }
+  },
   methods: {
     prepareDeleteWeight(weight_id) {
       this.wToDelete = weight_id;
+
       this.showWarnDialog = true;
     },
 
     cancelDelete() {
       this.wToDelete = null;
+
       this.showWarnDialog = false;
     },
 
@@ -103,14 +121,5 @@ export default {
           })
     }
   },
-  mounted() {
-    if (this.$route.params.pet_id) {
-      petServices.getWeights(this.$route.params.pet_id)
-          .then(res => {
-            this.weights = res.data.weights;
-            this.loading = false
-          })
-    }
-  }
 }
 </script>

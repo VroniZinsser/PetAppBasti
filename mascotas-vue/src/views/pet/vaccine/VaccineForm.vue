@@ -10,15 +10,15 @@
     <VaccineForm
         :pet_id="this.$route.params.pet_id"
         :vaccine="vaccine"
-    ></VaccineForm>
+    />
   </BaseFormContainer>
 </template>
 
 <script>
-import VaccineForm from "@/components/pet/vaccine/VaccineForm";
 import BaseFormContainer from "@/components/general/form/BaseFormContainer";
+import VaccineForm from "@/components/pet/vaccine/VaccineForm";
 import vaccineService from "@/services/vaccines";
-import { handleAccessError } from "@/helpers";
+import {handleAccessError} from "@/helpers";
 
 export default {
   name: "VaccineForm",
@@ -38,7 +38,9 @@ export default {
       vaccineService.find(this.$route.params.vaccine_id)
           .then(res => {
             if (this.handleAccessError(res)) return;
+
             this.vaccine = res.data.vaccine;
+
             this.loading = false;
           })
     } else {

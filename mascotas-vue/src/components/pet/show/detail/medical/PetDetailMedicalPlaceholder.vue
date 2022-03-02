@@ -7,8 +7,8 @@
     <router-link :to="{name: this.path_name, params: { pet_id: this.pet_id }}">{{ cta_text }}</router-link>
   </div>
 </template>
-<script>
 
+<script>
 export default {
   name: "PetDetailMedicalPlaceholder",
   props: {
@@ -37,7 +37,6 @@ export default {
       required: true,
     }
   },
-
   methods: {
     replacePetName(text, petName) {
       return text.replace(':petName', petName);

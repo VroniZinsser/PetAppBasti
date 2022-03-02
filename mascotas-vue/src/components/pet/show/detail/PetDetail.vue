@@ -35,24 +35,23 @@
     </div>
   </div>
 </template>
-<script>
 
-import {createImgPath} from "@/helpers";
+<script>
 import PetProfile from "@/components/pet/show/detail/PetDetailProfile";
 import PetMedicalInfo from "@/components/pet/show/detail/medical/PetDetailMedical";
-
+import {createImgPath} from "@/helpers";
 
 export default {
   name: "PetDetail",
+  components: {
+    PetProfile,
+    PetMedicalInfo,
+  },
   props: {
     pet: {
       type: Object,
       required: true,
     },
-  },
-  components: {
-    PetProfile,
-    PetMedicalInfo,
   },
   data() {
     return {

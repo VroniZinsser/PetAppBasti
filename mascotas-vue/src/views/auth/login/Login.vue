@@ -1,19 +1,22 @@
 <template>
   <BaseFormContainer
-    headline="Ingresar"
-    form_class="form-login"
-    :is_short_form="true"
+      headline="Ingresar"
+      form_class="form-login"
+      :is_short_form="true"
   >
     <LoginForm/>
+
     <div class="register">
-      <p>¿Todavía no tenés una cuenta? <router-link :to="{name: 'OwnerSignUp'}">Registrarme</router-link></p>
+      <p>¿Todavía no tenés una cuenta?
+        <router-link :to="{name: 'OwnerSignUp'}">Registrarme</router-link>
+      </p>
     </div>
   </BaseFormContainer>
 </template>
 
 <script>
-import LoginForm from "@/components/auth/login/LoginForm";
 import BaseFormContainer from "@/components/general/form/BaseFormContainer";
+import LoginForm from "@/components/auth/login/LoginForm";
 
 export default {
   name: "Login",
@@ -27,7 +30,3 @@ export default {
   }),
 }
 </script>
-
-<style scoped>
-
-</style>

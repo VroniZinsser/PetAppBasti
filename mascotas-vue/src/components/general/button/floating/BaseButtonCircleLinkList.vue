@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CircleButton v-on:active="links = true"></CircleButton>
+    <CircleButton v-on:active="links = true"/>
 
     <v-dialog v-model="links" class="container--fluid">
       <ul class="floating-links-list">
@@ -10,7 +10,8 @@
               :link-text="data.text"
               :path-name="data.pathName"
               :path-params="data.pathParams"
-              :default="data.default"></CircleButtonLink>
+              :default="data.default"
+          />
         </li>
       </ul>
     </v-dialog>

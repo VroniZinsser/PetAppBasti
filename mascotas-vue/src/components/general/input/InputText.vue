@@ -13,15 +13,12 @@
       :messages="errors ? errors[0] : ''"
       :disabled="loading"
       color="#3fb094"
-  ></v-text-field>
-
+  />
 </template>
 
 <script>
-
 export default {
   name: "InputText",
-
   props: {
     value: {},
     identifier: {

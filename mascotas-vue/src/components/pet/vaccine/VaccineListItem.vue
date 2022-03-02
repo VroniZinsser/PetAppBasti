@@ -2,21 +2,27 @@
   <li>
     <div class="content">
       <p><span class="sr-only">Nombre: </span>{{ vaccine.name }}</p>
+
       <p><span class="sr-only">Fecha: </span>{{ formatDate(vaccine.date) }}</p>
     </div>
 
     <div class="actions">
       <router-link
-          :to="{name: 'VaccineFormEdit', params: {pet_id: this.$route.params.pet_id, vaccine_id : vaccine.id}}">
+          :to="{name: 'VaccineFormEdit', params: {pet_id: this.$route.params.pet_id, vaccine_id : vaccine.id}}"
+      >
         <span class="sr-only">Editar vacuna {{ vaccine.name }} (icono </span>
+
         <span class="material-icons">edit</span>
+
         <span class="sr-only">)</span>
       </router-link>
 
       <form action="#" method="POST" @submit.prevent="$emit('delete', vaccine.id);">
         <button>
           <span class="sr-only">Eliminar {{ vaccine.name }} (icono </span>
+
           <span class="material-icons">delete</span>
+
           <span class="sr-only">)</span>
         </button>
       </form>
@@ -29,7 +35,6 @@ import {formatDate} from "@/helpers";
 
 export default {
   name: "VaccineListItem",
-  components: {},
   props: {
     vaccine: {
       type: Object,
@@ -41,8 +46,5 @@ export default {
       formatDate
     }
   },
-  methods: {},
-  mounted() {
-  }
 }
 </script>

@@ -5,26 +5,31 @@
         :dialogTitle="dialogTitle"
         :dialogText="dialogText"
         :acceptButtonText="dialogButtonText"
-
         @cancel="showWarnDialog = false"
         @accept="deleteRequest"
     />
+
     <v-expansion-panel-header>
       <div>
         <img :src="createImgPath(pet.image.src)" :alt="pet.image.alt"/>
+
         <div class="pet-container">
           <p class="pet-name">{{ petName }}</p>
           <p class="expiration">{{ expirationText }}</p>
         </div>
       </div>
     </v-expansion-panel-header>
+
     <v-expansion-panel-content>
       <div v-if="request.description" class="quote-container">
         <p class="quote-intro">{{ quoteIntro }}</p>
+
         <p class="quote">"{{ request.description }}"</p>
       </div>
+
       <button @click="showWarnDialog = true">
         <v-icon> mdi-link-variant-off</v-icon>
+
         {{ this.professionalName ? 'Dejar de compartir' : 'Dejar de ver' }}
       </button>
     </v-expansion-panel-content>
@@ -32,13 +37,15 @@
 </template>
 
 <script>
+import WarnDialog from "@/components/general/notification/BaseDialogWarn";
 import {createImgPath} from "@/helpers";
 import {formatDate} from "@/helpers";
-import WarnDialog from "@/components/general/notification/BaseDialogWarn";
-
 
 export default {
   name: "ShareListSubItem",
+  components: {
+    WarnDialog,
+  },
   props: {
     request: {
       type: Object,
@@ -48,9 +55,6 @@ export default {
       type: String,
       default: null,
     }
-  },
-  components: {
-    WarnDialog,
   },
   data() {
     return {
@@ -103,11 +107,5 @@ export default {
       this.showWarnDialog = false;
     }
   },
-  mounted() {
-
-  }
 };
 </script>
-
-<style scoped>
-</style>

@@ -22,9 +22,6 @@ export default {
       type: Array,
     }
   },
-  data() {
-    return {}
-  },
   computed: {
     desktopUp() {
       return this.$vuetify.breakpoint.lgAndUp;
@@ -35,7 +32,5 @@ export default {
       return this.desktopUp ? requests.map((k, i) => i) : [];
     }
   },
-  mounted() {
-  }
 }
 </script>

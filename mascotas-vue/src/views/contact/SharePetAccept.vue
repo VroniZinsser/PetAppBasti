@@ -1,5 +1,5 @@
 <template>
-  <TheLoader v-if="loading"></TheLoader>
+  <TheLoader v-if="loading"/>
 
   <v-container v-else-if="request && hasAccess" fluid class="justify-center d-flex align-center">
     <h1 class="sr-only">Aceptar petición</h1>
@@ -29,9 +29,9 @@
 </template>
 
 <script>
-import TheLoader from "@/components/general/layout/TheLoader";
 import contactService from "@/services/contact";
 import SharePetAcceptCard from "@/components/contact/request/SharePetAcceptCard";
+import TheLoader from "@/components/general/layout/TheLoader";
 import TitleWithLink from "@/components/general/layout/TitleWithLink";
 
 export default {
@@ -52,31 +52,6 @@ export default {
       routeName: null,
     }
   }),
-  methods: {
-    accepted() {
-      this.result = {
-        title: 'Petición aceptada con éxito',
-        linkText: 'Ir al inicio',
-        routeName: 'Pets', // TODO: Esto es temporal, cuando este completa la pantalla de inicio para el profesional se debe de poner el route name correspondiente
-      }
-
-      this.incomplete = false;
-    },
-
-    rejected() {
-      this.result = {
-        title: 'Petición rechazada con éxito',
-        linkText: 'Ir al inicio',
-        routeName: 'Pets', // TODO: Esto es temporal, cuando este completa la pantalla de inicio para el profesional se debe de poner el route name correspondiente
-      }
-
-      this.incomplete = false;
-    },
-    
-    accessDenied() {
-      this.hasAccess = false;
-    }
-  },
   mounted() {
     contactService.acceptGenerate(this.$route.params.request_id)
         .then(res => {
@@ -86,6 +61,31 @@ export default {
 
           this.loading = false;
         })
-  }
+  },
+  methods: {
+    accepted() {
+      this.result = {
+        title: 'Petición aceptada con éxito',
+        linkText: 'Ir al inicio',
+        routeName: 'HomeProfessional',
+      }
+
+      this.incomplete = false;
+    },
+
+    rejected() {
+      this.result = {
+        title: 'Petición rechazada con éxito',
+        linkText: 'Ir al inicio',
+        routeName: 'HomeProfessional',
+      }
+
+      this.incomplete = false;
+    },
+
+    accessDenied() {
+      this.hasAccess = false;
+    }
+  },
 }
 </script>

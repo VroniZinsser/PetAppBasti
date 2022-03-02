@@ -18,7 +18,7 @@
         :item-value="'id'"
         :messages="errors.pet_id ? errors.pet_id[0] : ''"
         :error="errors.pet_id !== null"
-    ></v-select>
+    />
 
     <InputDate
         label="Fecha de expiración"
@@ -29,25 +29,25 @@
         :initialDate="getDefaultDate()"
         :minDate="getCurrentDate()"
         @update-date="updateDate"
-    ></InputDate>
+    />
 
     <Textarea
         :label="'Tu mensaje a ' + professionalName"
         v-model="formData.description"
         :loading="loading"
         :errors="errors.description"
-    ></Textarea>
+    />
 
     <button class="main-btn" type="submit" :disabled="loading">Generar enlace</button>
   </v-form>
 </template>
 
 <script>
-import InputDate from "../../general/input/InputDate";
-import Textarea from "../../general/input/Textarea";
-import contactService from "../../../services/contact";
-import BaseNotification from "../../general/notification/BaseNotification";
-import { handleAccessError } from "@/helpers";
+import BaseNotification from "@/components/general/notification/BaseNotification";
+import contactService from "@/services/contact";
+import InputDate from "@/components/general/input/InputDate";
+import Textarea from "@/components/general/input/Textarea";
+import {handleAccessError} from "@/helpers";
 
 export default {
   name: "SharePetForm",
@@ -90,6 +90,14 @@ export default {
           const pattern = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
           return pattern.test(value) || 'Por favor, ingresá una fecha válida (ej: 31/01/2021)'
         },
+      }
+    }
+  },
+  mounted() {
+    this.resetFormData();
+    if (this.request) {
+      this.formData = {
+        ...this.request
       }
     }
   },
@@ -146,6 +154,7 @@ export default {
               .then(res => {
                 if (!res.success) {
                   if (this.handleAccessError(res)) return;
+
                   this.notification.type = 'error';
 
                   if (res.errors) {
@@ -156,23 +165,25 @@ export default {
                       professional_id: null,
                       ...res.errors
                     }
+
                     this.notification.text = 'Por favor corregí los datos del formulario';
                   } else {
                     this.notification.text = 'Algo salió mal. No se pudo compartir la mascota';
                   }
                 } else {
                   this.resetFormData();
+
                   this.$emit('request-created', res.data.requestCreated);
                 }
 
                 this.loading = false;
               });
         } else {
-          // Editar
           contactService.update(this.formData, this.request.id)
               .then(res => {
                 if (!res.success) {
                   if (this.handleAccessError(res)) return;
+
                   this.notification.type = 'error';
 
                   if (res.errors) {
@@ -190,6 +201,7 @@ export default {
                   }
                 } else {
                   this.resetFormData();
+
                   this.$emit('request-created', res.data.request);
                 }
 
@@ -199,13 +211,5 @@ export default {
       }
     }
   },
-  mounted() {
-    this.resetFormData();
-    if (this.request) {
-      this.formData = {
-        ...this.request
-      }
-    }
-  }
 }
 </script>

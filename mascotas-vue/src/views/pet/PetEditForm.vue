@@ -1,5 +1,6 @@
 <template>
-  <TheLoader v-if="loading"></TheLoader>
+  <TheLoader v-if="loading"/>
+
   <BaseFormContainer
       headline="Editar mascota"
       form_class="form-pet-edit"
@@ -7,20 +8,20 @@
       v-else
   >
     <PetForm v-if="pet"
-          :sexes="sexes"
-          :species="species"
-          :pet="pet"
-    ></PetForm>
+             :sexes="sexes"
+             :species="species"
+             :pet="pet"
+    />
   </BaseFormContainer>
 </template>
 
 <script>
-import PetForm from "@/components/pet/PetForm";
 import BaseFormContainer from "@/components/general/form/BaseFormContainer";
-import TheLoader from "@/components/general/layout/TheLoader";
-import petServices from "../../services/pets";
-import { handleAccessError } from "@/helpers";
+import PetForm from "@/components/pet/PetForm";
+import petServices from "@/services/pets";
 import store from "@/store";
+import TheLoader from "@/components/general/layout/TheLoader";
+import {handleAccessError} from "@/helpers";
 
 export default {
   name: "PetEditForm",
@@ -41,6 +42,7 @@ export default {
     petServices.createForm()
         .then(res => {
           this.sexes = res.data.sexes;
+
           this.species = res.data.species;
         });
 
@@ -50,10 +52,12 @@ export default {
             this.pet = res.data.pet;
           } else {
             if (this.handleAccessError(res)) return;
+
             this.store.setStatus({
               msg: "No se encontró la mascota solicitada.",
               type: 'Error'
             });
+
             this.$router.push({name: 'Pets'});
           }
           this.loading = false;
@@ -61,7 +65,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

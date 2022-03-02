@@ -1,18 +1,17 @@
 <template>
   <div>
+    <TitleBar title="Tus mascotas"/>
 
-    <TitleBar title="Tus mascotas"></TitleBar>
-
-    <TheLoader v-if="loading"></TheLoader>
+    <TheLoader v-if="loading"/>
 
     <div v-else>
       <div v-if="pets !== null && pets.length > 0">
-        <BaseButtonCircleLinkList :button-link-data="buttonLinkData"></BaseButtonCircleLinkList>
+        <BaseButtonCircleLinkList :button-link-data="buttonLinkData"/>
 
         <PetMenuList
             :active="activePet.id"
             :pets="pets" @show-pet="updateActivePet"
-        ></PetMenuList>
+        />
 
         <BaseNotification
             v-if="store.status.msg != null"
@@ -21,11 +20,11 @@
             :title="store.status.title"
         />
 
-        <PetDetail :pet="activePet" @deleted="refreshPets()"></PetDetail>
+        <PetDetail :pet="activePet" @deleted="refreshPets()"/>
       </div>
 
       <div v-else>
-        <BaseButtonCircleLinkList :button-link-data="[buttonLinkData[0]]"></BaseButtonCircleLinkList>
+        <BaseButtonCircleLinkList :button-link-data="[buttonLinkData[0]]"/>
 
         <BaseNotification
             v-if="store.status.msg != null"
@@ -34,22 +33,22 @@
             :title="store.status.title"
         />
 
-        <PetEmpty></PetEmpty>
+        <PetEmpty/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import TitleBar from "@/components/general/layout/TitleBar";
-import TheLoader from "@/components/general/layout/TheLoader";
-import PetMenuList from "@/components/pet/show/PetMenuList";
-import PetDetail from "@/components/pet/show/detail/PetDetail";
-import petServices from "../../services/pets";
 import BaseButtonCircleLinkList from "@/components/general/button/floating/BaseButtonCircleLinkList";
-import PetEmpty from "@/components/pet/show/PetEmpty";
 import BaseNotification from "@/components/general/notification/BaseNotification";
-import store from "../../store";
+import PetEmpty from "@/components/pet/show/PetEmpty";
+import PetDetail from "@/components/pet/show/detail/PetDetail";
+import PetMenuList from "@/components/pet/show/PetMenuList";
+import petServices from "@/services/pets";
+import store from "@/store";
+import TheLoader from "@/components/general/layout/TheLoader";
+import TitleBar from "@/components/general/layout/TitleBar";
 
 export default {
   name: "PetList",
@@ -101,14 +100,15 @@ export default {
   mounted() {
     this.refreshPets();
   },
-
   methods: {
     /**
      * set active pet to the given id, refresh buttons and update active pet in the store
      */
     updateActivePet(pet_id) {
       this.activePet = this.pets.find(pet => pet.id === pet_id);
+
       this.refreshButtonLinksData();
+
       this.store.setActivePet(pet_id);
     },
 
@@ -122,8 +122,10 @@ export default {
       petServices.getOwnerPets()
           .then(res => {
             this.pets = res.data.pets;
+
             if (this.pets !== null && this.pets.length > 0) {
               let activePetId = this.store.activePet.id ? this.store.activePet.id : res.data.pets[0].id;
+
               this.updateActivePet(activePetId);
             }
 
@@ -134,7 +136,9 @@ export default {
     refreshButtonLinksData() {
       if (this.pets !== null && this.pets.length > 0) {
         this.buttonLinkData[1].pathParams.pet_id = this.activePet.id
+
         this.buttonLinkData[2].pathParams.pet_id = this.activePet.id
+
         this.buttonLinkData[3].pathParams.pet_id = this.activePet.id
       }
     }

@@ -14,7 +14,7 @@
         :errors="errors.weight"
         required
         type="number"
-    ></InputText>
+    />
 
     <InputDate
         label="Fecha"
@@ -25,17 +25,18 @@
         :initialDate="initialDate"
         :maxDate="getCurrentDate()"
         @update-date="updateDate"
-    ></InputDate>
+    />
 
     <button class="main-btn" type="submit" :disabled="loading">{{ weight ? "Guardar cambios" : "Agregar" }}</button>
   </v-form>
 </template>
+
 <script>
 import InputText from "@/components/general/input/InputText";
 import InputDate from "@/components/general/input/InputDate";
-import weightService from "../../../services/weights";
 import store from "@/store";
-import { handleAccessError } from "@/helpers";
+import weightService from "@/services/weights";
+import {handleAccessError} from "@/helpers";
 
 export default {
   name: "WeightForm",
@@ -78,6 +79,17 @@ export default {
       }
     }
   },
+  computed: {
+    initialDate() {
+      return this.weight ? this.weight.date : this.getCurrentDate();
+    }
+  },
+  mounted() {
+    if (this.weight) {
+      this.formData.weight = this.weight.weight;
+      this.formData.date = this.weight.date;
+    }
+  },
   methods: {
     getCurrentDate() {
       return (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
@@ -103,6 +115,7 @@ export default {
 
                 if (!res.success) {
                   if (this.handleAccessError(res)) return;
+
                   if (res.errors && res.errors.pet_id) {
                     this.store.setStatus({
                       msg: 'La mascota no existe.',
@@ -114,6 +127,7 @@ export default {
                       weight: null,
                       ...res.errors
                     }
+
                     this.store.setStatus({
                       msg: "Por favor corregí los datos del formulario.",
                       type: 'warning',
@@ -129,6 +143,7 @@ export default {
                     msg: '¡El nuevo peso está guardado!',
                     type: 'success',
                   });
+
                   this.$router.back();
                 }
               })
@@ -139,6 +154,7 @@ export default {
 
                 if (!res.success) {
                   if (this.handleAccessError(res)) return;
+
                   if (res.errors && res.errors.pet_id) {
                     this.store.setStatus({
                       msg: 'La mascota no existe.',
@@ -150,6 +166,7 @@ export default {
                       weight: null,
                       ...res.errors
                     }
+
                     this.store.setStatus({
                       msg: "Por favor corregí los datos del formulario.",
                       type: 'warning',
@@ -165,6 +182,7 @@ export default {
                     msg: '¡Se editó el peso con éxito!',
                     type: 'success',
                   });
+                  
                   this.$router.back();
                 }
               })
@@ -172,16 +190,5 @@ export default {
       }
     }
   },
-  computed: {
-    initialDate(){
-      return this.weight ? this.weight.date : this.getCurrentDate();
-    }
-  },
-  mounted() {
-    if (this.weight) {
-      this.formData.weight = this.weight.weight;
-      this.formData.date = this.weight.date;
-    }
-  }
 }
 </script>

@@ -31,7 +31,5 @@ export default {
       this.$emit('delete', weight_id);
     }
   },
-  mounted() {
-  }
 }
 </script>

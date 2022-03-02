@@ -11,16 +11,14 @@
         :hours="hours"
         :pet_id="$route.params.pet_id"
         :medicine="medicine"
-    >
-    </MedicineForm>
+    />
   </BaseFormContainer>
 </template>
 
 <script>
-
+import BaseFormContainer from "@/components/general/form/BaseFormContainer";
 import MedicineForm from '@/components/pet/medicine/MedicineForm';
 import medicineServices from "@/services/medicines";
-import BaseFormContainer from "@/components/general/form/BaseFormContainer";
 
 export default {
   name: "MedicineForm",
@@ -40,20 +38,19 @@ export default {
       medicineServices.updateForm(this.$route.params.medicine_id)
           .then(res => {
             this.medicine = res.data.medicine;
+
             this.hours = res.data.hours;
+
             this.loading = false;
           })
     } else {
       medicineServices.createForm()
           .then(res => {
             this.hours = res.data.hours;
+
             this.loading = false;
           })
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>

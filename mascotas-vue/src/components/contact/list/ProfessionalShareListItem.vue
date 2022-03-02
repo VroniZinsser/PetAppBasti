@@ -7,9 +7,7 @@
         :value="expansionPanelsValue"
     >
 
-      <ShareListSubItem
-          :request="request"
-      />
+      <ShareListSubItem :request="request"/>
     </v-expansion-panels>
   </li>
 </template>
@@ -32,17 +30,11 @@ export default {
       required: true,
     }
   },
-  data() {
-    return {}
-  },
-  methods: {},
-  mounted() {
-  }
 }
 </script>
 
 <style scoped type="text/scss">
-.share-list-item{
+.share-list-item {
   border-bottom: 1px solid rgba(51, 51, 51, 0.4);
 }
 </style>

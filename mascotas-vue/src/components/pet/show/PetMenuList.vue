@@ -7,6 +7,7 @@
     </ul>
   </div>
 </template>
+
 <script>
 import PetMenuItem from "@/components/pet/show/PetMenuListItem";
 

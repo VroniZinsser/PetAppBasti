@@ -10,15 +10,15 @@
         v-if="!loading"
         :pet_id="$route.params.pet_id"
         :weight="weight"
-    ></WeightForm>
+    />
   </BaseFormContainer>
 </template>
 
 <script>
-import WeightForm from "@/components/pet/weight/WeightForm";
 import BaseFormContainer from "@/components/general/form/BaseFormContainer";
+import WeightForm from "@/components/pet/weight/WeightForm";
 import weightService from "@/services/weights";
-import { handleAccessError } from "@/helpers";
+import {handleAccessError} from "@/helpers";
 
 export default {
   name: "WeightForm",
@@ -40,6 +40,7 @@ export default {
             if (this.handleAccessError(res)) return;
 
             this.weight = res.data.weight;
+
             this.loading = false;
           })
     } else {

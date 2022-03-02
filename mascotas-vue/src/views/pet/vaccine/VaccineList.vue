@@ -1,5 +1,5 @@
 <template>
-  <TheLoader v-if="loading"></TheLoader>
+  <TheLoader v-if="loading"/>
 
   <v-container v-else class="medical-list-container">
     <PetDetailMedicalListHeader title="Vacunas de la mascota"/>
@@ -11,17 +11,16 @@
         :title="store.status.title"
     />
 
-    <BaseButtonCircleLinkList :button-link-data="buttonLinkData"></BaseButtonCircleLinkList>
+    <BaseButtonCircleLinkList :button-link-data="buttonLinkData"/>
 
     <template v-if="vaccines.length > 0">
 
-      <VaccineList :vaccines="vaccines" @delete="prepareDeleteVaccine"></VaccineList>
+      <VaccineList :vaccines="vaccines" @delete="prepareDeleteVaccine"/>
 
       <BaseDialogWarn
           :showDialog="showWarnDialog"
           dialogTitle="¿Querés eliminar esta vacuna?"
           acceptButtonText="Borrar vacuna"
-
           @cancel="cancelDelete"
           @accept="deleteVaccine"
       />
@@ -32,22 +31,27 @@
 </template>
 
 <script>
-import TheLoader from "@/components/general/layout/TheLoader";
-import BaseNotification from "@/components/general/notification/BaseNotification";
-import BaseDialogWarn from "@/components/general/notification/BaseDialogWarn";
-import store from "@/store";
-import {formatDate} from "@/helpers";
-import vaccineService from "@/services/vaccines";
-import VaccineList from "@/components/pet/vaccine/VaccineList";
-import petServices from "@/services/pets";
 import BaseButtonCircleLinkList from "@/components/general/button/floating/BaseButtonCircleLinkList";
-import { handleAccessError } from "@/helpers";
+import BaseDialogWarn from "@/components/general/notification/BaseDialogWarn";
+import BaseNotification from "@/components/general/notification/BaseNotification";
 import PetDetailMedicalListHeader from "@/components/pet/show/detail/medical/PetDetailMedicalListHeader";
+import petServices from "@/services/pets";
+import store from "@/store";
+import TheLoader from "@/components/general/layout/TheLoader";
+import VaccineList from "@/components/pet/vaccine/VaccineList";
+import vaccineService from "@/services/vaccines";
+import {formatDate, handleAccessError} from "@/helpers";
 
 export default {
   name: "VaccineList",
-  components: {PetDetailMedicalListHeader, BaseButtonCircleLinkList, BaseDialogWarn, BaseNotification, TheLoader, VaccineList},
-  props: {},
+  components: {
+    PetDetailMedicalListHeader,
+    BaseButtonCircleLinkList,
+    BaseDialogWarn,
+    BaseNotification,
+    TheLoader,
+    VaccineList
+  },
   data() {
     return {
       vaccines: null,
@@ -68,14 +72,26 @@ export default {
       ],
     }
   },
+  mounted() {
+    if (this.$route.params.pet_id) {
+      petServices.getVaccines(this.$route.params.pet_id)
+          .then(res => {
+            this.vaccines = res.data.vaccines;
+
+            this.loading = false
+          })
+    }
+  },
   methods: {
     prepareDeleteVaccine(vaccine_id) {
       this.vToDelete = vaccine_id;
+
       this.showWarnDialog = true;
     },
 
     cancelDelete() {
       this.vToDelete = null;
+
       this.showWarnDialog = false;
     },
 
@@ -98,14 +114,5 @@ export default {
           })
     }
   },
-  mounted() {
-    if (this.$route.params.pet_id) {
-      petServices.getVaccines(this.$route.params.pet_id)
-          .then(res => {
-            this.vaccines = res.data.vaccines;
-            this.loading = false
-          })
-    }
-  }
 }
 </script>

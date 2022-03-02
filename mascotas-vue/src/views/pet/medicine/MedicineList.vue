@@ -1,5 +1,5 @@
 <template>
-  <TheLoader v-if="loading"></TheLoader>
+  <TheLoader v-if="loading"/>
 
   <v-container v-else class="medical-list-container">
     <PetDetailMedicalListHeader title="Medicamentos de la mascota"/>
@@ -11,16 +11,15 @@
         :title="store.status.title"
     />
 
-    <BaseButtonCircleLinkList :button-link-data="buttonLinkData"></BaseButtonCircleLinkList>
+    <BaseButtonCircleLinkList :button-link-data="buttonLinkData"/>
 
     <template v-if="medicines.length > 0">
-      <MedicineList :medicines="medicines" @delete="prepareDeleteMedicine"></MedicineList>
+      <MedicineList :medicines="medicines" @delete="prepareDeleteMedicine"/>
 
       <BaseDialogWarn
           :showDialog="showWarnDialog"
           dialogTitle="¿Querés eliminar este medicamento?"
           acceptButtonText="Borrar medicamento"
-
           @cancel="cancelDelete"
           @accept="deleteMedicine"
       />
@@ -31,15 +30,15 @@
 </template>
 
 <script>
-import TheLoader from "@/components/general/layout/TheLoader";
-import PetDetailMedicalListHeader from "@/components/pet/show/detail/medical/PetDetailMedicalListHeader";
-import BaseNotification from "@/components/general/notification/BaseNotification";
-import store from "@/store";
-import BaseDialogWarn from "@/components/general/notification/BaseDialogWarn";
-import medicineService from "@/services/medicines";
-import petServices from "@/services/pets";
 import BaseButtonCircleLinkList from "@/components/general/button/floating/BaseButtonCircleLinkList";
+import BaseDialogWarn from "@/components/general/notification/BaseDialogWarn";
+import BaseNotification from "@/components/general/notification/BaseNotification";
 import MedicineList from "@/components/pet/medicine/MedicineList";
+import medicineService from "@/services/medicines";
+import PetDetailMedicalListHeader from "@/components/pet/show/detail/medical/PetDetailMedicalListHeader";
+import petServices from "@/services/pets";
+import store from "@/store";
+import TheLoader from "@/components/general/layout/TheLoader";
 
 export default {
   name: "MedicineList",
@@ -51,7 +50,6 @@ export default {
     TheLoader,
     MedicineList
   },
-  props: {},
   data() {
     return {
       medicines: null,
@@ -70,14 +68,26 @@ export default {
       ],
     }
   },
+  mounted() {
+    if (this.$route.params.pet_id) {
+      petServices.getMedicines(this.$route.params.pet_id)
+          .then(res => {
+            this.medicines = res.data.medicines;
+
+            this.loading = false
+          })
+    }
+  },
   methods: {
     prepareDeleteMedicine(medicine_id) {
       this.mToDelete = medicine_id;
+
       this.showWarnDialog = true;
     },
 
     cancelDelete() {
       this.mToDelete = null;
+
       this.showWarnDialog = false;
     },
 
@@ -98,14 +108,5 @@ export default {
           })
     }
   },
-  mounted() {
-    if (this.$route.params.pet_id) {
-      petServices.getMedicines(this.$route.params.pet_id)
-          .then(res => {
-            this.medicines = res.data.medicines;
-            this.loading = false
-          })
-    }
-  }
 }
 </script>

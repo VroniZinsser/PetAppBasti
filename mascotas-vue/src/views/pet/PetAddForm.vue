@@ -1,22 +1,23 @@
 <template>
-  <TheLoader v-if="loading"></TheLoader>
+  <TheLoader v-if="loading"/>
+
   <BaseFormContainer
-    headline="Agregar una nueva mascota"
-    form_class="form-pet"
-    :is_short_form="false"
-    v-else
+      headline="Agregar una nueva mascota"
+      form_class="form-pet"
+      :is_short_form="false"
+      v-else
   >
     <PetForm
-          :sexes="sexes"
-          :species="species"
-    ></PetForm>
+        :sexes="sexes"
+        :species="species"
+    />
   </BaseFormContainer>
 </template>
 
 <script>
-import PetForm from "@/components/pet/PetForm";
 import BaseFormContainer from "@/components/general/form/BaseFormContainer";
-import petServices from "../../services/pets";
+import PetForm from "@/components/pet/PetForm";
+import petServices from "@/services/pets";
 import TheLoader from "@/components/general/layout/TheLoader";
 
 export default {
@@ -35,13 +36,11 @@ export default {
     petServices.createForm()
         .then(res => {
           this.sexes = res.data.sexes;
+
           this.species = res.data.species;
+
           this.loading = false;
         });
   }
 }
 </script>
-
-<style scoped>
-
-</style>

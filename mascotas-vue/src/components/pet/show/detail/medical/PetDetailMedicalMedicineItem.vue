@@ -3,7 +3,9 @@
     <div class="medicine-item-info horizontal-bottom-line">
       <div>
         <span class="card-title">{{ medicine.name }}</span>
+
         <span class="card-subtitle">{{ medicine.quantity }}</span>
+
         <span class="card-date">{{ formatDate(medicine.start_date) }} - {{ formatDate(medicine.end_date) }}</span>
       </div>
 
@@ -23,7 +25,8 @@
             <v-list-item>
               <v-list-item-title>
                 <router-link
-                    :to="{name: 'MedicineFormEdit', params: {pet_id: medicine.pets_id, medicine_id: medicine.id}}">
+                    :to="{name: 'MedicineFormEdit', params: {pet_id: medicine.pets_id, medicine_id: medicine.id}}"
+                >
                   <button>Editar</button>
                 </router-link>
               </v-list-item-title>
@@ -38,20 +41,20 @@
         </v-menu>
       </div>
     </div>
+
     <div class="medicine-item-hours">
       <div v-for="hour in formatHours" :key="hour.id">
         {{ hour.time }}
       </div>
     </div>
   </div>
-
 </template>
+
 <script>
 import {formatDate} from "@/helpers";
 
 export default {
   name: "PetDetailMedicalMedicineItem",
-  components: {},
   props: {
     medicine: {
       type: Object,
@@ -66,7 +69,9 @@ export default {
   computed: {
     cardClass() {
       const medicineEndDate = new Date(this.medicine.end_date);
+
       const actualDate = new Date(Date.now());
+
       return (actualDate > medicineEndDate ? 'disabled ' : '') + "card medicine-item";
     },
 
@@ -75,7 +80,7 @@ export default {
         item.time = item.time.slice(0, 5);
       })
 
-      return this.medicine.hours
+      return this.medicine.hours;
     }
   }
 }

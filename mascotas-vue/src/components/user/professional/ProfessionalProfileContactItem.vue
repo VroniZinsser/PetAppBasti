@@ -2,10 +2,12 @@
   <li v-if="contactData">
     <a :href="link" target="_blank">
       <img :src="createStaticImgPath(imgPath)" :alt="alt">
+
       <span>{{ contactData }}</span>
     </a>
   </li>
 </template>
+
 <script>
 import {createStaticImgPath} from "@/helpers";
 

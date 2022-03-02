@@ -1,12 +1,15 @@
 <template>
   <div class="pet-menu-item">
-      <div 
-        class="menu-item-link" 
+    <div
+        class="menu-item-link"
         :class="is_active ? 'active' : ''"
-        @click="$parent.$emit('show-pet', pet.id)">
-        <img :src="createImgPath(pet.image.src)" :alt="pet.image.alt">
-        <span>{{ pet.name }}</span>
-      </div>
+        @click="$parent.$emit('show-pet', pet.id)"
+    >
+
+      <img :src="createImgPath(pet.image.src)" :alt="pet.image.alt"/>
+
+      <span>{{ pet.name }}</span>
+    </div>
   </div>
 </template>
 

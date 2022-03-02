@@ -4,7 +4,8 @@
         v-for="medicine in sortedArray"
         :key="medicine.id"
         :medicine="medicine"
-        @delete="sendDelete" />
+        @delete="sendDelete"
+    />
   </ul>
 </template>
 
@@ -20,9 +21,6 @@ export default {
       required: true,
     }
   },
-  data() {
-    return {}
-  },
   computed: {
     sortedArray() {
       let medicines = this.medicines;
@@ -35,7 +33,5 @@ export default {
       this.$emit('delete', medicine_id);
     }
   },
-  mounted() {
-  }
 }
 </script>

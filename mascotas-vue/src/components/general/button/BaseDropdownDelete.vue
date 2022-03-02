@@ -2,11 +2,9 @@
   <div class="drop-drown-container">
     <v-menu offset-y>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn
-            v-bind="attrs"
-            v-on="on"
-        >
+        <v-btn v-bind="attrs" v-on="on">
           <span class="material-icons">more_vert</span>
+
           <span class="sr-only">Configuración</span>
         </v-btn>
       </template>
@@ -27,7 +25,3 @@ export default {
   name: "BaseDropdownDelete",
 }
 </script>
-
-<style scoped>
-
-</style>

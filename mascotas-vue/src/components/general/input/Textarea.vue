@@ -12,12 +12,10 @@
       :messages="errors ? errors[0] : ''"
       :disabled="loading"
       color="#3fb094"
-  ></v-textarea>
-
+  />
 </template>
 
 <script>
-
 export default {
   name: "Textarea",
   props: {

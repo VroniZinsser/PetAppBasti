@@ -12,8 +12,8 @@
         :loading="loading"
         :rules="[rules.obligatory, rules.email]"
         :errors="errors.email"
-    ></InputText>
-    
+    />
+
     <InputText
         :type="showPassword ? 'text' : 'password'"
         label="Contraseña"
@@ -22,8 +22,8 @@
         @click:append="showPassword = !showPassword"
         :loading="loading"
         :errors="errors.password"
-    ></InputText>
-    
+    />
+
     <div class="forgot-password">
       <router-link :to="{name: 'ResetPasswordForm'}">Olvidé mi Contraseña</router-link>
     </div>
@@ -33,10 +33,10 @@
 </template>
 
 <script>
-import InputText from "../../general/input/InputText";
-import authService from "../../../services/auth";
-import store from "../../../store";
-import { handleAccessError } from "@/helpers";
+import authService from "@/services/auth";
+import InputText from "@/components/general/input/InputText";
+import store from "@/store";
+import {handleAccessError} from "@/helpers";
 
 export default {
   name: 'LoginForm',
@@ -79,6 +79,7 @@ export default {
             .then(res => {
               if (!res.success) {
                 if (this.handleAccessError(res)) return;
+
                 if (res.errors) {
                   this.errors = {
                     email: null,
@@ -91,6 +92,7 @@ export default {
                     type: 'error',
                   });
                 }
+
                 this.formData.password = null;
               } else {
                 authService.saveAuthUser(res.data.user);
@@ -109,7 +111,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

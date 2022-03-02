@@ -20,9 +20,6 @@ export default {
       required: true,
     }
   },
-  data() {
-    return {}
-  },
   computed:{
     sortedArray() {
       let vaccines = this.vaccines;
@@ -35,7 +32,5 @@ export default {
       this.$emit('delete', vaccine_id);
     }
   },
-  mounted() {
-  }
 }
 </script>

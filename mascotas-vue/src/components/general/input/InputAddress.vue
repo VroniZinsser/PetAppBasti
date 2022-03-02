@@ -15,15 +15,14 @@
       :disabled="loading"
       outlined
       color="#3fb094"
-  ></v-autocomplete>
+  />
 </template>
 
 <script>
-import {HEREMAPS_API_KEY} from "@/constants/";
+import {HEREMAPS_API_KEY} from "@/constants";
 
 export default {
   name: "InputAddress",
-
   props: {
     identifier: {
       type: String,
@@ -35,7 +34,6 @@ export default {
       default: false
     }
   },
-
   data: function () {
     return {
       address_suggestions: [],
@@ -55,7 +53,6 @@ export default {
       },
     }
   },
-
   watch: {
     /**
      * Request to the HERE maps api: Fetches address suggestions based on the user's input
@@ -86,13 +83,16 @@ export default {
           .then(res => {
             if (res.response.view.length > 0 && res.response.view[0].result.length > 0) {
               const location = res.response.view[0].result[0].location;
+
               if (!location) {
                 return;
               }
+
               if (location.displayPosition) {
                 this.address.latitude = location.displayPosition.latitude;
                 this.address.longitude = location.displayPosition.longitude;
               }
+
               if (location.address) {
                 this.address.country = location.address.country;
                 this.address.state = location.address.state;
@@ -102,6 +102,7 @@ export default {
                 this.address.street = location.address.street;
                 this.address.house_number = location.address.houseNumber;
               }
+
               this.$emit('update-address', this.address);
             }
           }, error => {
@@ -109,6 +110,5 @@ export default {
           });
     }
   },
-
 }
 </script>

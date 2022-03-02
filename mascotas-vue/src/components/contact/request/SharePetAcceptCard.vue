@@ -1,7 +1,8 @@
 <template>
   <v-card width="500px" height="fit-content">
     <v-card-title>{{ request.owner.first_name }} {{ request.owner.last_name }}</v-card-title>
-    <v-divider></v-divider>
+
+    <v-divider/>
 
     <v-container>
       <div>
@@ -14,7 +15,7 @@
       </div>
     </v-container>
 
-    <v-divider></v-divider>
+    <v-divider/>
 
     <v-card-actions class="justify-center pt-4 pb-4 accept-card-actions">
       <v-btn
@@ -36,7 +37,7 @@
 <script>
 import contactService from "@/services/contact";
 import {formatDate} from "@/helpers";
-import { handleAccessError } from "@/helpers";
+import {handleAccessError} from "@/helpers";
 
 export default {
   name: "SharePetAcceptCard",

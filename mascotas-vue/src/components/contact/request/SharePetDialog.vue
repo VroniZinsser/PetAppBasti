@@ -2,9 +2,7 @@
   <div>
     <v-dialog v-model="showDialog" max-width="500" @click:outside="$emit('closeDialog')">
       <v-card class="form-dialog-container">
-        <v-card-title>
-          Compartir tu mascota
-        </v-card-title>
+        <v-card-title>Compartir tu mascota</v-card-title>
 
         <Form
             v-if="pets"
@@ -16,10 +14,10 @@
 
         <v-card-text v-else class="pt-4 text-center">Necesitas tener como mínimo una mascota registrada</v-card-text>
 
-        <v-divider></v-divider>
+        <v-divider/>
 
         <v-card-actions>
-          <v-spacer></v-spacer>
+          <v-spacer/>
 
           <v-btn
               color="red"
@@ -29,7 +27,7 @@
             {{ pets ? 'Cancelar' : 'Cerrar' }}
           </v-btn>
 
-          <v-spacer></v-spacer>
+          <v-spacer/>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -45,13 +43,16 @@
 
         <div class="d-flex justify-space-around">
           <p class="clipboard-input">{{ requestLink }}</p>
+
           <v-btn @click="copyLink">Copiar</v-btn>
         </div>
 
         <v-card-actions>
-          <v-spacer></v-spacer>
+          <v-spacer/>
+
           <v-btn text @click="shareDialog = false">Cerrar</v-btn>
-          <v-spacer></v-spacer>
+
+          <v-spacer/>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -59,9 +60,9 @@
 </template>
 
 <script>
+import BaseNotification from "@/components/general/notification/BaseNotification";
 import Form from "@/components/contact/request/SharePetForm";
 import petServices from "@/services/pets";
-import BaseNotification from "@/components/general/notification/BaseNotification";
 import {createRequestAcceptUrl} from "@/helpers";
 
 export default {
@@ -93,11 +94,20 @@ export default {
     },
     requestLink: null,
   }),
+  mounted() {
+    petServices.getOwnerPets()
+        .then(res => {
+          if (res.success) {
+            this.pets = res.data.pets;
+          }
+        })
+  },
   methods: {
     createShareLink(request) {
       this.$emit('closeDialog')
 
       this.notification.text = "Éxito. Ya puedes compartir la mascota con el enlace de abajo";
+
       this.notification.type = "success";
 
       this.requestLink = createRequestAcceptUrl(request.id);
@@ -109,16 +119,9 @@ export default {
       navigator.clipboard.writeText(this.requestLink);
 
       this.notification.text = "El enlace se copió en el portapapeles";
+
       this.notification.type = "info";
     },
   },
-  mounted() {
-    petServices.getOwnerPets()
-        .then(res => {
-          if (res.success) {
-            this.pets = res.data.pets;
-          }
-        })
-  }
 }
 </script>
