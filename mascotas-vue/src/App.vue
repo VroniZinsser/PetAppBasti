@@ -62,7 +62,7 @@
 
 import {createStaticImgPath} from "@/helpers";
 import authService from "./services/auth";
-import SettingsDialog from "@/components/users/settings/SettingsDialog";
+import SettingsDialog from "@/components/general/layout/setting/SettingsDialog";
 import store from "./store";
 
 

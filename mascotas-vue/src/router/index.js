@@ -2,32 +2,30 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import authService from "../services/auth";
 import Explore from "../views/explore/Explore";
-// import Home from '../views/Home.vue'
-// import Inbox from "../views/contact/Inbox";
-import Login from "../views/Auth/Login";
-import MedicineForm from "../views/pets/medicines/Form";
-import ResetPasswordForm from "../views/Auth/resetPassword/ResetPasswordForm";
-import ChangePassword from "../views/Auth/resetPassword/ChangePassword";
-import ChangePasswordAuthenticated from "../views/Auth/resetPassword/ChangePasswordAuthenticated";
-import ObservationForm from "../views/pets/ObservationForm";
-import OwnerSignUp from "../views/Auth/signUp/OwnerSignUp";
-import Pets from "../views/pets/Pets";
-import PetAddForm from "../views/pets/AddForm";
-import PetEditForm from "../views/pets/EditForm";
-import OwnerEdit from "../views/users/OwnerEdit";
-import ProfessionalEdit from "../views/users/ProfessionalEdit";
-import ProfessionalHome from "../views/users/ProfessionalHome";
-import ProfessionalSignUp from "../views/users/ProfessionalSignUp";
-import ProfessionalProfile from "../views/users/ProfessionalProfile";
+import Login from "../views/auth/login/Login";
+import MedicineForm from "../views/pet/medicine/MedicineForm";
+import ResetPasswordForm from "../views/auth/password/ResetPasswordForm";
+import ChangePassword from "../views/auth/password/ChangePassword";
+import ChangePasswordAuthenticated from "../views/auth/password/ChangePasswordAuthenticated";
+import ObservationForm from "../views/pet/observation/ObservationForm";
+import OwnerSignUp from "../views/auth/signUp/OwnerSignUp";
+import Pets from "../views/pet/PetList";
+import PetAddForm from "../views/pet/PetAddForm";
+import PetEditForm from "../views/pet/PetEditForm";
+import OwnerEdit from "../views/user/OwnerEditForm";
+import ProfessionalEdit from "../views/user/professional/ProfessionalEditForm";
+import ProfessionalHome from "../views/user/professional/ProfessionalHome";
+import ProfessionalSignUp from "../views/auth/signUp/ProfessionalSignUp";
+import ProfessionalProfile from "../views/user/professional/ProfessionalProfile";
 import Schedule from "../views/schedule/Schedule";
-import OwnerShareList from "../views/contact/owner/OwnerShareList";
-import VaccineForm from "../views/pets/VaccineForm";
-import WeightForm from "../views/pets/WeightForm";
-import WeightList from "../views/pets/weights/List";
-import VaccineList from "../views/pets/vaccines/List";
-import AcceptSharedPetRequest from "@/views/contact/Accept";
+import OwnerShareList from "../views/contact/OwnerShareList";
+import VaccineForm from "../views/pet/vaccine/VaccineForm";
+import WeightForm from "../views/pet/weight/WeightForm";
+import WeightList from "../views/pet/weight/WeightList";
+import VaccineList from "../views/pet/vaccine/VaccineList";
+import AcceptSharedPetRequest from "@/views/contact/SharePetAccept";
 import PageNotFound from "@/views/PageNotFound";
-import MedicineList from "@/views/pets/medicines/List";
+import MedicineList from "@/views/pet/medicine/MedicineList";
 
 Vue.use(VueRouter)
 

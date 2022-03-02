@@ -44,7 +44,7 @@ import ExploreList from "@/components/geolocation/list/ExploreList";
 import ExploreSearchBar from "@/components/geolocation/filter/ExploreSearchBar";
 import ExploreFilterByType from "@/components/geolocation/filter/ExploreFilterByType";
 import userService from "../../services/users";
-import BaseNotification from "@/components/general/notifications/BaseNotification";
+import BaseNotification from "@/components/general/notification/BaseNotification";
 import store from "@/store";
 
 export default {

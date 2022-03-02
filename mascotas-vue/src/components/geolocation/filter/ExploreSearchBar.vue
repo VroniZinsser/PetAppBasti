@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import InputText from "@/components/general/inputs/InputText";
+import InputText from "@/components/general/input/InputText";
 
 export default {
     name: "ExploreSearchBar",

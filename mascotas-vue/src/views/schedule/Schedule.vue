@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import Construction from "@/components/general/layouts/Construction" 
+import Construction from "@/components/general/layout/Construction"
 export default {
   name: "Schedule",
   components: {
