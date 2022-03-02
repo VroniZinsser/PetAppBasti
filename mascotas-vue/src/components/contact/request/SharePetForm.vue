@@ -1,16 +1,20 @@
 <template>
   <v-form
-      :method="this.request ? 'PUT' : 'POST'"
-      :action="this.request ? 'peticiones/editar' : 'peticiones/crear'"
-      class="px-4 py-4"
       ref="requestForm"
+      :method="formMethod"
+      :action="formAction"
+      class="px-4 py-4"
       @submit.prevent="sendForm"
   >
-    <BaseNotification v-if="notification.text" :text="notification.text" :type="notification.type"/>
+    <BaseNotification
+        v-if="notification.text"
+        :text="notification.text"
+        :type="notification.type"
+    />
 
     <v-select
-        label="Mascota"
         v-model="formData.pet_id"
+        label="Mascota"
         identifier="hour"
         :disabled="loading"
         :items="pets"
@@ -21,8 +25,8 @@
     />
 
     <InputDate
-        label="Fecha de expiración"
         v-model="formData.expiration_date"
+        label="Fecha de expiración"
         :loading="loading"
         :rules="[rules.obligatory, rules.date]"
         :errors="errors.expiration_date"
@@ -32,8 +36,8 @@
     />
 
     <Textarea
-        :label="'Tu mensaje a ' + professionalName"
         v-model="formData.description"
+        :label="textareaLabel"
         :loading="loading"
         :errors="errors.description"
     />
@@ -91,6 +95,19 @@ export default {
           return pattern.test(value) || 'Por favor, ingresá una fecha válida (ej: 31/01/2021)'
         },
       }
+    }
+  },
+  computed: {
+    formMethod() {
+      return this.request ? 'PUT' : 'POST';
+    },
+
+    formAction() {
+      return this.request ? 'peticiones/editar' : 'peticiones/crear';
+    },
+
+    textareaLabel(){
+      return 'Tu mensaje a ' + this.professionalName;
     }
   },
   mounted() {

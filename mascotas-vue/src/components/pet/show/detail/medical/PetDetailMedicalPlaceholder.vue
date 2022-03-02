@@ -2,7 +2,7 @@
   <div class="no-data">
     <img :src="img_src" :alt="cta_text">
 
-    <p>{{ replacePetName(text, pet_name) }}</p>
+    <p>{{ textWithPetName }}</p>
 
     <router-link :to="{name: this.path_name, params: { pet_id: this.pet_id }}">{{ cta_text }}</router-link>
   </div>
@@ -37,10 +37,10 @@ export default {
       required: true,
     }
   },
-  methods: {
-    replacePetName(text, petName) {
-      return text.replace(':petName', petName);
+  computed: {
+    textWithPetName(){
+      return this.text.replace(':petName', this.pet_name)
     }
-  }
+  },
 }
 </script>

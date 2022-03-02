@@ -5,8 +5,8 @@
         <v-img
             :src="createStaticImgPath('ui/page_not_found.png')"
             alt="Error 404, no se encontró la página solicitada"
-            contain
             class="construction-img"
+            contain
         />
 
         <div class="info-container">

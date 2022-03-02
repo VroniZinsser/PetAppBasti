@@ -1,33 +1,33 @@
 <template>
   <v-form
-      :action="weight ? 'pesos/editar' : 'pesos/crear'"
-      method="post"
       ref="weightForm"
+      :action="formAction"
+      method="post"
       @submit.prevent="sendForm"
   >
     <InputText
-        label="Peso en gramos"
         v-model="formData.weight"
-        identifier="weight"
         :loading="loading"
         :rules="[rules.obligatory, rules.numeric]"
         :errors="errors.weight"
-        required
+        label="Peso en gramos"
+        identifier="weight"
         type="number"
+        required
     />
 
     <InputDate
-        label="Fecha"
-        identifier="date"
         :loading="loading"
         :rules="[rules.obligatory, rules.date]"
         :errors="errors.date"
         :initialDate="initialDate"
         :maxDate="getCurrentDate()"
+        label="Fecha"
+        identifier="date"
         @update-date="updateDate"
     />
 
-    <button class="main-btn" type="submit" :disabled="loading">{{ weight ? "Guardar cambios" : "Agregar" }}</button>
+    <button class="main-btn" type="submit" :disabled="loading">{{ buttonText }}</button>
   </v-form>
 </template>
 
@@ -82,7 +82,15 @@ export default {
   computed: {
     initialDate() {
       return this.weight ? this.weight.date : this.getCurrentDate();
-    }
+    },
+
+    formAction(){
+      return this.weight ? 'pesos/editar' : 'pesos/crear'
+    },
+
+    buttonText(){
+      return this.weight ? "Guardar cambios" : "Agregar"
+    },
   },
   mounted() {
     if (this.weight) {

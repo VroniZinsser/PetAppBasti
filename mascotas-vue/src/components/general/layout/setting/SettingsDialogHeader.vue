@@ -9,7 +9,7 @@
       </v-avatar>
 
       <div>
-        <span>{{ user.first_name }} {{ user.last_name }}</span>
+        <span>{{ userName }}</span>
 
         <span class="mail">{{ user.email }}</span>
       </div>
@@ -35,6 +35,11 @@ export default {
   data() {
     return {
       createImgPath,
+    }
+  },
+  computed: {
+    userName() {
+      return `${this.user.first_name} ${this.user.last_name}`
     }
   },
 }

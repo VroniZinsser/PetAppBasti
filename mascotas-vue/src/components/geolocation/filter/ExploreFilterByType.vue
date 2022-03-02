@@ -1,13 +1,13 @@
 <template>
   <v-select
+      v-model="userTypeId"
       :items="userTypes"
+      :disabled="loading"
       item-text="name"
       item-value="id"
       label="Tipo de profesional"
-      outlined
-      v-model="userTypeId"
-      :disabled="loading"
       prepend-inner-icon="mdi-filter"
+      outlined
   />
 </template>
 

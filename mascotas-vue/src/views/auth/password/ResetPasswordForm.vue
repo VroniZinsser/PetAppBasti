@@ -3,18 +3,18 @@
 
   <BaseFormContainer
       v-else
+      :is_short_form="true"
       headline="Recuperar Contraseña"
       form_class="form-forgot-password"
-      :is_short_form="true"
   >
     <p v-if="showFinalMessage">¡Listo! Si tu correo está registrado en Basti, dentro de poco te llegará un correo
       electrónico con un link para resetear tu contraseña.</p>
 
     <form
         v-else
+        ref="passwordRecoveryForm"
         action="autenticacion/recuperar-contrasena"
         method="post"
-        ref="passwordRecoveryForm"
         @submit.prevent="sendPasswordReset"
     >
       <p>¡No te preocupes! Te enviamos un mail para que puedas establecer una nueva contraseña.</p>
@@ -22,12 +22,12 @@
       <p>Recordá que el link que te enviamos es válido por <strong>60 minutos</strong>.</p>
 
       <InputText
-          type="email"
-          label="Correo electrónico"
           v-model="formData.email"
           :loading="loading"
           :rules="[rules.obligatory, rules.email]"
           :errors="errors.email"
+          type="email"
+          label="Correo electrónico"
       />
 
       <button class="main-btn" type="submit" :disabled="loading">Enviar mail</button>

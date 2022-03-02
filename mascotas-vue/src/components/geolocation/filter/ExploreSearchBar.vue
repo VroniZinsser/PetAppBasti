@@ -1,9 +1,9 @@
 <template>
   <InputText
-      label="Buscar"
       v-model="searchString"
-      identifier="search"
       :loading="loading"
+      label="Buscar"
+      identifier="search"
       prepend-inner-icon="mdi-magnify"
   />
 </template>

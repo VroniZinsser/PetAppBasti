@@ -1,18 +1,18 @@
 <template>
   <v-autocomplete
-      class="form-control"
-      v-bind="$attrs"
-      type="text"
+      v-model="address.location_id"
       :id="identifier"
       :name="identifier"
       :items="address_suggestions"
-      :label="$attrs.label + ($attrs.required === '' ? ' *' : '')"
+      :label="label"
       :search-input.sync="search_input"
-      no-data-text="Sin resultados"
-      v-model="address.location_id"
       :error="errors !== null"
       :messages="errors ? errors[0] : ''"
       :disabled="loading"
+      v-bind="$attrs"
+      class="form-control"
+      type="text"
+      no-data-text="Sin resultados"
       outlined
       color="#3fb094"
   />
@@ -51,6 +51,11 @@ export default {
         latitude: null,
         longitude: null,
       },
+    }
+  },
+  computed: {
+    label(){
+      return this.$attrs.label + (this.$attrs.required === '' ? ' *' : '')
     }
   },
   watch: {

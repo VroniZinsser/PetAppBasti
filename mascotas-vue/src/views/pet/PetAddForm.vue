@@ -2,10 +2,10 @@
   <TheLoader v-if="loading"/>
 
   <BaseFormContainer
+      v-else
+      :is_short_form="false"
       headline="Agregar una nueva mascota"
       form_class="form-pet"
-      :is_short_form="false"
-      v-else
   >
     <PetForm
         :sexes="sexes"

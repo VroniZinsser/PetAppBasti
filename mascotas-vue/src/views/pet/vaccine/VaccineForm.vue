@@ -1,9 +1,9 @@
 <template>
   <BaseFormContainer
       v-if="!loading"
-      :headline="this.$route.params.vaccine_id ? 'Editar vacuna' : 'Agregar una nueva vacuna'"
-      form_class="form-vaccine"
+      :headline="headline"
       :is_short_form="true"
+      form_class="form-vaccine"
   >
     <p>No olvides de anotar el nombre exacto de la vacuna para poder reconocerla después.</p>
 
@@ -31,6 +31,11 @@ export default {
       loading: true,
       vaccine: null,
       handleAccessError,
+    }
+  },
+  computed: {
+    headline() {
+      return this.$route.params.medicine_id ? 'Editar vacuna' : 'Agregar una nueva vacuna'
     }
   },
   mounted() {

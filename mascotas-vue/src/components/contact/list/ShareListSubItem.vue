@@ -30,7 +30,7 @@
       <button @click="showWarnDialog = true">
         <v-icon> mdi-link-variant-off</v-icon>
 
-        {{ this.professionalName ? 'Dejar de compartir' : 'Dejar de ver' }}
+        {{ buttonText }}
       </button>
     </v-expansion-panel-content>
   </v-expansion-panel>
@@ -100,6 +100,10 @@ export default {
     dialogButtonText() {
       return this.professionalName ? `Dejar de compartir` : `Dejar de ver`
     },
+
+    buttonText(){
+      return this.professionalName ? 'Dejar de compartir' : 'Dejar de ver';
+    }
   },
   methods: {
     deleteRequest() {

@@ -1,8 +1,8 @@
 <template>
   <BaseFormContainer
-      :headline="this.$route.params.weight_id ? 'Editar peso' : '¿Cuánto pesa tu mascota?'"
-      form_class="form-weight"
+      :headline="headline"
       :is_short_form="true"
+      form_class="form-weight"
   >
     <p>Si pesás a tu mascota regularmente será mucho más fácil llevar un control sobre su dieta.</p>
 
@@ -31,6 +31,11 @@ export default {
       loading: true,
       weight: null,
       handleAccessError,
+    }
+  },
+  computed: {
+    headline() {
+      return this.$route.params.medicine_id ? 'Editar peso' : '¿Cuánto pesa tu mascota?'
     }
   },
   mounted() {

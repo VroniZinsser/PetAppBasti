@@ -6,18 +6,19 @@
 
     <v-app-bar app>
       <div id="brand-image">
-        <router-link :to="store.user.id ? {name: 'Home'} : '#'">
-          <img :src="createStaticImgPath('brand/logotype.png')" alt="Logo de Basti">
+        <router-link :to="logoRoute">
+          <img :src="createStaticImgPath('brand/logotype.png')" alt="Logo de Basti"/>
         </router-link>
       </div>
 
-      <v-spacer></v-spacer>
+      <v-spacer/>
 
       <ul id="nav-links">
         <template v-if="store.user.id">
           <li v-for="link in routerLinks" :key="link.text">
             <router-link :to="{name: link.name}" exact>
               <span class="material-icons">{{ link.icon }}</span>
+
               <span>{{ link.text }}</span>
             </router-link>
           </li>
@@ -25,6 +26,7 @@
           <li>
             <a href="#" @click.prevent="showSettingsDialog = true">
               <span class="material-icons">account_circle</span>
+
               <span class="sr-only">Abrir opciones (abre ventana modal)</span>
             </a>
           </li>
@@ -32,11 +34,11 @@
       </ul>
     </v-app-bar>
 
-    <SettingsDialog 
-      :showDialog="showSettingsDialog"
-      :user="store.user"
-      @cancel="showSettingsDialog = false"
-      @logout="logout"
+    <SettingsDialog
+        :showDialog="showSettingsDialog"
+        :user="store.user"
+        @cancel="showSettingsDialog = false"
+        @logout="logout"
     />
 
     <!--Config modal-->
@@ -44,7 +46,9 @@
       <v-card id="config-list">
         <ul>
           <li><a href="#">Configuración</a></li>
+
           <li><a class="danger-text" @click.prevent="logout">Cerrar sesión</a></li>
+
           <li>
             <v-btn @click="dialog=false">Cancelar</v-btn>
           </li>
@@ -60,19 +64,17 @@
 
 <script>
 
-import {createStaticImgPath} from "@/helpers";
 import authService from "./services/auth";
 import SettingsDialog from "@/components/general/layout/setting/SettingsDialog";
 import store from "./store";
+import {createStaticImgPath} from "@/helpers";
 
 
 export default {
   name: 'App',
-
   components: {
     SettingsDialog,
   },
-
   data: () => ({
     dialog: false,
     showSettingsDialog: false,
@@ -119,6 +121,22 @@ export default {
       },
     ]
   }),
+  computed: {
+    logoRoute() {
+      if (store.user.id) {
+        return store.user.is_professional ? {name: 'HomeProfessional'} : {name: 'Pets'};
+      }
+      return '#';
+    },
+
+    routerLinks() {
+      if (store.user.is_professional) {
+        return this.routerLinksProfessional;
+      } else {
+        return this.routerLinksOwner;
+      }
+    },
+  },
   methods: {
     /**
      * Logs out the user, and redirects to the login view
@@ -144,15 +162,5 @@ export default {
       });
     },
   },
-
-  computed: {
-    routerLinks() {
-      if (store.user.is_professional) {
-        return this.routerLinksProfessional;
-      } else {
-        return this.routerLinksOwner;
-      }
-    }
-  }
 };
 </script>

@@ -1,30 +1,30 @@
 <template>
   <v-form
+      ref="ownerForm"
       action="usuario/dueño"
       method="post"
-      ref="ownerForm"
       @submit.prevent="sendForm"
   >
     <InputText
-        label="Nombre"
         v-model="formData.first_name"
+        label="Nombre"
         :loading="loading"
         :rules="[rules.obligatory]"
         :errors="errors.first_name"
     />
 
     <InputText
-        label="Apellido"
         v-model="formData.last_name"
+        label="Apellido"
         :loading="loading"
         :rules="[rules.obligatory]"
         :errors="errors.last_name"
     />
 
     <InputText
+        v-model="formData.email"
         type="email"
         label="Correo electrónico"
-        v-model="formData.email"
         :loading="loading"
         :rules="[rules.obligatory, rules.email]"
         :errors="errors.email"
@@ -32,15 +32,15 @@
 
     <InputPassword
         v-if="!user"
-        label="Contraseña"
         v-model="formData.password"
+        label="Contraseña"
         :loading="loading"
         :errors="errors.password"
     />
 
-    <button class="main-btn" type="submit" :disabled="loading">{{ user ? 'Guardar cambios' : 'Crear cuenta' }}</button>
+    <button class="main-btn" type="submit" :disabled="loading">{{ buttonText }}</button>
 
-    <DeleteAccountButton v-if="user" />
+    <DeleteAccountButton v-if="user"/>
   </v-form>
 </template>
 
@@ -90,6 +90,11 @@ export default {
       },
     },
   }),
+  computed: {
+    buttonText(){
+      return this.user ? 'Guardar cambios' : 'Crear cuenta';
+    },
+  },
   mounted() {
     if (this.user) {
       this.formData = {

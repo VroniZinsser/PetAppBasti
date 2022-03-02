@@ -4,7 +4,7 @@
       <router-link
           :to="{name: 'ProfessionalProfile', params: { professional_id: professional.id }}"
       >
-        {{ professional.first_name }} {{ professional.last_name }}
+        {{professionalName}}
       </router-link>
     </div>
 
@@ -45,6 +45,10 @@ export default {
     desktopUp() {
       return this.$vuetify.breakpoint.lgAndUp;
     },
+
+    professionalName(){
+      return  `${this.professional.first_name} ${this.professional.last_name}`
+    }
   },
   methods: {
     /**

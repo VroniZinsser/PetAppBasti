@@ -1,8 +1,8 @@
 <template>
   <BaseFormContainer
-      :headline="this.$route.params.medicine_id ? 'Editar medicamento' : 'Agregá un nuevo medicamento'"
-      form_class="form-medicine"
+      :headline="headline"
       :is_short_form="false"
+      form_class="form-medicine"
   >
     <p>Podés agregar medicamentos actuales pero también medicamentos del pasado para tener un registro.</p>
 
@@ -31,6 +31,11 @@ export default {
       loading: true,
       hours: [],
       medicine: null,
+    }
+  },
+  computed: {
+    headline(){
+      return this.$route.params.medicine_id ? 'Editar medicamento' : 'Agregá un nuevo medicamento'
     }
   },
   mounted() {

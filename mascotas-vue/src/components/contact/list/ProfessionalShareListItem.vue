@@ -6,7 +6,6 @@
         :disabled="desktopUp"
         :value="expansionPanelsValue"
     >
-
       <ShareListSubItem :request="request"/>
     </v-expansion-panels>
   </li>

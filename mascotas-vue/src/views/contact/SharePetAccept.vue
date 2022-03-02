@@ -1,7 +1,10 @@
 <template>
   <TheLoader v-if="loading"/>
 
-  <v-container v-else-if="request && hasAccess" fluid class="justify-center d-flex align-center">
+  <v-container
+      v-else-if="request && hasAccess"
+      fluid class="justify-center d-flex align-center"
+  >
     <h1 class="sr-only">Aceptar petición</h1>
 
     <SharePetAcceptCard

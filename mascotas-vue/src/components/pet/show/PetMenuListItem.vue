@@ -1,8 +1,7 @@
 <template>
   <div class="pet-menu-item">
     <div
-        class="menu-item-link"
-        :class="is_active ? 'active' : ''"
+        :class="divClass"
         @click="$parent.$emit('show-pet', pet.id)"
     >
 
@@ -32,6 +31,17 @@ export default {
     return {
       createImgPath,
     }
-  }
+  },
+  computed: {
+    divClass() {
+      let btnClass = 'menu-item-link';
+
+      if (this.is_active) {
+        btnClass += ' active'
+      }
+
+      return btnClass
+    },
+  },
 }
 </script>

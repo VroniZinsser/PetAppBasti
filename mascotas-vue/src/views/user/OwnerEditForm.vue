@@ -1,9 +1,9 @@
 <template>
   <BaseFormContainer
       v-if="!loading"
+      :is_short_form="true"
       headline="Editar tu perfil"
       form_class="form-usuario"
-      :is_short_form="true"
   >
     <OwnerSignUpForm :user="user"/>
   </BaseFormContainer>

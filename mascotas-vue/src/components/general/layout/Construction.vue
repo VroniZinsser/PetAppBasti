@@ -4,8 +4,8 @@
       <v-img
           :src="createStaticImgPath('ui/construccion.png')"
           alt="Personas creando una página web"
-          contain
           class="construction-img"
+          contain
       />
 
       <div class="info-container">

@@ -1,26 +1,38 @@
 <template>
   <div>
     <v-form
+        ref="observationForm"
         action="observaciones/crear"
         method="post"
-        ref="observationForm"
         @submit.prevent="updateObservation"
     >
     <Textarea
-        label="Nota"
         v-model="formData.observation"
-        identifier="observation"
         :loading="loading"
         :rules="[rules.obligatory]"
         :errors="errors['data.observation']"
+        label="Nota"
+        identifier="observation"
         required
     />
 
-      <button class="main-btn" type="submit" :disabled="loading">Guardar</button>
+      <button
+          :disabled="loading"
+          class="main-btn"
+          type="submit"
+      >
+        Guardar
+      </button>
     </v-form>
 
     <div class="delete-btn-container">
-      <button class="delete-btn" :disabled="loading" @click="showWarnDialog = true">Borrar nota</button>
+      <button
+          :disabled="loading"
+          class="delete-btn"
+          @click="showWarnDialog = true"
+      >
+        Borrar nota
+      </button>
     </div>
 
     <WarnDialog

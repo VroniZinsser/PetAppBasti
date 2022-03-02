@@ -2,10 +2,10 @@
   <TheLoader v-if="loading"/>
 
   <BaseFormContainer
+      v-else
+      :is_short_form="true"
       headline="¿Hay algo que te llamó la atención?"
       form_class="form-observation"
-      :is_short_form="true"
-      v-else
   >
     <p>Tu espacio libre para anotar observaciones acerca del comportamiento o la salud de tu mascota.</p>
 

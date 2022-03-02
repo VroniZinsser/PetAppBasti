@@ -1,27 +1,27 @@
 <template>
   <v-form
+      ref="loginForm"
       action="autenticacion"
       method="post"
-      ref="loginForm"
       @submit.prevent="login"
   >
     <InputText
+        v-model="formData.email"
         type="email"
         label="Correo electrónico"
-        v-model="formData.email"
         :loading="loading"
         :rules="[rules.obligatory, rules.email]"
         :errors="errors.email"
     />
 
     <InputText
+        v-model="formData.password"
         :type="showPassword ? 'text' : 'password'"
         label="Contraseña"
-        v-model="formData.password"
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-        @click:append="showPassword = !showPassword"
         :loading="loading"
         :errors="errors.password"
+        @click:append="showPassword = !showPassword"
     />
 
     <div class="forgot-password">

@@ -15,7 +15,7 @@
     <WarnDialog
         :showDialog="showWarnDialog"
         dialogTitle="¿Eliminar tu cuenta de usuario?"
-        :dialogText="is_professional ? dialogTextProfessional : dialogTextOwner"
+        :dialogText="dialogText"
         acceptButtonText="Sí, eliminar mi cuenta"
         @cancel="showWarnDialog = false"
         @accept="deleteAccount"
@@ -50,8 +50,13 @@ export default {
       showWarnDialog: false,
       store,
       handleAccessError,
-      dialogTextProfessional: "¿Estás seguro que ya no querés ser parte de Basti? Si eliminás tu cuenta, tu perfil ya no estará disponible y no aparecerá en el mapa. No tendrás más acceso a las mascotas compartidas con vos.",
-      dialogTextOwner: "¿Estás seguro que ya no querés ser parte de Basti? Si eliminás tu cuenta, no podrás acceder más a nuestro mapa. Las mascotas que agregaste a tu cuenta se eliminarán del sistema."
+    }
+  },
+  computed: {
+    dialogText() {
+      return this.is_professional
+          ? "¿Estás seguro que ya no querés ser parte de Basti? Si eliminás tu cuenta, tu perfil ya no estará disponible y no aparecerá en el mapa. No tendrás más acceso a las mascotas compartidas con vos."
+          : "¿Estás seguro que ya no querés ser parte de Basti? Si eliminás tu cuenta, no podrás acceder más a nuestro mapa. Las mascotas que agregaste a tu cuenta se eliminarán del sistema.";
     }
   },
   methods: {

@@ -1,22 +1,22 @@
 <template>
   <v-form
+      ref="form"
       action="autenticacion"
       method="post"
-      ref="form"
       @submit.prevent="sendForm"
   >
     <InputText
+        v-model="formData.email"
         type="email"
         label="Correo electrónico"
-        v-model="formData.email"
         :loading="loading"
         :rules="[rules.obligatory, rules.email]"
         :errors="errors.email"
     />
 
     <InputPassword
-        label="Nueva contraseña"
         v-model="formData.password"
+        label="Nueva contraseña"
         :loading="loading"
         :errors="errors.email"
     />

@@ -8,30 +8,30 @@
   >
     <template v-slot:activator="{ on }">
       <v-text-field
-          outlined
           v-model="dateFormatted"
-          prepend-inner-icon="mdi-calendar"
           v-bind="$attrs"
-          v-on="on"
           :id="identifier"
           :name="identifier"
-          @blur="date = parseDate(dateFormatted)"
           :error="errors !== null"
           :messages="errors ? errors[0] : ''"
           :disabled="loading"
+          outlined
+          prepend-inner-icon="mdi-calendar"
           color="#3fb094"
+          @blur="date = parseDate(dateFormatted)"
+          v-on="on"
       />
     </template>
 
     <v-date-picker
         v-model="date"
         v-bind="$attrs"
-        no-title
-        locale="es-AR"
-        @input="datePicker = false"
         :max="maxDate"
         :min="minDate"
         :disabled="loading"
+        no-title
+        locale="es-AR"
+        @input="datePicker = false"
     />
   </v-menu>
 </template>

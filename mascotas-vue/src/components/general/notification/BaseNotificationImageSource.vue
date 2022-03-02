@@ -1,10 +1,10 @@
 <template>
   <v-alert
       v-if="show"
-      dense
-      text
       color="#858585"
       class="image-source-notification"
+      dense
+      text
   >
     <slot/>
   </v-alert>

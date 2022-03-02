@@ -1,68 +1,63 @@
 <template>
   <v-form
-      :method="this.pet ? 'PUT' : 'POST'"
-      :action="this.pet ? 'mascotas/editar' : 'mascotas/agregar'"
       ref="petForm"
+      :method="formMethod"
+      :action="formAction"
       @submit.prevent="sendForm"
   >
     <InputText
-        label="Nombre"
         v-model="formData.name"
-        identifier="name"
         :loading="loading"
         :rules="[rules.obligatory]"
         :errors="errors.name"
+        label="Nombre"
+        identifier="name"
         required
     />
 
     <InputText
-        label="Raza"
         v-model="formData.breed"
-        identifier="breed"
         :loading="loading"
         :errors="errors.breed"
+        label="Raza"
+        identifier="breed"
     />
 
     <InputText
-        label="Temperamento"
         v-model="formData.temperament"
-        identifier="temperament"
         :loading="loading"
         :errors="errors.temperament"
+        label="Temperamento"
+        identifier="temperament"
         hint="Actitudes de la mascota como tranquilo, mimoso, agresivo"
     />
 
     <v-checkbox
-        name="neutered"
-        id="neutered"
-        class="form-control"
         v-model="formData.neutered"
-        label="Castrado(a)"
+        id="neutered"
         :messages="errors.neutered ? errors.neutered[0] : ''"
         :error="errors.neutered !== null"
         :disabled="loading"
+        name="neutered"
+        class="form-control"
+        label="Castrado(a)"
         color="#3fb094"
     />
 
     <InputDate
-        label="Fecha de nacimiento"
-        identifier="date_of_birth"
         :loading="loading"
         :rules="[rules.obligatory, rules.date]"
         :errors="errors.date"
         :initialDate="initialDate"
         :maxDate="getCurrentDate()"
+        label="Fecha de nacimiento"
+        identifier="date_of_birth"
         @update-date="updateDate"
     />
 
     <v-select
-        outlined
-        required
-        name="species_id"
-        id="species_id"
-        class="form-control"
         v-model="formData.species_id"
-        label="Especie *"
+        id="species_id"
         :rules="[rules.obligatory]"
         :messages="errors.species_id ? errors.species_id[0] : ''"
         :error="errors.species_id !== null"
@@ -70,7 +65,12 @@
         :items="species"
         :item-text="'name'"
         :item-value="'id'"
+        name="species_id"
+        class="form-control"
+        label="Especie *"
         color="#3fb094"
+        outlined
+        required
     />
 
     <fieldset>
@@ -93,22 +93,27 @@
       </v-radio-group>
     </fieldset>
 
-    <img class="img-preview" :src="formData.photo" alt="Preview de la imagen" v-if="formData.photo"/>
+    <img
+        v-if="formData.photo"
+        class="img-preview"
+        :src="formData.photo"
+        alt="Preview de la imagen"
+    />
 
     <v-file-input
-        outlined
-        v-model="photo"
         ref="photo"
-        show-size
-        accept="image/*"
-        prepend-icon="mdi-camera"
-        truncate-length="15"
-        @change="handleFileUpload"
-        label="Foto de la mascota"
+        v-model="photo"
         :messages="errors.photo ? errors.photo[0] : ''"
         :error="errors.photo !== null"
         :disabled="loading"
+        accept="image/*"
+        prepend-icon="mdi-camera"
+        truncate-length="15"
+        label="Foto de la mascota"
         color="#3fb094"
+        outlined
+        show-size
+        @change="handleFileUpload"
     />
 
     <button class="main-btn" type="submit" :disabled="loading">Guardar</button>
@@ -179,7 +184,15 @@ export default {
   computed: {
     initialDate() {
       return this.pet ? this.pet.date_of_birth : null;
-    }
+    },
+
+    formMethod(){
+      return this.pet ? 'PUT' : 'POST';
+    },
+
+    formAction(){
+      return this.pet ? 'mascotas/editar' : 'mascotas/agregar';
+    },
   },
   mounted() {
     if (this.pet) {

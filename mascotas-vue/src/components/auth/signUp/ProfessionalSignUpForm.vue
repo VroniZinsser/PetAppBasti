@@ -1,8 +1,8 @@
 <template>
   <v-form
-      :method="createNewUser ? 'POST' : 'PUT'"
-      :action="createNewUser ? 'usuarios/crear' : 'usuarios/editar'"
       ref="form"
+      :method="formMethod"
+      :action="formAction"
       @submit.prevent="sendForm"
   >
     <v-container class="professional-form">
@@ -14,16 +14,16 @@
 
           <BaseNotification
               v-if="store.status.msg != null"
-              :type="store.status.type"
               :text="store.status.msg"
               :title="store.status.title"
+              :type="store.status.type"
           />
 
           <p>Los campos marcados con * son obligatorios.</p>
 
           <InputText
-              label="Nombre"
               v-model="formData.first_name"
+              label="Nombre"
               identifier="first_name"
               :loading="loading"
               :rules="[rules.obligatory]"
@@ -33,8 +33,8 @@
           />
 
           <InputText
-              label="Apellido"
               v-model="formData.last_name"
+              label="Apellido"
               identifier="last_name"
               :loading="loading"
               :rules="[rules.obligatory]"
@@ -44,8 +44,8 @@
           />
 
           <InputText
-              label="DNI"
               v-model="formData.dni"
+              label="DNI"
               identifier="dni"
               :loading="loading"
               :rules="[rules.obligatory, rules.numeric]"
@@ -55,8 +55,8 @@
           />
 
           <InputText
-              label="Correo Electrónico"
               v-model="formData.email"
+              label="Correo Electrónico"
               identifier="email"
               :loading="loading"
               :rules="[rules.obligatory, rules.email]"
@@ -68,7 +68,7 @@
 
           <v-switch
               v-model="formData.email_visible"
-              :label="`Mostrar correo electrónico en mi perfil: ${formData.email_visible ? 'Sí' : 'No'}`"
+              :label="`Mostrar correo electrónico en mi perfil: ${emailVisible}`"
               hint="Si activás esta función, los clientes te podrán contactar por correo electrónico."
               persistent-hint
               color="#3fb094"
@@ -76,8 +76,8 @@
 
           <InputPassword
               v-if="createNewUser"
-              label="Contraseña"
               v-model="formData.password"
+              label="Contraseña"
               :loading="loading"
               :errors="errors.password"
           />
@@ -87,8 +87,8 @@
           <legend>Perfil público</legend>
 
           <InputText
-              label="Nombre Institucional"
               v-model="formData.public_name"
+              label="Nombre Institucional"
               identifier="public_name"
               :loading="loading"
               :errors="errors.public_name"
@@ -97,13 +97,13 @@
           />
 
           <v-select
-              outlined
               v-model="formData.user_types"
+              label="Tipo de servicios *"
+              outlined
               :items="user_types"
               :item-text="'name'"
               :item-value="'id'"
               chips
-              label="Tipo de servicios *"
               multiple
               :messages="errors.user_types ? errors.user_types[0] : ''"
               :error="errors.user_types"
@@ -113,11 +113,11 @@
           />
 
           <v-textarea
+              id="description"
+              v-model="formData.description"
               outlined
               name="description"
-              id="description"
               class="form-control"
-              v-model="formData.description"
               label="Texto de presentación"
               :messages="errors.description ? errors.description[0] : ''"
               :error="errors.description"
@@ -135,15 +135,15 @@
             />
 
             <v-img
-                class="preview"
                 v-if="!createNewUser && !showFileInput"
+                class="preview"
                 :src="createImgPath(professional.profile_image.src)"
             />
 
             <v-file-input
                 v-if="createNewUser || showFileInput"
-                outlined
                 v-model="photo"
+                outlined
                 required
                 ref="photo"
                 show-size
@@ -151,13 +151,13 @@
                 prepend-icon=""
                 prepend-inner-icon="mdi-camera"
                 truncate-length="15"
-                @change="handleFileUpload"
                 label="Imagen de Perfil *"
                 :rules="[rules.obligatory]"
                 :messages="errors.photo ? errors.photo[0] : ''"
                 :error="errors.photo"
                 :disabled="loading"
                 color="#3fb094"
+                @change="handleFileUpload"
             />
           </div>
         </fieldset>
@@ -166,8 +166,8 @@
           <legend>Datos de contacto</legend>
 
           <InputText
-              label="Número de Whatsapp"
               v-model="formData.whatsapp"
+              label="Número de Whatsapp"
               identifier="whatsapp"
               required
               :loading="loading"
@@ -179,8 +179,8 @@
           />
 
           <InputText
-              label="Instagram"
               v-model="formData.instagram"
+              label="Instagram"
               identifier="instagram"
               :loading="loading"
               :errors="errors.instagram"
@@ -190,8 +190,8 @@
           />
 
           <InputText
-              label="Facebook"
               v-model="formData.facebook"
+              label="Facebook"
               identifier="facebook"
               :loading="loading"
               :errors="errors.facebook"
@@ -201,8 +201,8 @@
           />
 
           <InputText
-              label="Página Web"
               v-model="formData.web"
+              label="Página Web"
               identifier="web"
               :loading="loading"
               :errors="errors.web"
@@ -211,11 +211,11 @@
               placeholder="https://www.veterinaria-martina.com.ar"
           />
 
-          <div :class="!createNewUser ? 'preview-container' : ''">
+          <div :class="previewContainerClass">
             <v-switch
                 v-if="!createNewUser"
                 v-model="showAddressInput"
-                :label="`Nueva dirección: ${showAddressInput ? 'Sí' : 'No'}`"
+                :label="`Nueva dirección: ${showAddressInputValidator}`"
                 color="#3fb094"
             />
 
@@ -231,16 +231,16 @@
                 :loading="loading"
                 :errors="errors.address"
                 :rules="[rules.obligatory]"
-                @update-address="updateAddress"
                 hint="Ingresá ciudad, calle y número, para que tus clientes te puedan encontrar."
                 persistent-hint
                 required
+                @update-address="updateAddress"
             />
 
             <InputText
                 v-if="createNewUser || showAddressInput"
-                label="Número de piso y departamento"
                 v-model="formData.apartment"
+                label="Número de piso y departamento"
                 identifier="apartment"
                 :loading="loading"
                 :errors="errors.apartment"
@@ -250,7 +250,7 @@
       </div>
 
       <div class="button-container">
-        <button class="main-btn" type="submit">{{ professional ? 'Guardar cambios' : 'Crear cuenta' }}</button>
+        <button class="main-btn" type="submit">{{ buttonText }}</button>
 
         <DeleteAccountButton
             v-if="!createNewUser"
@@ -332,7 +332,31 @@ export default {
   computed: {
     createNewUser() {
       return this.professional === null;
-    }
+    },
+
+    formMethod() {
+      return this.createNewUser ? 'POST' : 'PUT';
+    },
+
+    formAction() {
+      return this.createNewUser ? 'usuarios/crear' : 'usuarios/editar';
+    },
+
+    emailVisible() {
+      return this.formData.email_visible ? 'Sí' : 'No';
+    },
+
+    previewContainerClass() {
+      return !this.createNewUser ? 'preview-container' : '';
+    },
+
+    showAddressInputValidator() {
+      return this.showAddressInput ? 'Sí' : 'No';
+    },
+
+    buttonText() {
+      return this.professional ? 'Guardar cambios' : 'Crear cuenta'
+    },
   },
   mounted() {
     if (this.createNewUser) {

@@ -6,7 +6,7 @@
 
         <span class="card-subtitle">{{ medicine.quantity }}</span>
 
-        <span class="card-date">{{ formatDate(medicine.start_date) }} - {{ formatDate(medicine.end_date) }}</span>
+        <span class="card-date">{{medicineDate}}</span>
       </div>
 
       <div class="drop-drown-container">
@@ -81,6 +81,10 @@ export default {
       })
 
       return this.medicine.hours;
+    },
+
+    medicineDate(){
+      return `${ formatDate(this.medicine.start_date) } - ${ formatDate(this.medicine.end_date) }`
     }
   }
 }

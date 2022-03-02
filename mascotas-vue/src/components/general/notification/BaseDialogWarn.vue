@@ -1,5 +1,9 @@
 <template>
-  <v-dialog v-model="showDialog" max-width="500" @click:outside="$emit('cancel')">
+  <v-dialog
+      v-model="showDialog"
+      max-width="500"
+      @click:outside="$emit('cancel')"
+  >
     <v-card class="warn-dialog">
       <v-card-title v-if="dialogTitle">
         {{ dialogTitle }}

@@ -1,63 +1,63 @@
 <template>
   <v-form
-      :action="medicine ? 'medicamentos/editar' : 'medicamentos/crear'"
-      method="post"
       ref="medicineForm"
+      :action="formAction"
+      method="post"
       @submit.prevent="sendForm"
   >
     <InputText
-        label="Nombre del medicamento"
         v-model="formData.name"
         :loading="loading"
         :rules="[rules.obligatory]"
         :errors="errors.name"
+        label="Nombre del medicamento"
     />
 
     <InputText
-        label="Cantidad"
         v-model="formData.quantity"
         :loading="loading"
         :rules="[rules.obligatory]"
         :errors="errors.quantity"
+        label="Cantidad"
     />
 
     <InputDate
-        label="Inicio"
         v-model="formData.start_date"
         :loading="loading"
         :rules="[rules.obligatory, rules.date]"
         :errors="errors.start_date"
         :initialDate="initialDate"
+        label="Inicio"
         @update-date="updateStartDate"
     />
 
     <InputDate
-        label="Fin"
         v-model="formData.end_date"
         :loading="loading"
         :min-date="formData.start_date"
         :rules="[rules.obligatory, rules.date]"
         :errors="errors.end_date"
         :initialDate="finalDate"
+        label="Fin"
         @update-date="updateEndDate"
     />
 
     <v-select
         v-model="formData.hours"
-        identifier="hour"
         :disabled="loading"
         :items="retrieveDaytimeHours(hours)"
         :item-text="'time'"
         :item-value="'id'"
-        chips
-        label="Horarios"
-        multiple
         :rules="[rules.selectionRequired]"
         :messages="errors.hours ? errors.hours[0] : ''"
         :error="errors.hours !== null"
+        identifier="hour"
+        label="Horarios"
+        chips
+        multiple
     />
 
-    <button class="main-btn" type="submit" :disabled="loading">{{ medicine ? "Guardar cambios" : "Agregar" }}</button>
+    <button class="main-btn" type="submit" :disabled="loading">{{ buttonText }}</button>
   </v-form>
 </template>
 
@@ -122,7 +122,15 @@ export default {
 
     finalDate() {
       return this.medicine ? this.medicine.end_date : this.getCurrentDate();
-    }
+    },
+
+    formAction(){
+      return this.medicine ? 'medicamentos/editar' : 'medicamentos/crear';
+    },
+
+    buttonText(){
+      return this.medicine ? "Guardar cambios" : "Agregar";
+    },
   },
   mounted() {
     if (this.medicine) {

@@ -8,11 +8,11 @@
       <ProfessionalSignUpForm :user_types="user_types">
         <v-alert
             class="register-alert"
-            colored-border
             border="left"
             color="#17a2b8"
             elevation="1"
             icon="mdi-account-plus"
+            colored-border
             prominent
         >
           Con este formulario podés <strong>ofrecer tus servicios</strong> en Basti. Si querés usar Basti como dueña o

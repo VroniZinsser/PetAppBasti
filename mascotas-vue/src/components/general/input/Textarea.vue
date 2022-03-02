@@ -1,17 +1,17 @@
 <template>
   <v-textarea
-      outlined
-      class="form-control"
       v-bind="$attrs"
-      v-on="$listeners"
       :id="identifier"
       :name="identifier"
-      :label="$attrs.label + ($attrs.required === '' ? ' *' : '')"
+      :label="label"
       :value="value"
       :error="errors !== null"
       :messages="errors ? errors[0] : ''"
       :disabled="loading"
+      class="form-control"
       color="#3fb094"
+      outlined
+      v-on="$listeners"
   />
 </template>
 
@@ -30,6 +30,11 @@ export default {
       type: Boolean,
       default: false
     }
+  },
+  computed: {
+    label() {
+      return this.$attrs.label + (this.$attrs.required === '' ? ' *' : '')
+    },
   },
 }
 </script>

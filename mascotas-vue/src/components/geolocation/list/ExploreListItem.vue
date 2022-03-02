@@ -1,7 +1,6 @@
 <template>
   <li
-      class="card explore-list-item"
-      :class="isActive ? 'active' : ''"
+      :class="liClass"
       @click="$parent.$emit('select-professional', professional.id)"
   >
     <div class="horizontal-bottom-line">
@@ -39,6 +38,11 @@ export default {
     return {
       nameToDisplay,
     }
+  },
+  computed: {
+    liClass(){
+      return 'card explore-list-item' + (this.isActive ? 'active' : '');
+    },
   }
 }
 </script>

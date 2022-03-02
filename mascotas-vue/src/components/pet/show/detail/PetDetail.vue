@@ -10,27 +10,25 @@
 
     <div class="tab-button-container">
       <button
-          class="tab"
-          :class="{ 'active': isActive('pet-medical-info') }"
+          :class="buttonDetailClass"
           @click="setActive('pet-medical-info')"
       >
         <span>Detalles</span>
       </button>
 
       <button
-          class="tab"
-          :class="{ 'active': isActive('pet-profile') }"
+          :class="buttonProfileClass"
           @click="setActive('pet-profile')"
       >
         <span>Perfil</span>
       </button>
     </div>
 
-    <div class="tab-item pet-medical-info" :class="{ 'show': isActive('pet-medical-info') }">
+    <div :class="containerDetailClass">
       <PetMedicalInfo :pet="pet"></PetMedicalInfo>
     </div>
 
-    <div class="tab-item pet-profile" :class="{ 'show': isActive('pet-profile') }">
+    <div :class="containerProfileClass">
       <PetProfile :pet="pet" @deleted="$emit('deleted')"></PetProfile>
     </div>
   </div>
@@ -59,6 +57,47 @@ export default {
       activeItem: 'pet-medical-info',
       createImgPath,
     }
+  },
+  computed: {
+    buttonDetailClass() {
+      let btnClass = 'tab';
+
+      if (this.isActive('pet-medical-info')) {
+        btnClass += ' active'
+      }
+
+      return btnClass
+    },
+
+    buttonProfileClass() {
+      let btnClass = 'tab';
+
+      if (this.isActive('pet-profile')) {
+        btnClass += ' active'
+      }
+
+      return btnClass
+    },
+
+    containerDetailClass() {
+      let btnClass = 'tab-item pet-medical-info';
+
+      if (this.isActive('pet-medical-info')) {
+        btnClass += ' show'
+      }
+
+      return btnClass
+    },
+
+    containerProfileClass() {
+      let btnClass = 'tab-item pet-profile';
+
+      if (this.isActive('pet-profile')) {
+        btnClass += ' show'
+      }
+
+      return btnClass
+    },
   },
   methods: {
     getGenderIcon(sex_id) {

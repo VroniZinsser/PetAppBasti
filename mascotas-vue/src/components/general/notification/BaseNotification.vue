@@ -1,12 +1,12 @@
 <template>
   <v-alert
+      v-model="showNotification"
       :type="type"
+      :color="notificationColor[type]"
+      :dismissible="closable"
       class="alert"
       dense
       text
-      :color="notificationColor[type]"
-      :dismissible="closable"
-      v-model="showNotification"
   >
     <p v-if="title != null">{{ title }}</p>
 

@@ -1,18 +1,18 @@
 <template>
   <v-text-field
-      outlined
-      class="form-control"
       v-bind="$attrs"
-      v-on="$listeners"
-      :type="$attrs.type ? $attrs.type : 'text'"
+      :type="type"
       :id="identifier"
       :name="identifier"
-      :label="$attrs.label + ($attrs.required === '' ? ' *' : '')"
+      :label="label"
       :value="value"
       :error="errors !== null"
       :messages="errors ? errors[0] : ''"
       :disabled="loading"
+      outlined
+      class="form-control"
       color="#3fb094"
+      v-on="$listeners"
   />
 </template>
 
@@ -30,6 +30,15 @@ export default {
     loading: {
       type: Boolean,
       default: false
+    }
+  },
+  computed: {
+    label() {
+      return this.$attrs.label + (this.$attrs.required === '' ? ' *' : '')
+    },
+
+    type() {
+      return this.$attrs.type ? this.$attrs.type : 'text'
     }
   },
 }

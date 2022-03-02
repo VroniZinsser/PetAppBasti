@@ -2,7 +2,7 @@
   <TheLoader v-if="loading"/>
 
   <div v-else class="professional-home">
-    <TitleBar :title="`Buenos días ${store.user.first_name} ${store.user.last_name}`"/>
+    <TitleBar :title="title"/>
 
     <BaseNotification
         v-if="store.status.msg != null"
@@ -14,7 +14,7 @@
     <div class="home-container">
       <ProfessionalProfileCard :user="me"/>
 
-      <div class="owner-share-list" v-if="sharedPets.length > 0">
+      <div v-if="sharedPets.length > 0" class="owner-share-list">
         <h2>Mascotas compartidas con vos</h2>
 
         <ProfessionalShareList :shared-pets="sharedPets" @delete-request="deleteRequest"/>
@@ -55,6 +55,11 @@ export default {
       me: null,
       handleAccessError,
     }
+  },
+  computed:{
+    title(){
+      return `Buenos días ${store.user.first_name} ${store.user.last_name}`
+    },
   },
   mounted() {
     this.loading = true;

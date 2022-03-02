@@ -1,5 +1,5 @@
 <template>
-  <div class="form" :class="form_class + (is_short_form ? ' short-form' : '')">
+  <div :class="formClass">
     <div class="form-container">
       <div class="form-header">
         <div class="form-content">
@@ -47,7 +47,12 @@ export default {
   },
   data: () => ({
     store,
-  })
+  }),
+  computed: {
+    formClass(){
+      return this.form_class + (this.is_short_form ? 'form short-form' : 'form')
+    }
+  },
 }
 
 </script>

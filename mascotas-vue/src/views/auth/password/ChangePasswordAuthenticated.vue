@@ -3,32 +3,32 @@
 
   <BaseFormContainer
       v-else
-      headline="Cambiar Contraseña"
       :is_short_form="true"
+      headline="Cambiar Contraseña"
   >
     <form
+        ref="form"
         action="#"
         method="post"
-        ref="form"
         @submit.prevent="changePassword"
     >
       <p>Para la seguridad de tu cuenta es importante que cambies tu contraseña regularmente.</p>
 
       <InputText
-          :type="showPassword ? 'text' : 'password'"
-          label="Contraseña actual"
           v-model="formData.currentPassword"
+          :type="showPassword ? 'text' : 'password'"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           :loading="loading"
           :errors="errors.currentPassword"
+          label="Contraseña actual"
           @click:append="showPassword = !showPassword"
       />
 
       <InputPassword
-          label="Contraseña nueva"
           v-model="formData.newPassword"
           :loading="loading"
           :errors="errors.newPassword"
+          label="Contraseña nueva"
       />
 
       <button class="main-btn" type="submit" :disabled="loading">Guardar contraseña</button>

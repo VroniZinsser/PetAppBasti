@@ -1,16 +1,16 @@
 <template>
   <BaseFormContainer
+      :is_short_form="false"
       headline="Registrarme"
       form_class="form-signup-owner"
-      :is_short_form="false"
   >
     <v-alert
         class="register-alert"
         color="#17a2b8"
-        colored-border
         border="left"
         elevation="1"
         icon="mdi-account-plus"
+        colored-border
         prominent
     >
       Si trabajás en el rubro veterinario podés

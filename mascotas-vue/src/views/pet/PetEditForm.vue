@@ -2,15 +2,16 @@
   <TheLoader v-if="loading"/>
 
   <BaseFormContainer
+      v-else
+      :is_short_form="false"
       headline="Editar mascota"
       form_class="form-pet-edit"
-      :is_short_form="false"
-      v-else
   >
-    <PetForm v-if="pet"
-             :sexes="sexes"
-             :species="species"
-             :pet="pet"
+    <PetForm
+        v-if="pet"
+        :sexes="sexes"
+        :species="species"
+        :pet="pet"
     />
   </BaseFormContainer>
 </template>

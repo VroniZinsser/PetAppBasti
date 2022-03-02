@@ -1,6 +1,11 @@
 <template>
   <ul class="medical-list">
-    <ListItem v-for="weight in sortedArray" :weight="weight" :key="weight.id" @delete="sendDelete"></ListItem>
+    <ListItem
+        v-for="weight in sortedArray"
+        :key="weight.id"
+        :weight="weight"
+        @delete="sendDelete"
+    />
   </ul>
 </template>
 

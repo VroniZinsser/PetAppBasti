@@ -1,8 +1,8 @@
 <template>
   <BaseFormContainer
+      :is_short_form="true"
       headline="Ingresar"
       form_class="form-login"
-      :is_short_form="true"
   >
     <LoginForm/>
 

@@ -22,7 +22,11 @@
           @delete="sendDelete"
       />
 
-      <MedicineItemMore v-if="medicines.length > 3" :quantity="medicines.length" :pet_id="pet_id"/>
+      <MedicineItemMore
+          v-if="medicines.length > 3"
+          :quantity="medicines.length"
+          :pet_id="pet_id"
+      />
     </div>
   </div>
 </template>

@@ -4,19 +4,19 @@
         outlined
         class="form-control"
         v-bind="$attrs"
-        v-on="$listeners"
         :type="showPassword ? 'text' : 'password'"
-        id="password"
-        name="password"
         :rules="[rules.obligatory, rules.password]"
         :error="errors !== null"
         :messages="errors ? errors[0] : ''"
         :disabled="loading"
+        id="password"
+        name="password"
         color="#3fb094"
         hint="La contraseña debe tener mínimo 6 caracteres y contener un número"
         persistent-hint
         counter
         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+        v-on="$listeners"
         @click:append="showPassword = !showPassword"
     />
   </div>

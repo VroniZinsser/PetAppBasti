@@ -3,9 +3,9 @@
 
   <BaseFormContainer
       v-else
+      :is_short_form="true"
       headline="Restablecer Contraseña"
       form_class="form-change-password"
-      :is_short_form="true"
   >
     <PasswordForm/>
 

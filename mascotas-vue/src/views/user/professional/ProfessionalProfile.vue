@@ -34,9 +34,7 @@
         <button
             v-if="canEditProfile"
             class="float-circle-btn"
-            @click="function() {
-            $router.push({ name: 'ProfessionalEdit' })
-          }"
+            @click="$router.push({ name: 'ProfessionalEdit' })"
         >
 
           <v-icon>mdi-pencil</v-icon>
@@ -50,7 +48,7 @@
             <img :src="createImgPath(professional.profile_image.src)" :alt="professional.profile_image.alt"/>
           </div>
 
-          <h2>{{ professional.first_name }} {{ professional.last_name }}</h2>
+          <h2>{{ professionalName }}</h2>
 
           <div class="professional-types">
             <div v-for="type in professional.user_types" :key="type.id">
@@ -59,7 +57,7 @@
           </div>
         </div>
 
-        <div class="description" v-if="professional.description">
+        <div v-if="professional.description" class="description">
           <h3>Descripción</h3>
 
           <p>{{ professional.description }}</p>
@@ -67,7 +65,7 @@
       </div>
 
       <aside>
-        <div class="contact" v-if="hasContact">
+        <div v-if="hasContact" class="contact">
           <h3>Contactar a {{ professional.first_name }}</h3>
 
           <ul class="contact-data-container">
@@ -142,6 +140,10 @@ export default {
       )
 
       return 'https://www.google.com.ar/maps/dir//' + directions;
+    },
+
+    professionalName() {
+      return `${this.professional.first_name} ${this.professional.last_name}`
     },
 
     /** Returns true if any of the contact methods is set */

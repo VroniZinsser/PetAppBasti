@@ -1,10 +1,10 @@
 <template>
   <router-link
-      :to="Object.keys(this.pathParams).length === 0 ? {name: this.pathName} : {name: this.pathName, params: this.pathParams}">
+      :to="buttonRoute">
     <span class="text">{{ this.linkText }}</span>
 
     <div :class="getClass()">
-      <span class="material-icons">{{ this.icon ? this.icon : 'add' }}</span>
+      <span class="material-icons">{{ buttonIcon }}</span>
     </div>
   </router-link>
 </template>
@@ -32,6 +32,15 @@ export default {
     default: {
       type: Boolean
     }
+  },
+  computed: {
+    buttonRoute(){
+      return Object.keys(this.pathParams).length === 0 ? {name: this.pathName} : {name: this.pathName, params: this.pathParams}
+    },
+
+    buttonIcon(){
+      return this.icon ? this.icon : 'add';
+    },
   },
   methods: {
     /**

@@ -1,6 +1,6 @@
 <template>
   <v-card width="500px" height="fit-content">
-    <v-card-title>{{ request.owner.first_name }} {{ request.owner.last_name }}</v-card-title>
+    <v-card-title>{{ ownerName }}</v-card-title>
 
     <v-divider/>
 
@@ -18,16 +18,11 @@
     <v-divider/>
 
     <v-card-actions class="justify-center pt-4 pb-4 accept-card-actions">
-      <v-btn
-          outlined
-          @click="decline"
-      >
+      <v-btn outlined @click="decline">
         Rechazar
       </v-btn>
 
-      <v-btn
-          @click="accept"
-      >
+      <v-btn @click="accept">
         Aceptar
       </v-btn>
     </v-card-actions>
@@ -51,6 +46,11 @@ export default {
     return {
       expirationDate: formatDate(this.request.expiration_date),
       handleAccessError,
+    }
+  },
+  computed: {
+    ownerName() {
+      return `${this.request.owner.first_name} ${this.request.owner.last_name}`
     }
   },
   methods: {

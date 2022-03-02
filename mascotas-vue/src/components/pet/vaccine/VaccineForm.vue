@@ -1,32 +1,32 @@
 <template>
   <v-form
-      :action="vaccine ? 'vacunas/editar' : 'vacunas/crear'"
-      method="post"
       ref="vaccineForm"
+      :action="formAction"
+      method="post"
       @submit.prevent="sendForm"
   >
     <InputText
-        label="Nombre de la vacuna"
         v-model="formData.name"
-        identifier="name"
         :loading="loading"
         :rules="[rules.obligatory]"
         :errors="errors.name"
+        label="Nombre de la vacuna"
+        identifier="name"
         required
     />
 
     <InputDate
-        label="Fecha"
-        identifier="date"
         :loading="loading"
         :rules="[rules.obligatory, rules.date]"
         :errors="errors.date"
         :initialDate="initialDate"
         :maxDate="getCurrentDate()"
+        label="Fecha"
+        identifier="date"
         @update-date="updateDate"
     />
 
-    <button class="main-btn" type="submit" :disabled="loading">{{ vaccine ? "Guardar cambios" : "Agregar" }}</button>
+    <button class="main-btn" type="submit" :disabled="loading">{{ buttonText }}</button>
   </v-form>
 </template>
 
@@ -79,7 +79,15 @@ export default {
   computed: {
     initialDate() {
       return this.vaccine ? this.vaccine.date : this.getCurrentDate();
-    }
+    },
+
+    formAction(){
+      return this.vaccine ? 'vacunas/editar' : 'vacunas/crear'
+    },
+
+    buttonText(){
+      return this.vaccine ? "Guardar cambios" : "Agregar"
+    },
   },
   mounted() {
     if (this.vaccine) {
