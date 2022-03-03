@@ -41,7 +41,7 @@
             :closable="false"
         />
 
-        <div class="d-flex justify-space-around">
+        <div class="d-flex justify-space-around flex-wrap mb-2">
           <p class="clipboard-input">{{ requestLink }}</p>
 
           <v-btn @click="copyLink">Copiar</v-btn>
