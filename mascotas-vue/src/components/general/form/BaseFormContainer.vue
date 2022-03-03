@@ -50,7 +50,7 @@ export default {
   }),
   computed: {
     formClass(){
-      return this.form_class + (this.is_short_form ? 'form short-form' : 'form')
+      return this.form_class + (this.is_short_form ? ' form short-form' : ' form')
     }
   },
 }

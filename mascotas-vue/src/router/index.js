@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import authService from "@/services/auth";
 import ProfessionalExplore from "../views/explore/ProfessionalExplore";
-import Login from "../views/auth/login/UserLogin ";
+import Login from "../views/auth/login/UserLogin";
 import PetMedicineForm from "../views/pet/medicine/PetMedicineForm";
 import ResetPasswordForm from "../views/auth/password/ResetPasswordForm";
 import ChangePassword from "../views/auth/password/ChangePassword";
