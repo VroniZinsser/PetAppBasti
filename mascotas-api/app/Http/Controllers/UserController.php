@@ -91,7 +91,7 @@ class UserController extends Controller
             $dto->set_profile_img_id($image->id);
         }
       
-        $user = $this->userRepository->updateOrCreate($dto)->load(['profile_image']);
+        $user = $this->userRepository->updateOrCreate($dto, $user)->load(['profile_image']);
 
         $user->userTypes()->sync($request->get('user_types'));
 
