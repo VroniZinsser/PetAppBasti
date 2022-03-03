@@ -8,7 +8,7 @@
 
     <div class="register">
       <p>¿Todavía no tenés una cuenta?
-        <router-link :to="{name: 'OwnerSignUp'}">Registrarme</router-link>
+        <router-link :to="{name: 'OwnerSignUp'}" class="default-link">Registrarme</router-link>
       </p>
     </div>
   </BaseFormContainer>

@@ -4,7 +4,7 @@
 
     <p>{{ textWithPetName }}</p>
 
-    <router-link :to="{name: this.path_name, params: { pet_id: this.pet_id }}">{{ cta_text }}</router-link>
+    <router-link :to="{name: this.path_name, params: { pet_id: this.pet_id }}" class="default-link">{{ cta_text }}</router-link>
   </div>
 </template>
 

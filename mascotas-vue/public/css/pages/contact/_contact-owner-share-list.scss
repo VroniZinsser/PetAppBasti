@@ -4,9 +4,9 @@
     padding-bottom: $navbar-height-mobile;
 
     .intro {
-        padding: 1rem;
+        padding: $spacing-main;
         background: $white-gray-min;
-        box-shadow: inset 0 8px 8px -6px rgb(#333333, 0.15);
+        box-shadow: inset 0 8px 8px -6px rgb($black-gray, 0.15);
 
         @include desktop-up {
             background: none;
@@ -33,7 +33,7 @@
 
         .professional-container {
             display: flex;
-            padding: 1rem;
+            padding: $spacing-main;
             padding-bottom: 0;
             justify-content: space-between;
             font-size: 14px;
@@ -42,7 +42,7 @@
 
             @include desktop-up {
                 background: $white-gray-min;
-                padding-bottom: 1rem;
+                padding-bottom: $spacing-main;
                 box-shadow: $shadow-x0-y4;
             }
 
@@ -54,7 +54,7 @@
         }
 
         .v-expansion-panel-header {
-            padding: .75rem 1rem;
+            padding: .75rem $spacing-main;
             font-size: 1rem;
             @include desktop-up {
                 width: auto;
@@ -69,8 +69,8 @@
                 width: 48px;
                 height: 48px;
                 object-fit: cover;
-                border-radius: 3px;
-                margin-right: 1rem;
+                border-radius: $border-radius-main;
+                margin-right: $spacing-main;
             }
             
             .pet-container {
@@ -98,7 +98,7 @@
             }
 
             .quote-container {
-                padding-top: 1rem;
+                padding-top: $spacing-main;
                 color: $gray;
 
                 @include desktop-up {
@@ -107,7 +107,7 @@
                 }
 
                 .quote-intro {
-                    margin-bottom: .5rem;
+                    margin-bottom: $spacing-sm;
                     font-size: 14px;
 
                 }
@@ -128,10 +128,10 @@
             }
 
             .v-expansion-panel-content__wrap {
-                padding: 1rem;
+                padding: $spacing-main;
                 box-shadow: 
-                    inset 0 8px 8px -6px rgb(#333333, 0.15), 
-                    inset 0 -8px 8px -6px rgb(#333333, 0.15);
+                    inset 0 8px 8px -6px rgb($black-gray, 0.15), 
+                    inset 0 -8px 8px -6px rgb($black-gray, 0.15);
                 
                 @include desktop-up {
                     box-shadow: none;

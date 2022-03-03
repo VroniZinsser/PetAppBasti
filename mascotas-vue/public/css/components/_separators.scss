@@ -4,8 +4,8 @@
         display: block;
         border-bottom: 1px solid $black-gray;
         opacity: .3;
-        padding-top: 8px;
-        margin: 8px -16px;
+        padding-top: $spacing-sm;
+        margin: $spacing-sm -16px;
         width: 110%;
     }
 }

@@ -19,8 +19,8 @@
         }
 
         .explore-filters {
-            padding: 1rem;
-            padding-top: 2rem;
+            padding: $spacing-main;
+            padding-top: $spacing-xl;
 
             @include tablet-up {
                 display: block;

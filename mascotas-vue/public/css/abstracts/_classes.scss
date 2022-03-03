@@ -1,7 +1,21 @@
+@use "sass:map";
+
 .sr-only {
   @include sr-only
 }
 
 .v-dialog.v-dialog--active{
   box-shadow: none;
+}
+
+.v-application a.default-link {
+  color: map.get($theme-colors, "info");
+
+  @include tablet-up {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

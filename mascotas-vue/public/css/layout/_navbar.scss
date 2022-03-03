@@ -53,12 +53,12 @@ header.theme--light.v-app-bar.v-toolbar.v-sheet {
 
     li {
       &:not(:last-child) {
-        border-bottom: 1px solid rgba(#333333, .3);
+        border-bottom: 1px solid rgba($black-gray, .3);
       }
 
       a, button {
         display: block;
-        padding: 1rem;
+        padding: $spacing-main;
         text-align: center;
         width: 100%;
         background: none;
@@ -85,8 +85,8 @@ header.theme--light.v-app-bar.v-toolbar.v-sheet {
     box-shadow: none;
 
     .v-toolbar__content {
-      padding-left: 1rem;
-      padding-right: 1rem;
+      padding-left: $spacing-main;
+      padding-right: $spacing-main;
     }
   }
 
@@ -101,8 +101,8 @@ header.theme--light.v-app-bar.v-toolbar.v-sheet {
 
     li a {
       justify-content: center;
-      padding-left: 1rem;
-      padding-right: 1rem;
+      padding-left: $spacing-main;
+      padding-right: $spacing-main;
 
       &:hover, &:focus {
         @include link-active;
@@ -113,7 +113,7 @@ header.theme--light.v-app-bar.v-toolbar.v-sheet {
           position: static;
           width: auto;
           height: auto;
-          margin-left: .5rem;
+          margin-left: $spacing-sm;
         }
       }
     }

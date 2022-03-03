@@ -16,10 +16,20 @@ $theme-colors: (
 );
 
 // Shadows
-$shadow-x0-y0: 0px 0px 6px rgba(#333333, 0.15);
-$shadow-x0-y4: 0px 4px 6px rgba(#333333, 0.15);
-$shadow-x0-y-4: 0px -4px 6px rgba(#333333, 0.15);
-$shadow-x0-y2: 0px 2px 6px rgba(#333333, 0.15);
+$shadow-x0-y0: 0px 0px 6px rgba($black-gray, 0.15);
+$shadow-x0-y4: 0px 4px 6px rgba($black-gray, 0.15);
+$shadow-x0-y-4: 0px -4px 6px rgba($black-gray, 0.15);
+$shadow-x0-y2: 0px 2px 6px rgba($black-gray, 0.15);
+
+// Spacings
+$border-radius-main: 4px;
+$border-radius-lg: 10px;
+
+$spacing-main: 1rem;
+$spacing-sm: calc(.5 * $spacing-main);
+$spacing-xs: calc(.25 * $spacing-main);
+$spacing-lg: calc(1.5 * $spacing-main);
+$spacing-xl: calc(2 * $spacing-main);
 
 // Lists
 
@@ -66,10 +76,10 @@ $navbar-height-desktop: 64px;
 $titlebar-height: 57px;
 
 @mixin fill-viewport-height-min {
-  min-height: calc(100vh - 56px);
+  min-height: calc(100vh - #{$navbar-height-mobile});
   
   @include desktop-up() {
-    min-height: calc(100vh - 64px);
+    min-height: calc(100vh - #{$navbar-height-desktop});
   }
 }
 

@@ -32,9 +32,9 @@ export default {
   mounted() {
     userService.getUserById(this.store.user.id)
         .then(res => {
+          this.loading = false;
+          
           if (!res.data) {
-            this.loading = false;
-
             if (this.handleAuthenticationError(res)) return;
             if (this.handleAccessError(res)) return;
 

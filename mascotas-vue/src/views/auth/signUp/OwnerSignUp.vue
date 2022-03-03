@@ -14,7 +14,7 @@
         prominent
     >
       Si trabajás en el rubro veterinario podés
-      <router-link :to="{name: 'UserCreate'}">registrarte como profesional</router-link>
+      <router-link :to="{name: 'UserCreate'}" class="default-link">registrarte como profesional</router-link>
     </v-alert>
 
     <OwnerSignUpForm/>
@@ -22,7 +22,7 @@
     <p>
       ¿Ya tenés una cuenta?
 
-      <router-link :to="{name: 'Login'}">Ingresar</router-link>
+      <router-link :to="{name: 'Login'}" class="default-link">Ingresar</router-link>
     </p>
   </BaseFormContainer>
 </template>

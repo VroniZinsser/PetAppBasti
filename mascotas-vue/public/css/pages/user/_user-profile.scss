@@ -49,14 +49,18 @@
                 border-bottom: none;
                 border-left: 1px solid $white-gray;
                 box-shadow: 
-                    inset 0 8px 8px -6px rgb(#333333, 0.15), 
-                    inset 0 -8px 8px -6px rgb(#333333, 0.15);
+                    inset 0 8px 8px -6px rgb($black-gray, 0.15), 
+                    inset 0 -8px 8px -6px rgb($black-gray, 0.15);
             }
         }
     }
 
     .intro {
-        padding: 1.5rem 1rem calc(1.5rem - 8px) 1rem;
+        padding: 
+            $spacing-lg
+            $spacing-main 
+            calc($spacing-lg - $spacing-sm) 
+            $spacing-main;
 
         img {
             width: 100%;
@@ -68,7 +72,7 @@
 
         h2 {
             text-align: center;
-            margin: .5rem 0;
+            margin: $spacing-sm 0;
         }
 
         .professional-types {
@@ -77,25 +81,25 @@
             justify-content: center;
 
             div {
-                padding: 4px 8px;
+                padding: $spacing-xs $spacing-sm;
                 background: $white-gray-min;
-                border-radius: 4px;
-                margin-right: 9px;
-                margin-bottom: 8px;
+                border-radius: $border-radius-main;
+                margin-right: $spacing-sm;
+                margin-bottom: $spacing-sm;
             }
         }
     }
 
     .description {
-        padding: 0 1rem;
+        padding: 0 $spacing-main;
 
         h3 {
-            padding-bottom: 5px;
+            padding-bottom: $spacing-xs;
         }
     }
 
     .location {
-        padding: 12px 16px;
+        padding: 12px $spacing-main;
         
         span {
             display: block;
@@ -103,17 +107,17 @@
         }
 
         a {
-            margin-top: .5rem;
+            margin-top: $spacing-sm;
         }
 
         h3 {
-            margin-bottom: .5rem;
+            margin-bottom: $spacing-sm;
         }
         
     }
 
     .contact {
-        padding: 12px 16px;
+        padding: 12px $spacing-main;
         
         span {
             display: none;
@@ -134,7 +138,7 @@
             & > li {
                 width: 33%;
                 max-width: 80px;
-                margin-bottom: 15px;
+                margin-bottom: $spacing-main;
                 list-style: none;
 
                 @include tablet-up {
@@ -167,7 +171,7 @@
             }
 
             span {
-                margin-left: .5rem;
+                margin-left: $spacing-sm;
                 
 
                 @include desktop-up {

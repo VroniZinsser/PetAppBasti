@@ -118,7 +118,7 @@ export default {
 
               <p class="professional-location">${prof.city}, ${prof.street} ${prof.house_number}</p>
 
-              <p class="professional-card-link-content"><a href="#/profesionales/${prof.id}">Ir al perfil</a></p>
+              <p class="professional-card-link-content"><a href="#/profesionales/${prof.id}" class="default-link">Ir al perfil</a></p>
           </div>`
         });
         marker.addEventListener('tap', event => {
