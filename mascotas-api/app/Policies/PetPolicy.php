@@ -20,7 +20,7 @@ class PetPolicy
      */
     public function view(User $user, Pet $pet)
     {
-        return $this->isPetOwner($user, $pet);
+        return $this->isPetOwner($user, $pet) || $this->petIsShared($user, $pet);
     }
 
     /**
@@ -32,7 +32,7 @@ class PetPolicy
      */
     public function viewMedicalDetails(User $user, Pet $pet)
     {
-        return $this->isPetOwner($user, $pet);
+        return $this->isPetOwner($user, $pet) || $this->petIsShared($user, $pet);
     }
 
     /**
@@ -97,6 +97,26 @@ class PetPolicy
             if ($owner->id === $user->id) {
                 return true;
             }
+        }
+
+        return false;
+    }
+
+    /**
+     * Determine whether the pet is shared with this user
+     *
+     * @param User $user
+     * @param Pet $pet
+     * @return bool
+     */
+    private function petIsShared(User $user, Pet $pet): bool
+    {
+        foreach ($pet->shareRequests as $request) {
+            if ($request->professionals_id === $user->id
+                && $request->accepted
+                && $request->expiration_date >= now()->format("Y-m-d")) {
+                    return true;
+                }
         }
 
         return false;

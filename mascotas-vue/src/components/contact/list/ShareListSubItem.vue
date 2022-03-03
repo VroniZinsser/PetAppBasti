@@ -10,14 +10,18 @@
     />
 
     <v-expansion-panel-header>
-      <div>
+      <router-link :to="{name: 'PetShared', params: {'pet_id': pet.id}}">
+      <div class="shared-pet-overview">
+        
         <img :src="createImgPath(pet.image.src)" :alt="pet.image.alt"/>
 
         <div class="pet-container">
           <p class="pet-name">{{ petName }}</p>
           <p class="expiration">{{ expirationText }}</p>
         </div>
+        
       </div>
+      </router-link>
     </v-expansion-panel-header>
 
     <v-expansion-panel-content>
@@ -73,7 +77,7 @@ export default {
     },
 
     petName() {
-      return this.professionalName ? this.pet.name : `${this.owner.first_name} ${this.owner.last_name}: ${this.pet.name}`;
+      return this.professionalName ? this.pet.name : `${this.pet.name} - ${this.owner.first_name} ${this.owner.last_name}`;
     },
 
     /**
