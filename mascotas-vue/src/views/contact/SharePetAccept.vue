@@ -36,6 +36,7 @@ import contactService from "@/services/contact";
 import SharePetAcceptCard from "@/components/contact/request/SharePetAcceptCard";
 import TheLoader from "@/components/general/layout/TheLoader";
 import TitleWithLink from "@/components/general/layout/TitleWithLink";
+import {handleAuthenticationError} from "@/helpers";
 
 export default {
   name: "SharePetAccept",
@@ -45,6 +46,7 @@ export default {
     request: null,
     incomplete: true,
     hasAccess: true,
+    handleAuthenticationError,
     notification: {
       text: null,
       type: 'success',
@@ -58,6 +60,7 @@ export default {
   mounted() {
     contactService.acceptGenerate(this.$route.params.request_id)
         .then(res => {
+          if (this.handleAuthenticationError(res)) return;
           if (res.success) {
             this.request = res.data.request;
           }

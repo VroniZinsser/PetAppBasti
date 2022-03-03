@@ -74,7 +74,7 @@
                 display: flex;
 
                 a {
-                    @include tablet-up {
+                    @include desktop-up {
                         color: black;
                     }
                 }
@@ -135,7 +135,7 @@
 
                 display: none;
 
-                @include tablet-up {
+                @include desktop-up {
                     display: inline-block;
                 }
             }
