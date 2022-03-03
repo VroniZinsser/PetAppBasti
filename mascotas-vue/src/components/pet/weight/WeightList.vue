@@ -4,7 +4,6 @@
         v-for="weight in sortedArray"
         :key="weight.id"
         :weight="weight"
-        :ownerView="ownerView"
         @delete="sendDelete"
     />
   </ul>
@@ -20,10 +19,6 @@ export default {
     weights: {
       type: Array,
       required: true,
-    },
-    ownerView: {
-      type: Boolean,
-      default: false,
     }
   },
   data() {

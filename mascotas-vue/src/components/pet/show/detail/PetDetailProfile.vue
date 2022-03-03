@@ -3,7 +3,7 @@
     <div class="pet-profile-header">
       <h2>Perfil</h2>
 
-      <Dropdown v-if="ownerView" @deletePet="showWarnDialog = true"/>
+      <Dropdown v-if="isOwner" @deletePet="showWarnDialog = true"/>
     </div>
 
     <div class="pet-profile-body">
@@ -52,7 +52,7 @@
       </ul>
     </div>
 
-    <div v-if="ownerView" class="pet-profile-footer">
+    <div v-if="isOwner" class="pet-profile-footer">
       <router-link :to="{name: 'PetEditForm', params: {'pet_id': this.pet.id}}" class="main-btn">
         Editar perfil
       </router-link>
@@ -86,10 +86,6 @@ export default {
     pet: {
       type: Object,
       required: true,
-    },
-    ownerView: {
-      type: Boolean,
-      default: false,
     }
   },
   data() {
@@ -102,6 +98,9 @@ export default {
   computed: {
     formatted_date_of_birth() {
       return formatDate(this.pet.date_of_birth);
+    },
+    isOwner() {
+      return !this.store.user.is_professional
     }
   },
   methods: {

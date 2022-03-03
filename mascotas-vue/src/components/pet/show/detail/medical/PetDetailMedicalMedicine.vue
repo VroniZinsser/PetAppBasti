@@ -5,7 +5,7 @@
     </div>
 
     <Placeholder
-        v-if="medicines.length === 0 && ownerView"
+        v-if="!hasMedicines && isOwner"
         :img_src="placeholder.img_src"
         :text="placeholder.text"
         :path_name="placeholder.cta.path_name"
@@ -14,14 +14,13 @@
         :pet_id="pet_id"
     />
 
-    <p v-else-if="medicines.length === 0 && !ownerView">No se registran medicamentos para esta mascota.</p>
+    <p v-else-if="!hasMedicines && !isOwner">Esta mascota no tiene ningún medicamento agregado.</p>
 
     <div v-else class="medical-container-body">
       <MedicineItem
           v-for="medicine in medicines"
           :key="medicine.id"
           :medicine="medicine"
-          :ownerView="ownerView"
           @delete="sendDelete"
       />
 
@@ -37,6 +36,7 @@
 import Placeholder from "@/components/pet/show/detail/medical/PetDetailMedicalPlaceholder";
 import MedicineItem from "@/components/pet/show/detail/medical/PetDetailMedicalMedicineItem";
 import MedicineItemMore from "@/components/pet/show/detail/medical/PetDetailMedicalMedicineItemMore";
+import store from "@/store"; 
 
 export default {
   name: "PetDetailMedicalMedicine",
@@ -61,11 +61,21 @@ export default {
     pet_id: {
       type: Number,
       required: true,
-    },
-    ownerView: {
-      type: Boolean,
-      default: false,
     }
+  },
+  data() {
+    return {
+      store
+    }
+  },
+  computed: {
+    hasMedicines() {
+      return this.medicines.length > 0;
+    },
+    isOwner() {
+      return !this.store.user.is_professional;
+    }
+
   },
   methods: {
     sendDelete(medicine_id) {

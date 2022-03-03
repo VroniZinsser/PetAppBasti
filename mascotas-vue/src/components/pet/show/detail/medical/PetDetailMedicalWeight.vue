@@ -13,7 +13,7 @@
     </div>
 
     <Placeholder
-        v-if="weights.length === 0 && ownerView"
+        v-if="!hasWeights && isOwner"
         :img_src="placeholder.img_src"
         :text="placeholder.text"
         :path_name="placeholder.cta.path_name"
@@ -22,7 +22,7 @@
         :pet_id="pet_id"
     />
 
-    <p v-else-if="weights.length === 0 && !ownerView">No se registra ningun peso para esta mascota.</p>
+    <p v-else-if="!hasWeights && !isOwner">Esta mascota no tiene ningún peso agregado.</p>
 
     <div v-else class="medical-container-body">
       <ul>
@@ -41,6 +41,7 @@
 
 <script>
 import Placeholder from "@/components/pet/show/detail/medical/PetDetailMedicalPlaceholder";
+import store from "@/store"
 import {formatDate, displayWeight} from "@/helpers";
 
 export default {
@@ -64,21 +65,24 @@ export default {
     pet_id: {
       type: Number,
       required: true,
-    },
-    ownerView: {
-      type: Boolean,
-      default: false,
     }
   },
   data() {
     return {
       formatDate,
-      displayWeight
+      displayWeight,
+      store
     }
   },
   computed: {
+    isOwner() {
+      return !this.store.user.is_professional;
+    },
     weightListName() {
-      return this.ownerView ? 'WeightListOwner' : 'WeightList';
+      return this.isOwner ? 'WeightListOwner' : 'WeightList';
+    },
+    hasWeights() {
+      return this.weights.length > 0;
     }
   }
 }

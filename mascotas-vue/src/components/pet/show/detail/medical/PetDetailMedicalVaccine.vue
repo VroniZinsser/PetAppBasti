@@ -9,7 +9,7 @@
     </div>
 
     <Placeholder
-        v-if="vaccines.length === 0 && ownerView"
+        v-if="!hasVaccines && isOwner"
         :img_src="placeholder.img_src"
         :text="placeholder.text"
         :path_name="placeholder.cta.path_name"
@@ -17,7 +17,7 @@
         :pet_name="pet_name"
         :pet_id="pet_id"
     />
-    <p v-else-if="vaccines.length === 0 && !ownerView">Esta mascota no tiene ninguna vacuna agregada.</p>
+    <p v-else-if="!hasVaccines && !isOwner">Esta mascota no tiene ninguna vacuna agregada.</p>
     <div v-else class="medical-container-body">
       <VaccineItem
           v-for="vaccine in vaccines"
@@ -31,6 +31,7 @@
 <script>
 import Placeholder from "@/components/pet/show/detail/medical/PetDetailMedicalPlaceholder";
 import VaccineItem from "@/components/pet/show/detail/medical/PetDetailMedicalVaccineItem";
+import store from "@/store";
 
 export default {
   name: "PetDetailMedicalVaccine",
@@ -54,17 +55,24 @@ export default {
     pet_id: {
       type: Number,
       required: true,
-    },
-    ownerView: {
-      type: Boolean,
-      default: false,
     }
   },
-
-  computed: {
-    vaccineListName() {
-      return this.ownerView ? 'VaccineListOwner' : 'VaccineList';
+  data() {
+    return {
+      store,
     }
+  },
+  computed: {
+    isOwner() {
+      return !this.store.user.is_professional;
+    },
+    vaccineListName() {
+      return this.isOwner ? 'VaccineListOwner' : 'VaccineList';
+    },
+    hasVaccines() {
+      return this.vaccines.length > 0;
+    },
+
   }
 }
 </script>

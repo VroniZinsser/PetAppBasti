@@ -11,7 +11,7 @@
         :title="store.status.title"
     />
 
-    <BaseButtonCircleLinkList :button-link-data="buttonLinkData"/>
+    <BaseButtonCircleLinkList v-if="isOwner" :button-link-data="buttonLinkData"/>
 
     <template v-if="weights.length > 0">
       <div class="actual-weight">
@@ -24,7 +24,6 @@
 
       <WeightList 
         :weights="weights"
-        :ownerView="$route.meta.ownerView" 
         @delete="prepareDeleteWeight"/>
 
       <BaseDialogWarn
@@ -82,6 +81,12 @@ export default {
           default: true,
         },
       ],
+    }
+  },
+
+  computed: {
+    isOwner() {
+      return !this.store.user.is_professional;
     }
   },
   mounted() {

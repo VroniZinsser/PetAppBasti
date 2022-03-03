@@ -11,13 +11,12 @@
         :title="store.status.title"
     />
 
-    <BaseButtonCircleLinkList :button-link-data="buttonLinkData"/>
+    <BaseButtonCircleLinkList v-if="isOwner" :button-link-data="buttonLinkData"/>
 
     <template v-if="vaccines.length > 0">
 
       <VaccineList 
         :vaccines="vaccines" 
-        :ownerView="$route.meta.ownerView"
         @delete="prepareDeleteVaccine"
       />
 
@@ -75,6 +74,11 @@ export default {
           default: true,
         },
       ],
+    }
+  },
+  computed: {
+    isOwner() {
+      return !this.store.user.is_professional;
     }
   },
   mounted() {

@@ -22,7 +22,6 @@
 
         <PetDetail 
           :pet="activePet" 
-          :ownerView="true"
           @deleted="refreshPets"  
           @delete-medicine="refreshPets" 
         />

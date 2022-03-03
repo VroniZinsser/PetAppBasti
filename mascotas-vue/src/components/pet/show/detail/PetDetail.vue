@@ -27,14 +27,12 @@
     <div :class="containerDetailClass">
       <PetMedicalInfo 
         :pet="pet"
-        :ownerView="ownerView"
       />
     </div>
 
     <div :class="containerProfileClass">
       <PetProfile 
         :pet="pet"
-        :ownerView="ownerView" 
         @deleted="$emit('deleted')"
       />
     </div>
@@ -56,10 +54,6 @@ export default {
     pet: {
       type: Object,
       required: true,
-    },
-    ownerView: {
-      type: Boolean,
-      default: false,
     }
   },
   data() {
