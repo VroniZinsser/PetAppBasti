@@ -124,11 +124,11 @@ export default {
       return this.medicine ? this.medicine.end_date : this.getCurrentDate();
     },
 
-    formAction(){
+    formAction() {
       return this.medicine ? 'medicamentos/editar' : 'medicamentos/crear';
     },
 
-    buttonText(){
+    buttonText() {
       return this.medicine ? "Guardar cambios" : "Agregar";
     },
   },
@@ -279,21 +279,14 @@ export default {
 
     /**
      * Retrieves hours from 08:00:00 to 22:00:00 based on hard coded ids and removes the seconds
-     * TODO: This method is for presentational purposes and has to be refined
      */
     retrieveDaytimeHours(hours) {
-      const firstHourId = 32;
+      let daytimeHours = hours.slice(32, 89 + 1);
 
-      const lastHourId = 89;
-
-      let daytimeHours = hours.slice(firstHourId, lastHourId + 1);
-
-      daytimeHours.map((item) => {
+      return daytimeHours.map((item) => {
         // show '08:30' instead of '08:30:00'
         item.time = item.time.slice(0, 5);
       })
-
-      return daytimeHours;
     }
   },
 }
