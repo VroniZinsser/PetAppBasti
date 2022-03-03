@@ -43,6 +43,8 @@
 
         {{ buttonText }}
       </button>
+
+      <router-link v-if="!professionalName" :to="{name: 'PetShared', params: {'pet_id': pet.id}}" class="default-link pet-profile-link">Ir al perfil</router-link>
     </v-expansion-panel-content>
   </v-expansion-panel>
 </template>

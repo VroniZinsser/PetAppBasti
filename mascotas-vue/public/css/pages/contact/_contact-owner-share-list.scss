@@ -72,6 +72,12 @@
 
             .shared-pet-overview {
                 display: flex;
+
+                a {
+                    @include tablet-up {
+                        color: black;
+                    }
+                }
             }
 
             img {
@@ -119,6 +125,18 @@
                     margin-bottom: .5rem;
                     font-size: 14px;
 
+                }
+            }
+
+            .pet-profile-link {
+                font-size: 15px;
+                margin-left: 2rem;
+                font-weight: 500;
+
+                display: none;
+
+                @include tablet-up {
+                    display: inline-block;
                 }
             }
 
