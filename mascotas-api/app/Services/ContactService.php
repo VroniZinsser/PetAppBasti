@@ -47,7 +47,14 @@ class ContactService implements ContactRepository
      */
     public function getProfessionalSharedPets(int $professional_id): Collection
     {
-        return SharedPet::where('professionals_id', $professional_id)->with('pet', 'pet.image', 'owner')->get();
+        $filterCurrentAccepted = function ($query) {
+            $query->whereDate('expiration_date', '>=', date('Y-m-d'))->where('accepted', 1);
+        };
+
+        return SharedPet::where('professionals_id', $professional_id)
+            ->where($filterCurrentAccepted)
+            ->with(['pet', 'pet.image', 'owner'])
+            ->get();
     }
 
     /**

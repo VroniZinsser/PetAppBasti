@@ -93,11 +93,11 @@ export default {
     if (this.$route.params.pet_id) {
       petServices.getWeights(this.$route.params.pet_id)
           .then(res => {
+            this.loading = false
+
             if (this.handleAuthenticationError(res)) return;
 
             this.weights = res.data.weights;
-
-            this.loading = false
           })
     }
   },
