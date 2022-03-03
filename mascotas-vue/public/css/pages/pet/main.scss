@@ -49,9 +49,9 @@ $pet-img-max-height: 270px;
       position: absolute;
       top: 0;
       right: 0;
-      padding: 3px;
+      padding: $spacing-xs;
       background: transparentize($white-gray-min, 0.1);
-      border-radius: 0px 0px 0px 4px;
+      border-radius: 0px 0px 0px $border-radius-main;
 
       span {
         display: block;
@@ -62,7 +62,7 @@ $pet-img-max-height: 270px;
 
   .tab-button-container {
     display: flex;
-    border-radius: 0px 0px 4px 4px;
+    border-radius: 0px 0px $border-radius-main $border-radius-main;
     box-shadow: $shadow-x0-y4;
 
 
@@ -77,12 +77,12 @@ $pet-img-max-height: 270px;
       font-size: 18px;
 
       &:first-child {
-        border-radius: 0px 0px 0px 4px;
+        border-radius: 0px 0px 0px $border-radius-main;
         padding-left: 60px;
       }
 
       &:last-child {
-        border-radius: 0px 0px 4px 0px;
+        border-radius: 0px 0px $border-radius-main 0px;
         padding-right: 60px;
       }
 

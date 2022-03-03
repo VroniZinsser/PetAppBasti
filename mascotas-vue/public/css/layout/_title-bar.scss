@@ -1,6 +1,6 @@
 .title-bar {
     background: $white-gray-min;
-    padding: 12px 16px;
+    padding: 12px $spacing-main;
     box-shadow: $shadow-x0-y4;
 
     @include desktop-up {

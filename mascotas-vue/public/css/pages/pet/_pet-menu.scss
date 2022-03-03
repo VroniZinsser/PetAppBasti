@@ -1,5 +1,5 @@
 .pet-menu {
-    padding: 12px 16px;
+    padding: 12px $spacing-main;
 
     ul {
         @include horizontal-list;
@@ -15,7 +15,7 @@
     }
 
     .pet-menu-item {
-        margin-right: 1em;
+        margin-right: $spacing-main;
         .menu-item-link {
             display: flex;
             flex-direction: column;

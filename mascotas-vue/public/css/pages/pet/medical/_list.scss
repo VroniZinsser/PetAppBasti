@@ -8,11 +8,11 @@ div.medical-list-container {
 
   > header {
     display: flex;
-    margin-bottom: 1.5rem;
+    margin-bottom: $spacing-lg;
     width: 100%;
 
     a {
-      margin-right: 1rem;
+      margin-right: $spacing-main;
       display: flex;
       align-items: center;
       text-decoration: none;
@@ -32,11 +32,11 @@ div.medical-list-container {
 
   .actual-weight {
     width: fit-content;
-    padding: 1.5rem;
-    border-radius: 5px;
+    padding: $spacing-lg;
+    border-radius: $border-radius-main;
     background: $white-gray;
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: $spacing-lg;
 
     > span:first-child {
       display: block;
@@ -45,7 +45,7 @@ div.medical-list-container {
     }
 
     > span:nth-child(2) {
-      margin-right: .5rem;
+      margin-right: $spacing-sm;
     }
 
     > span:last-child {
@@ -74,9 +74,9 @@ div.medical-list-container {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1rem;
+      padding: $spacing-main;
       margin: 1.1rem;
-      border-radius: 10px;
+      border-radius: $border-radius-lg;
       box-shadow: $shadow-x0-y0;
 
 
@@ -117,7 +117,7 @@ div.medical-list-container {
         }
 
         a {
-          margin-right: 1rem;
+          margin-right: $spacing-main;
         }
 
         button {

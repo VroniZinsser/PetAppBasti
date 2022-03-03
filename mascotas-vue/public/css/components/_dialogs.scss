@@ -15,22 +15,22 @@
             font-weight: 500;
             letter-spacing: .5px;
             text-transform: uppercase;
-            padding: 0.5rem 0.8rem;
+            padding: $spacing-sm 0.8rem;
             
             &.accept {
                 color: white;
-                border-radius: 3px;
+                border-radius: $border-radius-main;
                 background: map.get($theme-colors, "danger");
 
                 @include tablet-up {
-                    margin-bottom: .5rem;
+                    margin-bottom: $spacing-sm;
                 }
             }
 
             &.cancel {
-                margin-top: 1rem;
+                margin-top: $spacing-main;
                 @include tablet-up {
-                    margin-right: .5rem;
+                    margin-right: $spacing-sm;
                 }
             }
         }
@@ -56,7 +56,7 @@
         }
 
         .v-avatar {
-            margin-right: 1rem;
+            margin-right: $spacing-main;
         }
         span {
             display: block;

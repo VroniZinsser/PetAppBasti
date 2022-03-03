@@ -10,7 +10,7 @@
   .medical-container {
     width: 100%;
     min-height: 200px;
-    padding: 16px 16px 0;
+    padding: $spacing-main;
 
     .medical-container-body, .medical-container-header {
       max-width: 426px;
@@ -37,7 +37,7 @@
     }
 
     .no-data {
-      padding-bottom: 1rem;
+      padding-bottom: $spacing-main;
     }
 
     &.medicine {
@@ -50,7 +50,7 @@
       .medical-container-body {
         display: flex;
         overflow-x: auto;
-        padding: 1rem 1rem 1rem 0;
+        padding: $spacing-main $spacing-main $spacing-main 0;
         
         .card {
           margin-top: 0;
@@ -73,7 +73,7 @@
         .inner {
           width: 100%;
           height: 100%;
-          padding: 1rem;
+          padding: $spacing-main;
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -112,11 +112,12 @@
       .medical-container-body {
         display: grid;
         grid-auto-flow: row;
-        gap: 16px 20px;
+        
         justify-items: stretch;
 
         @include tablet-up {
           grid-template-columns: 1fr 1fr;
+          gap: 16px 20px;
         }
 
         @include desktop-up {
@@ -128,7 +129,7 @@
           justify-content: space-between;
 
           .card-date {
-            padding-top: 3px;
+            padding-top: $spacing-xs;
           }
         }
       }
@@ -145,7 +146,7 @@
 
       ul {
         @include reset-list;
-        margin-top: 2rem;
+        margin-top: $spacing-xl;
         width: fit-content;
         text-align: right;
 
@@ -155,7 +156,7 @@
       }
 
       .current-weight {
-        font-size: 1.5rem;
+        font-size: $spacing-lg;
       }
 
       .weight-date {
@@ -179,7 +180,7 @@
 
 .medicine-item {
   min-width: 70vw;
-  margin-right: 16px;
+  margin-right: $spacing-main;
 
   &.disabled {
     opacity: .7;
@@ -195,7 +196,7 @@
   .medicine-item-info {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: .5rem;
+    margin-bottom: $spacing-sm;
 
     > div:first-child {
       flex-grow: 1;
@@ -211,7 +212,7 @@
 
     span {
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: $spacing-sm;
     }
   }
 
@@ -222,9 +223,9 @@
     div {
       background: $white-gray-min;
       border-radius: 2px;
-      padding: 3px;
-      margin-right: 9px;
-      margin-bottom: 8px;
+      padding: $spacing-xs;
+      margin-right: $spacing-sm;
+      margin-bottom: $spacing-sm;
     }
   }
 

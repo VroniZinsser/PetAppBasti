@@ -5,7 +5,7 @@
   }
 
   > .no-results {
-    padding: 1rem;
+    padding: $spacing-main;
     color: $gray;
     border-top: 1px solid rgba($black-gray, 0.4);
   }
@@ -40,7 +40,7 @@
     }
 
     .professional-name {
-      margin-bottom: .5rem;
+      margin-bottom: $spacing-sm;
     }
 
     .card-subtitle {
@@ -54,15 +54,14 @@
       display: flex;
       flex-wrap: wrap;
       font-size: 12px;
-      margin-bottom: -9px;
+      margin-bottom: $spacing-sm;
       div {
           background: $white-gray-min;
-          border-radius: 4px;
-          padding: 4px 8px;
-          margin-right: 9px;
-          margin-bottom: 8px;
+          border-radius: $border-radius-main;
+          padding: $spacing-xs $spacing-sm;
+          margin-right: $spacing-sm;
+          margin-bottom: $spacing-sm;
       }
   }
   }
 }
-
