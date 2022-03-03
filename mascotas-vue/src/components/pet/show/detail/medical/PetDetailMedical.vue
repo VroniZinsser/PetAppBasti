@@ -55,7 +55,7 @@ export default {
     pet: {
       type: Object,
       required: true,
-    },
+    }
   },
   components: {
     WarnDialog,

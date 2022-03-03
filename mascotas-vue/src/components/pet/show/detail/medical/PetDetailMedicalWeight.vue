@@ -9,11 +9,11 @@
         <span class="weight-date"> ({{ formatDate(weights[0].date) }})</span>
       </div>
 
-      <router-link v-if="weights.length > 0" :to="{name: 'WeightList', params: {pet_id: pet_id}}">Ver más</router-link>
+      <router-link v-if="weights.length > 0" :to="{name: weightListName, params: {pet_id: pet_id}}">Ver más</router-link>
     </div>
 
     <Placeholder
-        v-if="weights.length === 0"
+        v-if="!hasWeights && isOwner"
         :img_src="placeholder.img_src"
         :text="placeholder.text"
         :path_name="placeholder.cta.path_name"
@@ -21,6 +21,8 @@
         :pet_name="pet_name"
         :pet_id="pet_id"
     />
+
+    <p v-else-if="!hasWeights && !isOwner">Esta mascota no tiene ningún peso agregado.</p>
 
     <div v-else class="medical-container-body">
       <ul>
@@ -39,6 +41,7 @@
 
 <script>
 import Placeholder from "@/components/pet/show/detail/medical/PetDetailMedicalPlaceholder";
+import store from "@/store"
 import {formatDate, displayWeight} from "@/helpers";
 
 export default {
@@ -67,8 +70,20 @@ export default {
   data() {
     return {
       formatDate,
-      displayWeight
+      displayWeight,
+      store
     }
   },
+  computed: {
+    isOwner() {
+      return !this.store.user.is_professional;
+    },
+    weightListName() {
+      return this.isOwner ? 'WeightList' : 'WeightListShared';
+    },
+    hasWeights() {
+      return this.weights.length > 0;
+    }
+  }
 }
 </script>

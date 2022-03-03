@@ -61,7 +61,7 @@ class PetService implements PetRepository
     public function findWithRelationship(int $id)
     {
         try {
-            $pet = Pet::where('id', $id)->with('sex','species','image','owners','medicines','vaccines','weights')->first();
+            $pet = Pet::where('id', $id)->with('sex','species','image','owners','medicines','vaccines','weights','medicines.hours')->first();
         } catch (Exception $exception) {
             return $exception;
         }
