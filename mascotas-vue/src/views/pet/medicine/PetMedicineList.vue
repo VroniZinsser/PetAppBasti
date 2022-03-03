@@ -39,6 +39,7 @@ import PetDetailMedicalListHeader from "@/components/pet/show/detail/medical/Pet
 import petServices from "@/services/pets";
 import store from "@/store";
 import TheLoader from "@/components/general/layout/TheLoader";
+import {handleAuthenticationError} from "@/helpers";
 
 export default {
   name: "PetMedicineList",
@@ -57,6 +58,7 @@ export default {
       store,
       mToDelete: null,
       showWarnDialog: false,
+      handleAuthenticationError,
       buttonLinkData: [
         {
           icon: 'medication',
@@ -72,6 +74,8 @@ export default {
     if (this.$route.params.pet_id) {
       petServices.getMedicines(this.$route.params.pet_id)
           .then(res => {
+            if (this.handleAuthenticationError(res)) return;
+
             this.medicines = res.data.medicines;
 
             this.loading = false

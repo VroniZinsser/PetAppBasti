@@ -40,7 +40,7 @@ import store from "@/store";
 import TheLoader from "@/components/general/layout/TheLoader";
 import VaccineList from "@/components/pet/vaccine/VaccineList";
 import vaccineService from "@/services/vaccines";
-import {formatDate, handleAccessError} from "@/helpers";
+import {formatDate, handleAccessError, handleAuthenticationError} from "@/helpers";
 
 export default {
   name: "PetVaccineList",
@@ -61,6 +61,7 @@ export default {
       vToDelete: null,
       showWarnDialog: false,
       handleAccessError,
+      handleAuthenticationError,
       buttonLinkData: [
         {
           icon: 'vaccines',
@@ -76,6 +77,8 @@ export default {
     if (this.$route.params.pet_id) {
       petServices.getVaccines(this.$route.params.pet_id)
           .then(res => {
+            if (this.handleAuthenticationError(res)) return;
+
             this.vaccines = res.data.vaccines;
 
             this.loading = false

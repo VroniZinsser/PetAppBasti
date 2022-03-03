@@ -105,7 +105,7 @@ import store from "@/store";
 import TheLoader from "@/components/general/layout/TheLoader";
 import TitleBar from "@/components/general/layout/TitleBar";
 import userServices from "@/services/users";
-import {createImgPath, createStaticImgPath, nameToDisplay} from "@/helpers";
+import {createImgPath, createStaticImgPath, nameToDisplay, handleAuthenticationError} from "@/helpers";
 
 export default {
   name: "ProfessionalProfile",
@@ -127,6 +127,7 @@ export default {
       contactMethods: [],
       showPetShareDialog: false,
       nameToDisplay,
+      handleAuthenticationError,
     }
   },
   computed: {
@@ -183,6 +184,7 @@ export default {
     loadUserProfile() {
       userServices.getUserById(this.$route.params.professional_id)
           .then(res => {
+            if (this.handleAuthenticationError(res)) return;
             if (res.data.user) {
               this.professional = res.data.user;
 

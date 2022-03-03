@@ -19,7 +19,7 @@ import store from "@/store";
 import TheLoader from "@/components/general/layout/TheLoader";
 import TitleBar from "@/components/general/layout/TitleBar";
 import userService from "@/services/users"
-import {handleAccessError} from "@/helpers";
+import {handleAccessError, handleAuthenticationError} from "@/helpers";
 
 export default {
   name: "ProfessionalEditForm",
@@ -34,10 +34,13 @@ export default {
     professional: null,
     store,
     handleAccessError,
+    handleAuthenticationError,
   }),
   mounted() {
     userService.getProfessionalUserTypes()
         .then(res => {
+          if (this.handleAuthenticationError(res)) return;
+
           this.user_types = res.data.user_types;
 
           userService.getUserById(this.store.user.id)

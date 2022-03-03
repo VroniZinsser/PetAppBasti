@@ -48,13 +48,33 @@ const displayWeight = function (weight) {
 const handleAccessError = function(res) {
     let hasError = false;
     
-    if (res.access === false) {
+    if (res.access === false || res.message === 'Unauthenticated.') {
         hasError = true;
         store.setStatus({
             msg: "Esta acción no está habilitada para tu cuenta.",
             type: 'error',
         });
         router.back();
+    }
+    return hasError;
+}
+
+/**
+ * If the server response shows the user is unauthenticated set up a message and log out the user from the frontend
+ * @param {*} res 
+ * @returns bool true if there is an authentication error
+ */
+const handleAuthenticationError = function (res) {
+    let hasError = false;
+    if (res.message === 'Unauthenticated.') {
+        hasError = true;
+        store.setStatus({
+            msg: 'Por favor ingresá nuevamente con tus credenciales',
+            type: 'warning',
+        });
+        store.removeUser();
+        localStorage.removeItem('user')
+        router.push({ name: 'Login' });
     }
     return hasError;
 }
@@ -67,5 +87,6 @@ export {
     nameToDisplay,
     getCurrentDate,
     displayWeight,
-    handleAccessError
+    handleAccessError,
+    handleAuthenticationError
 }

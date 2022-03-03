@@ -28,7 +28,7 @@ import contactService from "@/services/contact";
 import Loader from "@/components/general/layout/TheLoader";
 import OwnerSignUpForm from "@/components/contact/list/OwnerShareListItem";
 import TitleBar from "@/components/general/layout/TitleBar";
-import {handleAccessError} from "@/helpers";
+import {handleAccessError, handleAuthenticationError} from "@/helpers";
 
 export default {
   name: "OwnerShareList",
@@ -41,6 +41,7 @@ export default {
     loading: true,
     professionals: null,
     handleAccessError,
+    handleAuthenticationError,
   }),
   mounted() {
     this.getSharedPets();
@@ -59,6 +60,7 @@ export default {
       this.loading = true;
       contactService.getOwnerSharedPets()
           .then(res => {
+            if (this.handleAuthenticationError(res)) return;
             if (this.handleAccessError(res)) return;
 
             this.professionals = res.data.professionals;
