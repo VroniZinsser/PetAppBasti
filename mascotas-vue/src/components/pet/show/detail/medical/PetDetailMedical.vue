@@ -136,13 +136,17 @@ export default {
       return [];
     }
   },
-  mounted() {
-    this.medicines = this.pet.medicines;
 
-    this.vaccines = this.pet.vaccines;
-
-    this.weights = this.pet.weights;
+  watch: {
+    pet() {
+      this.updateMedicalData();
+    }
   },
+
+  mounted() {
+    this.updateMedicalData();
+  },
+
   methods: {
     prepareDeleteMedicine(medicine_id) {
       this.mToDelete = medicine_id;
@@ -161,7 +165,7 @@ export default {
 
       medicineService.delete(this.mToDelete)
           .then(() => {
-            this.medicines = this.medicines.filter(medicine => medicine.id !== this.mToDelete);
+            this.$parent.$emit('delete-medicine', this.mToDelete);
 
             this.store.setStatus({
               msg: 'El medicamento se eliminó con éxito',
@@ -174,6 +178,14 @@ export default {
 
             this.loading = false
           })
+    },
+
+     updateMedicalData() {
+      this.medicines = this.pet.medicines;
+
+      this.vaccines = this.pet.vaccines;
+
+      this.weights = this.pet.weights;
     }
   },
 }

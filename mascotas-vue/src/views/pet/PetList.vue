@@ -20,7 +20,7 @@
             :title="store.status.title"
         />
 
-        <PetDetail :pet="activePet" @deleted="refreshPets()"/>
+        <PetDetail :pet="activePet" @deleted="refreshPets"  @delete-medicine="refreshPets" />
       </div>
 
       <div v-else>

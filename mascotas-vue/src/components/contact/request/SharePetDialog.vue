@@ -5,7 +5,7 @@
         <v-card-title>Compartir tu mascota</v-card-title>
 
         <Form
-            v-if="pets"
+            v-if="pets && pets.length > 0"
             :pets="pets"
             :professionalName="professionalName"
             :professionalId="professionalId"
@@ -24,7 +24,7 @@
               text
               @click="$emit('closeDialog')"
           >
-            {{ pets ? 'Cancelar' : 'Cerrar' }}
+            {{ pets && pets.length > 0 ? 'Cancelar' : 'Cerrar' }}
           </v-btn>
 
           <v-spacer/>
