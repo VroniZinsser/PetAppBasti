@@ -283,10 +283,12 @@ export default {
     retrieveDaytimeHours(hours) {
       let daytimeHours = hours.slice(32, 89 + 1);
 
-      return daytimeHours.map((item) => {
+      daytimeHours.map((item) => {
         // show '08:30' instead of '08:30:00'
         item.time = item.time.slice(0, 5);
       })
+
+      return daytimeHours;
     }
   },
 }
