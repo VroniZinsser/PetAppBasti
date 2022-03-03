@@ -15,7 +15,11 @@
 
     <template v-if="vaccines.length > 0">
 
-      <VaccineList :vaccines="vaccines" @delete="prepareDeleteVaccine"/>
+      <VaccineList 
+        :vaccines="vaccines" 
+        :ownerView="$route.meta.ownerView"
+        @delete="prepareDeleteVaccine"
+      />
 
       <BaseDialogWarn
           :showDialog="showWarnDialog"

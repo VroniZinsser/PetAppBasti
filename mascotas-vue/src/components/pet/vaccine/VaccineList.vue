@@ -4,6 +4,7 @@
         v-for="vaccine in sortedArray"
         :key="vaccine.id"
         :vaccine="vaccine"
+        :ownerView="ownerView"
         @delete="sendDelete"></ListItem>
   </ul>
 </template>
@@ -18,6 +19,10 @@ export default {
     vaccines: {
       type: Array,
       required: true,
+    },
+    ownerView: {
+      type: Boolean,
+      default: false,
     }
   },
   computed:{

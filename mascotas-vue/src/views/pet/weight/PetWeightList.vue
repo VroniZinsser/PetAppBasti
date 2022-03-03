@@ -22,7 +22,10 @@
         <span class="weight-date"> ({{ formatDate(weights[0].date) }})</span>
       </div>
 
-      <WeightList :weights="weights" @delete="prepareDeleteWeight"/>
+      <WeightList 
+        :weights="weights"
+        :ownerView="$route.meta.ownerView" 
+        @delete="prepareDeleteWeight"/>
 
       <BaseDialogWarn
           :showDialog="showWarnDialog"
@@ -111,6 +114,8 @@ export default {
 
       weightService.delete(this.wToDelete)
           .then((res) => {
+            this.loading = false
+
             if (this.handleAccessError(res)) return;
 
             this.weights = this.weights.filter(weight => weight.id !== this.wToDelete);
@@ -120,8 +125,6 @@ export default {
             this.wToDelete = null;
 
             this.showWarnDialog = false;
-
-            this.loading = false
           })
     }
   },

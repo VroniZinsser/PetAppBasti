@@ -3,11 +3,11 @@
     <div class="medical-container-header">
       <h2>Notas</h2>
 
-      <router-link v-if="observation" :to="{name: 'ObservationForm', params: {pet_id: pet_id}}">Editar</router-link>
+      <router-link v-if="observation && ownerView" :to="{name: 'ObservationForm', params: {pet_id: pet_id}}">Editar</router-link>
     </div>
 
     <Placeholder
-        v-if="!observation"
+        v-if="!observation && ownerView"
         :img_src="placeholder.img_src"
         :text="placeholder.text"
         :path_name="placeholder.cta.path_name"
@@ -15,6 +15,8 @@
         :pet_name="pet_name"
         :pet_id="pet_id"
     />
+
+    <p v-else-if="!observation && !ownerView">No se encutran notas para esta mascota.</p>
 
     <div v-else class="medical-container-body">
       <p>{{ observation }}</p>
@@ -45,6 +47,10 @@ export default {
     pet_id: {
       type: Number,
       required: true,
+    },
+    ownerView: {
+      type: Boolean,
+      default: false,
     }
   },
 }

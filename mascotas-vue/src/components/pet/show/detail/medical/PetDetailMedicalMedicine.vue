@@ -5,7 +5,7 @@
     </div>
 
     <Placeholder
-        v-if="medicines.length === 0"
+        v-if="medicines.length === 0 && ownerView"
         :img_src="placeholder.img_src"
         :text="placeholder.text"
         :path_name="placeholder.cta.path_name"
@@ -14,11 +14,14 @@
         :pet_id="pet_id"
     />
 
+    <p v-else-if="medicines.length === 0 && !ownerView">No se registran medicamentos para esta mascota.</p>
+
     <div v-else class="medical-container-body">
       <MedicineItem
           v-for="medicine in medicines"
           :key="medicine.id"
           :medicine="medicine"
+          :ownerView="ownerView"
           @delete="sendDelete"
       />
 
@@ -59,6 +62,10 @@ export default {
       type: Number,
       required: true,
     },
+    ownerView: {
+      type: Boolean,
+      default: false,
+    }
   },
   methods: {
     sendDelete(medicine_id) {

@@ -9,11 +9,11 @@
         <span class="weight-date"> ({{ formatDate(weights[0].date) }})</span>
       </div>
 
-      <router-link v-if="weights.length > 0" :to="{name: 'WeightList', params: {pet_id: pet_id}}">Ver más</router-link>
+      <router-link v-if="weights.length > 0" :to="{name: weightListName, params: {pet_id: pet_id}}">Ver más</router-link>
     </div>
 
     <Placeholder
-        v-if="weights.length === 0"
+        v-if="weights.length === 0 && ownerView"
         :img_src="placeholder.img_src"
         :text="placeholder.text"
         :path_name="placeholder.cta.path_name"
@@ -21,6 +21,8 @@
         :pet_name="pet_name"
         :pet_id="pet_id"
     />
+
+    <p v-else-if="weights.length === 0 && !ownerView">No se registra ningun peso para esta mascota.</p>
 
     <div v-else class="medical-container-body">
       <ul>
@@ -62,6 +64,10 @@ export default {
     pet_id: {
       type: Number,
       required: true,
+    },
+    ownerView: {
+      type: Boolean,
+      default: false,
     }
   },
   data() {
@@ -70,5 +76,10 @@ export default {
       displayWeight
     }
   },
+  computed: {
+    weightListName() {
+      return this.ownerView ? 'WeightListOwner' : 'WeightList';
+    }
+  }
 }
 </script>

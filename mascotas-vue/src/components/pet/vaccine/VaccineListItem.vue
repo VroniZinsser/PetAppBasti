@@ -6,7 +6,7 @@
       <p><span class="sr-only">Fecha: </span>{{ formatDate(vaccine.date) }}</p>
     </div>
 
-    <div class="actions">
+    <div v-if="ownerView" class="actions">
       <router-link
           :to="{name: 'VaccineFormEdit', params: {pet_id: this.$route.params.pet_id, vaccine_id : vaccine.id}}"
       >
@@ -39,6 +39,10 @@ export default {
     vaccine: {
       type: Object,
       required: true,
+    },
+    ownerView: {
+      type: Boolean,
+      default: false,
     }
   },
   data() {

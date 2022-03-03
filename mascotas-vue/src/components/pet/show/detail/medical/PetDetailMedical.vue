@@ -5,6 +5,7 @@
         :placeholder="placeholder.weight"
         :pet_name="pet.name"
         :pet_id="pet.id"
+        :ownerView="ownerView"
     />
 
     <Medicine
@@ -13,6 +14,7 @@
         :pet_name="pet.name"
         :pet_id="pet.id"
         @delete="prepareDeleteMedicine"
+        :ownerView="ownerView"
     />
 
     <Observation
@@ -20,6 +22,7 @@
         :placeholder="placeholder.observation"
         :pet_name="pet.name"
         :pet_id="pet.id"
+        :ownerView="ownerView"
     />
 
     <Vaccine
@@ -27,6 +30,7 @@
         :placeholder="placeholder.vaccine"
         :pet_name="pet.name"
         :pet_id="pet.id"
+        :ownerView="ownerView"
     />
 
     <WarnDialog
@@ -56,6 +60,10 @@ export default {
       type: Object,
       required: true,
     },
+    ownerView: {
+      type: Boolean,
+      default: false,
+    }
   },
   components: {
     WarnDialog,

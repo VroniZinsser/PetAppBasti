@@ -9,7 +9,7 @@
         <span class="card-date">{{medicineDate}}</span>
       </div>
 
-      <div class="drop-drown-container">
+      <div v-if="ownerView" class="drop-drown-container">
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
             <v-btn
@@ -59,6 +59,10 @@ export default {
     medicine: {
       type: Object,
       required: true
+    },
+    ownerView: {
+      type: Boolean,
+      default: false,
     }
   },
   data() {

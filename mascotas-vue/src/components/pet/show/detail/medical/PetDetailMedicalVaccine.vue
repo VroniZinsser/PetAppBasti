@@ -3,13 +3,13 @@
     <div class="medical-container-header">
       <h2>Vacunas</h2>
 
-      <router-link v-if="vaccines.length > 0" :to="{name: 'VaccineList', params: {pet_id: pet_id}}">
+      <router-link v-if="vaccines.length > 0" :to="{name: vaccineListName, params: {pet_id: pet_id}}">
         Ver más
       </router-link>
     </div>
 
     <Placeholder
-        v-if="vaccines.length === 0"
+        v-if="vaccines.length === 0 && ownerView"
         :img_src="placeholder.img_src"
         :text="placeholder.text"
         :path_name="placeholder.cta.path_name"
@@ -17,7 +17,7 @@
         :pet_name="pet_name"
         :pet_id="pet_id"
     />
-
+    <p v-else-if="vaccines.length === 0 && !ownerView">Esta mascota no tiene ninguna vacuna agregada.</p>
     <div v-else class="medical-container-body">
       <VaccineItem
           v-for="vaccine in vaccines"
@@ -54,7 +54,17 @@ export default {
     pet_id: {
       type: Number,
       required: true,
+    },
+    ownerView: {
+      type: Boolean,
+      default: false,
     }
   },
+
+  computed: {
+    vaccineListName() {
+      return this.ownerView ? 'VaccineListOwner' : 'VaccineList';
+    }
+  }
 }
 </script>

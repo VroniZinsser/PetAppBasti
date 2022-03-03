@@ -6,7 +6,7 @@
       <p><span class="sr-only">Fecha: </span>{{ formatDate(weight.date) }}</p>
     </div>
 
-    <div class="actions">
+    <div v-if="ownerView" class="actions">
       <router-link :to="{name: 'WeightFormEdit', params: {pet_id: this.$route.params.pet_id, weight_id : weight.id}}">
         <span class="sr-only">Editar peso de {{ displayWeight(weight.weight) }} (icono </span>
 
@@ -37,6 +37,10 @@ export default {
     weight: {
       type: Object,
       required: true,
+    },
+    ownerView: {
+      type: Boolean,
+      default: false,
     }
   },
   data() {
