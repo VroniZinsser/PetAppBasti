@@ -22,7 +22,7 @@ import PetForm from "@/components/pet/PetForm";
 import petServices from "@/services/pets";
 import store from "@/store";
 import TheLoader from "@/components/general/layout/TheLoader";
-import {handleAccessError} from "@/helpers";
+import {handleAccessError, handleAuthenticationError} from "@/helpers";
 
 export default {
   name: "PetEditForm",
@@ -37,11 +37,14 @@ export default {
     species: [],
     pet: null,
     handleAccessError,
+    handleAuthenticationError,
     store,
   }),
   mounted() {
     petServices.createForm()
         .then(res => {
+          if (this.handleAuthenticationError(res)) return;
+
           this.sexes = res.data.sexes;
 
           this.species = res.data.species;

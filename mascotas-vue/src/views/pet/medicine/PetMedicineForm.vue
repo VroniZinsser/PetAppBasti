@@ -19,6 +19,7 @@
 import BaseFormContainer from "@/components/general/form/BaseFormContainer";
 import MedicineForm from '@/components/pet/medicine/MedicineForm';
 import medicineServices from "@/services/medicines";
+import {handleAuthenticationError} from "@/helpers";
 
 export default {
   name: "PetMedicineForm",
@@ -31,6 +32,7 @@ export default {
       loading: true,
       hours: [],
       medicine: null,
+      handleAuthenticationError,
     }
   },
   computed: {
@@ -42,6 +44,8 @@ export default {
     if (this.$route.params.medicine_id) {
       medicineServices.updateForm(this.$route.params.medicine_id)
           .then(res => {
+            if (this.handleAuthenticationError(res)) return;
+
             this.medicine = res.data.medicine;
 
             this.hours = res.data.hours;
@@ -51,6 +55,8 @@ export default {
     } else {
       medicineServices.createForm()
           .then(res => {
+            if (this.handleAuthenticationError(res)) return;
+
             this.hours = res.data.hours;
 
             this.loading = false;

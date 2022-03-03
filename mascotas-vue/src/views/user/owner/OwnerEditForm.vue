@@ -14,7 +14,7 @@ import BaseFormContainer from "@/components/general/form/BaseFormContainer";
 import OwnerSignUpForm from "@/components/auth/signUp/OwnerSignUpForm";
 import store from "@/store";
 import userService from "@/services/users"
-import {handleAccessError} from "@/helpers";
+import {handleAccessError, handleAuthenticationError} from "@/helpers";
 
 export default {
   name: "OwnerEditForm",
@@ -27,13 +27,15 @@ export default {
     user: null,
     store,
     handleAccessError,
+    handleAuthenticationError,
   }),
   mounted() {
     userService.getUserById(this.store.user.id)
         .then(res => {
-          if (res.data.user) {
-            this.user = res.data.user;
-          } else {
+          if (!res.data) {
+            this.loading = false;
+
+            if (this.handleAuthenticationError(res)) return;
             if (this.handleAccessError(res)) return;
 
             this.store.setStatus({
@@ -42,8 +44,9 @@ export default {
             });
 
             this.$router.go(-1);
-          }
-          this.loading = false;
+          } else {
+            this.user = res.data.user;
+          } 
         })
   }
 }

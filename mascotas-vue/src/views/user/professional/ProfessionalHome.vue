@@ -35,7 +35,7 @@ import ProfessionalShareList from "@/components/contact/list/ProfessionalShareLi
 import store from "@/store";
 import TheLoader from "@/components/general/layout/TheLoader";
 import TitleBar from "@/components/general/layout/TitleBar";
-import {handleAccessError} from "@/helpers";
+import {handleAccessError, handleAuthenticationError} from "@/helpers";
 
 export default {
   name: "ProfessionalHome",
@@ -54,6 +54,7 @@ export default {
       authenticatedUser: [],
       me: null,
       handleAccessError,
+      handleAuthenticationError,
     }
   },
   computed:{
@@ -66,6 +67,7 @@ export default {
 
     authService.me()
         .then(res => {
+          if (this.handleAuthenticationError(res)) return;
           this.me = res.data.user;
 
           contactService.getProfessionalSharedPets()

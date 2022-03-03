@@ -18,7 +18,7 @@ import BaseFormContainer from "@/components/general/form/BaseFormContainer";
 import ObservationForm from "@/components/pet/observation/ObservationForm";
 import petServices from "@/services/pets";
 import TheLoader from "@/components/general/layout/TheLoader";
-import {handleAccessError} from "@/helpers";
+import {handleAccessError, handleAuthenticationError} from "@/helpers";
 
 export default {
   name: "PetObservationForm",
@@ -31,15 +31,17 @@ export default {
     loading: true,
     observation: null,
     handleAccessError,
+    handleAuthenticationError,
   }),
   mounted() {
     petServices.getObservation(this.$route.params.pet_id)
         .then(res => {
-          if (this.handleAccessError(res)) return;
-
           this.loading = false
 
-          if (res.success) {
+          if (!res.success) {
+            if (this.handleAuthenticationError(res)) return;
+            if (this.handleAccessError(res)) return;
+          } else {
             this.observation = res.data.observation;
           }
         })

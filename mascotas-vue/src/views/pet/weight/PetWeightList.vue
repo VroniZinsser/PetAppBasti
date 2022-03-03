@@ -47,7 +47,7 @@ import store from "@/store";
 import TheLoader from "@/components/general/layout/TheLoader";
 import WeightList from "@/components/pet/weight/WeightList";
 import weightService from "@/services/weights";
-import {handleAccessError, displayWeight, formatDate} from "@/helpers";
+import {handleAccessError, handleAuthenticationError, displayWeight, formatDate} from "@/helpers";
 
 export default {
   name: "PetWeightList",
@@ -69,6 +69,7 @@ export default {
       wToDelete: null,
       showWarnDialog: false,
       handleAccessError,
+      handleAuthenticationError,
       buttonLinkData: [
         {
           icon: 'fitness_center',
@@ -84,7 +85,10 @@ export default {
     if (this.$route.params.pet_id) {
       petServices.getWeights(this.$route.params.pet_id)
           .then(res => {
+            if (this.handleAuthenticationError(res)) return;
+
             this.weights = res.data.weights;
+
             this.loading = false
           })
     }

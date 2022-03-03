@@ -49,6 +49,7 @@ import petServices from "@/services/pets";
 import store from "@/store";
 import TheLoader from "@/components/general/layout/TheLoader";
 import TitleBar from "@/components/general/layout/TitleBar";
+import {handleAuthenticationError} from "@/helpers";
 
 export default {
   name: "PetList",
@@ -65,6 +66,7 @@ export default {
     loading: true,
     pets: null,
     activePet: null,
+    handleAuthenticationError,
     buttonLinkData: [
       {
         icon: 'pets',
@@ -121,6 +123,8 @@ export default {
 
       petServices.getOwnerPets()
           .then(res => {
+            if (this.handleAuthenticationError(res)) return;
+
             this.pets = res.data.pets;
 
             if (this.pets !== null && this.pets.length > 0) {

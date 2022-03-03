@@ -50,6 +50,7 @@ import ExploreFilterByType from "@/components/geolocation/filter/ExploreFilterBy
 import Map from "@/components/geolocation/ProfessionalMap";
 import store from "@/store";
 import userService from "@/services/users";
+import {handleAuthenticationError} from "@/helpers";
 
 export default {
   name: "ProfessionalExplore",
@@ -70,10 +71,12 @@ export default {
     store,
     selectedProfessionalId: null,
     loading: true,
+    handleAuthenticationError,
   }),
   mounted() {
     userService.getProfessionalUserTypes()
         .then(res => {
+          if (this.handleAuthenticationError(res)) return;
           this.userTypes = res.data.user_types;
 
           this.userTypes.unshift({
@@ -84,6 +87,8 @@ export default {
           userService.getProfessionals()
               .then(res => {
                 this.loading = false;
+
+                if (this.handleAuthenticationError(res)) return;
 
                 this.professionals = res.data.users;
 

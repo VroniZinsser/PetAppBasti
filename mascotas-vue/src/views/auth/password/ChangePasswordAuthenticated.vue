@@ -43,6 +43,7 @@ import InputText from "@/components/general/input/InputText";
 import InputPassword from "@/components/general/input/InputPassword";
 import store from "@/store";
 import TheLoader from "@/components/general/layout/TheLoader";
+import {handleAccessError, handleAuthenticationError} from "@/helpers";
 
 export default {
   name: "ChangePasswordAuthenticated",
@@ -58,6 +59,8 @@ export default {
       loading: false,
       store,
       showFinalMessage: false,
+      handleAccessError,
+      handleAuthenticationError,
       formData: {
         currentPassword: null,
         newPassword: null,
@@ -84,6 +87,8 @@ export default {
           .then(res => {
             this.loading = false;
             if (!res.success) {
+              if (this.handleAuthenticationError(res)) return;
+              if (this.handleAccessError(res)) return;
               if (res.errors) {
                 this.errors = {
                   ...res.errors

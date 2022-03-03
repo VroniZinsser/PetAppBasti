@@ -18,7 +18,7 @@
 import BaseFormContainer from "@/components/general/form/BaseFormContainer";
 import VaccineForm from "@/components/pet/vaccine/VaccineForm";
 import vaccineService from "@/services/vaccines";
-import {handleAccessError} from "@/helpers";
+import {handleAccessError, handleAuthenticationError} from "@/helpers";
 
 export default {
   name: "PetVaccineForm",
@@ -31,6 +31,7 @@ export default {
       loading: true,
       vaccine: null,
       handleAccessError,
+      handleAuthenticationError,
     }
   },
   computed: {
@@ -42,11 +43,12 @@ export default {
     if (this.$route.params.vaccine_id) {
       vaccineService.find(this.$route.params.vaccine_id)
           .then(res => {
+            this.loading = false;
+
+            if (this.handleAuthenticationError(res)) return;
             if (this.handleAccessError(res)) return;
 
             this.vaccine = res.data.vaccine;
-
-            this.loading = false;
           })
     } else {
       this.loading = false;

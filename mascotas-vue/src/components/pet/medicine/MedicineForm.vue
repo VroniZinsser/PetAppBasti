@@ -227,6 +227,7 @@ export default {
                 this.loading = false;
 
                 if (!res.success) {
+                  if (this.handleAccessError(res)) return;
                   if (res.errors && res.errors.pet_id) {
                     this.store.setStatus({
                       msg: 'La mascota no existe.',
