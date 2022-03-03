@@ -15,6 +15,7 @@
           :error="errors !== null"
           :messages="errors ? errors[0] : ''"
           :disabled="loading"
+          :label="label"
           outlined
           prepend-inner-icon="mdi-calendar"
           color="#3fb094"
@@ -67,6 +68,11 @@ export default {
       dateFormatted: formatDate(this.initialDate),
       datePicker: false,
       date: this.initialDate
+    }
+  },
+  computed: {
+    label() {
+      return this.$attrs.label + (this.$attrs.required === '' ? ' *' : '')
     }
   },
   watch: {

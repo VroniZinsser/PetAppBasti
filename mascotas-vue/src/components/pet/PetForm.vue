@@ -53,6 +53,7 @@
         label="Fecha de nacimiento"
         identifier="date_of_birth"
         @update-date="updateDate"
+        required
     />
 
     <v-select
