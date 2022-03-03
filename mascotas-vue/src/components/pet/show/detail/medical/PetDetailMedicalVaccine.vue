@@ -67,7 +67,7 @@ export default {
       return !this.store.user.is_professional;
     },
     vaccineListName() {
-      return this.isOwner ? 'VaccineListOwner' : 'VaccineList';
+      return this.isOwner ? 'VaccineList' : 'VaccineListShared';
     },
     hasVaccines() {
       return this.vaccines.length > 0;

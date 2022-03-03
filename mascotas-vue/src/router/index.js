@@ -206,39 +206,35 @@ const routes = [
         },
     },
     {
-        path: '/mascotas/:pet_id/pesos/amo',
-        name: 'WeightListOwner',
-        component: PetWeightList,
-        meta: {
-            requiresAuth: true,
-            ownerView: true,
-        },
-    },
-    {
-        path: '/mascotas/compartidas/:pet_id/pesos',
+        path: '/mascotas/:pet_id/pesos',
         name: 'WeightList',
         component: PetWeightList,
         meta: {
             requiresAuth: true,
-            ownerView: false,
         },
     },
     {
-        path: '/mascotas/:pet_id/vacunas/amo',
-        name: 'VaccineListOwner',
-        component: PetVaccineList,
+        path: '/mascotas/compartidas/:pet_id/pesos',
+        name: 'WeightListShared',
+        component: PetWeightList,
         meta: {
             requiresAuth: true,
-            ownerView: true,
         },
     },
     {
-        path: '/mascotas/compartidas/:pet_id/vacunas',
+        path: '/mascotas/:pet_id/vacunas',
         name: 'VaccineList',
         component: PetVaccineList,
         meta: {
             requiresAuth: true,
-            ownerView: false,
+        },
+    },
+    {
+        path: '/mascotas/compartidas/:pet_id/vacunas',
+        name: 'VaccineListShared',
+        component: PetVaccineList,
+        meta: {
+            requiresAuth: true,
         },
     },
     {

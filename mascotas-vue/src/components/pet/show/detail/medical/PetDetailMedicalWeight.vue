@@ -79,7 +79,7 @@ export default {
       return !this.store.user.is_professional;
     },
     weightListName() {
-      return this.isOwner ? 'WeightListOwner' : 'WeightList';
+      return this.isOwner ? 'WeightList' : 'WeightListShared';
     },
     hasWeights() {
       return this.weights.length > 0;
