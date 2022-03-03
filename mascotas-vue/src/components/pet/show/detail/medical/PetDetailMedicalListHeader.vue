@@ -1,16 +1,18 @@
 <template>
   <header>
-    <router-link :to="{name: 'Pets'}">
-      <span class="sr-only">Volver al listado de mascotas</span>
+    <a @click="$router.back()">
+      <span class="sr-only">Volver a la página anterior</span>
 
       <span class="material-icons">arrow_back</span>
-    </router-link>
+    </a>
 
     <h1>{{ title }}</h1>
   </header>
 </template>
 
 <script>
+import store from "@/store";
+
 export default {
   name: "PetDetailMedicalListHeader",
   props: {
@@ -19,5 +21,15 @@ export default {
       required: true,
     }
   },
+  data() {
+    return {
+      store
+    }
+  },
+  computed: {
+    isOwner() {
+      return !this.store.user.is_professional;
+    },
+  }
 }
 </script>

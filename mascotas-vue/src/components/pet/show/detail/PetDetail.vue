@@ -25,11 +25,16 @@
     </div>
 
     <div :class="containerDetailClass">
-      <PetMedicalInfo :pet="pet"></PetMedicalInfo>
+      <PetMedicalInfo 
+        :pet="pet"
+      />
     </div>
 
     <div :class="containerProfileClass">
-      <PetProfile :pet="pet" @deleted="$emit('deleted')"></PetProfile>
+      <PetProfile 
+        :pet="pet"
+        @deleted="$emit('deleted')"
+      />
     </div>
   </div>
 </template>
@@ -49,7 +54,7 @@ export default {
     pet: {
       type: Object,
       required: true,
-    },
+    }
   },
   data() {
     return {

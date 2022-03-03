@@ -136,4 +136,14 @@ class Pet extends Model
     {
         return $this->hasMany(Weight::class, 'pets_id');
     }
+
+    /**
+     * Returns all requests to share this pet
+     *
+     * @return HasMany
+     */
+    public function shareRequests(): HasMany
+    {
+        return $this->hasMany(SharedPet::class, 'pets_id');
+    }
 }

@@ -54,7 +54,12 @@ const handleAccessError = function(res) {
             msg: "Esta acción no está habilitada para tu cuenta.",
             type: 'error',
         });
-        router.back();
+
+        if (store.user.is_professional) {
+            router.push({ name: 'HomeProfessional' });
+        } else {
+            router.push({ name: 'Pets' });
+        }
     }
     return hasError;
 }

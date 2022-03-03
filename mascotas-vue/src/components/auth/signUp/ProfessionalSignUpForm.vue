@@ -299,7 +299,33 @@ export default {
       loading: false,
       store,
       photo: null,
-      formData: {},
+      formData: {
+        first_name: null,
+        last_name: null,
+        email: null,
+        email_visible: false,
+        password: null,
+        country: null,
+        state: null,
+        city: null,
+        postal_code: null,
+        district: null,
+        street: null,
+        house_number: null,
+        apartment: null,
+        location_id: null,
+        latitude: null,
+        longitude: null,
+        dni: null,
+        public_name: null,
+        description: null,
+        whatsapp: null,
+        instagram: null,
+        facebook: null,
+        web: null,
+        user_types: [],
+        photo: null
+      },
       errors: {},
       createImgPath,
       handleAccessError,
@@ -358,9 +384,8 @@ export default {
     },
   },
   mounted() {
-    if (this.createNewUser) {
-      this.resetFormData();
-    } else {
+    this.resetErrors();
+    if (!this.createNewUser) {
       this.formData = {
         ...this.professional
       }
@@ -502,39 +527,6 @@ export default {
         facebook: null,
         web: null,
         user_types: null,
-        photo: null
-      }
-    },
-
-    /**
-     Sets default values to formData
-     */
-    resetFormData() {
-      this.formData = {
-        first_name: "Alejo",
-        last_name: "Gómez",
-        email: "alejo.gomez@test.com",
-        email_visible: false,
-        password: "sdfoew3534+#a",
-        country: null,
-        state: null,
-        city: null,
-        postal_code: null,
-        district: null,
-        street: null,
-        house_number: null,
-        apartment: null,
-        location_id: null,
-        latitude: null,
-        longitude: null,
-        dni: "78473258",
-        public_name: "Veterinario Alejo y Hermanos",
-        description: null,
-        whatsapp: "9112345678",
-        instagram: "AlejoVet",
-        facebook: null,
-        web: null,
-        user_types: [5, 6],
         photo: null
       }
     },

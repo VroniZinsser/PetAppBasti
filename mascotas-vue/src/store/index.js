@@ -86,7 +86,8 @@ const store = {
             email: null,
             first_name: null,
             last_name: null,
-            profile_image: null
+            profile_image: null,
+            is_professional: false
         }
     },
     /**

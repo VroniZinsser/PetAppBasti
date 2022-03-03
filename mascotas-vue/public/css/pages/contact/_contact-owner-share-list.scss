@@ -27,6 +27,15 @@
             border-bottom: 0;
         }
 
+        a {
+            color: map.get($theme-colors, "info");
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
         .theme--light.v-expansion-panels .v-expansion-panel--disabled {
             color: black;
         }
@@ -61,8 +70,14 @@
                 min-width: 300px;
             }
 
-            & > div {
+            .shared-pet-overview {
                 display: flex;
+
+                a {
+                    @include desktop-up {
+                        color: black;
+                    }
+                }
             }
 
             img {
@@ -110,6 +125,18 @@
                     margin-bottom: $spacing-sm;
                     font-size: 14px;
 
+                }
+            }
+
+            .pet-profile-link {
+                font-size: 15px;
+                margin-left: 2rem;
+                font-weight: 500;
+
+                display: none;
+
+                @include desktop-up {
+                    display: inline-block;
                 }
             }
 

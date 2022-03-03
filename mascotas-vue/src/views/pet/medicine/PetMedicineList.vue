@@ -11,7 +11,7 @@
         :title="store.status.title"
     />
 
-    <BaseButtonCircleLinkList :button-link-data="buttonLinkData"/>
+    <BaseButtonCircleLinkList v-if="isOwner" :button-link-data="buttonLinkData"/>
 
     <template v-if="medicines.length > 0">
       <MedicineList :medicines="medicines" @delete="prepareDeleteMedicine"/>
@@ -70,15 +70,20 @@ export default {
       ],
     }
   },
+  computed: {
+    isOwner() {
+      return !this.store.user.is_professional;
+    }
+  },
   mounted() {
     if (this.$route.params.pet_id) {
       petServices.getMedicines(this.$route.params.pet_id)
           .then(res => {
+            this.loading = false
+
             if (this.handleAuthenticationError(res)) return;
 
             this.medicines = res.data.medicines;
-
-            this.loading = false
           })
     }
   },
@@ -99,7 +104,11 @@ export default {
       this.loading = true;
 
       medicineService.delete(this.mToDelete)
-          .then(() => {
+          .then(res => {
+            this.loading = false
+
+            if (this.handleAccessError(res)) return;
+
             this.medicines = this.medicines.filter(medicine => medicine.id !== this.mToDelete);
 
             this.$emit('create-notification', 'success', 'El medicamento se eliminó con éxito');
@@ -107,8 +116,6 @@ export default {
             this.mToDelete = null;
 
             this.showWarnDialog = false;
-
-            this.loading = false
           })
     }
   },

@@ -9,7 +9,7 @@
         <span class="card-date">{{medicineDate}}</span>
       </div>
 
-      <div class="drop-drown-container">
+      <div v-if="isOwner" class="drop-drown-container">
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
             <v-btn
@@ -52,6 +52,7 @@
 
 <script>
 import {formatDate} from "@/helpers";
+import store from "@/store";
 
 export default {
   name: "PetDetailMedicalMedicineItem",
@@ -64,6 +65,7 @@ export default {
   data() {
     return {
       formatDate: formatDate,
+      store,
     }
   },
   computed: {
@@ -85,6 +87,10 @@ export default {
 
     medicineDate(){
       return `${ formatDate(this.medicine.start_date) } - ${ formatDate(this.medicine.end_date) }`
+    },
+
+    isOwner() {
+      return !this.store.user.is_professional;
     }
   }
 }

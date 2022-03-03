@@ -12,6 +12,7 @@ import OwnerSignUp from "../views/auth/signUp/OwnerSignUp";
 import Pets from "../views/pet/PetList";
 import PetAddForm from "../views/pet/PetAddForm";
 import PetEditForm from "../views/pet/PetEditForm";
+import PetShared from "../views/pet/PetShared";
 import OwnerEdit from "../views/user/owner/OwnerEditForm";
 import ProfessionalEdit from "../views/user/professional/ProfessionalEditForm";
 import ProfessionalHome from "../views/user/professional/ProfessionalHome";
@@ -173,6 +174,14 @@ const routes = [
         },
     },
     {
+        path: '/mascotas/compartidas/:pet_id',
+        name: 'PetShared',
+        component: PetShared,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
         path: '/mascotas/:pet_id/observacion',
         name: 'ObservationForm',
         component: PetObservationForm,
@@ -205,8 +214,24 @@ const routes = [
         },
     },
     {
+        path: '/mascotas/compartidas/:pet_id/pesos',
+        name: 'WeightListShared',
+        component: PetWeightList,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
         path: '/mascotas/:pet_id/vacunas',
         name: 'VaccineList',
+        component: PetVaccineList,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/mascotas/compartidas/:pet_id/vacunas',
+        name: 'VaccineListShared',
         component: PetVaccineList,
         meta: {
             requiresAuth: true,

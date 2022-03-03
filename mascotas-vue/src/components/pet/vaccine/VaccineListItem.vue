@@ -6,7 +6,7 @@
       <p><span class="sr-only">Fecha: </span>{{ formatDate(vaccine.date) }}</p>
     </div>
 
-    <div class="actions">
+    <div v-if="isOwner" class="actions">
       <router-link
           :to="{name: 'VaccineFormEdit', params: {pet_id: this.$route.params.pet_id, vaccine_id : vaccine.id}}"
       >
@@ -32,6 +32,7 @@
 
 <script>
 import {formatDate} from "@/helpers";
+import store from "@/store";
 
 export default {
   name: "VaccineListItem",
@@ -43,8 +44,14 @@ export default {
   },
   data() {
     return {
-      formatDate
+      formatDate,
+      store,
     }
   },
+  computed: {
+    isOwner() {
+      return !this.store.user.is_professional;
+    }
+  }
 }
 </script>

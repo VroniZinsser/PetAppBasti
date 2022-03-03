@@ -11,7 +11,7 @@
         :title="store.status.title"
     />
 
-    <BaseButtonCircleLinkList :button-link-data="buttonLinkData"/>
+    <BaseButtonCircleLinkList v-if="isOwner" :button-link-data="buttonLinkData"/>
 
     <template v-if="weights.length > 0">
       <div class="actual-weight">
@@ -22,7 +22,9 @@
         <span class="weight-date"> ({{ formatDate(weights[0].date) }})</span>
       </div>
 
-      <WeightList :weights="weights" @delete="prepareDeleteWeight"/>
+      <WeightList 
+        :weights="weights"
+        @delete="prepareDeleteWeight"/>
 
       <BaseDialogWarn
           :showDialog="showWarnDialog"
@@ -81,15 +83,21 @@ export default {
       ],
     }
   },
+
+  computed: {
+    isOwner() {
+      return !this.store.user.is_professional;
+    }
+  },
   mounted() {
     if (this.$route.params.pet_id) {
       petServices.getWeights(this.$route.params.pet_id)
           .then(res => {
+            this.loading = false
+
             if (this.handleAuthenticationError(res)) return;
 
             this.weights = res.data.weights;
-
-            this.loading = false
           })
     }
   },
@@ -111,6 +119,8 @@ export default {
 
       weightService.delete(this.wToDelete)
           .then((res) => {
+            this.loading = false
+
             if (this.handleAccessError(res)) return;
 
             this.weights = this.weights.filter(weight => weight.id !== this.wToDelete);
@@ -120,8 +130,6 @@ export default {
             this.wToDelete = null;
 
             this.showWarnDialog = false;
-
-            this.loading = false
           })
     }
   },

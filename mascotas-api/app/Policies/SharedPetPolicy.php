@@ -68,16 +68,8 @@ class SharedPetPolicy
     {
         $authorizedProfessional = $user->is_professional && $user->id === $sharedPet->professionals_id;
         $authorizedOwner = !$user->is_professional && $user->id === $sharedPet->owners_id;
-        $requestValid = $sharedPet->expiration_date >= now()->format("Y-m-d");
 
-        // Professionals can only remove requests that are not accepted already
-        if ($authorizedProfessional && $requestValid && !$sharedPet->accepted) {
-            return true;
-        } elseif($authorizedOwner && $requestValid) {
-            return true;
-        }
-
-        return false;
+        return $authorizedProfessional || $authorizedOwner;
     }
 
     /**

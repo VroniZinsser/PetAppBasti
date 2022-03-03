@@ -10,14 +10,25 @@
     />
 
     <v-expansion-panel-header>
-      <div>
-        <img :src="createImgPath(pet.image.src)" :alt="pet.image.alt"/>
+      
+      <div class="shared-pet-overview">
+        <router-link v-if="!professionalName" :to="{name: 'PetShared', params: {'pet_id': pet.id}}">
+          <img :src="createImgPath(pet.image.src)" :alt="pet.image.alt"/>
+        </router-link>
+        
+        <img v-else :src="createImgPath(pet.image.src)" :alt="pet.image.alt"/>
 
         <div class="pet-container">
-          <p class="pet-name">{{ petName }}</p>
+          <router-link v-if="!professionalName" :to="{name: 'PetShared', params: {'pet_id': pet.id}}">
+            <p class="pet-name">{{ petName }}</p>
+          </router-link>
+
+          <p v-else class="pet-name">{{ petName }}</p>
           <p class="expiration">{{ expirationText }}</p>
         </div>
+        
       </div>
+      
     </v-expansion-panel-header>
 
     <v-expansion-panel-content>
@@ -32,6 +43,8 @@
 
         {{ buttonText }}
       </button>
+
+      <router-link v-if="!professionalName" :to="{name: 'PetShared', params: {'pet_id': pet.id}}" class="default-link pet-profile-link">Ir al perfil</router-link>
     </v-expansion-panel-content>
   </v-expansion-panel>
 </template>
@@ -73,7 +86,7 @@ export default {
     },
 
     petName() {
-      return this.professionalName ? this.pet.name : `${this.owner.first_name} ${this.owner.last_name}: ${this.pet.name}`;
+      return this.professionalName ? this.pet.name : `${this.pet.name} - ${this.owner.first_name} ${this.owner.last_name}`;
     },
 
     /**
