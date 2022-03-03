@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TitleBar title="Perfil de"/>
+    <TitleBar :title="loading ? '' : 'Perfil de ' + pet.name"/>
 
     <TheLoader v-if="loading"/>
 

@@ -27,6 +27,15 @@
             border-bottom: 0;
         }
 
+        a {
+            color: map.get($theme-colors, "info");
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
         .theme--light.v-expansion-panels .v-expansion-panel--disabled {
             color: black;
         }

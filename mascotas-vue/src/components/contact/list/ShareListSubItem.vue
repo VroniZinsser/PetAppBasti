@@ -10,18 +10,25 @@
     />
 
     <v-expansion-panel-header>
-      <router-link :to="{name: 'PetShared', params: {'pet_id': pet.id}}">
+      
       <div class="shared-pet-overview">
+        <router-link v-if="!professionalName" :to="{name: 'PetShared', params: {'pet_id': pet.id}}">
+          <img :src="createImgPath(pet.image.src)" :alt="pet.image.alt"/>
+        </router-link>
         
-        <img :src="createImgPath(pet.image.src)" :alt="pet.image.alt"/>
+        <img v-else :src="createImgPath(pet.image.src)" :alt="pet.image.alt"/>
 
         <div class="pet-container">
-          <p class="pet-name">{{ petName }}</p>
+          <router-link v-if="!professionalName" :to="{name: 'PetShared', params: {'pet_id': pet.id}}">
+            <p class="pet-name">{{ petName }}</p>
+          </router-link>
+
+          <p v-else class="pet-name">{{ petName }}</p>
           <p class="expiration">{{ expirationText }}</p>
         </div>
         
       </div>
-      </router-link>
+      
     </v-expansion-panel-header>
 
     <v-expansion-panel-content>

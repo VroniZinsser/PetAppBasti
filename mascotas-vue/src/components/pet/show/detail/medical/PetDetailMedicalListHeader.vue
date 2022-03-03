@@ -1,6 +1,6 @@
 <template>
   <header>
-    <router-link :to="{name: 'Pets'}">
+    <router-link :to="{name: routerBackLink}">
       <span class="sr-only">Volver al listado de mascotas</span>
 
       <span class="material-icons">arrow_back</span>
@@ -19,5 +19,10 @@ export default {
       required: true,
     }
   },
+  computed: {
+    routerBackLink() {
+      return this.$route.meta.ownerView ? 'Pets' : 'HomeProfessional';
+    }
+  }
 }
 </script>

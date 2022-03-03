@@ -3,7 +3,7 @@
     <div class="pet-profile-header">
       <h2>Perfil</h2>
 
-      <Dropdown @deletePet="showWarnDialog = true"/>
+      <Dropdown v-if="ownerView" @deletePet="showWarnDialog = true"/>
     </div>
 
     <div class="pet-profile-body">
