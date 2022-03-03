@@ -21,7 +21,7 @@ import TheLoader from "@/components/general/layout/TheLoader";
 import {handleAccessError} from "@/helpers";
 
 export default {
-  name: "ObservationForm",
+  name: "PetObservationForm",
   components: {
     TheLoader,
     ObservationForm,

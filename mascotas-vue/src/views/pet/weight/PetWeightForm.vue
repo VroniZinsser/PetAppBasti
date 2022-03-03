@@ -21,7 +21,7 @@ import weightService from "@/services/weights";
 import {handleAccessError} from "@/helpers";
 
 export default {
-  name: "WeightForm",
+  name: "PetWeightForm",
   components: {
     WeightForm,
     BaseFormContainer

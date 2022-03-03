@@ -2,7 +2,7 @@
   <TheLoader v-if="loading"/>
 
   <v-container v-else class="medical-list-container">
-    <PetDetailMedicalListHeader title="Vacunas de la mascota"/>
+    <PetDetailMedicalListHeader title="Pesos de la mascota"/>
 
     <BaseNotification
         v-if="store.status.msg != null"
@@ -13,20 +13,27 @@
 
     <BaseButtonCircleLinkList :button-link-data="buttonLinkData"/>
 
-    <template v-if="vaccines.length > 0">
+    <template v-if="weights.length > 0">
+      <div class="actual-weight">
+        <span>Peso actual: </span>
 
-      <VaccineList :vaccines="vaccines" @delete="prepareDeleteVaccine"/>
+        <span class="current-weight">{{ displayWeight(weights[0].weight) }}</span>
+
+        <span class="weight-date"> ({{ formatDate(weights[0].date) }})</span>
+      </div>
+
+      <WeightList :weights="weights" @delete="prepareDeleteWeight"/>
 
       <BaseDialogWarn
           :showDialog="showWarnDialog"
-          dialogTitle="¿Querés eliminar esta vacuna?"
-          acceptButtonText="Borrar vacuna"
+          dialogTitle="¿Querés eliminar este peso?"
+          acceptButtonText="Borrar peso"
           @cancel="cancelDelete"
-          @accept="deleteVaccine"
+          @accept="deleteWeight"
       />
     </template>
 
-    <p v-else>Esta mascota no tiene ninguna vacuna agregada.</p>
+    <p v-else>Esta mascota no tiene ningún peso agregado.</p>
   </v-container>
 </template>
 
@@ -38,34 +45,35 @@ import PetDetailMedicalListHeader from "@/components/pet/show/detail/medical/Pet
 import petServices from "@/services/pets";
 import store from "@/store";
 import TheLoader from "@/components/general/layout/TheLoader";
-import VaccineList from "@/components/pet/vaccine/VaccineList";
-import vaccineService from "@/services/vaccines";
-import {formatDate, handleAccessError} from "@/helpers";
+import WeightList from "@/components/pet/weight/WeightList";
+import weightService from "@/services/weights";
+import {handleAccessError, displayWeight, formatDate} from "@/helpers";
 
 export default {
-  name: "VaccineList",
+  name: "PetWeightList",
   components: {
     PetDetailMedicalListHeader,
-    BaseButtonCircleLinkList,
     BaseDialogWarn,
     BaseNotification,
+    BaseButtonCircleLinkList,
     TheLoader,
-    VaccineList
+    WeightList
   },
   data() {
     return {
-      vaccines: null,
+      weights: null,
       loading: true,
       store,
+      displayWeight,
       formatDate,
-      vToDelete: null,
+      wToDelete: null,
       showWarnDialog: false,
       handleAccessError,
       buttonLinkData: [
         {
-          icon: 'vaccines',
-          text: 'Nueva vacuna',
-          pathName: 'VaccineForm',
+          icon: 'fitness_center',
+          text: 'Nuevo peso',
+          pathName: 'WeightForm',
           pathParams: {pet_id: this.$route.params.pet_id},
           default: true,
         },
@@ -74,39 +82,38 @@ export default {
   },
   mounted() {
     if (this.$route.params.pet_id) {
-      petServices.getVaccines(this.$route.params.pet_id)
+      petServices.getWeights(this.$route.params.pet_id)
           .then(res => {
-            this.vaccines = res.data.vaccines;
-
+            this.weights = res.data.weights;
             this.loading = false
           })
     }
   },
   methods: {
-    prepareDeleteVaccine(vaccine_id) {
-      this.vToDelete = vaccine_id;
+    prepareDeleteWeight(weight_id) {
+      this.wToDelete = weight_id;
 
       this.showWarnDialog = true;
     },
 
     cancelDelete() {
-      this.vToDelete = null;
+      this.wToDelete = null;
 
       this.showWarnDialog = false;
     },
 
-    deleteVaccine() {
+    deleteWeight() {
       this.loading = true;
 
-      vaccineService.delete(this.vToDelete)
+      weightService.delete(this.wToDelete)
           .then((res) => {
             if (this.handleAccessError(res)) return;
 
-            this.vaccines = this.vaccines.filter(vaccine => vaccine.id !== this.vToDelete);
+            this.weights = this.weights.filter(weight => weight.id !== this.wToDelete);
 
-            this.$emit('create-notification', 'success', 'La vacuna se eliminó con éxito');
+            this.$emit('create-notification', 'success', 'El peso se eliminó con éxito');
 
-            this.vToDelete = null;
+            this.wToDelete = null;
 
             this.showWarnDialog = false;
 

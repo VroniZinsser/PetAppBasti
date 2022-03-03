@@ -2,7 +2,7 @@
   <TheLoader v-if="loading"/>
 
   <v-container v-else class="medical-list-container">
-    <PetDetailMedicalListHeader title="Medicamentos de la mascota"/>
+    <PetDetailMedicalListHeader title="Vacunas de la mascota"/>
 
     <BaseNotification
         v-if="store.status.msg != null"
@@ -13,19 +13,20 @@
 
     <BaseButtonCircleLinkList :button-link-data="buttonLinkData"/>
 
-    <template v-if="medicines.length > 0">
-      <MedicineList :medicines="medicines" @delete="prepareDeleteMedicine"/>
+    <template v-if="vaccines.length > 0">
+
+      <VaccineList :vaccines="vaccines" @delete="prepareDeleteVaccine"/>
 
       <BaseDialogWarn
           :showDialog="showWarnDialog"
-          dialogTitle="¿Querés eliminar este medicamento?"
-          acceptButtonText="Borrar medicamento"
+          dialogTitle="¿Querés eliminar esta vacuna?"
+          acceptButtonText="Borrar vacuna"
           @cancel="cancelDelete"
-          @accept="deleteMedicine"
+          @accept="deleteVaccine"
       />
     </template>
 
-    <p v-else>Esta mascota no tiene ningún medicamento agregado.</p>
+    <p v-else>Esta mascota no tiene ninguna vacuna agregada.</p>
   </v-container>
 </template>
 
@@ -33,35 +34,38 @@
 import BaseButtonCircleLinkList from "@/components/general/button/floating/BaseButtonCircleLinkList";
 import BaseDialogWarn from "@/components/general/notification/BaseDialogWarn";
 import BaseNotification from "@/components/general/notification/BaseNotification";
-import MedicineList from "@/components/pet/medicine/MedicineList";
-import medicineService from "@/services/medicines";
 import PetDetailMedicalListHeader from "@/components/pet/show/detail/medical/PetDetailMedicalListHeader";
 import petServices from "@/services/pets";
 import store from "@/store";
 import TheLoader from "@/components/general/layout/TheLoader";
+import VaccineList from "@/components/pet/vaccine/VaccineList";
+import vaccineService from "@/services/vaccines";
+import {formatDate, handleAccessError} from "@/helpers";
 
 export default {
-  name: "MedicineList",
+  name: "PetVaccineList",
   components: {
+    PetDetailMedicalListHeader,
     BaseButtonCircleLinkList,
     BaseDialogWarn,
     BaseNotification,
-    PetDetailMedicalListHeader,
     TheLoader,
-    MedicineList
+    VaccineList
   },
   data() {
     return {
-      medicines: null,
+      vaccines: null,
       loading: true,
       store,
-      mToDelete: null,
+      formatDate,
+      vToDelete: null,
       showWarnDialog: false,
+      handleAccessError,
       buttonLinkData: [
         {
-          icon: 'medication',
-          text: 'Nuevo medicamento',
-          pathName: 'MedicineForm',
+          icon: 'vaccines',
+          text: 'Nueva vacuna',
+          pathName: 'VaccineForm',
           pathParams: {pet_id: this.$route.params.pet_id},
           default: true,
         },
@@ -70,37 +74,39 @@ export default {
   },
   mounted() {
     if (this.$route.params.pet_id) {
-      petServices.getMedicines(this.$route.params.pet_id)
+      petServices.getVaccines(this.$route.params.pet_id)
           .then(res => {
-            this.medicines = res.data.medicines;
+            this.vaccines = res.data.vaccines;
 
             this.loading = false
           })
     }
   },
   methods: {
-    prepareDeleteMedicine(medicine_id) {
-      this.mToDelete = medicine_id;
+    prepareDeleteVaccine(vaccine_id) {
+      this.vToDelete = vaccine_id;
 
       this.showWarnDialog = true;
     },
 
     cancelDelete() {
-      this.mToDelete = null;
+      this.vToDelete = null;
 
       this.showWarnDialog = false;
     },
 
-    deleteMedicine() {
+    deleteVaccine() {
       this.loading = true;
 
-      medicineService.delete(this.mToDelete)
-          .then(() => {
-            this.medicines = this.medicines.filter(medicine => medicine.id !== this.mToDelete);
+      vaccineService.delete(this.vToDelete)
+          .then((res) => {
+            if (this.handleAccessError(res)) return;
 
-            this.$emit('create-notification', 'success', 'El medicamento se eliminó con éxito');
+            this.vaccines = this.vaccines.filter(vaccine => vaccine.id !== this.vToDelete);
 
-            this.mToDelete = null;
+            this.$emit('create-notification', 'success', 'La vacuna se eliminó con éxito');
+
+            this.vToDelete = null;
 
             this.showWarnDialog = false;
 

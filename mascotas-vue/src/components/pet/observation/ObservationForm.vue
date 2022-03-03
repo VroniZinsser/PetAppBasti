@@ -6,7 +6,7 @@
         method="post"
         @submit.prevent="updateObservation"
     >
-    <Textarea
+    <InputTextarea
         v-model="formData.observation"
         :loading="loading"
         :rules="[rules.obligatory]"
@@ -49,14 +49,14 @@
 <script>
 import petServices from "@/services/pets";
 import store from "@/store";
-import Textarea from "@/components/general/input/Textarea";
+import InputTextarea from "@/components/general/input/InputTextarea";
 import WarnDialog from "@/components/general/notification/BaseDialogWarn";
 import {handleAccessError} from "@/helpers";
 
 export default {
   name: "ObservationForm",
   components: {
-    Textarea,
+    InputTextarea,
     WarnDialog,
   },
   props: {

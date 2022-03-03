@@ -23,7 +23,7 @@
 import {createStaticImgPath} from "@/helpers";
 
 export default {
-  name: "Construction",
+  name: "ConstructionPage",
   props: {
     pageName: {
       type: String,

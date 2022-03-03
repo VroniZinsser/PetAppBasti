@@ -47,12 +47,12 @@ import BaseNotification from "@/components/general/notification/BaseNotification
 import ExploreList from "@/components/geolocation/list/ExploreList";
 import ExploreSearchBar from "@/components/geolocation/filter/ExploreSearchBar";
 import ExploreFilterByType from "@/components/geolocation/filter/ExploreFilterByType";
-import Map from "@/components/geolocation/Map";
+import Map from "@/components/geolocation/ProfessionalMap";
 import store from "@/store";
 import userService from "@/services/users";
 
 export default {
-  name: "Explore",
+  name: "ProfessionalExplore",
   components: {
     Map,
     BaseNotification,

@@ -21,7 +21,7 @@ import MedicineForm from '@/components/pet/medicine/MedicineForm';
 import medicineServices from "@/services/medicines";
 
 export default {
-  name: "MedicineForm",
+  name: "PetMedicineForm",
   components: {
     MedicineForm,
     BaseFormContainer,

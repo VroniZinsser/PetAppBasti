@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <Construction
+    <ConstructionPage
         pageName="tu agenda"
         infoText="Aquí podrás ver todas tus tareas, ordenadas por fecha y horario"
     />
@@ -8,12 +8,12 @@
 </template>
 
 <script>
-import Construction from "@/components/general/layout/Construction"
+import ConstructionPage from "@/components/general/layout/ConstructionPage"
 
 export default {
-  name: "Schedule",
+  name: "TaskSchedule",
   components: {
-    Construction
+    ConstructionPage
   }
 }
 </script>

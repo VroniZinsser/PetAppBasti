@@ -1,31 +1,31 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import authService from "@/services/auth";
-import Explore from "../views/explore/Explore";
-import Login from "../views/auth/login/Login";
-import MedicineForm from "../views/pet/medicine/MedicineForm";
+import ProfessionalExplore from "../views/explore/ProfessionalExplore";
+import Login from "../views/auth/login/UserLogin ";
+import PetMedicineForm from "../views/pet/medicine/PetMedicineForm";
 import ResetPasswordForm from "../views/auth/password/ResetPasswordForm";
 import ChangePassword from "../views/auth/password/ChangePassword";
 import ChangePasswordAuthenticated from "../views/auth/password/ChangePasswordAuthenticated";
-import ObservationForm from "../views/pet/observation/ObservationForm";
+import PetObservationForm from "../views/pet/observation/PetObservationForm";
 import OwnerSignUp from "../views/auth/signUp/OwnerSignUp";
 import Pets from "../views/pet/PetList";
 import PetAddForm from "../views/pet/PetAddForm";
 import PetEditForm from "../views/pet/PetEditForm";
-import OwnerEdit from "../views/user/OwnerEditForm";
+import OwnerEdit from "../views/user/owner/OwnerEditForm";
 import ProfessionalEdit from "../views/user/professional/ProfessionalEditForm";
 import ProfessionalHome from "../views/user/professional/ProfessionalHome";
 import ProfessionalSignUp from "../views/auth/signUp/ProfessionalSignUp";
 import ProfessionalProfile from "../views/user/professional/ProfessionalProfile";
-import Schedule from "../views/schedule/Schedule";
+import TaskSchedule from "../views/schedule/TaskSchedule";
 import OwnerShareList from "../views/contact/OwnerShareList";
-import VaccineForm from "../views/pet/vaccine/VaccineForm";
-import WeightForm from "../views/pet/weight/WeightForm";
-import WeightList from "../views/pet/weight/WeightList";
-import VaccineList from "../views/pet/vaccine/VaccineList";
+import PetVaccineForm from "../views/pet/vaccine/PetVaccineForm";
+import PetWeightForm from "../views/pet/weight/PetWeightForm";
+import PetWeightList from "../views/pet/weight/PetWeightList";
+import PetVaccineList from "../views/pet/vaccine/PetVaccineList";
 import AcceptSharedPetRequest from "@/views/contact/SharePetAccept";
 import PageNotFound from "@/views/PageNotFound";
-import MedicineList from "@/views/pet/medicine/MedicineList";
+import PetMedicineList from "@/views/pet/medicine/PetMedicineList";
 
 Vue.use(VueRouter)
 
@@ -38,7 +38,7 @@ const routes = [
     {
         path: '/agenda',
         name: 'Schedule',
-        component: Schedule,
+        component: TaskSchedule,
         meta: {
             requiresAuth: true,
         }
@@ -54,7 +54,7 @@ const routes = [
     {
         path: '/explorar',
         name: 'Explore',
-        component: Explore,
+        component: ProfessionalExplore,
         meta: {
             requiresAuth: true,
         }
@@ -86,7 +86,7 @@ const routes = [
       {
         path: '/profesional/agenda',
         name: 'ScheduleProfessional',
-        component: Schedule,
+        component: TaskSchedule,
         meta: {
             requiresAuth: true,
         }
@@ -94,7 +94,7 @@ const routes = [
     {
         path: '/profesional/explorar',
         name: 'ExploreProfessional',
-        component: Explore,
+        component: ProfessionalExplore,
         meta: {
             requiresAuth: true,
         }
@@ -150,7 +150,7 @@ const routes = [
     {
         path: '/mascotas/:pet_id/medicamentos/agregar',
         name: 'MedicineForm',
-        component: MedicineForm,
+        component: PetMedicineForm,
         meta: {
             requiresAuth: true,
         },
@@ -158,7 +158,7 @@ const routes = [
     {
         path: '/mascotas/:pet_id/medicamentos/:medicine_id/editar',
         name: 'MedicineFormEdit',
-        component: MedicineForm,
+        component: PetMedicineForm,
         meta: {
             requiresAuth: true,
             editing: true,
@@ -167,7 +167,7 @@ const routes = [
     {
         path: '/mascotas/:pet_id/medicamentos',
         name: 'MedicineList',
-        component: MedicineList,
+        component: PetMedicineList,
         meta: {
             requiresAuth: true,
         },
@@ -175,7 +175,7 @@ const routes = [
     {
         path: '/mascotas/:pet_id/observacion',
         name: 'ObservationForm',
-        component: ObservationForm,
+        component: PetObservationForm,
         meta: {
             requiresAuth: true,
         },
@@ -183,7 +183,7 @@ const routes = [
     {
         path: '/mascotas/:pet_id/pesos/agregar',
         name: 'WeightForm',
-        component: WeightForm,
+        component: PetWeightForm,
         meta: {
             requiresAuth: true,
         },
@@ -191,7 +191,7 @@ const routes = [
     {
         path: '/mascotas/:pet_id/pesos/:weight_id/editar',
         name: 'WeightFormEdit',
-        component: WeightForm,
+        component: PetWeightForm,
         meta: {
             requiresAuth: true,
         },
@@ -199,7 +199,7 @@ const routes = [
     {
         path: '/mascotas/:pet_id/pesos',
         name: 'WeightList',
-        component: WeightList,
+        component: PetWeightList,
         meta: {
             requiresAuth: true,
         },
@@ -207,7 +207,7 @@ const routes = [
     {
         path: '/mascotas/:pet_id/vacunas',
         name: 'VaccineList',
-        component: VaccineList,
+        component: PetVaccineList,
         meta: {
             requiresAuth: true,
         },
@@ -215,7 +215,7 @@ const routes = [
     {
         path: '/mascotas/:pet_id/vacunas/agregar',
         name: 'VaccineForm',
-        component: VaccineForm,
+        component: PetVaccineForm,
         meta: {
             requiresAuth: true,
         },
@@ -223,7 +223,7 @@ const routes = [
     {
         path: '/mascotas/:pet_id/vacunas/:vaccine_id/editar',
         name: 'VaccineFormEdit',
-        component: VaccineForm,
+        component: PetVaccineForm,
         meta: {
             requiresAuth: true,
             editing: true,

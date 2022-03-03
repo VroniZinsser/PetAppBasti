@@ -35,7 +35,7 @@
         @update-date="updateDate"
     />
 
-    <Textarea
+    <InputTextarea
         v-model="formData.description"
         :label="textareaLabel"
         :loading="loading"
@@ -50,12 +50,12 @@
 import BaseNotification from "@/components/general/notification/BaseNotification";
 import contactService from "@/services/contact";
 import InputDate from "@/components/general/input/InputDate";
-import Textarea from "@/components/general/input/Textarea";
+import InputTextarea from "@/components/general/input/InputTextarea";
 import {handleAccessError} from "@/helpers";
 
 export default {
   name: "SharePetForm",
-  components: {BaseNotification, InputDate, Textarea},
+  components: {BaseNotification, InputDate, InputTextarea},
   props: {
     pets: {
       type: Array,

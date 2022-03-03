@@ -21,7 +21,7 @@ import vaccineService from "@/services/vaccines";
 import {handleAccessError} from "@/helpers";
 
 export default {
-  name: "VaccineForm",
+  name: "PetVaccineForm",
   components: {
     VaccineForm,
     BaseFormContainer,

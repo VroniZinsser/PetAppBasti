@@ -19,7 +19,7 @@ import BaseFormContainer from "@/components/general/form/BaseFormContainer";
 import LoginForm from "@/components/auth/login/LoginForm";
 
 export default {
-  name: "Login",
+  name: "UserLogin",
   components: {
     LoginForm,
     BaseFormContainer,
