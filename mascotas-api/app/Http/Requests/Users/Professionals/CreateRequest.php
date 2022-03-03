@@ -19,7 +19,7 @@ class CreateRequest extends FormRequest
         $userId = $this->user ? $this->user->id : null;
         $rulesPassword = $this->user ? '' : 'required|min:6|regex:/^(?=.*[a-zA-Z])(?=.*[0-9])/';
         $rulesPhoto = $this->user ? 'base64image|base64max:10000' : 'required|base64image|base64max:10000';
-        
+
         return [
             'first_name' => 'required|max:30|min:2|string',
             'last_name' => 'required|max:30|min:2|string',
@@ -40,8 +40,8 @@ class CreateRequest extends FormRequest
             'public_name' => 'max:50',
             'description' => 'nullable',
             'whatsapp' => 'required|max:20|min:6|nullable|regex:/^\d+$/',
-            'instagram' => 'max:30',
-            'facebook' => 'max:50',
+            'instagram' => 'max:30|regex:/^[a-z\d._]{3,}$/i|nullable',
+            'facebook' => 'max:50|regex:/^[a-z\d._]{3,}$/i|nullable',
             'web' => [
                 'max:50',
                 'nullable',
@@ -56,7 +56,7 @@ class CreateRequest extends FormRequest
 
     /**
      * Get the messages in case a rule is not fullfilled
-     * 
+     *
      * @return array
      */
     public function messages(): array {
@@ -103,7 +103,9 @@ class CreateRequest extends FormRequest
             'whatsapp.min' => Validation::msg_min_caracters('el número de teléfono', ':min'),
             'whatsapp.regex' => Validation::msg_numeric('el número de teléfono'),
             'instagram.max' => Validation::msg_max_caracters('el nombre de Instagram', ':max'),
-            'facebook.max' => Validation::msg_max_caracters('el nombre de Facebook', ':max'), 
+            'instagram.regex' => 'El nombre de usuario solamente puede contener letas, números, . y _',
+            'facebook.max' => Validation::msg_max_caracters('el nombre de Facebook', ':max'),
+            'facebook.regex' => 'El nombre de usuario solamente puede contener letas, números, . y _',
             'web.max' => Validation::msg_max_caracters('la url', ':max'),
             'web.regex' => Validation::msg_valid_value('la url', true),
             'verified.boolean' => Validation::msg_valid_value('el valor'),

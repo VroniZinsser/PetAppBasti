@@ -16,6 +16,8 @@ class UserController extends Controller
     protected $userRepository;
     protected $userTypeRepository;
     protected $imageRepository;
+    protected $userProfessionalTypesIds = [5, 6, 7, 8];
+    protected $userOwnerTypesIds = [4];
 
 
     public function __construct(UserRepository $userRepository, UserTypeRepository $userTypeRepository, ImageRepository $imageRepository)
@@ -32,8 +34,7 @@ class UserController extends Controller
      */
     public function getProfessionals(): JsonResponse
     {
-        // TODO: find central place to define user type ids - professionals / admins / not professionals
-        $users = $this->userRepository->getUsersByTypes(array(5, 6, 7, 8));
+        $users = $this->userRepository->getUsersByTypes($this->userProfessionalTypesIds);
 
         return response()->json([
             'success' => true,
@@ -61,9 +62,7 @@ class UserController extends Controller
         $dto->loadFromArray($request->input());
         $dto->set_profile_img_id($profile_img_id);
 
-        $user = $this->userRepository->updateOrCreate($dto);
-
-        $user->userTypes()->sync($request->get('user_types'));
+        $user = $this->userRepository->updateOrCreate($dto, $request->get('user_types'));
 
         return response()->json([
             'success' => true,
@@ -90,10 +89,8 @@ class UserController extends Controller
             $image = $this->imageRepository->uploadImage($photo, 'users/profile/', 'Perfil ' . $request->get('first_name') . ' ' . $request->get('last_name'));
             $dto->set_profile_img_id($image->id);
         }
-      
-        $user = $this->userRepository->updateOrCreate($dto, $user)->load(['profile_image']);
 
-        $user->userTypes()->sync($request->get('user_types'));
+        $user = $this->userRepository->updateOrCreate($dto, $request->get('user_types'), $user)->load(['profile_image']);
 
         return response()->json([
             'success' => true,
@@ -145,7 +142,7 @@ class UserController extends Controller
         $dto = new UserDTO;
         $dto->loadFromArray($request->except('password'));
 
-        $user = $this->userRepository->updateOrCreate($dto, $user);
+        $user = $this->userRepository->updateOrCreate($dto, $this->userOwnerTypesIds, $user);
 
         return response()->json([
             'success' => true,
@@ -182,10 +179,9 @@ class UserController extends Controller
         $dto = new UserDTO;
         $dto->loadFromArray($request->input());
 
-        $user = $this->userRepository->updateOrCreate($dto);
+        $user = $this->userRepository->updateOrCreate($dto, $this->userOwnerTypesIds);
 
-        // TODO: Transformar este método en una función del repositorio. Antes de esto hay que separar los roles de tipo de usuarios.
-        $user->userTypes()->sync([4]);
+        $user->userTypes()->sync($this->userOwnerTypesIds);
 
         return response()->json([
             'success' => true,

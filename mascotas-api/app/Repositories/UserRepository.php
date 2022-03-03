@@ -21,10 +21,11 @@ interface UserRepository
      * Creates/Updates and returns a user
      *
      * @param UserDTO $dto
+     * @param array $userTypes
      * @param User|null $user
      * @return User The created or updated user
      */
-     public function updateOrCreate(UserDTO $dto, ?User $user = null): User;
+     public function updateOrCreate(UserDTO $dto, array $userTypes, ?User $user = null): User;
 
     /**
      * Updates a user's password

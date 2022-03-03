@@ -22,7 +22,7 @@ class UserService implements UserRepository {
     /**
      * @inheritDoc
      */
-    public function updateOrCreate(UserDTO $dto, ?User $user = null) : User {
+    public function updateOrCreate(UserDTO $dto, array $userTypes, ?User $user = null) : User {
         $user = $user ?? new User();
         $user->first_name = $dto->get_first_name();
         $user->last_name = $dto->get_last_name();
@@ -53,6 +53,8 @@ class UserService implements UserRepository {
         $user->profile_img_id = $dto->get_profile_img_id();
 
         $user->save();
+
+        $user->userTypes()->sync($userTypes);
 
         return $user;
     }

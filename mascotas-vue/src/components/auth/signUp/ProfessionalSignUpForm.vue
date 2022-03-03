@@ -344,7 +344,6 @@ export default {
         /**
          * FB and Instagram user names can only contain letters, numbers, '.' and '_'
          * This rule only works in the frontend right now.
-         * @TODO Add rule to the backend
          */
         username: value => {
           const pattern = /^[a-z\d._]{3,}$/i;
