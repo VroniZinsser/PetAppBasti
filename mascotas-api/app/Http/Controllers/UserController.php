@@ -62,9 +62,7 @@ class UserController extends Controller
         $dto->loadFromArray($request->input());
         $dto->set_profile_img_id($profile_img_id);
 
-        $user = $this->userRepository->updateOrCreate($dto);
-
-        $user->userTypes()->sync($request->get('user_types'));
+        $user = $this->userRepository->updateOrCreate($dto, $request->get('user_types'));
 
         return response()->json([
             'success' => true,
@@ -92,9 +90,7 @@ class UserController extends Controller
             $dto->set_profile_img_id($image->id);
         }
 
-        $user = $this->userRepository->updateOrCreate($dto, $user)->load(['profile_image']);
-
-        $user->userTypes()->sync($request->get('user_types'));
+        $user = $this->userRepository->updateOrCreate($dto, $request->get('user_types'), $user)->load(['profile_image']);
 
         return response()->json([
             'success' => true,
@@ -146,7 +142,7 @@ class UserController extends Controller
         $dto = new UserDTO;
         $dto->loadFromArray($request->except('password'));
 
-        $user = $this->userRepository->updateOrCreate($dto, $user);
+        $user = $this->userRepository->updateOrCreate($dto, $this->userOwnerTypesIds, $user);
 
         return response()->json([
             'success' => true,
@@ -183,9 +179,8 @@ class UserController extends Controller
         $dto = new UserDTO;
         $dto->loadFromArray($request->input());
 
-        $user = $this->userRepository->updateOrCreate($dto);
+        $user = $this->userRepository->updateOrCreate($dto, $this->userOwnerTypesIds);
 
-        // TODO: Transformar este método en una función del repositorio. Antes de esto hay que separar los roles de tipo de usuarios.
         $user->userTypes()->sync($this->userOwnerTypesIds);
 
         return response()->json([
