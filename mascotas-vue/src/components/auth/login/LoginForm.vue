@@ -25,7 +25,7 @@
     />
 
     <div class="forgot-password">
-      <router-link :to="{name: 'ResetPasswordForm'}">Olvidé mi Contraseña</router-link>
+      <router-link :to="{name: 'ResetPasswordForm'}" class="default-link">Olvidé mi Contraseña</router-link>
     </div>
 
     <button class="main-btn" type="submit" :disabled="loading">Iniciar sesión</button>

@@ -18,7 +18,7 @@
           Con este formulario podés <strong>ofrecer tus servicios</strong> en Basti. Si querés usar Basti como dueña o
           dueño de mascota
 
-          <router-link :to="{name: 'OwnerSignUp'}">registrate acá</router-link>
+          <router-link :to="{name: 'OwnerSignUp'}" class="default-link">registrate acá</router-link>
         </v-alert>
       </ProfessionalSignUpForm>
     </div>
