@@ -105,6 +105,33 @@ class SharedPetsSeeder extends Seeder
                 'owners_id' => 1,
                 'professionals_id' => 2,
             ],
+            [
+                'id' => 11,
+                'accepted' => 1,
+                'description' => 'Hola doctor! Espero mucho que me puedas ayudar con el problema de respiración de Enigma. Muchas gracias!',
+                'expiration_date' => '2022/04/14',
+                'pets_id' => 6,
+                'owners_id' => 17,
+                'professionals_id' => 2,
+            ],
+            [
+                'id' => 12,
+                'accepted' => 1,
+                'description' => null,
+                'expiration_date' => '2022/05/01',
+                'pets_id' => 7,
+                'owners_id' => 17,
+                'professionals_id' => 2,
+            ],
+            [
+                'id' => 13,
+                'accepted' => 1,
+                'description' => 'Esto es mi hamster Luke.',
+                'expiration_date' => '2022/03/27',
+                'pets_id' => 9,
+                'owners_id' => 18,
+                'professionals_id' => 2,
+            ],
         ]);
     }
 }
