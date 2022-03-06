@@ -31,8 +31,12 @@
       />
 
       <button class="main-btn" type="submit" :disabled="loading">Enviar mail</button>
+      <div class="login-link-container">
+        <router-link :to="{name: 'Login'}" class="default-link">Volver al inicio</router-link>
+      </div>
     </form>
   </BaseFormContainer>
+  
 </template>
 
 <script>
