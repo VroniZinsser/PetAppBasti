@@ -26,7 +26,9 @@
 
     <InputDate
         v-model="formData.expiration_date"
-        label="Fecha de expiración"
+        label="Compartir hasta"
+        hint="Elegí hasta qué día querés compartir tu mascota con el profesional."
+        persistent-hint
         :loading="loading"
         :rules="[rules.obligatory, rules.date]"
         :errors="errors.expiration_date"

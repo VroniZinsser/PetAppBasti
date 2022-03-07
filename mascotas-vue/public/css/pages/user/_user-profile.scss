@@ -62,12 +62,8 @@
             calc($spacing-lg - $spacing-sm) 
             $spacing-main;
 
-        img {
-            width: 100%;
-            max-width: 200px;
-            border-radius: 50%;
+        .profile-img {
             margin: auto;
-            display: block;
         }
 
         h2 {

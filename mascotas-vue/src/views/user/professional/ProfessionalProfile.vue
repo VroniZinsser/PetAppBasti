@@ -45,7 +45,14 @@
 
         <div class="intro">
           <div>
-            <img :src="createImgPath(professional.profile_image.src)" :alt="professional.profile_image.alt"/>
+            <v-img 
+              class="profile-img rounded-circle"
+              aspect-ratio="1" 
+              max-height="200"
+              max-width="200"
+              :src="createImgPath(professional.profile_image.src)" 
+              :alt="professional.profile_image.alt"
+            />
           </div>
 
           <h2>{{ professionalName }}</h2>

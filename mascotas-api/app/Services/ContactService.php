@@ -23,8 +23,10 @@ class ContactService implements ContactRepository
      */
     public function getRequestsByProfessional(int $owner_id): Collection
     {
-        $filterCurrentAccepted = function ($query) {
-            $query->whereDate('expiration_date', '>=', date('Y-m-d'))->where('accepted', 1);
+        $filterCurrentAccepted = function ($query) use($owner_id) {
+            $query->whereDate('expiration_date', '>=', date('Y-m-d'))
+                ->where('accepted', 1)
+                ->where('owners_id', $owner_id);
         };
         $owner = User::find($owner_id);
         return $owner->relatedProfessionals()
