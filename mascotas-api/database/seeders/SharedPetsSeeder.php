@@ -16,15 +16,6 @@ class SharedPetsSeeder extends Seeder
     {
         DB::table('shared_pets')->insert([
             [
-                'id' => 1,
-                'accepted' => 1,
-                'description' => "Hola, ¿qué tal? Acá te comparto el perfil de Sisi, como ya te comenté por whatsapp tiene una infección en la oreja desde hace 3 días. Espero que me puedas ayudar. Desde ya muchas gracias :)",
-                'expiration_date' => '2022/03/20',
-                'pets_id' => 1,
-                'owners_id' => 1,
-                'professionals_id' => 2,
-            ],
-            [
                 'id' => 2,
                 'accepted' => 1,
                 'description' => "Buenos días! Esta mascota la rescaté hace un par de semanas de la calle. Seguramente necesita un chequeo general y aplicación de las vacunas.",

@@ -37,8 +37,8 @@ class MedicinesSeeder extends Seeder
             ],
             [
                 'id' => 3,
-                'name' => 'Paracetamol',
-                'quantity' => '1/5 pastilla',
+                'name' => 'Drontal',
+                'quantity' => '2 gotas',
                 'start_date' => '2021/11/20',
                 'end_date' => '2021/11/24',
                 'pets_id' => 3,
@@ -47,7 +47,7 @@ class MedicinesSeeder extends Seeder
             ],
             [
                 'id' => 4,
-                'name' => 'Paracetamol',
+                'name' => 'Clindamin',
                 'quantity' => '1/5 pastilla',
                 'start_date' => '2021/11/20',
                 'end_date' => '2021/11/24',
@@ -57,8 +57,8 @@ class MedicinesSeeder extends Seeder
             ],
             [
                 'id' => 5,
-                'name' => 'Paracetamol',
-                'quantity' => '1/5 pastilla',
+                'name' => 'Effinol',
+                'quantity' => '10 pastillas',
                 'start_date' => '2021/11/20',
                 'end_date' => '2021/03/30',
                 'pets_id' => 1,
@@ -67,8 +67,8 @@ class MedicinesSeeder extends Seeder
             ],
             [
                 'id' => 6,
-                'name' => 'Paracetamol',
-                'quantity' => '1/5 pastilla',
+                'name' => 'Effinol',
+                'quantity' => '3 pastillas',
                 'start_date' => '2021/11/20',
                 'end_date' => '2022/03/24',
                 'pets_id' => 1,
