@@ -17,7 +17,7 @@
       <div v-if="sharedPets.length > 0" class="owner-share-list">
         <h2>Mascotas compartidas con vos</h2>
 
-        <ProfessionalShareList :shared-pets="sharedPets" @delete-request="deleteRequest"/>
+        <ProfessionalShareList :shared-pets="reverseSharedPets" @delete-request="deleteRequest"/>
 
       </div>
 
@@ -61,6 +61,11 @@ export default {
     title(){
       return `Buenos días ${store.user.first_name} ${store.user.last_name}`
     },
+
+    reverseSharedPets(){
+      let array = this.sharedPets;
+      return array.length > 0 ? array.reverse() : [];
+    }
   },
   mounted() {
     this.loading = true;
