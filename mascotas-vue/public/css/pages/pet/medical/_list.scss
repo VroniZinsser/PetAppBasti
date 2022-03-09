@@ -65,11 +65,14 @@ div.medical-list-container {
   .medical-list {
     width: 100%;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
     padding: 0;
 
     li {
       flex-grow: 1;
+      max-width: 450px;
+      width: 100%;
       background: $white-gray-min;
       display: flex;
       align-items: center;
