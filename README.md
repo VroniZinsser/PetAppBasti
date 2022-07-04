@@ -10,6 +10,7 @@ This app is the final project of my three-year formation as a web developer in B
 It was developed in equal parts by my colleague Cristian Corbalan and me.
 
 The backend is built with MySQL and PHP (Laravel, Eloquent ORM, Sanctum)
+
 The frontend is built with HTML5, CSS3 (SCSS) and JavaScript (Vue.js, Vue Router, Vuetify, HEREMaps)
 
 ## Main functionalities
@@ -35,6 +36,7 @@ In order to run the app locally you have to apply the following configuration:
 
 ### Cloning the project
 Clone the project using `git clone https://github.com/VroniZinsser/mascotas`
+
 This will create a folder named `mascotas` with two subfolders `mascotas-api` (**backend**) and `mascotas-vue` (**frontend**)
 
 ### In the folder mascotas-api
