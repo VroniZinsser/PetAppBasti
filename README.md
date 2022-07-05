@@ -4,6 +4,8 @@
 Basti is a mobile and web application in Spanish language that helps pet owners to **record the health condition** of their pets and to find veterinary surgeons nearby.
 As a highlight feature users can **share their pets' profiles with their vets of trust**. In this way, vets can see medical data such as weight, medicines and vaccines and do the treatment in a more efficient and secure way.
 
+See our landing page here: [basti-mascotas.com](http://basti-mascotas.com/)
+
 ## Technical details
 
 This app is the final project of my three-year formation as a web developer in Buenos Aires. 
