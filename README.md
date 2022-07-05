@@ -37,7 +37,7 @@ In order to run the app locally you have to apply the following configuration:
 ### Cloning the project
 Clone the project using `git clone https://github.com/VroniZinsser/mascotas`
 
-This will create a folder named `mascotas` with two subfolders `mascotas-api` (**backend**) and `mascotas-vue` (**frontend**)
+This will create a folder named `PetAppBasti` with two subfolders `mascotas-api` (**backend**) and `mascotas-vue` (**frontend**)
 
 ### In the folder mascotas-api
 Inside the folder **"mascotas-api"** you have to do the following steps:
